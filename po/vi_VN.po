@@ -1,0 +1,117 @@
+# Translation of Manjaro-Hello.
+# Copyright (C) 2016-2017 Manjaro Developers <manjaro-dev@manjaro.org>
+# This file is distributed under the same license as the Manjaro-Hello package.
+# Hugo Posnic <huluti@manjaro.org>, 2016-2017.
+# 
+# Translators:
+# Horazone Detex <thmmt2017d@gmail.com>, 2018
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Manjaro-Hello\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-04 10:28+0100\n"
+"PO-Revision-Date: 2016-12-27 20:47+0000\n"
+"Last-Translator: Horazone Detex <thmmt2017d@gmail.com>, 2018\n"
+"Language-Team: Vietnamese (Viet Nam) (https://www.transifex.com/manjarolinux/teams/70274/vi_VN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: vi_VN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: ui/manjaro-hello.glade:55
+msgid "Welcome to Manjaro!"
+msgstr "Chào mừng đến với Manjaro!"
+
+#: ui/manjaro-hello.glade:71
+msgid ""
+"Thank you for joining our community!\n"
+"\n"
+"We, the Manjaro Developers, hope that you will enjoy using Manjaro as much as we enjoy building it. The links below will help you get started with your new operating system. So enjoy the experience, and don't hesitate to send us your feedback."
+msgstr ""
+"Cảm ơn bạn đã tham gia cộng đồng chúng tôi!\n"
+"\n"
+"Chúng tôi, những lập trình viên của Manjaro, hi vọng rằng bạn sẽ tận hưởng việc sử dụng Manjaro cũng như chúng tôi tận hưởng việc xây dựng nó. Những đường liên kết bên dưới sẽ giúp bạn khởi đầu sử dụng hệ điều hành của bạn, và đừng do dự khi gửi phản hồi của bạn về chúng tôi."
+
+#: ui/manjaro-hello.glade:89
+msgid "DOCUMENTATION"
+msgstr "TÀI LIỆU"
+
+#: ui/manjaro-hello.glade:103
+msgid "SUPPORT"
+msgstr "HỖ TRỢ"
+
+#: ui/manjaro-hello.glade:117
+msgid "PROJECT"
+msgstr "DỰ ÁN"
+
+#: ui/manjaro-hello.glade:129
+msgid "Read me"
+msgstr "Đọc tôi"
+
+#: ui/manjaro-hello.glade:143
+msgid "Release info"
+msgstr "Thông tin bản phát hành"
+
+#: ui/manjaro-hello.glade:158
+msgid "Wiki"
+msgstr "Wiki"
+
+#: ui/manjaro-hello.glade:163 ui/manjaro-hello.glade:194
+#: ui/manjaro-hello.glade:211 ui/manjaro-hello.glade:228
+#: ui/manjaro-hello.glade:245 ui/manjaro-hello.glade:262
+msgid "Web resource"
+msgstr "Tài nguyên web<br>"
+
+#: ui/manjaro-hello.glade:175
+msgid "Get involved"
+msgstr "Tham gia vào"
+
+#: ui/manjaro-hello.glade:189
+msgid "Forums"
+msgstr "Diễn đàn"
+
+#: ui/manjaro-hello.glade:206
+msgid "Chat room"
+msgstr "Phòng chat"
+
+#: ui/manjaro-hello.glade:223
+msgid "Mailing lists"
+msgstr "Danh sách thư"
+
+#: ui/manjaro-hello.glade:240
+msgid "Development"
+msgstr "Phát triển"
+
+#: ui/manjaro-hello.glade:257
+msgid "Donate"
+msgstr "Đóng góp"
+
+#: ui/manjaro-hello.glade:376
+msgid "Launch at start"
+msgstr "Chạy khi khởi động"
+
+#: ui/manjaro-hello.glade:407
+msgid "INSTALLATION"
+msgstr "CÀI ĐẶT"
+
+#: ui/manjaro-hello.glade:419
+msgid "Launch installer"
+msgstr "Chạy trình cài đặt"
+
+#: ui/manjaro-hello.glade:462
+msgid "Home"
+msgstr "Trang chủ"
+
+#: ui/manjaro-hello.glade:530 ui/manjaro-hello.glade:544
+msgid "About"
+msgstr "Về..."
+
+#: ui/manjaro-hello.glade:549
+msgid "Welcome screen for Manjaro"
+msgstr "Màn hình chào mừng Manjaro"
+
+#: src/manjaro_hello.py:212
+msgid "Can't load page."
+msgstr "Không thể tải trang."

@@ -1,0 +1,47 @@
+<big>Donanımı Kullanın</big>
+
+Manjaro, yalnızca çoklu çekirdek kullanımını (önyükleme ekranındaki gelişmiş seçeneklerden seçilebilir) değil, aynı zamanda en son kararsız çekirdeklere de erişim sağlar. Bu, Manjaro'nun Grafik Ayarlar Yöneticisinde Çekirdek modülünün kullanılmasıyla veya MHWD-kernel (Manjaro Donanım Algılama) komutunu kullanarak komut satırı aracılığıyla yapılabilir.
+
+Manjaro araçları, yeni kurulmuş bir çekirdeği mevcut çekirdeğinizle kullanılmakta olan modüllerle birlikte otomatik olarak güncelleyecektir. Örneğin, çekirdek 3.18'den 4.1'e güncelleme yapacak olsanız, mhwd-kernel otomatik olarak çekirdek 4.1 yapılarını ve çekirdek 3.18 ile kullanılan tüm modülleri içerecektir.
+
+Donanımınızı, Ayarlar Yöneticisi'ndeki Donanım Algılama modülünden veya alternatif olarak MHWD cli-uygulamasından yapılandırabilirsiniz. Bu araçlarla örneğin free ve proprietary grafik sürücüleri yükleyebilirsiniz.
+
+<big>Yardım Almak</big>
+
+Manjaro mümkün olduğu kadar "doğrudan" çalışmak üzere tasarlanmış olsa da, mükemmel olduğunu iddia etmiyoruz. İşlerin ters gittiği zamanlar olabilir, sorularınız olabilir ve daha fazla şey öğrenmek veya sadece zevklerinize uyacak şekilde kişiselleştirmek isteyebilirsiniz. Bu sayfa size yardımcı olacak bazı kaynakların detaylarını sunar!
+
+<b>İnternetten Araştırın</b>
+
+Genel Linux yardımı için ilk yer, en sevdiğiniz arama motorunu kullanmaktır. Arama sorgunuza 'Linux', 'Manjaro' veya 'Arch' gibi kelimeler ekleyin.
+
+Manjaro, Arch Linux'a dayandığından, Arch için tasarlanan rehberler ve ipuçları genellikle Manjaro için de geçerlidir.
+
+<b>Forumda Araştırın</b>
+
+Manjaro ile ilgili özel yardım için, konu arayabileceğiniz veya kendiniz oluşturabileceğiniz özel bir çevrimiçi foruma sahibiz! İşbirliği, tartışma ve yardım için gidilecek en iyi yer muhtemelen burasıdır. Yardım isteyin, düşüncelerinizi gönderin veya bazı önerilerde bulunun. Utangaç olmayın!
+
+Manjaro forumu farklı konular ve ortamlar için alt forumlara bölünmüştür, lütfen sorunuzu uygun yere gönderin!
+
+<b>IRC'de bize katılın(Internet Relay Chat)</b>
+
+Diğer bir seçenek de chat.freenode.net sunucularındaki #manjaro kanalımıza katılarak IRC'ye katılmak.
+
+<b>Mail listesine kayıt olun</b>
+
+Yardım almanın başka bir yolu da soruları Manjaro mail listesine mail göndermektir (geçmiş tartışmalar için geçmişi de arayabilirsiniz). Tercih ettiğiniz listeye üye olun ve talimatları izleyin. Birkaç konuya adanmış bir liste var, sadece bir göz atın!
+
+<big>Other resources</big>
+
+    - <a href="http://forum.manjarolinux.de">Manjaro Germany</a> - Resmi, Alman topluluğumuz için destek.
+    - <a href="https://aur.archlinux.org">AUR Deposu</a> - Ekstra yazılımlar normal depolarda değil, kaynaktan yapılmış.
+    - <a href="https://wiki.manjaro.org">Manjaro Viki</a> - Manjaro için resmi viki.
+    - <a href="http://wiki.archlinux.org">Arch Viki</a> - Arch için resmi viki.
+    - <a href="https://t.me/manjaro_official">IRC Chat</a> - Kullanıcılar ile konuşma ve yardım alma.
+
+<big>Öneriler</big>
+
+Manjaro'yu nasıl daha iyi hale getirebileceğimize dair bir önerin var mı? İstediğiniz bir şey mi buldunuz ya da yardım etmek mi istiyorsunuz? Lütfen önerinizi foruma göndererek veya IRC'ye bırakarak bize bildirin.
+
+Teşekkürler!
+
+Umarız Manjaro'yu kullanmaktan zevk alırsınız!

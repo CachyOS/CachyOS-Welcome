@@ -1,0 +1,37 @@
+<big>Köszönjük a támogatásod</big>
+
+A Manjaro Linux rengeteg közreműködést kap a felhasználók közösségétől, és minden egyes közreműködőnek szeretnénk megköszönni a hozzájárulását. Folyamatosan növekszünk, és a disztribúciónk minden nap jobb lesz, nektek köszönhetően.
+
+Nagyon könnyű változtatni. A tudásodtól függően, hozzájárulhatsz a Manjarohoz a következő módok valamelyikén:
+
+<big>Támogatás és terjesztés</big>
+
+<b>Terjeszd</b>
+
+Ha szereted a Manjaro-t, ismertesd meg az emberekkel. Írhatsz egy összefoglalót, és publikáld a distrowatch.com oldalon. Beszélgess a barátaiddal, és a környezetedben lévő emberekkel a Manjaro-ról.
+
+<b>Csatlakozz a közösséghez.</b>
+
+A Manjaro nem csak egy operációs rendszer, hanem egyben egy dinamikus közösség olyan emberekből, akik élvezik az együtműködést egy szabad és nyílt projekttel. Akár, hogy másoknak segíts, vagy csak egyszerűen találkozz és beszélgess más Manjaro felhasználókkal, ajánljuk, hogy csatlakozz a közösséghez, és járulj hozzá a Manjaro jobbá tételéhez.
+
+<b>Segíts másoknak</b>
+
+Ha van egy kis időd, és szeretnél segíteni másoknak problémák megoldásában, akkor ajánljuk a fórumokon való közreműködést, és/vagy csatlakozást az IRC csatornánkhoz, hogy elmondd más Manjaro felhasználóknak az általad ismert megoldást.
+
+<big>Projekt közreműködések</big>
+
+<b>Hibajelentések</b>
+
+Ha találtál valamit a Manjaro használata közben, ami nem működik jól, szólj nekünk. A probléma valószínűleg másokat is érint. Minél hamarabb tudunk róla, annál hamarabb tudjuk javítani.
+
+<b>Új ötletek</b>
+
+Az egyes kiadásokban érkező javítások, fejlesztések nagy része a közösségtől jön. Ha van valami, amit hiányolsz, vagy lehetne jobban is csinálni, kérlek szólj nekünk. Akár egy hiányzó driver hozzáadása, esetleg egy alkalmazás, ami az alap telepítés része lehetne, vagy egyéb ötlet, hogy lehetne a Manjarot jobbá tenni, mindig szívesen halljuk.
+
+<b>Artwork</b>
+
+Ha tehetséges vagy a grafikai munkákban, és szeretnél hozzájárulni a projekthez, kérlek oszd meg velünk alkotásaidat. Akár egy Manjaro háttérkép, egy ikonkészlet, egy bootképernyő, vagy egy logo, mindíg szívesen fogadjuk.
+
+<b>Programozz</b>
+
+A legtöbb munkánkhoz a következőket használjuk: QT, C++, Python, HTML5/CSS, és BASH. A verziókezeléshez Git-et használunk, és a csomagoláshoz PKGBUILD-eket. Ha ezeknek a technológiáknak valamelyikéhez értesz, ne habozz körülnézni a programjaink között. Ha úgy találod, hogy tudnál fejleszteni az alkalmazásainkon, vagy újakat írni, ne habozz patch-ek javaslásával, vagy a git tárolóink fork-olásával.

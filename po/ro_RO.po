@@ -1,0 +1,116 @@
+# Translation of Manjaro-Hello.
+# Copyright (C) 2016-2017 Manjaro Developers <manjaro-dev@manjaro.org>
+# This file is distributed under the same license as the Manjaro-Hello package.
+# Hugo Posnic <huluti@manjaro.org>, 2016-2017.
+# 
+# Translators:
+# Dorin Chirițoiu <contact@dorinchiritoiu.eu>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Manjaro-Hello\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-04 10:28+0100\n"
+"PO-Revision-Date: 2017-10-07 19:09+0100\n"
+"Last-Translator: Dorin Chirițoiu <contact@dorinchiritoiu.eu>, 2017\n"
+"Language-Team: Romanian (Romania) (https://www.transifex.com/manjarolinux/teams/70274/ro_RO/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro_RO\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+
+#: ui/manjaro-hello.glade:55
+msgid "Welcome to Manjaro!"
+msgstr "Bine ai venit în Manjaro!"
+
+#: ui/manjaro-hello.glade:71
+msgid ""
+"Thank you for joining our community!\n"
+"\n"
+"We, the Manjaro Developers, hope that you will enjoy using Manjaro as much as we enjoy building it. The links below will help you get started with your new operating system. So enjoy the experience, and don't hesitate to send us your feedback."
+msgstr ""
+"Îți mulțumim că te-ai alăturat comunității noastre!\n"
+"\n"
+"Noi, dezvoltatorii Manjaro, sperăm că vă veți bucura utilizând Manjaro la fel de mult cum și noi ne bucurăm să-l dezvoltăm. Link-urile de mai jos vă vor ajuta să înțelegeți noul sistem de operare al dumeavoastră. Bucurați-vă de experiență și nu ezitați să ne trimiteți sugestii și opinii."
+
+#: ui/manjaro-hello.glade:89
+msgid "DOCUMENTATION"
+msgstr "Documentație"
+
+#: ui/manjaro-hello.glade:103
+msgid "SUPPORT"
+msgstr "Suport"
+
+#: ui/manjaro-hello.glade:117
+msgid "PROJECT"
+msgstr "Proiect"
+
+#: ui/manjaro-hello.glade:129
+msgid "Read me"
+msgstr "Citește-mă"
+
+#: ui/manjaro-hello.glade:143
+msgid "Release info"
+msgstr "Informații despre această versiune"
+
+#: ui/manjaro-hello.glade:158
+msgid "Wiki"
+msgstr "Wikționar"
+
+#: ui/manjaro-hello.glade:163 ui/manjaro-hello.glade:194
+#: ui/manjaro-hello.glade:211 ui/manjaro-hello.glade:228
+#: ui/manjaro-hello.glade:245 ui/manjaro-hello.glade:262
+msgid "Web resource"
+msgstr "Resurse Web"
+
+#: ui/manjaro-hello.glade:175
+msgid "Get involved"
+msgstr "Implică-te"
+
+#: ui/manjaro-hello.glade:189
+msgid "Forums"
+msgstr "Forumuri"
+
+#: ui/manjaro-hello.glade:206
+msgid "Chat room"
+msgstr "Camere de chat"
+
+#: ui/manjaro-hello.glade:223
+msgid "Mailing lists"
+msgstr "Liste de adrese"
+
+#: ui/manjaro-hello.glade:240
+msgid "Development"
+msgstr "Dezvoltare"
+
+#: ui/manjaro-hello.glade:257
+msgid "Donate"
+msgstr "Donează"
+
+#: ui/manjaro-hello.glade:376
+msgid "Launch at start"
+msgstr "Afișează la start"
+
+#: ui/manjaro-hello.glade:407
+msgid "INSTALLATION"
+msgstr "INSTALARE"
+
+#: ui/manjaro-hello.glade:419
+msgid "Launch installer"
+msgstr "Începe instalarea"
+
+#: ui/manjaro-hello.glade:462
+msgid "Home"
+msgstr "Acasă"
+
+#: ui/manjaro-hello.glade:530 ui/manjaro-hello.glade:544
+msgid "About"
+msgstr "Despre"
+
+#: ui/manjaro-hello.glade:549
+msgid "Welcome screen for Manjaro"
+msgstr "Ecran de întâmpinare pentru Manjaro"
+
+#: src/manjaro_hello.py:212
+msgid "Can't load page."
+msgstr "Nu se poate încărca pagina."

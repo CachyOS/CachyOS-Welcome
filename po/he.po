@@ -1,0 +1,116 @@
+# Translation of Manjaro-Hello.
+# Copyright (C) 2016-2017 Manjaro Developers <manjaro-dev@manjaro.org>
+# This file is distributed under the same license as the Manjaro-Hello package.
+# Hugo Posnic <huluti@manjaro.org>, 2016-2017.
+# 
+# Translators:
+# Eli Shleifer <eligator@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Manjaro-Hello\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-04 10:28+0100\n"
+"PO-Revision-Date: 2017-10-07 19:09+0100\n"
+"Last-Translator: Eli Shleifer <eligator@gmail.com>, 2017\n"
+"Language-Team: Hebrew (https://www.transifex.com/manjarolinux/teams/70274/he/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: he\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ui/manjaro-hello.glade:55
+msgid "Welcome to Manjaro!"
+msgstr "ברוכים הבאים ל - Manjaro!"
+
+#: ui/manjaro-hello.glade:71
+msgid ""
+"Thank you for joining our community!\n"
+"\n"
+"We, the Manjaro Developers, hope that you will enjoy using Manjaro as much as we enjoy building it. The links below will help you get started with your new operating system. So enjoy the experience, and don't hesitate to send us your feedback."
+msgstr ""
+"תודה שהצטרפתם לקהילה שלנו!\n"
+"\n"
+"אנו, צוות הפיתוח של מערכת ההפעלה Manjaro, מקווים שתהנו להשתמש ב - Manjaro לפחות באותה המידה שאנו נהנים לפתח אותה. קיצורי הדרך המפורטים מטה יעזרו להתחיל להשתמש במערכת ההפעלה החדשה שלכם. תהנו מהחוויה, ואל תהססו לשלוח לנו משוב."
+
+#: ui/manjaro-hello.glade:89
+msgid "DOCUMENTATION"
+msgstr "תיעוד"
+
+#: ui/manjaro-hello.glade:103
+msgid "SUPPORT"
+msgstr "תמיכה"
+
+#: ui/manjaro-hello.glade:117
+msgid "PROJECT"
+msgstr "פרויקט"
+
+#: ui/manjaro-hello.glade:129
+msgid "Read me"
+msgstr "קרא אותי"
+
+#: ui/manjaro-hello.glade:143
+msgid "Release info"
+msgstr "הערות מוצר"
+
+#: ui/manjaro-hello.glade:158
+msgid "Wiki"
+msgstr " ויקי"
+
+#: ui/manjaro-hello.glade:163 ui/manjaro-hello.glade:194
+#: ui/manjaro-hello.glade:211 ui/manjaro-hello.glade:228
+#: ui/manjaro-hello.glade:245 ui/manjaro-hello.glade:262
+msgid "Web resource"
+msgstr "משאב רשת"
+
+#: ui/manjaro-hello.glade:175
+msgid "Get involved"
+msgstr "הֱיֵה מעורב"
+
+#: ui/manjaro-hello.glade:189
+msgid "Forums"
+msgstr "פורומים"
+
+#: ui/manjaro-hello.glade:206
+msgid "Chat room"
+msgstr "חדר צ'אט"
+
+#: ui/manjaro-hello.glade:223
+msgid "Mailing lists"
+msgstr "רשימות דיוור"
+
+#: ui/manjaro-hello.glade:240
+msgid "Development"
+msgstr "פיתוח"
+
+#: ui/manjaro-hello.glade:257
+msgid "Donate"
+msgstr "תרומה"
+
+#: ui/manjaro-hello.glade:376
+msgid "Launch at start"
+msgstr "הרץ בעת הפעלה"
+
+#: ui/manjaro-hello.glade:407
+msgid "INSTALLATION"
+msgstr "התקנה"
+
+#: ui/manjaro-hello.glade:419
+msgid "Launch installer"
+msgstr "הרצת אשף ההתקנה"
+
+#: ui/manjaro-hello.glade:462
+msgid "Home"
+msgstr "עמוד הבית"
+
+#: ui/manjaro-hello.glade:530 ui/manjaro-hello.glade:544
+msgid "About"
+msgstr "אודות"
+
+#: ui/manjaro-hello.glade:549
+msgid "Welcome screen for Manjaro"
+msgstr "מסך פתיחה עבור Manjaro"
+
+#: src/manjaro_hello.py:212
+msgid "Can't load page."
+msgstr "לא ניתן לטעון את העמוד."

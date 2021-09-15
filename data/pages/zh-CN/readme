@@ -1,0 +1,47 @@
+<big>Handling hardware</big>
+
+Manjaro not only supports the use of multiple kernels (selectable from the advanced options at the boot screen), but also provides access to the very latest bleeding edge kernels as well. This can be done through the use of the Kernel module in Manjaro's graphical Settings Manager, or via the command line using the MHWD-kernel (Manjaro Hardware Detection) command.
+
+These Manjaro tools will automatically update a newly installed kernel along with any modules currently in use with your existing kernel. For example, if you were to update from kernel 3.18 to 4.1, mhwd-kernel would automatically include the kernel 4.1 builds and all modules used with kernel 3.18. How about that!
+
+You can configure your hardware through the Hardware Detection module in the Settings Manager or alternatively with the MHWD cli-application. With these tools you can install for example graphical drivers, free and proprietary.
+
+<big>Getting help</big>
+
+Although Manjaro is designed to work as much "out of the box" as possible, we don't claim it's perfect. There can be times when things go wrong, you might have questions and a desire to learn more or just want to personalise it to suit your tastes. This page provides details of some available resources to help you!
+
+<b>Search the web</b>
+
+Perhaps the first place to look for generic Linux help is by using your favourite search engine. Just include words like 'Linux', 'Manjaro' or 'Arch' in your search query.
+
+As Manjaro is based on Arch Linux, guides and tips designed for Arch usually apply to Manjaro too.
+
+<b>Look in the forums</b>
+
+For specific help with Manjaro we have a dedicated online forum where you can search for topics, or create one yourself! This is probably the next best place to go for collaboration, discussion and assistance. Ask for help, post your thoughts, or outline some suggestions. Don't be shy!
+
+The Manjaro forum is divided into sub-forums for different topics and environments, please post your query in the appropriate place!
+
+<b>Join us on Telegram</b>
+
+Another option is to join us on Telegram.
+
+<b>Sign up to a mailing list</b>
+
+Another way to get help is to email questions to Manjaro mailing list (you can also search the history for past discussions). Simply sign up to the list you prefer and follow the instructions. There is a list dedicated to several topics, just take a look!
+
+<big>Other resources</big>
+
+    - <a href="http://forum.manjarolinux.de">Manjaro Germany</a> - Official, support for our german community.
+    - <a href="https://aur.archlinux.org">AUR Repository</a> - Extra software not in the regular repositories, built from source.
+    - <a href="https://wiki.manjaro.org">Manjaro Wiki</a> - Official wiki for Manjaro.
+    - <a href="http://wiki.archlinux.org">Arch Wiki</a> - Official wiki for Arch.
+    - <a href="https://t.me/manjaro_official">IRC Chat</a> - Live talk and help by users for users.
+
+<big>Suggestions</big>
+
+Got a suggestion on how we can make Manjaro better? Found something you want included, or want to help out? Please let us know, by posting your suggestion on the forum or drop by on IRC.
+
+Thank you!
+
+We hope you enjoy using Manjaro!

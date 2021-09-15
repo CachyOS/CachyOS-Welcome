@@ -1,0 +1,37 @@
+<big>Tack för ditt stöd</big>
+
+Manjaro Linux får mycket stöd från sin gemenskap av användare och vi vill tacka var och en av alla som bidrar och deltar. Vi växer i stadig takt och vår distribution blir bättre varje dag tack vare dig.
+
+Det är väldigt enkelt att göra skillnad. Beroende på dina färdigheter och din tillgänglighet så kan du hjälpa Manjaro på ett eller flera av följande sätt:
+
+<big>Stöd och främjande</big>
+
+<b>Att sprida ordet</b>
+
+Om du gillar Manjaro så låt folk få veta detta. Skriv en recension och publicera den på distrowatch.com. Prata om det för dina vänner och människor i din omgivning.
+
+<b>Gå med i gemenskapen</b>
+
+Manjaro är inte bara ett operativsystem utan är också en dynamisk gemenskap av människor som gillar att samlas och samarbeta kring ett fritt och öppet projekt. Oavsett om det är genom att hjälpa andra att gå igenom frågor, att få dem att känna sig välkomna eller att helt enkelt möta upp och prata med andra Manjaro-användare så rekommenderar vi att du går med i communityn och är med att göra Manjaro bättre.
+
+<b>Hjälpa andra</b>
+
+Om du har lite tid över och är villig att hjälpa andra användare med tekniska problem så bör du på allvar överväga att läsa forumen och/eller gå in på IRC-kanalen och hjälpa andra Manjaro-användare att lösa de problem som du vet hur man fixar.
+
+<big>Bidra projektet</big>
+
+<b>Buggrapporter</b>
+
+Om du har upptäckt något som inte fungerar som det ska när du använder Manjaro så berätta det för oss. Det problem du har upptäckt kommer sannolikt också att påverka andra; Ju tidigare vi vet om det desto snabbare kan vi fixa det.
+
+<b>Nya idéer</b>
+
+Den stora majoriteten av förbättringar som ingår i varje release kommer från communityn. Berätta om det finns något som du tror saknas eller som kan göras bättre. Oavsett om det är att inkludera en saknad hårdvarudrivrutin eller en mjukvara som bör ingå i grundinstallationen eller om du har några andra idéer om hur man kan göra Manjaro bättre så är vi alltid intresserade av att höra dessa.
+
+<b>Design</b>
+
+Om du har talanger inom grafisk design och vill bidra till projektet så skicka gärna in dina kreationer och designer. Oavsett om det är en enkel skrivbordsbakgrund, en ikon-uppsättning, en uppstartsbild eller till och med en ny logotyp så är vi alltid intresserade av att höra från dig om nya konstverksdesigner.
+
+<b>Kod</b>
+
+Den mesta av vår utveckling görs i QT, C++, Python, HTML5/CSS och BASH. Vi använder också Git för versionskontroll och PKGBUILDs för packetering. Om du är bekväm med dessa tekniker så tveka inte att titta på koden. Om du tror att du kan förbättra våra applikationer eller skriva nya så tveka inte att föreslå korrigeringar eller skapa en fork på våra git-repository.

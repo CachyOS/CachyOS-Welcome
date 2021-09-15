@@ -1,0 +1,47 @@
+<big>Hårdvaruhantering</big>
+
+Manjaro stöder inte bara användningen av flera olika kärnor (kan väljas från de avancerade alternativen på boot-menyn), utan ger också tillgång till de absolut senaste och nyaste kärnorna. Detta kan göras med hjälp av Kernel-modulen i Manjaros grafiska inställningshanterare eller via kommandoraden med MHWD-kernel (Manjaro Hardware Detection) kommandot.
+
+Dessa Manjaro-verktygen uppdaterar automatiskt en nyligen installerad kärna tillsammans med alla moduler som för närvarande används med din befintliga kärna. Om du till exempel skulle uppdatera från kärna 3.18 till 4.1 så kommer mhwd-kärnan automatiskt inkludera 4.1-byggnader och alla moduler som används med kärna 3.18. Vad sägs om det!
+
+Du kan konfigurera din hårdvara genom hårdvarudetekteringsmodulen i Inställningshanteraren eller alternativt med applikationen MHWD-cli. Med dessa verktyg kan du installera till exempel grafiska drivrutiner, fria och proprietära.
+
+<big>Få hjälp</big>
+
+Även om Manjaro är utformat att vara så ”färdig att fungera direkt” som möjligt, hävdar vi inte att det är perfekt. Det kan finnas tillfällen när saker går fel, du kan ha frågor och önskemål att veta mer, eller bara vill anpassa efter din personliga tycke och smak. Denna sida innehåller information om några tillgängliga resurser som finns för att hjälpa dig!
+
+<b>Sök på nätet</b>
+
+Kanske det första stället att leta efter allmän Linux-hjälp är att använda din favoritsökmotor. Inkludera bara ord som 'Linux', 'Manjaro' eller 'Arch' i din sökning.
+
+Eftersom Manjaro är baserad på Arch Linux gäller vanligtvis guider och tips för Arch också för Manjaro.
+
+<b> Leta i forumen </b>
+
+För hjälp specifikt för Manjaro har vi ett dedikerat onlineforum där du kan söka efter ämnen eller skapa ett själv! Detta är förmodligen det näst bästa stället för samarbete, diskussion och hjälp. Be om hjälp, gör ett inlägg om dina tankar eller skissera på några förslag. Var inte blyg!
+
+Manjaro-forumet är indelat i underforum för olika ämnen och plattformar så vänligen posta din fråga på rätt plats!
+
+<b>Möt oss Telegram</b>
+
+Ett annat alternativ är att gå in på Telegram.
+
+<b>Registrera dig på en e-postlista</b>
+
+Ett annat sätt att få hjälp är att posta frågor till en Manjaro e-postlista (du kan också söka i historiken för tidigare diskussioner). Registrera dig enkelt till den lista du föredrar och följ instruktionerna. Det finns listor över flera ämnen, ta gärna en titt!
+
+<big>Andra resurser</big>
+
+    - <a href="http://forum.manjarolinux.de">Manjaro Germany</a> - Officiell support för vår tyska community.
+    - <a href="https://aur.archlinux.org">AUR Repository</a> - Extra programvara som inte finns i de vanliga programförråden, byggd från källkod.
+    - <a href="https://wiki.manjaro.org">Manjaro Wiki</a> - Officiella wikin för Manjaro.
+    - <a href="http://wiki.archlinux.org">Arch Wiki</a> - Officiella wikin för Arch.
+    - <a href="https://t.me/manjaro_official">IRC Chat</a> - Live-samtal och hjälp av användare för användare.
+
+<big>Förslag</big>
+
+Har du ett förslag på hur vi kan göra Manjaro bättre? Hittat något du vill få med eller vill du hjälpa till? Vänligen meddela oss genom att lägga upp ditt förslag på forumet eller gå in på IRC.
+
+Tack!
+
+Vi hoppas att du gillar att använda Manjaro!

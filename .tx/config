@@ -1,0 +1,8 @@
+[main]
+host = https://www.transifex.com
+
+[manjaro-hello.manjaro-hellopot]
+file_filter = po/<lang>.po
+source_file = po/pamac-hello.pot
+source_lang = en
+type = PO

@@ -1,0 +1,116 @@
+# Translation of Manjaro-Hello.
+# Copyright (C) 2016-2017 Manjaro Developers <manjaro-dev@manjaro.org>
+# This file is distributed under the same license as the Manjaro-Hello package.
+# Hugo Posnic <huluti@manjaro.org>, 2016-2017.
+# 
+# Translators:
+# Cybertramp Cybertramp <cybertramp@nate.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Manjaro-Hello\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-04 10:28+0100\n"
+"PO-Revision-Date: 2017-10-07 19:09+0100\n"
+"Last-Translator: Cybertramp Cybertramp <cybertramp@nate.com>, 2017\n"
+"Language-Team: Korean (Korea) (https://www.transifex.com/manjarolinux/teams/70274/ko_KR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ko_KR\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: ui/manjaro-hello.glade:55
+msgid "Welcome to Manjaro!"
+msgstr "만자로 리눅스에 오신것을 환영합니다!"
+
+#: ui/manjaro-hello.glade:71
+msgid ""
+"Thank you for joining our community!\n"
+"\n"
+"We, the Manjaro Developers, hope that you will enjoy using Manjaro as much as we enjoy building it. The links below will help you get started with your new operating system. So enjoy the experience, and don't hesitate to send us your feedback."
+msgstr ""
+"우리 커뮤니티에 가입해주셔서 감사합니다!\n"
+"\n"
+"우리 만자로 개발자들은 여러분이 만자로를 개발하는 것만큼 즐겁게 사용하기를 희망 합니다. 아래의 링크는 당신의 새로운 운영체제를 시작하는 것을 도울 것입니다. 따라서 경험즐기면서 우리에게 주저말고 피드백을 보내주시면 감사하겠습니다."
+
+#: ui/manjaro-hello.glade:89
+msgid "DOCUMENTATION"
+msgstr "문서"
+
+#: ui/manjaro-hello.glade:103
+msgid "SUPPORT"
+msgstr "지원"
+
+#: ui/manjaro-hello.glade:117
+msgid "PROJECT"
+msgstr "프로젝트"
+
+#: ui/manjaro-hello.glade:129
+msgid "Read me"
+msgstr "읽어주세요"
+
+#: ui/manjaro-hello.glade:143
+msgid "Release info"
+msgstr "업데이트 정보"
+
+#: ui/manjaro-hello.glade:158
+msgid "Wiki"
+msgstr "위키"
+
+#: ui/manjaro-hello.glade:163 ui/manjaro-hello.glade:194
+#: ui/manjaro-hello.glade:211 ui/manjaro-hello.glade:228
+#: ui/manjaro-hello.glade:245 ui/manjaro-hello.glade:262
+msgid "Web resource"
+msgstr ""
+
+#: ui/manjaro-hello.glade:175
+msgid "Get involved"
+msgstr "참여하기"
+
+#: ui/manjaro-hello.glade:189
+msgid "Forums"
+msgstr "포럼"
+
+#: ui/manjaro-hello.glade:206
+msgid "Chat room"
+msgstr "채팅방"
+
+#: ui/manjaro-hello.glade:223
+msgid "Mailing lists"
+msgstr "메일링 목록"
+
+#: ui/manjaro-hello.glade:240
+msgid "Development"
+msgstr "개발"
+
+#: ui/manjaro-hello.glade:257
+msgid "Donate"
+msgstr "기부"
+
+#: ui/manjaro-hello.glade:376
+msgid "Launch at start"
+msgstr "시스템 시작 시 실행"
+
+#: ui/manjaro-hello.glade:407
+msgid "INSTALLATION"
+msgstr "설치"
+
+#: ui/manjaro-hello.glade:419
+msgid "Launch installer"
+msgstr "설치 시작"
+
+#: ui/manjaro-hello.glade:462
+msgid "Home"
+msgstr "홈"
+
+#: ui/manjaro-hello.glade:530 ui/manjaro-hello.glade:544
+msgid "About"
+msgstr "About"
+
+#: ui/manjaro-hello.glade:549
+msgid "Welcome screen for Manjaro"
+msgstr "만자로를 위한 화면에 오신 것을 환영합니다."
+
+#: src/manjaro_hello.py:212
+msgid "Can't load page."
+msgstr "페이지를 불러올수 없습니다."

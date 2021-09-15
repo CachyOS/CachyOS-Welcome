@@ -1,0 +1,130 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-02 11:35+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../ui/manjaro-hello.glade:56
+msgid "Welcome to Manjaro!"
+msgstr ""
+
+#: ../ui/manjaro-hello.glade:72
+msgid ""
+"Thank you for joining our community!\n"
+"\n"
+"We, the Manjaro Developers, hope that you will enjoy using Manjaro as much "
+"as we enjoy building it. The links below will help you get started with your "
+"new operating system. So enjoy the experience, and don't hesitate to send us "
+"your feedback."
+msgstr ""
+
+#: ../ui/manjaro-hello.glade:90
+msgid "DOCUMENTATION"
+msgstr ""
+
+#: ../ui/manjaro-hello.glade:104
+msgid "SUPPORT"
+msgstr ""
+
+#: ../ui/manjaro-hello.glade:118
+msgid "PROJECT"
+msgstr ""
+
+#: ../ui/manjaro-hello.glade:130
+msgid "Read me"
+msgstr ""
+
+#: ../ui/manjaro-hello.glade:144
+msgid "Release info"
+msgstr ""
+
+#: ../ui/manjaro-hello.glade:159
+msgid "Wiki"
+msgstr ""
+
+#: ../ui/manjaro-hello.glade:164 ../ui/manjaro-hello.glade:195
+#: ../ui/manjaro-hello.glade:212 ../ui/manjaro-hello.glade:229
+#: ../ui/manjaro-hello.glade:246 ../ui/manjaro-hello.glade:263
+msgid "Web resource"
+msgstr ""
+
+#: ../ui/manjaro-hello.glade:176
+msgid "Get involved"
+msgstr ""
+
+#: ../ui/manjaro-hello.glade:190
+msgid "Forums"
+msgstr ""
+
+#: ../ui/manjaro-hello.glade:207
+msgid "Discover software"
+msgstr ""
+
+#: ../ui/manjaro-hello.glade:224
+msgid "Mailing lists"
+msgstr ""
+
+#: ../ui/manjaro-hello.glade:241
+msgid "Development"
+msgstr ""
+
+#: ../ui/manjaro-hello.glade:258
+msgid "Donate"
+msgstr ""
+
+#: ../ui/manjaro-hello.glade:377
+msgid "Launch at start"
+msgstr ""
+
+#: ../ui/manjaro-hello.glade:408
+msgid "INSTALLATION"
+msgstr ""
+
+#: ../ui/manjaro-hello.glade:420
+msgid "Launch installer"
+msgstr ""
+
+#: ../ui/manjaro-hello.glade:439
+msgid "Applications"
+msgstr ""
+
+#: ../ui/manjaro-hello.glade:443
+msgid "Common application selection"
+msgstr ""
+
+#: ../ui/manjaro-hello.glade:456
+msgid "Gnome Layouts Manager"
+msgstr ""
+
+#: ../ui/manjaro-hello.glade:460
+msgid "Manjaro Gnome config tool"
+msgstr ""
+
+#: ../ui/manjaro-hello.glade:504
+msgid "Home"
+msgstr ""
+
+#: ../ui/manjaro-hello.glade:515 ../ui/manjaro-hello.glade:586
+msgid "About"
+msgstr ""
+
+#: ../ui/manjaro-hello.glade:591
+msgid "Welcome screen for Manjaro"
+msgstr ""
+
+#: ../src/manjaro_hello.py:306
+msgid "Can't load page."
+msgstr ""

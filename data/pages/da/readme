@@ -1,0 +1,48 @@
+<big>Hardwarehåndtering</big>
+
+Manjaro leverer altid de aller nyeste kerner og giver desuden mulighed for at have flere kerner installeret og mulighed for frit at vælge en af disse før start af systemet. Vedligeholdelse af kerner findes i Manjaros grafiske indstillingshåndtering eller via kommandolinjen med MHWD-kernel-kommandoen (Manjaro hardwareregistrering).
+
+Disse Manjaro-værktøjer opdaterer automatisk en kerne som er blevet installeret for nyligt, samt moduler som er i brug med din eksisterende kerne. Hvis du f.eks. opdaterede fra kerne 4.14 to 4.19, så vil mhwd-kernel automatisk inkludere alle moduler som bruges af kerne 4.19. Det er da smart!
+
+Du kan konfigurere din hardware gennem hardwareregistrering-modulet, i indstillingshåndteringen eller med MHWD CLI-programmet. Med disse værktøjer kan du f.eks. installere drivere til grafikkort, frie og proprietære.
+
+<big>Få hjælp</big>
+
+Selvom Manjaro er designet til at virke bedst muligt fra begyndelsen, så kan vi ikke påstå at Manjaro er perfekt. Nogen gange kan noget gå galt. Du har måske spørgsmål og et ønske om at lære mere eller du vil tilpasse noget til din personlige smag. Denne side giver dig et overblik over nogle af de tilgængelige ressourcer du har for at få hjælp.
+
+<b>Søg på webbet</b>
+
+Det første sted at søge efter hjælp til Linux er nok med din favorit søgemaskine. Tilføj blot ord som 'Linux', 'Manjaro' eller 'Arch' når du søger.
+
+Da Manjaro er baseret på Arch Linux, så vil vejledninger og tips til Arch Linux typisk også gælde til Manjaro.
+
+<b>Kig i fora</b>
+
+Vi har et dedikeret onlineforum til specifik hjælp med Manjaro, hvor du kan søge efter emner eller selv oprette et. Det er nok det næstbedste sted til samarbejde, diskussion og hjælp. Spørg efter hjælp, skriv dine tanker eller kom med nogle forslag. Du behøver ikke at være genert!
+
+Manjaro-forummet er opdelt i underfora til forskellige emner og miljøer, så opret venligst dit indlæg det rette sted.
+
+<b>Deltag på Telegram</b>
+
+En anden mulighed er at deltage på Telegram.
+
+<b>Tilmeld dig på en mailingliste</b>
+
+En tredje måde at få hjælp på er ved at sende spørgsmål via e-mail til en Manjaro-mailingliste (der er også mulighed for at søge efter tidligere diskussioner i historikken). Tilmeld dig blot den liste du ønsker og følge instruktionerne. Der er dedikerede lister til forskellige emner. Se selv.
+
+<big>Andre ressourcer</big>
+
+    - <a href="https://forum.manjaro.org">Manjaro Forum</a> - Officiel Manjaro Forum (engelsk).
+    - <a href="http://forum.manjarolinux.de">Manjaro Tyskland</a> - Officiel, support til vores tyske fællesskab.
+    - <a href="https://wiki.manjaro.org">Manjaro Wiki</a> - Officiel wiki til Manjaro.
+    - <a href="https://t.me/manjaro_official">IRC Chat</a> - Livesnak og hjælp af brugere, til brugere.
+    - <a href="http://wiki.archlinux.org">Arch Wiki</a> - Officiel wiki til Arch.
+    - <a href="https://aur.archlinux.org">AUR-repository</a> - Ekstra software som ikke findes i de almindelige repositories. Bygges fra kildekode.
+
+<big>Forslag</big>
+
+Har du et forslag til hvordan vi gør Manjaro bedre? Har du fundet noget du vil have med, eller vil du hjælpe? Fortæl det til os ved at skrive i vores forum eller kom forbi på IRC.
+
+Tak!
+
+Vi håber du er glad for Manjaro!

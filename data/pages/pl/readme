@@ -1,0 +1,49 @@
+<big> Obsługa sprzętu </big>
+
+Manjaro nie tylko obsługuje instalację wielu jąder (wybieranych z zaawansowanych opcji na ekranie startowym), ale także zapewnia dostęp do najnowszych jąder „bleeding edge”. Można to zrobić za pomocą modułu Jądro w graficznym menedżerze ustawień Manjaro lub za pomocą wiersza poleceń przy użyciu polecenia mhwd-kernel (Manjaro Hardware Detection).
+
+Te narzędzia Manjaro automatycznie zaktualizują nowo zainstalowane jądro wraz z wszystkimi modułami aktualnie używanymi z istniejącym jądrem. Na przykład, gdybyś zaktualizował jądro z 3.18 do 4.1, mhwd-kernel automatycznie zainstaluje kompilacje jądra 4.1 i wszystkie moduły używane z jądrem 3.18. Co ty na to!
+
+Możesz skonfigurować swój sprzęt za pomocą modułu wykrywania sprzętu w Menedżerze ustawień lub alternatywnie za pomocą aplikacji MHWD z linii komend. Za pomocą tych narzędzi możesz zainstalować na przykład sterowniki graficzne, bezpłatne i zastrzeżone.
+
+<big> Uzyskiwanie pomocy </big>
+
+Chociaż Manjaro jest zaprojektowany tak, aby działał jak najlepiej „po wyjęciu z pudełka”, nie twierdzimy, że jest idealny. Może się zdarzyć, że coś pójdzie nie tak, możesz mieć pytania i chcieć dowiedzieć się więcej lub po prostu chcesz dostosować Manjaro do swoich upodobań. Ta strona zawiera szczegółowe informacje na temat dostępnych zasobów, które mogą Ci pomóc!
+
+<b> Szukaj w internecie </b>
+
+Być może pierwszym miejscem, w którym należy szukać ogólnej pomocy dla systemu Linux, jest skorzystanie z ulubionej wyszukiwarki. Po prostu uwzględnij w zapytaniu słowa takie jak „Linux”, „Manjaro” lub „Arch”.
+
+Ponieważ Manjaro jest oparty na Arch Linux, przewodniki i porady zaprojektowane dla Arch zwykle dotyczą również Manjaro.
+
+<b> Przeszukaj fora </b>
+
+Aby uzyskać konkretną pomoc dotyczącą Manjaro, mamy dedykowane forum internetowe, na którym możesz wyszukiwać tematy lub tworzyć własne! Jest to prawdopodobnie kolejne najlepsze miejsce do współpracy, dyskusji i pomocy. Poproś o pomoc, podziel się swoimi przemyśleniami lub przedstaw kilka sugestii. Nie wstydź się!
+
+Forum Manjaro jest podzielone na pod-fora dla różnych tematów i środowisk, prosimy o wysłanie zapytania w odpowiednim miejscu!
+
+    - <a href="https://forum.manjaro.org"> Oficjalne Forum Manjaro</a>
+
+<b> Dołącz do nas na Telegram </b>
+
+Inną opcją jest dołączenie do nas na Telegram.
+
+<b> Zarejestruj się na liście mailingowej </b>
+
+Innym sposobem uzyskania pomocy jest wysłanie pytań e-mailem na listy mailingowe Manjaro (możesz również przeszukać historię pod kątem wcześniejszych dyskusji). Po prostu zarejestruj się na preferowaną listę i postępuj zgodnie z instrukcjami. Jest lista poświęcona kilku tematom, wystarczy spojrzeć!
+
+<big> Inne zasoby </big>
+
+    - <a href="https://forum.manjaro.pl"> Forum Manjaro PL </a> - wsparcie dla naszej polskiej społeczności.
+    - <a href="https://aur.archlinux.org"> Repozytorium AUR </a> - Dodatkowe oprogramowanie, którego nie ma w zwykłych repozytoriach, zbudowane ze źródeł.
+    - <a href="https://wiki.manjaro.org"> Manjaro Wiki </a> - Oficjalna wiki Manjaro.
+    - <a href="http://wiki.archlinux.org"> Arch Wiki </a> - Oficjalna wiki Arch.
+    - <a href="https://t.me/manjaro_official"> Czat IRC </a> - rozmowy na żywo i pomoc od użytkowników dla użytkowników.
+
+<big> Sugestie </big>
+
+Masz sugestię, jak możemy ulepszyć Manjaro? Znalazłeś coś, co chcesz uwzględnić, lub chcesz pomóc? Daj nam znać, publikując swoje sugestie na forum lub wpadnij na IRC.
+
+Dziękujemy!
+
+Mamy nadzieję, że spodoba Ci się Manjaro!

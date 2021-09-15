@@ -1,0 +1,115 @@
+# Translation of Manjaro-Hello.
+# Copyright (C) 2016-2017 Manjaro Developers <manjaro-dev@manjaro.org>
+# This file is distributed under the same license as the Manjaro-Hello package.
+# Hugo Posnic <huluti@manjaro.org>, 2016-2017.
+# 
+# Translators:
+# mgundogdu <mustafalinguist@yahoo.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Manjaro-Hello\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-04 10:28+0100\n"
+"PO-Revision-Date: 2019-08-31 15:09+0100\n"
+"Last-Translator: oguzkagan <me@oguzkaganeren.com.tr>, 2019\n"
+"Language-Team: Turkish (https://www.transifex.com/manjarolinux/teams/70274/tr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: ui/manjaro-hello.glade:55
+msgid "Welcome to Manjaro!"
+msgstr "Manjaro'ya Hoşgeldin!"
+
+#: ui/manjaro-hello.glade:71
+msgid ""
+"Thank you for joining our community!\n"
+"\n"
+"We, the Manjaro Developers, hope that you will enjoy using Manjaro as much as we enjoy building it. The links below will help you get started with your new operating system. So enjoy the experience, and don't hesitate to send us your feedback."
+msgstr ""
+"Topluluğumuza katıldığın için teşekkürler!\n"
+"Biz, Manjaro Geliştiricileri, sizin Manjaro'yu kullanırken en az bizim onu geliştirirken eğlendiğimiz kadar eğleneceğinizi umuyoruz. Aşağıdaki link size yeni işletim sisteminizi kullanmaya başlamada yardımcı olacaktır. Deneyiminizin tadını çıkarın ve bize dönüt vermekten çekinmeyin."
+
+#: ui/manjaro-hello.glade:89
+msgid "DOCUMENTATION"
+msgstr "BELGELER"
+
+#: ui/manjaro-hello.glade:103
+msgid "SUPPORT"
+msgstr "DESTEK"
+
+#: ui/manjaro-hello.glade:117
+msgid "PROJECT"
+msgstr "PROJE"
+
+#: ui/manjaro-hello.glade:129
+msgid "Read me"
+msgstr "Beni oku"
+
+#: ui/manjaro-hello.glade:143
+msgid "Release info"
+msgstr "Sürüm bilgileri"
+
+#: ui/manjaro-hello.glade:158
+msgid "Wiki"
+msgstr "Viki"
+
+#: ui/manjaro-hello.glade:163 ui/manjaro-hello.glade:194
+#: ui/manjaro-hello.glade:211 ui/manjaro-hello.glade:228
+#: ui/manjaro-hello.glade:245 ui/manjaro-hello.glade:262
+msgid "Web resource"
+msgstr "Web kaynağı"
+
+#: ui/manjaro-hello.glade:175
+msgid "Get involved"
+msgstr "Bize katıl"
+
+#: ui/manjaro-hello.glade:189
+msgid "Forums"
+msgstr "Forumlar"
+
+#: ui/manjaro-hello.glade:206
+msgid "Chat room"
+msgstr "Sohbet odası"
+
+#: ui/manjaro-hello.glade:223
+msgid "Mailing lists"
+msgstr "Mail listeleri"
+
+#: ui/manjaro-hello.glade:240
+msgid "Development"
+msgstr "Geliştirme"
+
+#: ui/manjaro-hello.glade:257
+msgid "Donate"
+msgstr "Bağış"
+
+#: ui/manjaro-hello.glade:376
+msgid "Launch at start"
+msgstr "Açılışta başlat"
+
+#: ui/manjaro-hello.glade:407
+msgid "INSTALLATION"
+msgstr "KURULUM"
+
+#: ui/manjaro-hello.glade:419
+msgid "Launch installer"
+msgstr "Yükleyiciyi başlat"
+
+#: ui/manjaro-hello.glade:462
+msgid "Home"
+msgstr "Ev"
+
+#: ui/manjaro-hello.glade:530 ui/manjaro-hello.glade:544
+msgid "About"
+msgstr "Hakkında"
+
+#: ui/manjaro-hello.glade:549
+msgid "Welcome screen for Manjaro"
+msgstr "Manjaro karşılama ekranı"
+
+#: src/manjaro_hello.py:212
+msgid "Can't load page."
+msgstr "Sayfa yüklenemedi."

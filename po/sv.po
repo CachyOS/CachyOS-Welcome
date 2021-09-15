@@ -1,0 +1,117 @@
+# Translation of Manjaro-Hello.
+# Copyright (C) 2016-2017 Manjaro Developers <manjaro-dev@manjaro.org>
+# This file is distributed under the same license as the Manjaro-Hello package.
+# Hugo Posnic <huluti@manjaro.org>, 2016-2017.
+# 
+# Translators:
+# feellip <philip.e.g.andersson@gmail.com>, 2017
+# ordtrogen <johan@ordtrogen.se>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Manjaro-Hello\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-04 10:28+0100\n"
+"PO-Revision-Date: 2017-10-07 19:09+0100\n"
+"Last-Translator: ordtrogen <johan@ordtrogen.se>, 2017\n"
+"Language-Team: Swedish (https://www.transifex.com/manjarolinux/teams/70274/sv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ui/manjaro-hello.glade:55
+msgid "Welcome to Manjaro!"
+msgstr "Välkommen till Manjaro!"
+
+#: ui/manjaro-hello.glade:71
+msgid ""
+"Thank you for joining our community!\n"
+"\n"
+"We, the Manjaro Developers, hope that you will enjoy using Manjaro as much as we enjoy building it. The links below will help you get started with your new operating system. So enjoy the experience, and don't hesitate to send us your feedback."
+msgstr ""
+"Tack för att du går med i vår gemenskap!\n"
+"\n"
+"Vi, Manjaros utvecklare, hoppas att du kommer att tycka om att använda Manjaro lika mycket som vi tycker om att utveckla det. Länkarna nedan hjälper dig att komma igång med ditt nya operativsystem. Så njut av upplevelsen, och tveka inte att ge oss feedback."
+
+#: ui/manjaro-hello.glade:89
+msgid "DOCUMENTATION"
+msgstr "DOKUMENTATION"
+
+#: ui/manjaro-hello.glade:103
+msgid "SUPPORT"
+msgstr "SUPPORT"
+
+#: ui/manjaro-hello.glade:117
+msgid "PROJECT"
+msgstr "PROJEKT"
+
+#: ui/manjaro-hello.glade:129
+msgid "Read me"
+msgstr "Läs detta"
+
+#: ui/manjaro-hello.glade:143
+msgid "Release info"
+msgstr "Releaseinfo"
+
+#: ui/manjaro-hello.glade:158
+msgid "Wiki"
+msgstr "Wiki"
+
+#: ui/manjaro-hello.glade:163 ui/manjaro-hello.glade:194
+#: ui/manjaro-hello.glade:211 ui/manjaro-hello.glade:228
+#: ui/manjaro-hello.glade:245 ui/manjaro-hello.glade:262
+msgid "Web resource"
+msgstr "Webbresurs"
+
+#: ui/manjaro-hello.glade:175
+msgid "Get involved"
+msgstr "Engagera dig"
+
+#: ui/manjaro-hello.glade:189
+msgid "Forums"
+msgstr "Forum"
+
+#: ui/manjaro-hello.glade:206
+msgid "Chat room"
+msgstr "Chattrum"
+
+#: ui/manjaro-hello.glade:223
+msgid "Mailing lists"
+msgstr "E-postlistor"
+
+#: ui/manjaro-hello.glade:240
+msgid "Development"
+msgstr "Utveckling"
+
+#: ui/manjaro-hello.glade:257
+msgid "Donate"
+msgstr "Donera"
+
+#: ui/manjaro-hello.glade:376
+msgid "Launch at start"
+msgstr "Kör vid uppstart"
+
+#: ui/manjaro-hello.glade:407
+msgid "INSTALLATION"
+msgstr "INSTALLATION"
+
+#: ui/manjaro-hello.glade:419
+msgid "Launch installer"
+msgstr "Kör installationsprogram"
+
+#: ui/manjaro-hello.glade:462
+msgid "Home"
+msgstr "Hem"
+
+#: ui/manjaro-hello.glade:530 ui/manjaro-hello.glade:544
+msgid "About"
+msgstr "Om"
+
+#: ui/manjaro-hello.glade:549
+msgid "Welcome screen for Manjaro"
+msgstr "Välkomstskärm för Manjaro"
+
+#: src/manjaro_hello.py:212
+msgid "Can't load page."
+msgstr "Kan inte läsa in sidan."
