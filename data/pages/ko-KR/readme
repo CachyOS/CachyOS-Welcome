@@ -1,6 +1,6 @@
 <big>하드웨어 처리</big>
 
-만자로는 여러 커널(부팅 화면의 고급 옵션에서 선택 가능) 사용을 지원할뿐만 아니라 최신 최첨단 커널에 대한 액세스도 제공합니다. 이것은 만자로의 그래픽 설정 관리자에서 커널 모듈을 사용하거나 MHWD-kernel (Manjaro 하드웨어 감지) 명령을 사용하는 명령 행을 통해 수행 할 수 있습니다.
+만자로는 여러 커널(부팅 화면의 고급 옵션에서 선택 가능) 사용을 지원할뿐만 아니라 최신 최첨단 커널에 대한 액세스도 제공합니다. 이것은 만자로의 그래픽 설정 관리자에서 커널 모듈을 사용하거나 MHWD-kernel (CachyOS 하드웨어 감지) 명령을 사용하는 명령 행을 통해 수행 할 수 있습니다.
 
 이러한 만자로 도구는 현재 기존 커널과 함께 새로 설치된 커널과 함께 자동으로 업데이트됩니다. 예를 들어 커널 3.18에서 4.1로 업데이트하는 경우 mhwd-kernel에는 커널 4.1 빌드와 커널 3.18에 사용되는 모든 모듈이 자동으로 포함됩니다. 이거 대단하군!
 
@@ -12,7 +12,7 @@
 
 <b>웹 검색</b>
 
-아마도 일반적인 리눅스 도움말을 찾을 수 있는 첫 번째 장소는 좋아하는 검색 엔진을 사용하는 것입니다. 검색어에 'Linux', 'Manjaro' 또는 'Arch'와 같은 단어를 포함하기만 하면 됩니다.
+아마도 일반적인 리눅스 도움말을 찾을 수 있는 첫 번째 장소는 좋아하는 검색 엔진을 사용하는 것입니다. 검색어에 'Linux', 'CachyOS' 또는 'Arch'와 같은 단어를 포함하기만 하면 됩니다.
 
 만자로는 아치 리눅스를 기반으로 하기 때문에 아치용으로 설계된 가이드와 팁은 보통 만자로에도 적용됩니다.
 
@@ -32,9 +32,9 @@
 
 <big>기타 리소스</big>
 
-    - <a href="http://forum.manjarolinux.de">Manjaro Germany</a> - 공식, 독일 커뮤니티 지원 사이트.
+    - <a href="http://forum.manjarolinux.de">CachyOS Germany</a> - 공식, 독일 커뮤니티 지원 사이트.
     - <a href="https://aur.archlinux.org">AUR Repository</a> - 소스에서 빌드된 일반 저장소에 없는 추가 소프트웨어
-    - <a href="https://wiki.manjaro.org">Manjaro Wiki</a> - 만자로 공식 위키.
+    - <a href="https://wiki.manjaro.org">CachyOS Wiki</a> - 만자로 공식 위키.
     - <a href="http://wiki.archlinux.org">Arch Wiki</a> - 아치 공식 위키.
     - <a href="https://t.me/manjaro_official">IRC Chat</a> - 사용자를 위한 사용자의 실시간 대화 및 도움말.
 

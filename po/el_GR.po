@@ -1,6 +1,6 @@
-# Translation of Manjaro-Hello.
-# Copyright (C) 2016-2017 Manjaro Developers <manjaro-dev@manjaro.org>
-# This file is distributed under the same license as the Manjaro-Hello package.
+# Translation of CachyOS-Hello.
+# Copyright (C) 2016-2017 CachyOS Developers <manjaro-dev@manjaro.org>
+# This file is distributed under the same license as the CachyOS-Hello package.
 # Hugo Posnic <huluti@manjaro.org>, 2016-2017.
 # 
 # Translators:
@@ -8,7 +8,7 @@
 # Πέτρος Σαμαράς <psamaras1@gmail.com>, 2016
 msgid ""
 msgstr ""
-"Project-Id-Version: Manjaro-Hello\n"
+"Project-Id-Version: CachyOS-Hello\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-03-04 10:28+0100\n"
 "PO-Revision-Date: 2017-10-07 19:09+0100\n"
@@ -21,18 +21,18 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ui/manjaro-hello.glade:55
-msgid "Welcome to Manjaro!"
-msgstr "Καλωσήρθατε στο Manjaro"
+msgid "Welcome to CachyOS!"
+msgstr "Καλωσήρθατε στο CachyOS"
 
 #: ui/manjaro-hello.glade:71
 msgid ""
 "Thank you for joining our community!\n"
 "\n"
-"We, the Manjaro Developers, hope that you will enjoy using Manjaro as much as we enjoy building it. The links below will help you get started with your new operating system. So enjoy the experience, and don't hesitate to send us your feedback."
+"We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we enjoy building it. The links below will help you get started with your new operating system. So enjoy the experience, and don't hesitate to send us your feedback."
 msgstr ""
 "Σας ευχαριστούμε που μπήκατε στην κοινότητά μας!\n"
 "\n"
-"Όλοι μας στην Ομάδα Ανάπτυξης του Manjaro, ευχόμαστε να χαρείτε την χρήση του Manjaro, όσο χαιρόμαστε κι εμείς την ανάπτυξή του. Οι παρακάτω σύνδεσμοι θα σας βοηθήσουν να ξεκινήσετε με το νέο σας λειτουργικό σύστημα. Οπότε, ευχαριστηθείτε με την εμπειρία, και μη διστάσετε να μας στείλετε τις απόψεις σας. "
+"Όλοι μας στην Ομάδα Ανάπτυξης του CachyOS, ευχόμαστε να χαρείτε την χρήση του CachyOS, όσο χαιρόμαστε κι εμείς την ανάπτυξή του. Οι παρακάτω σύνδεσμοι θα σας βοηθήσουν να ξεκινήσετε με το νέο σας λειτουργικό σύστημα. Οπότε, ευχαριστηθείτε με την εμπειρία, και μη διστάσετε να μας στείλετε τις απόψεις σας. "
 
 #: ui/manjaro-hello.glade:89
 msgid "DOCUMENTATION"
@@ -109,8 +109,8 @@ msgid "About"
 msgstr "Περί"
 
 #: ui/manjaro-hello.glade:549
-msgid "Welcome screen for Manjaro"
-msgstr "Οθόνη καλωσορίσματος για το Manjaro"
+msgid "Welcome screen for CachyOS"
+msgstr "Οθόνη καλωσορίσματος για το CachyOS"
 
 #: src/manjaro_hello.py:212
 msgid "Can't load page."

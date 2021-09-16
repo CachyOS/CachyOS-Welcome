@@ -18,14 +18,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../ui/manjaro-hello.glade:56
-msgid "Welcome to Manjaro!"
+msgid "Welcome to CachyOS!"
 msgstr ""
 
 #: ../ui/manjaro-hello.glade:72
 msgid ""
 "Thank you for joining our community!\n"
 "\n"
-"We, the Manjaro Developers, hope that you will enjoy using Manjaro as much "
+"We, the CachyOS Developers, hope that you will enjoy using CachyOS as much "
 "as we enjoy building it. The links below will help you get started with your "
 "new operating system. So enjoy the experience, and don't hesitate to send us "
 "your feedback."
@@ -110,7 +110,7 @@ msgid "Gnome Layouts Manager"
 msgstr ""
 
 #: ../ui/manjaro-hello.glade:460
-msgid "Manjaro Gnome config tool"
+msgid "CachyOS Gnome config tool"
 msgstr ""
 
 #: ../ui/manjaro-hello.glade:504
@@ -122,7 +122,7 @@ msgid "About"
 msgstr ""
 
 #: ../ui/manjaro-hello.glade:591
-msgid "Welcome screen for Manjaro"
+msgid "Welcome screen for CachyOS"
 msgstr ""
 
 #: ../src/manjaro_hello.py:306

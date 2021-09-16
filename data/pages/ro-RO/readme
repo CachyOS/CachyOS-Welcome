@@ -1,26 +1,26 @@
 <big>Asistență hardware</big>
 
-Manjaro nu numai că acceptă utilizarea mai multor kernel-uri (selectabile din opțiunile avansate de la ecranul de pornire), dar oferă și acces la cele mai recente kerneluri, chiar şi cele experimentale. Acest lucru poate fi realizat prin utilizarea modulului de Kernel în interfaţa grafică a Manager-ului de Setări Manjaro, sau prin linia de comandă folosind MHWD-kernel.
+CachyOS nu numai că acceptă utilizarea mai multor kernel-uri (selectabile din opțiunile avansate de la ecranul de pornire), dar oferă și acces la cele mai recente kerneluri, chiar şi cele experimentale. Acest lucru poate fi realizat prin utilizarea modulului de Kernel în interfaţa grafică a Manager-ului de Setări CachyOS, sau prin linia de comandă folosind MHWD-kernel.
 
-Aceste instrumente specifice Manjaro vor actualiza automat un kernel nou instalat, împreună cu orice module utilizate în prezent cu kernel-ul existent. De exemplu, dacă ar fi să actualizați de la kernel 3.18 la 4.1, mhwd-kernel ar include automat versiunile kernel 4.1 și toate modulele utilizate cu kernel 3.18. Foarte convenabil!
+Aceste instrumente specifice CachyOS vor actualiza automat un kernel nou instalat, împreună cu orice module utilizate în prezent cu kernel-ul existent. De exemplu, dacă ar fi să actualizați de la kernel 3.18 la 4.1, mhwd-kernel ar include automat versiunile kernel 4.1 și toate modulele utilizate cu kernel 3.18. Foarte convenabil!
 
 Puteți configura hardware-ul prin modulul de detectare hardware din Managerul de Setări sau, alternativ, cu aplicaţia mod linie de commandă MHWD. Cu aceste instrumente puteți instala, de exemplu, drivere grafice, gratuite și proprietare.
 
 <big>Resurse de ajutor</big>
 
-Deși Manjaro este proiectat să funcționeze implicit la pornire, nu pretindem că este perfect. Pot exista momente când lucrurile merg prost, este posibil să aveți întrebări și dorința de a afla mai multe sau doar doriți să-l personalizați pentru a se potrivi gusturilor dumneavoastră. Această pagină oferă detalii despre unele resurse disponibile pentru ajutor!
+Deși CachyOS este proiectat să funcționeze implicit la pornire, nu pretindem că este perfect. Pot exista momente când lucrurile merg prost, este posibil să aveți întrebări și dorința de a afla mai multe sau doar doriți să-l personalizați pentru a se potrivi gusturilor dumneavoastră. Această pagină oferă detalii despre unele resurse disponibile pentru ajutor!
 
 <b>Căutați pe web</b>
 
-Folosind motorul de căutare preferat este probabil varianta preferată pentru găsirea unui ajutor generic relaţionat cu Linux. Totuşi să includeți cuvinte cheie precum "Linux", "Manjaro" sau "Arch" în interogarea dumneavoastră de căutare.
+Folosind motorul de căutare preferat este probabil varianta preferată pentru găsirea unui ajutor generic relaţionat cu Linux. Totuşi să includeți cuvinte cheie precum "Linux", "CachyOS" sau "Arch" în interogarea dumneavoastră de căutare.
 
-Manjaro are la bază structura, logica şi funcţionalitatea Arch Linux. Ghidurile și sfaturile concepute pentru Arch se aplică de obicei şi la Manjaro.
+CachyOS are la bază structura, logica şi funcţionalitatea Arch Linux. Ghidurile și sfaturile concepute pentru Arch se aplică de obicei şi la CachyOS.
 
 <b>Căutați în forum</b>
 
-Pentru ajutor specific Manjaro avem un forum online dedicat unde puteți căuta subiecte sau puteți crea unul specific pentru problema întâmpinată! Forumul este cel mai bun loc virtual pentru colaborare, discuții și asistență tehnică. Cereți ajutor cu încredere, postați-vă opiniile sau faceţi sugestii.
+Pentru ajutor specific CachyOS avem un forum online dedicat unde puteți căuta subiecte sau puteți crea unul specific pentru problema întâmpinată! Forumul este cel mai bun loc virtual pentru colaborare, discuții și asistență tehnică. Cereți ajutor cu încredere, postați-vă opiniile sau faceţi sugestii.
 
-Forumul Manjaro este împărțit în sub-forumuri pentru diferite subiecte și medii, vă rugăm să postați interogarea în categoria potrivită!
+Forumul CachyOS este împărțit în sub-forumuri pentru diferite subiecte și medii, vă rugăm să postați interogarea în categoria potrivită!
 
 <b>Cinectaţi-vă cu noi pe Telegram</b>
 
@@ -28,20 +28,20 @@ O altă opțiune este Telegram.
 
 <b>Înscrieți-vă la lista de discuții</b>
 
-O altă modalitate de a obține ajutor este să trimiteți întrebări la lista de discuții Manjaro (puteți căuta și istoricul discuțiilor anterioare). Pur și simplu înscrieți-vă la una pe care o preferați și urmați instrucțiunile. Există o listă dedicată mai multor subiecte, vă invităm să o consultaţi!
+O altă modalitate de a obține ajutor este să trimiteți întrebări la lista de discuții CachyOS (puteți căuta și istoricul discuțiilor anterioare). Pur și simplu înscrieți-vă la una pe care o preferați și urmați instrucțiunile. Există o listă dedicată mai multor subiecte, vă invităm să o consultaţi!
 
 <big>Alte resurse</big>
 
-- <a href="http://forum.manjarolinux.de">Manjaro Germania</a> - Oficial, sprijin pentru comunitatea noastră germană.
+- <a href="http://forum.manjarolinux.de">CachyOS Germania</a> - Oficial, sprijin pentru comunitatea noastră germană.
 - <a href="https://aur.archlinux.org">AUR Repository</a> - Software-ul suplimentar, neoficial construit de la sursă.
-- <a href="https://wiki.manjaro.org">Manjaro Wiki</a> - wiki oficial Manjaro.
+- <a href="https://wiki.manjaro.org">CachyOS Wiki</a> - wiki oficial CachyOS.
 - <a href="http://wiki.archlinux.org">Arch Wiki</a> - wiki oficial Arch.
 - <a href="https://t.me/manjaro_official">IRC Chat</a> - Discuție live și ajutor de la utilizatori pentru alţi utilizatori.
 
 <big>Sugestii</big>
 
-Sugestiile cu privire la modul în care putem face Manjaro mai bun şi mai stabil, ceva ce merită inclus în materie de software, sau metode de ajutor mai eficiente sunt toate binevenite pe forum sau pe canalul IRC.
+Sugestiile cu privire la modul în care putem face CachyOS mai bun şi mai stabil, ceva ce merită inclus în materie de software, sau metode de ajutor mai eficiente sunt toate binevenite pe forum sau pe canalul IRC.
 
 Mulţumim!
 
-Sperăm să utilizaţi Manjaro cu plăcere!
+Sperăm să utilizaţi CachyOS cu plăcere!

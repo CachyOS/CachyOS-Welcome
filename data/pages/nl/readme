@@ -1,26 +1,26 @@
 <big>Omgaan met hardware</big>
 
-Manjaro ondersteunt niet alleen meerdere kernels (welke je kan selecteren via de "Advanced Options"-keuze in het opstartscherm), maar biedt ook toegang tot de allerlaatste "bleeding-edge" kernels. Dit wordt je makkelijk gemaakt via de "Kernel" module in Manjaro's grafische "Settings Manager", en door het `mhwd-kernel` (Manjaro Hardware Detection) commando op de opdrachtregel.
+CachyOS ondersteunt niet alleen meerdere kernels (welke je kan selecteren via de "Advanced Options"-keuze in het opstartscherm), maar biedt ook toegang tot de allerlaatste "bleeding-edge" kernels. Dit wordt je makkelijk gemaakt via de "Kernel" module in CachyOS's grafische "Settings Manager", en door het `mhwd-kernel` (CachyOS Hardware Detection) commando op de opdrachtregel.
 
-Deze Manjaro-hulpmiddelen passen een nieuwe kernel automatisch aan met alle modules welke op dat moment in gebruik zijn door je actieve kernel. Bijvoorbeeld, als je een opwaardering van kernel 5.4 naar 5.8 zou willen doorvoeren, dan gaat `mhwd-kernel` automatisch alle modules gebruikt door je 5.4 kernel opwaarderen naar 5.8. Je leven wordt er een stuk makkelijker door!
+Deze CachyOS-hulpmiddelen passen een nieuwe kernel automatisch aan met alle modules welke op dat moment in gebruik zijn door je actieve kernel. Bijvoorbeeld, als je een opwaardering van kernel 5.4 naar 5.8 zou willen doorvoeren, dan gaat `mhwd-kernel` automatisch alle modules gebruikt door je 5.4 kernel opwaarderen naar 5.8. Je leven wordt er een stuk makkelijker door!
 
 Je kan je hardware configureren via de "Hardware Detection" module in de "Settings Manager", of gewoon via de `mhwd` command-line applicatie. Met deze toepassingen kan je ook bijvoorbeeld "vrije" en/of gepatenteerde grafische stuurprogramma's aanpassen of installeren.
 
 <big>Vraag om hulp</big>
 
-Ondanks het feit dat Manjaro ontworpen is om vanaf het begin zelf interne problemen op te kunnen lossen gaan we niet beweren dat onze methologie perfect is. Af en toe kunnen er dingen fout gaan, zul je vragen hebben en ga je meer willen leren, of ga je juist zelf dingen naar je eigen smaak willen aanpassen. Deze pagina bevat details over sommige van de middelen die je kunnen helpen.
+Ondanks het feit dat CachyOS ontworpen is om vanaf het begin zelf interne problemen op te kunnen lossen gaan we niet beweren dat onze methologie perfect is. Af en toe kunnen er dingen fout gaan, zul je vragen hebben en ga je meer willen leren, of ga je juist zelf dingen naar je eigen smaak willen aanpassen. Deze pagina bevat details over sommige van de middelen die je kunnen helpen.
 
 <b>Doorzoek het Internet</b>
 
-De eerste methode om snel informatie te vergareb is een zoekmachine. Zorg ervoor dat je woorden zoals 'Linux', 'Manjaro' of 'Arch' bij je zoekopdracht invoegt.
+De eerste methode om snel informatie te vergareb is een zoekmachine. Zorg ervoor dat je woorden zoals 'Linux', 'CachyOS' of 'Arch' bij je zoekopdracht invoegt.
 
-Daar Manjaro gebaseerd is op Arch Linux zullen de gidsen en tips van Arch meestal ook van toepassing zijn op Manjaro.
+Daar CachyOS gebaseerd is op Arch Linux zullen de gidsen en tips van Arch meestal ook van toepassing zijn op CachyOS.
 
 <b>Bekijk de forums</b>
 
-Voor specifieke hulp met Manjaro hebben we een toegewijd online forum waar je kan zoeken naar specifieke onderwerpen, of zelfs je eigen onderwerp kan aanmaken. Het forum is waarschijnlijk de beste plaats voor samenwerking, discussie en assistentie. Vraag om hulp, deel je gedachten, of geef zelf je suggesties door. Wees niet verlegen!
+Voor specifieke hulp met CachyOS hebben we een toegewijd online forum waar je kan zoeken naar specifieke onderwerpen, of zelfs je eigen onderwerp kan aanmaken. Het forum is waarschijnlijk de beste plaats voor samenwerking, discussie en assistentie. Vraag om hulp, deel je gedachten, of geef zelf je suggesties door. Wees niet verlegen!
 
-De Manjaro forums zijn onderverdeeld in sub-forums naar gelang de diverse onderwerpen en omgevingen, dus gelieve je vraag in de juiste categorie te plaatsen, en dan zal er al snel iemand antwoorden.
+De CachyOS forums zijn onderverdeeld in sub-forums naar gelang de diverse onderwerpen en omgevingen, dus gelieve je vraag in de juiste categorie te plaatsen, en dan zal er al snel iemand antwoorden.
 
 <b>Vervoeg ons op Telegram</b>
 
@@ -28,20 +28,20 @@ Een andere optie is om je op Telegram.
 
 <b>Schrijf je in op onze mailing list</b>
 
-Nog een andere optie om hulp te bekomen is je vragen te emailen naar de Manjaro mailing list (waar je ook kan zoeken naar bestaande oplossingen). Schrijf je gewoon in op de mailing list die je aanspreekt en volg de instructies. Er zijn mailing lists omtrent diverse onderwerpen, dus neem ze even door.
+Nog een andere optie om hulp te bekomen is je vragen te emailen naar de CachyOS mailing list (waar je ook kan zoeken naar bestaande oplossingen). Schrijf je gewoon in op de mailing list die je aanspreekt en volg de instructies. Er zijn mailing lists omtrent diverse onderwerpen, dus neem ze even door.
 
 <big>Anderen middelen</big>
 
-    - <a href="https://forum.manjaro.org/c/Languages/nederlands/73">Manjaro in het Nederlands</a> - Officiële support voor onze Nederlandstalige gemeenschap.
+    - <a href="https://forum.manjaro.org/c/Languages/nederlands/73">CachyOS in het Nederlands</a> - Officiële support voor onze Nederlandstalige gemeenschap.
     - <a href="https://aur.archlinux.org">AUR Repository</a> - Extra software die je niet in de reguliere repositories terugvindt, (gecompileerd van broncode).
-    - <a href="https://wiki.manjaro.org">Manjaro Wiki</a> - Officiële wiki voor Manjaro.
+    - <a href="https://wiki.manjaro.org">CachyOS Wiki</a> - Officiële wiki voor CachyOS.
     - <a href="http://wiki.archlinux.org">Arch Wiki</a> - Officiële wiki voor Arch.
     - <a href="https://t.me/manjaro_official">IRC Chat</a> - Live chat en help van gebruikers voor gebruikers (Engelstalig).
 
 <big>Suggesties</big>
 
-Heb je een suggestie omtrent hoe we Manjaro beter kunnen maken? Heb je iets gevonden dat je in de standaard build wilt bijvoegen? Laat het ons weten door je suggestie op ons forum achter te laten of praat met ons op IRC.
+Heb je een suggestie omtrent hoe we CachyOS beter kunnen maken? Heb je iets gevonden dat je in de standaard build wilt bijvoegen? Laat het ons weten door je suggestie op ons forum achter te laten of praat met ons op IRC.
 
 Dankjewel!
 
-We hopen dat Manjaro je zal bevallen!
+We hopen dat CachyOS je zal bevallen!

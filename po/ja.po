@@ -1,13 +1,13 @@
-# Translation of Manjaro-Hello.
-# Copyright (C) 2016-2017 Manjaro Developers <manjaro-dev@manjaro.org>
-# This file is distributed under the same license as the Manjaro-Hello package.
+# Translation of CachyOS-Hello.
+# Copyright (C) 2016-2017 CachyOS Developers <manjaro-dev@manjaro.org>
+# This file is distributed under the same license as the CachyOS-Hello package.
 # Hugo Posnic <huluti@manjaro.org>, 2016-2017.
 # 
 # Translators:
 # Takefumi Nagata <take1975@kumamoto.email.ne.jp>, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: Manjaro-Hello\n"
+"Project-Id-Version: CachyOS-Hello\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-03-04 10:28+0100\n"
 "PO-Revision-Date: 2017-10-07 19:09+0100\n"
@@ -20,18 +20,18 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ui/manjaro-hello.glade:55
-msgid "Welcome to Manjaro!"
-msgstr "Manjaroへようこそ!"
+msgid "Welcome to CachyOS!"
+msgstr "CachyOSへようこそ!"
 
 #: ui/manjaro-hello.glade:71
 msgid ""
 "Thank you for joining our community!\n"
 "\n"
-"We, the Manjaro Developers, hope that you will enjoy using Manjaro as much as we enjoy building it. The links below will help you get started with your new operating system. So enjoy the experience, and don't hesitate to send us your feedback."
+"We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we enjoy building it. The links below will help you get started with your new operating system. So enjoy the experience, and don't hesitate to send us your feedback."
 msgstr ""
 "私たちのコミュニティに参加してくれて、ありがとう!\n"
 "\n"
-"私たち、Manjaroの開発チームは、私たちが開発したときと同じように、あなたがManjaroを使うことを楽しむことを望みます。下のリンクは、あなたが新しいオペレーティングシステムを始めたときに助けになるものです。すばらしい経験をして、何かあったら私たちにフィードバックしてください。"
+"私たち、CachyOSの開発チームは、私たちが開発したときと同じように、あなたがCachyOSを使うことを楽しむことを望みます。下のリンクは、あなたが新しいオペレーティングシステムを始めたときに助けになるものです。すばらしい経験をして、何かあったら私たちにフィードバックしてください。"
 
 #: ui/manjaro-hello.glade:89
 msgid "DOCUMENTATION"
@@ -108,8 +108,8 @@ msgid "About"
 msgstr "About"
 
 #: ui/manjaro-hello.glade:549
-msgid "Welcome screen for Manjaro"
-msgstr "Welcome screen for Manjaro"
+msgid "Welcome screen for CachyOS"
+msgstr "Welcome screen for CachyOS"
 
 #: src/manjaro_hello.py:212
 msgid "Can't load page."

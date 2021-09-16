@@ -1,26 +1,26 @@
 <big>Gestão de hardware</big>
 
-O Manjaro não só suporta vários kernels (selecionáveis a partir das opções avançadas do menu de arranque), como também fornece acesso aos kernels mais recentes, em desenvolvimento contínuo (bleeding edge). Estes podem ser instalados através do módulo Kernel, no Gestor de Configurações do Manjaro, ou através da linha de comandos, através do comando MHWD-kernel (Manjaro Hardware Detection).
+O CachyOS não só suporta vários kernels (selecionáveis a partir das opções avançadas do menu de arranque), como também fornece acesso aos kernels mais recentes, em desenvolvimento contínuo (bleeding edge). Estes podem ser instalados através do módulo Kernel, no Gestor de Configurações do CachyOS, ou através da linha de comandos, através do comando MHWD-kernel (CachyOS Hardware Detection).
 
-Estas ferramentas do Manjaro atualizam automaticamente um kernel recém-instalado, juntamente com todos os módulos atualmente instalados no kernel existente. Por exemplo, se você atualizar do kernel 3.18 para o 4.1, o mhwd-kernel incluirá automaticamente as compilações do kernel 4.1 e de todos os módulos instalados no kernel 3.18. Que tal?
+Estas ferramentas do CachyOS atualizam automaticamente um kernel recém-instalado, juntamente com todos os módulos atualmente instalados no kernel existente. Por exemplo, se você atualizar do kernel 3.18 para o 4.1, o mhwd-kernel incluirá automaticamente as compilações do kernel 4.1 e de todos os módulos instalados no kernel 3.18. Que tal?
 
 Você pode configurar o seu hardware através do módulo de Deteção de Hardware no Gestor de Configurações ou, alternativamente, com o aplicativo cli do MHWD. Com estas ferramentas você pode instalar, por exemplo, drivers gráficos gratuitos e/ou proprietários.
 
 <big>Conseguindo ajuda</big>
 
-Embora o Manjaro seja projetado para funcionar o melhor possível, nós não afirmamos que seja perfeito. Poderão haver situações em que as coisas não corram bem. Você pode ter perguntas a fazer e um desejo de aprender mais, ou desejar, apenas, personalizar o sistema para o adequar ao seu gosto. Esta página fornece detalhes sobre alguns recursos disponíveis para o ajudar!
+Embora o CachyOS seja projetado para funcionar o melhor possível, nós não afirmamos que seja perfeito. Poderão haver situações em que as coisas não corram bem. Você pode ter perguntas a fazer e um desejo de aprender mais, ou desejar, apenas, personalizar o sistema para o adequar ao seu gosto. Esta página fornece detalhes sobre alguns recursos disponíveis para o ajudar!
 
 <b>Pesquise na internet</b>
 
-A primeira ferramenta a utilizar para obter ajuda genérica sobre o Linux poderá ser o seu motor de busca favorito. Basta incluir palavras como 'Linux', 'Manjaro' ou 'Arch' na sua pesquisa.
+A primeira ferramenta a utilizar para obter ajuda genérica sobre o Linux poderá ser o seu motor de busca favorito. Basta incluir palavras como 'Linux', 'CachyOS' ou 'Arch' na sua pesquisa.
 
-Como o Manjaro é baseado em Arch Linux, guias e dicas projetados para o Arch aplicam-se normalmente ao Manjaro.
+Como o CachyOS é baseado em Arch Linux, guias e dicas projetados para o Arch aplicam-se normalmente ao CachyOS.
 
 <b>Leia os fóruns</b>
 
-Para ajuda específica do Manjaro, temos um fórum online dedicado, onde você pode pesquisar tópicos existentes ou criar um novo! Este é provavelmente o melhor lugar para participar na colaboração, na discussão e na assistência. Peça ajuda, exponha os seus pensamentos e esboce as suas sugestões. Não seja tímido!
+Para ajuda específica do CachyOS, temos um fórum online dedicado, onde você pode pesquisar tópicos existentes ou criar um novo! Este é provavelmente o melhor lugar para participar na colaboração, na discussão e na assistência. Peça ajuda, exponha os seus pensamentos e esboce as suas sugestões. Não seja tímido!
 
-O Fórum do Manjaro está dividido em sub-fóruns para diferentes tópicos e ambientes. Por favor, publique no local apropriado!
+O Fórum do CachyOS está dividido em sub-fóruns para diferentes tópicos e ambientes. Por favor, publique no local apropriado!
 
 <b>Junte-se a nós no Telegram</b>
 
@@ -28,20 +28,20 @@ Outra opção é juntar-se a nós no Telegram.
 
 <b>Inscreva-se numa lista de discussão</b>
 
-Outra forma de obter ajuda é enviar as perguntas por email, para o Manjaro mailing list (também pode pesquisar o histórico de discussões anteriores). Inscreva-se na lista que preferir e siga as instruções. Há listas dedicadas a diferentes tópicos; basta passar uma vista de olhos!
+Outra forma de obter ajuda é enviar as perguntas por email, para o CachyOS mailing list (também pode pesquisar o histórico de discussões anteriores). Inscreva-se na lista que preferir e siga as instruções. Há listas dedicadas a diferentes tópicos; basta passar uma vista de olhos!
 
 <big>Outros recursos</big>
 
-    - <a href="http://forum.manjarolinux.de">Manjaro Germany</a> - Apoio oficial para a nossa comunidade alemã.
+    - <a href="http://forum.manjarolinux.de">CachyOS Germany</a> - Apoio oficial para a nossa comunidade alemã.
     - <a href="https://aur.archlinux.org">AUR Repository</a> - Software extra indisponível nos repositórios normais; compilado a partir da fonte.
-    - <a href="https://wiki.manjaro.org">Manjaro Wiki</a> - Manjaro Wiki oficial.
+    - <a href="https://wiki.manjaro.org">CachyOS Wiki</a> - CachyOS Wiki oficial.
     - <a href="http://wiki.archlinux.org">Arch Wiki</a> - Arch Wiki oficial.
     - <a href="https://t.me/manjaro_official">IRC Chat</a> - Chat e ajuda entre utilizadores.
 
 <big>Sugestões</big>
 
-Tem uma sugestão sobre como melhorar o Manjaro? Encontrou algo que deseja incluir, ou quer ajudar? Por favor, informe-nos publicando a sua sugestão no fórum ou no IRC.
+Tem uma sugestão sobre como melhorar o CachyOS? Encontrou algo que deseja incluir, ou quer ajudar? Por favor, informe-nos publicando a sua sugestão no fórum ou no IRC.
 
 Obrigado!
 
-Esperamos que goste de usar Manjaro!
+Esperamos que goste de usar CachyOS!

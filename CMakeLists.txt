@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.14)
 
 ##
 ## PROJECT
@@ -15,8 +15,16 @@ message(STATUS "BUILD: ${CMAKE_BUILD_TYPE}")
 ##
 ## INCLUDE
 ##
+include(FetchContent)
+
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTK3 REQUIRED gtkmm-3.0)
+
+FetchContent_Declare(fmt
+  GIT_REPOSITORY "https://github.com/fmtlib/fmt.git"
+  GIT_TAG "d9fd695ac737f84f7de2d0a2aa346b25efb9afbf"
+)
+FetchContent_MakeAvailable(fmt)
 
 ##
 ## CONFIGURATION
@@ -47,4 +55,4 @@ include_directories(${CMAKE_SOURCE_DIR}/src ${GTK3_INCLUDE_DIRS})
 link_directories(${GTK3_LIBRARY_DIRS})
 add_definitions(${GTK3_CFLAGS_OTHER})
 
-target_link_libraries(${PROJECT_NAME} ${GTK3_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${GTK3_LIBRARIES} fmt::fmt)

@@ -1,13 +1,13 @@
-# Translation of Manjaro-Hello.
-# Copyright (C) 2016-2017 Manjaro Developers <manjaro-dev@manjaro.org>
-# This file is distributed under the same license as the Manjaro-Hello package.
+# Translation of CachyOS-Hello.
+# Copyright (C) 2016-2017 CachyOS Developers <manjaro-dev@manjaro.org>
+# This file is distributed under the same license as the CachyOS-Hello package.
 # Hugo Posnic <huluti@manjaro.org>, 2016-2017.
 # 
 # Translators:
 # Atanas Kostovski <atanasmk16@gmail.com>, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: Manjaro-Hello\n"
+"Project-Id-Version: CachyOS-Hello\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-03-04 10:28+0100\n"
 "PO-Revision-Date: 2017-10-07 19:09+0100\n"
@@ -20,18 +20,18 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;\n"
 
 #: ui/manjaro-hello.glade:55
-msgid "Welcome to Manjaro!"
-msgstr "Добредојдовте на Manjaro!"
+msgid "Welcome to CachyOS!"
+msgstr "Добредојдовте на CachyOS!"
 
 #: ui/manjaro-hello.glade:71
 msgid ""
 "Thank you for joining our community!\n"
 "\n"
-"We, the Manjaro Developers, hope that you will enjoy using Manjaro as much as we enjoy building it. The links below will help you get started with your new operating system. So enjoy the experience, and don't hesitate to send us your feedback."
+"We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we enjoy building it. The links below will help you get started with your new operating system. So enjoy the experience, and don't hesitate to send us your feedback."
 msgstr ""
 "Ви благодариме што се придруживте на нашата заедница!\n"
 "\n"
-"Ние, кои работиме на Manjaro проектот, се надеваме дека ќе уживате во користењето барем онолку колку што ние уживавме правејќи го. Линковите подолу ќе ви помогнат да започнете со вашиот нов оперативен систем. Уживајте во употребата, и не се колебајте да ни ги испратите вашите мислења."
+"Ние, кои работиме на CachyOS проектот, се надеваме дека ќе уживате во користењето барем онолку колку што ние уживавме правејќи го. Линковите подолу ќе ви помогнат да започнете со вашиот нов оперативен систем. Уживајте во употребата, и не се колебајте да ни ги испратите вашите мислења."
 
 #: ui/manjaro-hello.glade:89
 msgid "DOCUMENTATION"
@@ -108,8 +108,8 @@ msgid "About"
 msgstr "За програмата"
 
 #: ui/manjaro-hello.glade:549
-msgid "Welcome screen for Manjaro"
-msgstr "Екран за добредојде на Manjaro"
+msgid "Welcome screen for CachyOS"
+msgstr "Екран за добредојде на CachyOS"
 
 #: src/manjaro_hello.py:212
 msgid "Can't load page."

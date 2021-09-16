@@ -48,7 +48,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="has-focus">True</property>
-                <property name="label" translatable="yes">Welcome to Manjaro!</property>
+                <property name="label" translatable="yes">Welcome to CachyOS!</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                   <attribute name="scale" value="2"/>
@@ -66,7 +66,7 @@
                 <property name="can-focus">False</property>
                 <property name="label" translatable="yes">Thank you for joining our community!
 
-We, the Manjaro Developers, hope that you will enjoy using Manjaro as much as we enjoy building it. The links below will help you get started with your new operating system. So enjoy the experience, and don't hesitate to send us your feedback.</property>
+We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we enjoy building it. The links below will help you get started with your new operating system. So enjoy the experience, and don't hesitate to send us your feedback.</property>
                 <property name="justify">fill</property>
                 <property name="wrap">True</property>
                 <property name="width-chars">1</property>
@@ -423,7 +423,7 @@ We, the Manjaro Developers, hope that you will enjoy using Manjaro as much as we
                     <property name="name">appLayouts</property>
                     <property name="can-focus">False</property>
                     <property name="receives-default">True</property>
-                    <property name="tooltip-text" translatable="yes">Manjaro Gnome config tool</property>
+                    <property name="tooltip-text" translatable="yes">CachyOS Gnome config tool</property>
                     <property name="margin-left">15</property>
                     <property name="margin-right">15</property>
                     <signal name="clicked" handler="on_btn_clicked" swapped="no"/>
@@ -566,7 +566,7 @@ We, the Manjaro Developers, hope that you will enjoy using Manjaro as much as we
       <object class="GtkHeaderBar" id="headerbar">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="title">Manjaro Hello</property>
+        <property name="title">CachyOS Hello</property>
         <property name="show-close-button">True</property>
         <child>
           <placeholder/>
@@ -597,10 +597,10 @@ We, the Manjaro Developers, hope that you will enjoy using Manjaro as much as we
     <property name="title" translatable="yes">About</property>
     <property name="type-hint">dialog</property>
     <property name="transient-for">window</property>
-    <property name="program-name">Manjaro Hello</property>
+    <property name="program-name">CachyOS Hello</property>
     <property name="version">0.6.7</property>
-    <property name="comments" translatable="yes">Welcome screen for Manjaro</property>
-    <property name="website">https://gitlab.manjaro.org/applications/manjaro-hello</property>
+    <property name="comments" translatable="yes">Welcome screen for CachyOS</property>
+    <property name="website">https://gitlab.com/cachyos/cachyos-hello</property>
     <property name="website-label">GitLab</property>
     <property name="authors">Hugo Posnic
 Johnathan Jenkins

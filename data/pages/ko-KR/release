@@ -1,6 +1,6 @@
-<big>Manjaro 21.0</big>
+<big>CachyOS 1.0</big>
 
-We are happy to publish another stable release of Manjaro Linux, named Ornara.
+We are happy to publish another stable release of CachyOS Linux, named Ornara.
 
 <big>Gnome edition</big> got exciting new features: GNOME 3.38 replaces the previously split Frequent and All apps views with a single customizable and consistent view that allows you to reorder apps and organize them into custom folders. Simply click and drag to move apps around. Settings can now manage parental controls for Standard user accounts through the new Parental Controls option in the Users section. GNOME Shell can now drive multiple monitors with different refresh rates, making sure that you get the best possible experience out of your desktop. Under the covers, the screen recording infrastructure in GNOME Shell has been improved to take advantage of PipeWire and kernel APIs to reduce resource consumption and improve responsiveness.
 
