@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
 
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
 ##
 ## PROJECT
 ## name and version
@@ -15,6 +17,9 @@ message(STATUS "BUILD: ${CMAKE_BUILD_TYPE}")
 ##
 ## INCLUDE
 ##
+include(CompilerWarnings)
+include(EnableCcache)
+include(ClangTidy)
 include(FetchContent)
 
 find_package(PkgConfig REQUIRED)
@@ -22,13 +27,16 @@ pkg_check_modules(GTK3 REQUIRED gtkmm-3.0)
 
 FetchContent_Declare(fmt
   GIT_REPOSITORY "https://github.com/fmtlib/fmt.git"
-  GIT_TAG "d9fd695ac737f84f7de2d0a2aa346b25efb9afbf"
+  GIT_TAG "2742611cad4aee6b1a5638bd1ebf132908f4a3d9"
 )
 FetchContent_MakeAvailable(fmt)
 
 ##
 ## CONFIGURATION
 ##
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -flto")
+
 if(UNIX AND CMAKE_GENERATOR STREQUAL "Ninja")
   if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     set(CMAKE_CXX_FLAGS "-fcolor-diagnostics ${CMAKE_CXX_FLAGS}")
@@ -40,13 +48,19 @@ if(UNIX AND CMAKE_GENERATOR STREQUAL "Ninja")
   endif()
 endif()
 
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -flto")
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fwhole-program")
+endif()
+
+add_library(project_warnings INTERFACE)
+set_project_warnings(project_warnings)
 
 ##
 ## Target
 ##
 add_executable(${PROJECT_NAME}
-    src/main.cc
+    src/hello.cpp src/hello.hpp
+    src/main.cpp
     )
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
