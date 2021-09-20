@@ -1,7 +1,7 @@
 # Translation of CachyOS-Hello.
-# Copyright (C) 2016-2017 CachyOS Developers <manjaro-dev@manjaro.org>
+# Copyright (C) 2016-2017 CachyOS Developers <manjaro-dev@cachyos.org>
 # This file is distributed under the same license as the CachyOS-Hello package.
-# Hugo Posnic <huluti@manjaro.org>, 2016-2017.
+# Hugo Posnic <huluti@cachyos.org>, 2016-2017.
 # 
 # Translators:
 # Lovro Kudelić <lovro.kudelic@outlook.com>, 2017
@@ -19,11 +19,11 @@ msgstr ""
 "Language: hr\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: ui/manjaro-hello.glade:55
+#: ui/cachyos-hello.glade:55
 msgid "Welcome to CachyOS!"
 msgstr "Dobrodošli u CachyOS!"
 
-#: ui/manjaro-hello.glade:71
+#: ui/cachyos-hello.glade:71
 msgid ""
 "Thank you for joining our community!\n"
 "\n"
@@ -33,81 +33,81 @@ msgstr ""
 "\n"
 "Mi, CachyOS programeri, se nadamo da će te uživati u korištenju Manjara jednako kako smo mi uživali u njegovom razvoju. Poveznice ispod će vam pomoći prilikom korištenja vašeg novog operacijskog sustava. Uživajte u njemu i nemojte se ustručavati poslati nam povratne informacije."
 
-#: ui/manjaro-hello.glade:89
+#: ui/cachyos-hello.glade:89
 msgid "DOCUMENTATION"
 msgstr "DOKUMENTACIJA"
 
-#: ui/manjaro-hello.glade:103
+#: ui/cachyos-hello.glade:103
 msgid "SUPPORT"
 msgstr "PODRŠKA"
 
-#: ui/manjaro-hello.glade:117
+#: ui/cachyos-hello.glade:117
 msgid "PROJECT"
 msgstr "PROJEKT"
 
-#: ui/manjaro-hello.glade:129
+#: ui/cachyos-hello.glade:129
 msgid "Read me"
 msgstr "Obavezno pročitati"
 
-#: ui/manjaro-hello.glade:143
+#: ui/cachyos-hello.glade:143
 msgid "Release info"
 msgstr "Informacije o izdanju"
 
-#: ui/manjaro-hello.glade:158
+#: ui/cachyos-hello.glade:158
 msgid "Wiki"
 msgstr "Wiki"
 
-#: ui/manjaro-hello.glade:163 ui/manjaro-hello.glade:194
-#: ui/manjaro-hello.glade:211 ui/manjaro-hello.glade:228
-#: ui/manjaro-hello.glade:245 ui/manjaro-hello.glade:262
+#: ui/cachyos-hello.glade:163 ui/cachyos-hello.glade:194
+#: ui/cachyos-hello.glade:211 ui/cachyos-hello.glade:228
+#: ui/cachyos-hello.glade:245 ui/cachyos-hello.glade:262
 msgid "Web resource"
 msgstr "Web izvor"
 
-#: ui/manjaro-hello.glade:175
+#: ui/cachyos-hello.glade:175
 msgid "Get involved"
 msgstr "Uključite se"
 
-#: ui/manjaro-hello.glade:189
+#: ui/cachyos-hello.glade:189
 msgid "Forums"
 msgstr "Forum"
 
-#: ui/manjaro-hello.glade:206
+#: ui/cachyos-hello.glade:206
 msgid "Chat room"
 msgstr "Chat soba"
 
-#: ui/manjaro-hello.glade:223
+#: ui/cachyos-hello.glade:223
 msgid "Mailing lists"
 msgstr "Mailling liste"
 
-#: ui/manjaro-hello.glade:240
+#: ui/cachyos-hello.glade:240
 msgid "Development"
 msgstr "Razvoj"
 
-#: ui/manjaro-hello.glade:257
+#: ui/cachyos-hello.glade:257
 msgid "Donate"
 msgstr "Doniraj"
 
-#: ui/manjaro-hello.glade:376
+#: ui/cachyos-hello.glade:376
 msgid "Launch at start"
 msgstr "Otvori kod pokretanja sustava"
 
-#: ui/manjaro-hello.glade:407
+#: ui/cachyos-hello.glade:407
 msgid "INSTALLATION"
 msgstr "INSTALACIJA"
 
-#: ui/manjaro-hello.glade:419
+#: ui/cachyos-hello.glade:419
 msgid "Launch installer"
 msgstr "Pokreni instalacijski program"
 
-#: ui/manjaro-hello.glade:462
+#: ui/cachyos-hello.glade:462
 msgid "Home"
 msgstr "Naslovnica"
 
-#: ui/manjaro-hello.glade:530 ui/manjaro-hello.glade:544
+#: ui/cachyos-hello.glade:530 ui/cachyos-hello.glade:544
 msgid "About"
 msgstr "O programu"
 
-#: ui/manjaro-hello.glade:549
+#: ui/cachyos-hello.glade:549
 msgid "Welcome screen for CachyOS"
 msgstr "Zaslon dobrodošlice za CachyOS"
 

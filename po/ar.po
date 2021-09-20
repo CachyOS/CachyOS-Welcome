@@ -1,7 +1,7 @@
 # Translation of CachyOS-Hello.
-# Copyright (C) 2016-2017 CachyOS Developers <manjaro-dev@manjaro.org>
+# Copyright (C) 2016-2017 CachyOS Developers <manjaro-dev@cachyos.org>
 # This file is distributed under the same license as the CachyOS-Hello package.
-# Hugo Posnic <huluti@manjaro.org>, 2016-2017.
+# Hugo Posnic <huluti@cachyos.org>, 2016-2017.
 # 
 # Translators:
 # Midir Hakou <ledjdel88@gmail.com>, 2017
@@ -20,11 +20,11 @@ msgstr ""
 "Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
-#: ui/manjaro-hello.glade:55
+#: ui/cachyos-hello.glade:55
 msgid "Welcome to CachyOS!"
 msgstr "مرحبا بك في منجارو"
 
-#: ui/manjaro-hello.glade:71
+#: ui/cachyos-hello.glade:71
 msgid ""
 "Thank you for joining our community!\n"
 "\n"
@@ -33,81 +33,81 @@ msgstr ""
 "شكرا لانضمامك لمجتمعنا\n"
 "نأمل نحن ـ مطوروا منجارو ـ أن تسعد باستعمال منجارو بالقدر الذي سعدنا نحن بتصميمه، ستساعدك الروابط أدناه على البدء مع نظام التشغيل الجديد. إذًا تمتع بالتجربة، ولا تتردد في أن تعلمنا بملاحظاتك."
 
-#: ui/manjaro-hello.glade:89
+#: ui/cachyos-hello.glade:89
 msgid "DOCUMENTATION"
 msgstr "الوثائق"
 
-#: ui/manjaro-hello.glade:103
+#: ui/cachyos-hello.glade:103
 msgid "SUPPORT"
 msgstr "المساعدة"
 
-#: ui/manjaro-hello.glade:117
+#: ui/cachyos-hello.glade:117
 msgid "PROJECT"
 msgstr "المشروع"
 
-#: ui/manjaro-hello.glade:129
+#: ui/cachyos-hello.glade:129
 msgid "Read me"
 msgstr "اقرأني"
 
-#: ui/manjaro-hello.glade:143
+#: ui/cachyos-hello.glade:143
 msgid "Release info"
 msgstr "معلومات الإصدار"
 
-#: ui/manjaro-hello.glade:158
+#: ui/cachyos-hello.glade:158
 msgid "Wiki"
 msgstr "ويكي"
 
-#: ui/manjaro-hello.glade:163 ui/manjaro-hello.glade:194
-#: ui/manjaro-hello.glade:211 ui/manjaro-hello.glade:228
-#: ui/manjaro-hello.glade:245 ui/manjaro-hello.glade:262
+#: ui/cachyos-hello.glade:163 ui/cachyos-hello.glade:194
+#: ui/cachyos-hello.glade:211 ui/cachyos-hello.glade:228
+#: ui/cachyos-hello.glade:245 ui/cachyos-hello.glade:262
 msgid "Web resource"
 msgstr ""
 
-#: ui/manjaro-hello.glade:175
+#: ui/cachyos-hello.glade:175
 msgid "Get involved"
 msgstr "شاركنا"
 
-#: ui/manjaro-hello.glade:189
+#: ui/cachyos-hello.glade:189
 msgid "Forums"
 msgstr "المنتديات"
 
-#: ui/manjaro-hello.glade:206
+#: ui/cachyos-hello.glade:206
 msgid "Chat room"
 msgstr "غرفة الشات"
 
-#: ui/manjaro-hello.glade:223
+#: ui/cachyos-hello.glade:223
 msgid "Mailing lists"
 msgstr "القوائم البريدية"
 
-#: ui/manjaro-hello.glade:240
+#: ui/cachyos-hello.glade:240
 msgid "Development"
 msgstr "التطوير"
 
-#: ui/manjaro-hello.glade:257
+#: ui/cachyos-hello.glade:257
 msgid "Donate"
 msgstr "تبرّع"
 
-#: ui/manjaro-hello.glade:376
+#: ui/cachyos-hello.glade:376
 msgid "Launch at start"
 msgstr "أظهر مجدّدا عند التشغيل"
 
-#: ui/manjaro-hello.glade:407
+#: ui/cachyos-hello.glade:407
 msgid "INSTALLATION"
 msgstr "تثبيت"
 
-#: ui/manjaro-hello.glade:419
+#: ui/cachyos-hello.glade:419
 msgid "Launch installer"
 msgstr "إفتح المثبِِّت"
 
-#: ui/manjaro-hello.glade:462
+#: ui/cachyos-hello.glade:462
 msgid "Home"
 msgstr "الصفحة الرئيسية"
 
-#: ui/manjaro-hello.glade:530 ui/manjaro-hello.glade:544
+#: ui/cachyos-hello.glade:530 ui/cachyos-hello.glade:544
 msgid "About"
 msgstr "حول"
 
-#: ui/manjaro-hello.glade:549
+#: ui/cachyos-hello.glade:549
 msgid "Welcome screen for CachyOS"
 msgstr "شاشة الترحيب لمنجارو"
 

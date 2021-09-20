@@ -1,10 +1,10 @@
 #include "hello.hpp"
 #include "helper.hpp"
 
+#include <glib/gi18n.h>
 #include <libintl.h>
 
 #include <filesystem>
-#include <fstream>
 #include <iostream>
 #include <iterator>
 #include <unordered_map>
@@ -61,6 +61,34 @@ std::array<std::string, 2> get_lsb_infos() {
         return {"not CachyOS", "0.0"};
     }
     return {lsb["ID"], lsb["RELEASE"]};
+}
+
+void quick_message(Gtk::Window* parent, const std::string& message) {
+    // Create the widgets
+    const auto& flags  = static_cast<GtkDialogFlags>(GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT);
+    auto* dialog       = gtk_dialog_new_with_buttons(message.c_str(),
+        parent->gobj(),
+        flags,
+        _("_Offline"),
+        GTK_RESPONSE_NO,
+        _("_Online"),
+        GTK_RESPONSE_YES,
+        nullptr);
+    auto* content_area = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
+    auto* label        = gtk_label_new(message.c_str());
+
+    // Add the label, and show everything we’ve added
+    gtk_container_add(GTK_CONTAINER(content_area), label);
+    gtk_widget_show_all(dialog);
+
+    int result = gtk_dialog_run(GTK_DIALOG(dialog));
+    if (result == GTK_RESPONSE_NO) {
+        fmt::print("Offline\n");
+    } else {
+        fmt::print("Online\n");
+    }
+
+    gtk_widget_destroy(dialog);
 }
 }  // namespace
 
@@ -186,6 +214,7 @@ Hello::Hello(int argc, char** argv) {
     // Init translation
     const std::string& locale_path = m_preferences["locale_path"];
     bindtextdomain(m_app, locale_path.c_str());
+    bind_textdomain_codeset(m_app, "UTF-8");
     textdomain(m_app);
     Gtk::ComboBoxText* languages;
     m_builder->get_widget("languages", languages);
@@ -196,6 +225,16 @@ Hello::Hello(int argc, char** argv) {
     Gtk::Switch* autostart_switch;
     m_builder->get_widget("autostart", autostart_switch);
     autostart_switch->set_active(m_autostart);
+
+    // Live systems
+    if (fs::exists(m_preferences["live_path"]) && fs::is_regular_file(m_preferences["installer_path"])) {
+        Gtk::Label* installlabel;
+        m_builder->get_widget("installlabel", installlabel);
+        installlabel->set_visible(true);
+        Gtk::Button* install;
+        m_builder->get_widget("install", install);
+        install->set_visible(true);
+    }
 }
 
 /// Returns the best locale, based on user's preferences.
@@ -236,7 +275,8 @@ void Hello::set_locale(const std::string_view& use_locale) noexcept {
         "└{0:─^{2}}┘\n",
         "", fmt::format("Locale changed to {}", use_locale), 40);
 
-    bind_textdomain_codeset(m_app, use_locale.data());
+    textdomain(m_app);
+    Glib::setenv("LANGUAGE", use_locale.data());
 
     m_save["locale"] = use_locale;
 
@@ -280,13 +320,16 @@ void Hello::set_locale(const std::string_view& use_locale) noexcept {
         }
         for (const auto& elt : elts[method.key()].items()) {
             const std::string& elt_value = elt.value();
+            Gtk::Widget* item;
+            m_builder->get_widget(elt_value, item);
             if (!m_default_texts[method.key()].contains(elt_value)) {
-                Gtk::Widget* item;
-                m_builder->get_widget(elt_value, item);
                 gchar* item_buf;
                 g_object_get(G_OBJECT(item->gobj()), method.key().c_str(), &item_buf, nullptr);
                 m_default_texts[method.key()][elt_value] = item_buf;
                 g_free(item_buf);
+            }
+            if (method.key() == "tooltip_text" || method.key() == "comments") {
+                g_object_set(G_OBJECT(item->gobj()), method.key().c_str(), _(m_default_texts[method.key()][elt_value].get<std::string>().c_str()), nullptr);
             }
         }
     }
@@ -309,6 +352,15 @@ void Hello::set_locale(const std::string_view& use_locale) noexcept {
     }
 }
 
+void Hello::set_autostart(const bool& autostart) noexcept {
+    if (autostart && !fs::is_regular_file(fix_path(m_preferences["autostart_path"]))) {
+        fs::create_symlink(m_preferences["desktop_path"], fix_path(m_preferences["autostart_path"]));
+    } else if (!autostart && fs::is_regular_file(fix_path(m_preferences["autostart_path"]))) {
+        fs::remove(fix_path(m_preferences["autostart_path"]));
+    }
+    m_autostart = autostart;
+}
+
 auto Hello::get_page(const std::string& name) const noexcept -> std::string {
     auto filename = fmt::format("{}pages/{}/{}", m_preferences["data_path"], m_save["locale"], name);
     if (!fs::is_regular_file(filename)) {
@@ -327,12 +379,11 @@ void Hello::on_languages_changed(GtkComboBox* combobox) noexcept {
 void Hello::on_action_clicked(GtkWidget* widget) noexcept {
     const auto& name = gtk_widget_get_name(widget);
     if (strncmp(name, "install", 7) == 0) {
-        fmt::print("install\n");
+        quick_message(g_refHello, "Calamares install type");
         return;
     } else if (strncmp(name, "autostart", 9) == 0) {
-        //const auto& action = Glib::wrap(GTK_SWITCH(widget));
-        //set_autostart(action->get_active());
-        fmt::print("autostart\n");
+        const auto& action = Glib::wrap(GTK_SWITCH(widget));
+        g_refHello->set_autostart(action->get_active());
 
         return;
     }

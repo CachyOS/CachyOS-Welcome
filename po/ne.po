@@ -1,7 +1,7 @@
 # Translation of CachyOS-Hello.
-# Copyright (C) 2016-2017 CachyOS Developers <manjaro-dev@manjaro.org>
+# Copyright (C) 2016-2017 CachyOS Developers <manjaro-dev@cachyos.org>
 # This file is distributed under the same license as the CachyOS-Hello package.
-# Hugo Posnic <huluti@manjaro.org>, 2016-2017.
+# Hugo Posnic <huluti@cachyos.org>, 2016-2017.
 # 
 # Translators:
 # Surit Aryal <surit_people@hotmail.com>, 2018
@@ -19,92 +19,92 @@ msgstr ""
 "Language: ne\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ui/manjaro-hello.glade:55
+#: ui/cachyos-hello.glade:55
 msgid "Welcome to CachyOS!"
 msgstr "CachyOS मा स्वागत छ!"
 
-#: ui/manjaro-hello.glade:71
+#: ui/cachyos-hello.glade:71
 msgid ""
 "Thank you for joining our community!\n"
 "\n"
 "We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we enjoy building it. The links below will help you get started with your new operating system. So enjoy the experience, and don't hesitate to send us your feedback."
 msgstr ""
 
-#: ui/manjaro-hello.glade:89
+#: ui/cachyos-hello.glade:89
 msgid "DOCUMENTATION"
 msgstr "दस्तावेज"
 
-#: ui/manjaro-hello.glade:103
+#: ui/cachyos-hello.glade:103
 msgid "SUPPORT"
 msgstr "सहायता"
 
-#: ui/manjaro-hello.glade:117
+#: ui/cachyos-hello.glade:117
 msgid "PROJECT"
 msgstr "परियोजना"
 
-#: ui/manjaro-hello.glade:129
+#: ui/cachyos-hello.glade:129
 msgid "Read me"
 msgstr "पढ्नुहोस्"
 
-#: ui/manjaro-hello.glade:143
+#: ui/cachyos-hello.glade:143
 msgid "Release info"
 msgstr "जारी जानकारी"
 
-#: ui/manjaro-hello.glade:158
+#: ui/cachyos-hello.glade:158
 msgid "Wiki"
 msgstr "विकि"
 
-#: ui/manjaro-hello.glade:163 ui/manjaro-hello.glade:194
-#: ui/manjaro-hello.glade:211 ui/manjaro-hello.glade:228
-#: ui/manjaro-hello.glade:245 ui/manjaro-hello.glade:262
+#: ui/cachyos-hello.glade:163 ui/cachyos-hello.glade:194
+#: ui/cachyos-hello.glade:211 ui/cachyos-hello.glade:228
+#: ui/cachyos-hello.glade:245 ui/cachyos-hello.glade:262
 msgid "Web resource"
 msgstr "वेब स्रोत"
 
-#: ui/manjaro-hello.glade:175
+#: ui/cachyos-hello.glade:175
 msgid "Get involved"
 msgstr "संलग्न हुनुहोस्"
 
-#: ui/manjaro-hello.glade:189
+#: ui/cachyos-hello.glade:189
 msgid "Forums"
 msgstr "फोरम"
 
-#: ui/manjaro-hello.glade:206
+#: ui/cachyos-hello.glade:206
 msgid "Chat room"
 msgstr "कुराकानी कक्ष"
 
-#: ui/manjaro-hello.glade:223
+#: ui/cachyos-hello.glade:223
 msgid "Mailing lists"
 msgstr "मेलिङ सूचीहरू"
 
-#: ui/manjaro-hello.glade:240
+#: ui/cachyos-hello.glade:240
 msgid "Development"
 msgstr "विकास"
 
-#: ui/manjaro-hello.glade:257
+#: ui/cachyos-hello.glade:257
 msgid "Donate"
 msgstr "दान सहयोग"
 
-#: ui/manjaro-hello.glade:376
+#: ui/cachyos-hello.glade:376
 msgid "Launch at start"
 msgstr "सुरुमा सुरू गर्नुहोस्"
 
-#: ui/manjaro-hello.glade:407
+#: ui/cachyos-hello.glade:407
 msgid "INSTALLATION"
 msgstr "स्थापना"
 
-#: ui/manjaro-hello.glade:419
+#: ui/cachyos-hello.glade:419
 msgid "Launch installer"
 msgstr ""
 
-#: ui/manjaro-hello.glade:462
+#: ui/cachyos-hello.glade:462
 msgid "Home"
 msgstr ""
 
-#: ui/manjaro-hello.glade:530 ui/manjaro-hello.glade:544
+#: ui/cachyos-hello.glade:530 ui/cachyos-hello.glade:544
 msgid "About"
 msgstr ""
 
-#: ui/manjaro-hello.glade:549
+#: ui/cachyos-hello.glade:549
 msgid "Welcome screen for CachyOS"
 msgstr ""
 

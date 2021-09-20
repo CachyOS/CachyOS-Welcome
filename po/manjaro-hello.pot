@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../ui/manjaro-hello.glade:56
+#: ../ui/cachyos-hello.glade:56
 msgid "Welcome to CachyOS!"
 msgstr ""
 
-#: ../ui/manjaro-hello.glade:72
+#: ../ui/cachyos-hello.glade:72
 msgid ""
 "Thank you for joining our community!\n"
 "\n"
@@ -31,97 +31,97 @@ msgid ""
 "your feedback."
 msgstr ""
 
-#: ../ui/manjaro-hello.glade:90
+#: ../ui/cachyos-hello.glade:90
 msgid "DOCUMENTATION"
 msgstr ""
 
-#: ../ui/manjaro-hello.glade:104
+#: ../ui/cachyos-hello.glade:104
 msgid "SUPPORT"
 msgstr ""
 
-#: ../ui/manjaro-hello.glade:118
+#: ../ui/cachyos-hello.glade:118
 msgid "PROJECT"
 msgstr ""
 
-#: ../ui/manjaro-hello.glade:130
+#: ../ui/cachyos-hello.glade:130
 msgid "Read me"
 msgstr ""
 
-#: ../ui/manjaro-hello.glade:144
+#: ../ui/cachyos-hello.glade:144
 msgid "Release info"
 msgstr ""
 
-#: ../ui/manjaro-hello.glade:159
+#: ../ui/cachyos-hello.glade:159
 msgid "Wiki"
 msgstr ""
 
-#: ../ui/manjaro-hello.glade:164 ../ui/manjaro-hello.glade:195
-#: ../ui/manjaro-hello.glade:212 ../ui/manjaro-hello.glade:229
-#: ../ui/manjaro-hello.glade:246 ../ui/manjaro-hello.glade:263
+#: ../ui/cachyos-hello.glade:164 ../ui/cachyos-hello.glade:195
+#: ../ui/cachyos-hello.glade:212 ../ui/cachyos-hello.glade:229
+#: ../ui/cachyos-hello.glade:246 ../ui/cachyos-hello.glade:263
 msgid "Web resource"
 msgstr ""
 
-#: ../ui/manjaro-hello.glade:176
+#: ../ui/cachyos-hello.glade:176
 msgid "Get involved"
 msgstr ""
 
-#: ../ui/manjaro-hello.glade:190
+#: ../ui/cachyos-hello.glade:190
 msgid "Forums"
 msgstr ""
 
-#: ../ui/manjaro-hello.glade:207
+#: ../ui/cachyos-hello.glade:207
 msgid "Discover software"
 msgstr ""
 
-#: ../ui/manjaro-hello.glade:224
+#: ../ui/cachyos-hello.glade:224
 msgid "Mailing lists"
 msgstr ""
 
-#: ../ui/manjaro-hello.glade:241
+#: ../ui/cachyos-hello.glade:241
 msgid "Development"
 msgstr ""
 
-#: ../ui/manjaro-hello.glade:258
+#: ../ui/cachyos-hello.glade:258
 msgid "Donate"
 msgstr ""
 
-#: ../ui/manjaro-hello.glade:377
+#: ../ui/cachyos-hello.glade:377
 msgid "Launch at start"
 msgstr ""
 
-#: ../ui/manjaro-hello.glade:408
+#: ../ui/cachyos-hello.glade:408
 msgid "INSTALLATION"
 msgstr ""
 
-#: ../ui/manjaro-hello.glade:420
+#: ../ui/cachyos-hello.glade:420
 msgid "Launch installer"
 msgstr ""
 
-#: ../ui/manjaro-hello.glade:439
+#: ../ui/cachyos-hello.glade:439
 msgid "Applications"
 msgstr ""
 
-#: ../ui/manjaro-hello.glade:443
+#: ../ui/cachyos-hello.glade:443
 msgid "Common application selection"
 msgstr ""
 
-#: ../ui/manjaro-hello.glade:456
+#: ../ui/cachyos-hello.glade:456
 msgid "Gnome Layouts Manager"
 msgstr ""
 
-#: ../ui/manjaro-hello.glade:460
+#: ../ui/cachyos-hello.glade:460
 msgid "CachyOS Gnome config tool"
 msgstr ""
 
-#: ../ui/manjaro-hello.glade:504
+#: ../ui/cachyos-hello.glade:504
 msgid "Home"
 msgstr ""
 
-#: ../ui/manjaro-hello.glade:515 ../ui/manjaro-hello.glade:586
+#: ../ui/cachyos-hello.glade:515 ../ui/cachyos-hello.glade:586
 msgid "About"
 msgstr ""
 
-#: ../ui/manjaro-hello.glade:591
+#: ../ui/cachyos-hello.glade:591
 msgid "Welcome screen for CachyOS"
 msgstr ""
 

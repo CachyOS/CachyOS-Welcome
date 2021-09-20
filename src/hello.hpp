@@ -29,6 +29,7 @@ class Hello final : public Gtk::Window {
 
     auto get_best_locale() const noexcept -> std::string;
     void set_locale(const std::string_view& use_locale) noexcept;
+    void set_autostart(const bool& autostart) noexcept;
     auto get_page(const std::string& name) const noexcept -> std::string;
 };
 

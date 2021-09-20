@@ -9,10 +9,10 @@
 #include <gtk/gtk.h>
 
 inline std::pair<std::string, std::string> tokenize(std::string& str, const std::string_view& delim) {
-    int start{};
-    int end = str.find(delim.data());
+    std::size_t start{};
+    std::size_t end = str.find(delim.data());
     std::string key;
-    while (end != -1) {
+    while (end != std::string::npos) {
         key   = str.substr(start, end - start);
         start = end + delim.length();
         end   = str.find(delim.data(), start);
@@ -23,7 +23,7 @@ inline std::pair<std::string, std::string> tokenize(std::string& str, const std:
 inline std::size_t replace_all(std::string& inout, const std::string_view& what, const std::string_view& with) {
     std::size_t count{};
     std::size_t pos{};
-    while (inout.npos != (pos = inout.find(what.data(), pos, what.length()))) {
+    while (std::string::npos != (pos = inout.find(what.data(), pos, what.length()))) {
         inout.replace(pos, what.length(), with.data(), with.length());
         pos += with.length(), ++count;
     }

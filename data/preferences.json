@@ -4,7 +4,7 @@
     "data_path": "/usr/share/cachyos-hello/data/",
     "desktop_path": "/usr/share/applications/cachyos-hello.desktop",
     "installer_path": "/usr/bin/calamares",
-    "live_path": "/run/miso/bootmnt/cachyos",
+    "live_path": "/run/archiso/bootmnt/arch",
     "locale_path": "/usr/share/locale/",
     "logo_path": "/usr/share/icons/hicolor/64x64/apps/cachyos.png",
     "save_path": "~/.config/cachyos-hello.json",
