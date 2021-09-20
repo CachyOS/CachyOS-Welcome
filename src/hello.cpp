@@ -330,7 +330,7 @@ void Hello::on_action_clicked(GtkWidget* widget) noexcept {
         fmt::print("install\n");
         return;
     } else if (strncmp(name, "autostart", 9) == 0) {
-        const auto& action = Glib::wrap(GTK_SWITCH(widget));
+        //const auto& action = Glib::wrap(GTK_SWITCH(widget));
         //set_autostart(action->get_active());
         fmt::print("autostart\n");
 
