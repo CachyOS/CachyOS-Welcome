@@ -7,6 +7,7 @@
 #include <filesystem>
 #include <iostream>
 #include <iterator>
+#include <stdexcept>
 #include <unordered_map>
 
 #include <fmt/core.h>
@@ -25,8 +26,12 @@ std::string fix_path(std::string&& path) noexcept {
 }
 
 nlohmann::json read_json(const std::string_view& path) {
+    const auto& buf = fix_path(path.data());
+    if (!fs::exists(buf)) {
+        throw std::runtime_error(fmt::format("File does not exist: \"{}\"", buf));
+    }
     // read a JSON file
-    std::ifstream i(fix_path(path.data()));
+    std::ifstream i(buf);
     nlohmann::json j;
     i >> j;
 
@@ -63,6 +68,22 @@ std::array<std::string, 2> get_lsb_infos() {
     return {lsb["ID"], lsb["RELEASE"]};
 }
 
+void child_watch_cb(GPid pid, gint status, gpointer /*user_data*/) {
+#if !defined(NDEBUG)
+    g_message("Child %" G_PID_FORMAT " exited %s", pid,
+        g_spawn_check_wait_status(status, nullptr) ? "normally" : "abnormally");
+#endif
+
+    // Free any resources associated with the child here, such as I/O channels
+    // on its stdout and stderr FDs. If you have no code to put in the
+    // child_watch_cb() callback, you can remove it and the g_child_watch_add()
+    // call, but you must also remove the G_SPAWN_DO_NOT_REAP_CHILD flag,
+    // otherwise the child process will stay around as a zombie until this
+    // process exits.
+
+    g_spawn_close_pid(pid);
+}
+
 void quick_message(Gtk::Window* parent, const std::string& message) {
     // Create the widgets
     const auto& flags  = static_cast<GtkDialogFlags>(GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT);
@@ -82,11 +103,26 @@ void quick_message(Gtk::Window* parent, const std::string& message) {
     gtk_widget_show_all(dialog);
 
     int result = gtk_dialog_run(GTK_DIALOG(dialog));
+    std::vector<std::string> argv{};
     if (result == GTK_RESPONSE_NO) {
-        fmt::print("Offline\n");
+        argv = {fix_path("~/.local/bin/calamares-offline.sh")};
     } else {
-        fmt::print("Online\n");
+        argv = {fix_path("~/.local/bin/calamares-online.sh")};
     }
+
+    int child_stdout{};
+    int child_stderr{};
+    Glib::Pid child_pid;
+
+    // Spawn child process.
+    try {
+        Glib::spawn_async_with_pipes(".", argv, Glib::SpawnFlags::SPAWN_DO_NOT_REAP_CHILD, Glib::SlotSpawnChildSetup(), &child_pid, nullptr, &child_stdout, &child_stderr);
+    } catch (Glib::Error& error) {
+        g_critical("%s", error.what().c_str());
+    }
+    // Add a child watch function which will be called when the child process
+    // exits.
+    g_child_watch_add(child_pid, child_watch_cb, nullptr);
 
     gtk_widget_destroy(dialog);
 }
@@ -221,7 +257,7 @@ Hello::Hello(int argc, char** argv) {
     languages->set_active_id(get_best_locale());
 
     // Set autostart switcher state
-    m_autostart = fs::is_regular_file(fix_path(m_preferences["autostart_path"]));
+    m_autostart = fs::exists(fix_path(m_preferences["autostart_path"]));
     Gtk::Switch* autostart_switch;
     m_builder->get_widget("autostart", autostart_switch);
     autostart_switch->set_active(m_autostart);
@@ -269,11 +305,13 @@ auto Hello::get_best_locale() const noexcept -> std::string {
 
 /// Sets locale of ui and pages.
 void Hello::set_locale(const std::string_view& use_locale) noexcept {
+#if !defined(NDEBUG)
     fmt::print(
         "┌{0:─^{2}}┐\n"
         "│{1: ^{2}}│\n"
         "└{0:─^{2}}┘\n",
         "", fmt::format("Locale changed to {}", use_locale), 40);
+#endif
 
     textdomain(m_app);
     Glib::setenv("LANGUAGE", use_locale.data());

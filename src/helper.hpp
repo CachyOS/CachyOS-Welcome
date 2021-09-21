@@ -6,8 +6,6 @@
 #include <string_view>
 #include <utility>
 
-#include <gtk/gtk.h>
-
 inline std::pair<std::string, std::string> tokenize(std::string& str, const std::string_view& delim) {
     std::size_t start{};
     std::size_t end = str.find(delim.data());

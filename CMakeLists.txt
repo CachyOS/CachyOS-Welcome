@@ -17,6 +17,7 @@ message(STATUS "BUILD: ${CMAKE_BUILD_TYPE}")
 ##
 ## INCLUDE
 ##
+include(GNUInstallDirs)
 include(CompilerWarnings)
 include(EnableCcache)
 include(ClangTidy)
@@ -70,3 +71,30 @@ link_directories(${GTK3_LIBRARY_DIRS})
 add_definitions(${GTK3_CFLAGS_OTHER})
 
 target_link_libraries(${PROJECT_NAME} ${GTK3_LIBRARIES} fmt::fmt)
+
+install(
+    TARGETS ${PROJECT_NAME}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+install(
+    FILES ${CMAKE_SOURCE_DIR}/cachyos-hello.desktop
+    DESTINATION ${CMAKE_INSTALL_DATADIR}/applications
+)
+
+install(
+    DIRECTORY ${CMAKE_SOURCE_DIR}/data
+    DESTINATION ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}
+)
+
+install(
+    DIRECTORY ${CMAKE_SOURCE_DIR}/ui
+    DESTINATION ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}
+)
+
+
+# uninstall
+add_custom_target(uninstall
+    COMMAND cat ${PROJECT_BINARY_DIR}/install_manifest.txt | xargs rm
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+)

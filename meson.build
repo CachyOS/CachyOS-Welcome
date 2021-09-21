@@ -68,6 +68,13 @@ executable(
   include_directories: [include_directories('src')],
   install: true)
 
+install_data (
+    meson.project_name () + '.desktop',
+    install_dir: join_paths(get_option('datadir'), 'applications')
+)
+
+meson.add_install_script('postinstall.sh')
+
 summary(
   {
     'Build type': get_option('buildtype'),
