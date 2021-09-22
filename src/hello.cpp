@@ -68,7 +68,7 @@ std::array<std::string, 2> get_lsb_infos() {
     return {lsb["ID"], lsb["RELEASE"]};
 }
 
-void child_watch_cb(GPid pid, gint status, gpointer /*user_data*/) {
+void child_watch_cb(GPid pid, [[maybe_unused]] gint status, gpointer /*user_data*/) {
 #if !defined(NDEBUG)
     g_message("Child %" G_PID_FORMAT " exited %s", pid,
         g_spawn_check_wait_status(status, nullptr) ? "normally" : "abnormally");
