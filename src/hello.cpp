@@ -391,10 +391,15 @@ void Hello::set_locale(const std::string_view& use_locale) noexcept {
 }
 
 void Hello::set_autostart(const bool& autostart) noexcept {
-    if (autostart && !fs::is_regular_file(fix_path(m_preferences["autostart_path"]))) {
-        fs::create_symlink(m_preferences["desktop_path"], fix_path(m_preferences["autostart_path"]));
-    } else if (!autostart && fs::is_regular_file(fix_path(m_preferences["autostart_path"]))) {
-        fs::remove(fix_path(m_preferences["autostart_path"]));
+    fs::path autostart_path{fix_path(m_preferences["autostart_path"])};
+    const auto& config_dir = autostart_path.parent_path();
+    if (!fs::exists(config_dir)) {
+        fs::create_directories(config_dir);
+    }
+    if (autostart && !fs::is_regular_file(autostart_path)) {
+        fs::create_symlink(m_preferences["desktop_path"], autostart_path);
+    } else if (!autostart && fs::is_regular_file(autostart_path)) {
+        fs::remove(autostart_path);
     }
     m_autostart = autostart;
 }
