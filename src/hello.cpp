@@ -105,9 +105,9 @@ void quick_message(Gtk::Window* parent, const std::string& message) {
     int result = gtk_dialog_run(GTK_DIALOG(dialog));
     std::vector<std::string> argv{};
     if (result == GTK_RESPONSE_NO) {
-        argv = {fix_path("~/.local/bin/calamares-offline.sh")};
+        argv = {fix_path("/usr/local/bin/calamares-offline.sh")};
     } else {
-        argv = {fix_path("~/.local/bin/calamares-online.sh")};
+        argv = {fix_path("/usr/local/bin/calamares-online.sh")};
     }
 
     int child_stdout{};
