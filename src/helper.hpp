@@ -40,9 +40,9 @@ auto read_whole_file(const std::string_view& path) noexcept -> std::string {
     std::string file{};
     std::string buf(read_size, '\0');
     while (stream.read(&buf[0], read_size)) {
-        file.append(buf, 0, stream.gcount());
+        file.append(buf, 0, static_cast<std::size_t>(stream.gcount()));
     }
-    file.append(buf, 0, stream.gcount());
+    file.append(buf, 0, static_cast<std::size_t>(stream.gcount()));
     return file;
 }
 

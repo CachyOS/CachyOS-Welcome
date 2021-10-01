@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.15)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
@@ -8,23 +8,22 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 ##
 project(cachyos-hello CXX)
 
-if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE RelWithDebInfo)
-endif()
-message(STATUS "BUILD: ${CMAKE_BUILD_TYPE}")
-
-
 ##
 ## INCLUDE
 ##
 include(GNUInstallDirs)
+include(StandardProjectSettings)
 include(CompilerWarnings)
 include(EnableCcache)
 include(ClangTidy)
 include(FetchContent)
 
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(GTK3 REQUIRED gtkmm-3.0)
+pkg_check_modules(
+  GTKMM
+  REQUIRED
+  IMPORTED_TARGET
+  gtkmm-3.0)
 
 FetchContent_Declare(fmt
   GIT_REPOSITORY "https://github.com/fmtlib/fmt.git"
@@ -35,26 +34,15 @@ FetchContent_MakeAvailable(fmt)
 ##
 ## CONFIGURATION
 ##
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -flto")
-
-if(UNIX AND CMAKE_GENERATOR STREQUAL "Ninja")
-  if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    set(CMAKE_CXX_FLAGS "-fcolor-diagnostics ${CMAKE_CXX_FLAGS}")
-    set(CMAKE_C_FLAGS "-fcolor-diagnostics ${CMAKE_C_FLAGS}")
-  endif()
-  if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    set(CMAKE_CXX_FLAGS "-fdiagnostics-color ${CMAKE_CXX_FLAGS}")
-    set(CMAKE_C_FLAGS "-fdiagnostics-color ${CMAKE_C_FLAGS}")
-  endif()
-endif()
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fwhole-program")
 endif()
 
-add_library(project_warnings INTERFACE)
-set_project_warnings(project_warnings)
+# Link this 'library' to set the c++ standard / compile-time options requested
+add_library(project_options INTERFACE)
+target_compile_features(project_options INTERFACE cxx_std_17)
 
 ##
 ## Target
@@ -64,13 +52,19 @@ add_executable(${PROJECT_NAME}
     src/main.cpp
     )
 
-target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
+# Link this 'library' to use the warnings specified in CompilerWarnings.cmake
+add_library(project_warnings INTERFACE)
+set_project_warnings(project_warnings)
 
 include_directories(${CMAKE_SOURCE_DIR}/src ${GTK3_INCLUDE_DIRS})
-link_directories(${GTK3_LIBRARY_DIRS})
-add_definitions(${GTK3_CFLAGS_OTHER})
 
-target_link_libraries(${PROJECT_NAME} ${GTK3_LIBRARIES} fmt::fmt)
+target_link_libraries(${PROJECT_NAME} PRIVATE project_warnings project_options PkgConfig::GTKMM fmt::fmt)
+
+option(ENABLE_UNITY "Enable Unity builds of projects" OFF)
+if(ENABLE_UNITY)
+  # Add for any project you want to apply unity builds for
+  set_target_properties(${PROJECT_NAME} PROPERTIES UNITY_BUILD ON)
+endif()
 
 install(
     TARGETS ${PROJECT_NAME}
