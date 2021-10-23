@@ -600,8 +600,8 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
     <property name="program-name">CachyOS Hello</property>
     <property name="version">0.6.8</property>
     <property name="comments" translatable="yes">Welcome screen for CachyOS</property>
-    <property name="website">https://gitlab.com/cachyos/cachyos-hello</property>
-    <property name="website-label">GitLab</property>
+    <property name="website">https://github.com/cachyos/cachyos-welcome</property>
+    <property name="website-label">GitHub</property>
     <property name="authors">Hugo Posnic
 Johnathan Jenkins
 Frede Hundewadt

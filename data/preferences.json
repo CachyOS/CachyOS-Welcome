@@ -11,7 +11,7 @@
     "ui_path": "/usr/share/cachyos-hello/ui/cachyos-hello.glade",
     "style_path": "/usr/share/cachyos-hello/ui/style.css",
     "urls": {
-        "development": "https://gitlab.com/cachyos",
+        "development": "https://github.com/cachyos",
         "discover": "https://discover.manjaro.org/",
         "donate": "https://cachyos.org/donate",
         "facebook": "https://www.facebook.com/CachyOSLinux",

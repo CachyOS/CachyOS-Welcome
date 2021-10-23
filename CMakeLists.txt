@@ -27,7 +27,7 @@ pkg_check_modules(
 
 FetchContent_Declare(fmt
   GIT_REPOSITORY "https://github.com/fmtlib/fmt.git"
-  GIT_TAG "2742611cad4aee6b1a5638bd1ebf132908f4a3d9"
+  GIT_TAG "3b6e409cd8573f63e4acad7717d9082bd898ec87"
 )
 FetchContent_MakeAvailable(fmt)
 
