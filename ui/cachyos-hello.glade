@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.38.2 
+<!-- Generated with glade 3.38.2
 
-Copyright (C) 2021-2022 CachyOS team 
+Copyright (C) 2021-2022 CachyOS team
 
 This file is part of cachyos-welcome.
 
@@ -573,7 +573,7 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
     <property name="type-hint">dialog</property>
     <property name="transient-for">window</property>
     <property name="program-name">CachyOS Hello</property>
-    <property name="version">0.6.8</property>
+    <property name="version">0.6.10</property>
     <property name="comments" translatable="yes">Welcome screen for CachyOS</property>
     <property name="website">https://github.com/cachyos/cachyos-welcome</property>
     <property name="website-label">GitHub</property>

@@ -1,5 +1,5 @@
 project('cachyos-hello', 'cpp',
-        version: '0.6.9',
+        version: '0.6.10',
         license: 'GPLv3',
         meson_version: '>=0.55.0',
         default_options: ['cpp_std=c++17',
