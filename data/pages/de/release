@@ -1,15 +1,5 @@
-<big>CachyOS 1.0</big>
+<big>CachyOS 22.03</big>
 
-We are happy to publish another stable release of CachyOS Linux, named Ornara.
+We are happy to publish stable release of CachyOS.
 
-<big>Gnome edition</big> got exciting new features: GNOME 3.38 replaces the previously split Frequent and All apps views with a single customizable and consistent view that allows you to reorder apps and organize them into custom folders. Simply click and drag to move apps around. Settings can now manage parental controls for Standard user accounts through the new Parental Controls option in the Users section. GNOME Shell can now drive multiple monitors with different refresh rates, making sure that you get the best possible experience out of your desktop. Under the covers, the screen recording infrastructure in GNOME Shell has been improved to take advantage of PipeWire and kernel APIs to reduce resource consumption and improve responsiveness.
-
-Our <big>KDE edition</big> is all about upgrading the looks and usability of Plasma. Find, reach and run your apps faster and easier than ever with Plasma’s new app launcher. The new launcher features two panes to make it simple to locate your programs and comes with improved keyboard, mouse, and touch input, boosting accessibility across the board. Plasma System Monitor is a brand new app for monitoring system resources. KDE is pushing to have first class support for Wayland, and Plasma 5.21 makes massive progress towards reaching that goal. A new page to System Settings got added: the Plasma Firewall settings. This configuration module lets you set up and configure a firewall for your system. The Media Player widget’s layout has been improved and now includes the list of applications currently playing music in the header as a tab bar. Another upgrade is that the album cover now takes up the whole width of the widget.
-
-With our <big>XFCE edition</big>, we have now Xfce 4.16. The window manager received lots of updates and improvements again in the area of compositing and GLX. Support for fractional scaling was added to the display dialog, along with highlighting the preferred mode of a display with an asterisk and adding aspect ratios next to resolutions. The settings manager has improved search and filter capabilities. Thunar file manager received a boatload of fixes and quite a few notable features, including pause for copy/move operations, support for queued file transfer, remembering view settings per directory and support for transparency in Gtk themes.
-
-Kernel 5.10 LTS is used for this release, such as the latest drivers available to date. With 5.4 LTS-Kernel minimal-ISOs we offer additional support for older hardware.
-
-Last, but not least, our installer Calamares also received many improvements. Among other things, Calamares has now a table of ‘best guess’ languages for each country and when GeoIP is enabled, it will automatically select that country’s language as default – the user can of course pick a different one. The ‘best guess’ is based on Unicode / ISO data, which is sometimes dubious. Calamares also ships now a table of ‘best guess’ keyboard mappings, allowing native language input. However, usernames and passwords should be in US-ASCII (this is a limitation of the login system – some parts of the system will support non-ASCII input, but it’s better safe than sorry).
-
-We hope you enjoy this release and let us know what you think of Ornara.
+We hope you enjoy this release and let us know what you think about it.
