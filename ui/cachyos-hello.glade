@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.38.2 -->
-<interface>
+<!-- Generated with glade 3.38.2 
+
+Copyright (C) 2021-2022 CachyOS team 
+
+This file is part of cachyos-welcome.
+
+cachyos-welcome is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+cachyos-welcome is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with cachyos-welcome.  If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<interface domain="cachyos-hello">
   <requires lib="gtk+" version="3.20"/>
+  <!-- interface-css-provider-path style.css -->
+  <!-- interface-license-type gplv3 -->
+  <!-- interface-name cachyos-welcome -->
+  <!-- interface-copyright 2021-2022 CachyOS team  -->
   <object class="GtkImage" id="abouticon">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -418,21 +441,7 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="appLayouts">
-                    <property name="label" translatable="yes">Gnome Layouts Manager</property>
-                    <property name="name">appLayouts</property>
-                    <property name="can-focus">False</property>
-                    <property name="receives-default">True</property>
-                    <property name="tooltip-text" translatable="yes">CachyOS Gnome config tool</property>
-                    <property name="margin-left">15</property>
-                    <property name="margin-right">15</property>
-                    <signal name="clicked" handler="on_btn_clicked" swapped="no"/>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
+                  <placeholder/>
                 </child>
               </object>
               <packing>
@@ -469,44 +478,10 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkEventBox">
-                    <property name="name">facebook</property>
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <signal name="button-press-event" handler="on_link_clicked" swapped="no"/>
-                    <child>
-                      <object class="GtkImage" id="facebook">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="tooltip-text">Facebook</property>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
+                  <placeholder/>
                 </child>
                 <child>
-                  <object class="GtkEventBox">
-                    <property name="name">twitter</property>
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <signal name="button-press-event" handler="on_link_clicked" swapped="no"/>
-                    <child>
-                      <object class="GtkImage" id="twitter">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="tooltip-text">Twitter</property>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">2</property>
-                  </packing>
+                  <placeholder/>
                 </child>
                 <child>
                   <object class="GtkEventBox">
