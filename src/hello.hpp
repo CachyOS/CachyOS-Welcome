@@ -1,12 +1,32 @@
 #ifndef HELLO_HPP_
 #define HELLO_HPP_
 
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wold-style-cast"
+#pragma clang diagnostic ignored "-Wsign-conversion"
+#pragma clang diagnostic ignored "-Wdouble-promotion"
+#else
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wold-style-cast"
+#pragma GCC diagnostic ignored "-Wdouble-promotion"
+#pragma GCC diagnostic ignored "-Wuseless-cast"
+#pragma GCC diagnostic ignored "-Wsign-conversion"
+#endif
+
 #include <gtkmm.h>
+
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#else
+#pragma GCC diagnostic pop
+#endif
+
 #include <json.hpp>
 
 class Hello final : public Gtk::Window {
  public:
-    Hello(int argc, char** argv);
+    Hello(bool is_dev);
 
  protected:
     // Handlers

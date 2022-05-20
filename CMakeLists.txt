@@ -23,17 +23,18 @@ pkg_check_modules(
   GTKMM
   REQUIRED
   IMPORTED_TARGET
-  gtkmm-3.0)
+  gtkmm-4.0)
 
 FetchContent_Declare(fmt
   GIT_REPOSITORY "https://github.com/fmtlib/fmt.git"
-  GIT_TAG "3b6e409cd8573f63e4acad7717d9082bd898ec87"
+  GIT_TAG "a44716f58e943905d1357160b98cae2618d053cf"
 )
 FetchContent_MakeAvailable(fmt)
 
 ##
 ## CONFIGURATION
 ##
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wl,--export-dynamic")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -flto")
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
