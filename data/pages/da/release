@@ -1,5 +1,50 @@
-<big>CachyOS 22.03</big>
+<big>CachyOS 22.05</big>
 
-We are happy to publish stable release of CachyOS.
+After about one year when CachyOS was founded we are really proud to announce our first GUI Installer Stable Release.
+We investigated much work into the repo management, kernel development, infrastructure, theming, ... and finally also into the CachyOS GUI Installer.
+We worked on many features to implement into the installer to give the user a completely customizable experience.
 
-We hope you enjoy this release and let us know what you think about it.
+###  **Features:**
+
+**Filesystems:**
+
+- ext4
+- xfs
+- btrfs
+- f2fs
+- zfs
+
+After we found a solution to provide all our custom kernels with the zfs module integrated we have implemented a direct out of a box install with zfs.
+For the ZFS install are some minimal changes needed at the online install which can be found here:
+https://wiki.cachyos.org/en/home/cachyos-zfs
+
+**Desktop Environments:**
+
+-     CuteFish – An Elegant, Beautiful and Easy-to-Use Linux Desktop
+-     i3 tiling window manager, primarily targeted at developers and advanced users
+-     KDE-Plasma Desktop - Simple by default, powerful when needed
+-     GNOME Desktop - designed to put you in control and get things done
+-     Openbox is a highly configurable, floating window manager with extensive standards support
+-     Wayfire is a wayland compositor based on wlroots. It aims to create a customizable, extendable and lightweight environment without sacrificing its appearance
+-     LXQT - The Lightweight Qt Desktop Environment.
+-     bspwm is a tiling window manager that represents windows as the leaves of a full binary tree. bspwm supports multiple monitors and is configured and controlled through messages
+-     Kofuku (bliss in Japanese) is a lightweight and minimalist Linux setup. This setup uses BSPWM as the tiling window manager.
+-     Xfce is a lightweight desktop environment for UNIX-like operating systems. It aims to be fast and low on system resources, while still being visually appealing and user friendly
+
+Also the installer has a auto detection which detects your cpu march and will use automatically the optimized repo's which are compiled if the optimized x86-64-v3 compiler flags, more you can find here:
+https://wiki.cachyos.org/en/home/cachyos-performance
+
+**Linux Kernels:**
+
+The CachyOS are improved kernels which improve the performance and other improvements. Following Scheduler are supported:
+
+-     Standard Scheduler Completely Fair Scheduler (CFS) - linux-cachyos
+-     CacULE and CacULE-RDB created from Hamad Marri, maintained by CachyOS - linux-cachyos-cacule
+-     BitMap Queue (BMQ) Alfred Chen Scheduler - linux-cachyos-bmq
+-     Priority and Deadline based Skiplist multiple queue scheduler (PDS) - Alfred Chen Scheduler » linux-cachyos-pds
+-     Task Type Scheduler by Hamad Marri (TT) - linux-cachyos-tt
+-     BORE (Burst-Oriented Response Enhancer) CPU Scheduler by firelzrd (BORE) - linux-cachyos-bore
+
+All kernels are prebuilt in two different march versions (x86_64 and x86_64_v3) and also with the llvm/lto enabled kernels in the cachyos repo.
+
+We are really happy to this release and looking forward into the future!
