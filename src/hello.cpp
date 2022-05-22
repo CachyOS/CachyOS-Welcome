@@ -4,13 +4,27 @@
 #include <glib/gi18n.h>
 #include <libintl.h>
 
-#include <filesystem>
-#include <iostream>
+#include <algorithm>      // for transform
+#include <filesystem>     // for exists, is_directory
+#include <iostream>       // for basic_istream, cin
 #include <iterator>
 #include <stdexcept>
-#include <unordered_map>
+#include <unordered_map>  // for unordered_map
 
 #include <fmt/core.h>
+
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wold-style-cast"
+
+#include <range/v3/algorithm/reverse.hpp>
+#include <range/v3/algorithm/find.hpp>
+
+#pragma clang diagnostic pop
+#else
+#include <ranges>
+namespace ranges = std::ranges;
+#endif
 
 namespace fs = std::filesystem;
 
@@ -128,6 +142,201 @@ void quick_message(Gtk::Window* parent, const std::string& message) {
     g_child_watch_add(child_pid, child_watch_cb, nullptr);
 
     gtk_widget_destroy(dialog);
+}
+
+namespace utils {
+std::string exec(const std::string_view& command, const bool& interactive = false) noexcept {
+    if (interactive) {
+        const auto& ret_code = system(command.data());
+        return std::to_string(ret_code);
+    }
+
+    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(command.data(), "r"), pclose);
+
+    if (!pipe) {
+        return "-1";
+    }
+
+    std::string result{};
+    std::array<char, 128> buffer{};
+    while (!feof(pipe.get())) {
+        if (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+            result += buffer.data();
+        }
+    }
+
+    if (result.ends_with('\n')) {
+        result.pop_back();
+    }
+
+    return result;
+}
+
+auto make_multiline(const std::string_view& str, bool reverse, const std::string_view&& delim) noexcept -> std::vector<std::string> {
+    std::vector<std::string> lines{};
+
+    size_t previous = 0;
+    size_t current = str.find(delim);
+
+    while (current != std::string_view::npos) {
+        lines.emplace_back(str.substr(previous, current - previous));
+        previous = current + delim.size();
+        current  = str.find(delim, previous);
+    }
+
+    if (reverse) {
+        ranges::reverse(lines);
+    }
+    return lines;
+}
+}
+
+
+void on_servbtn_clicked(GtkWidget* widget) noexcept {
+    auto *btn = Glib::wrap(GTK_CHECK_BUTTON(widget));
+
+    const std::string action_type = reinterpret_cast<const char*>(btn->get_data("actionType"));
+    const std::string action_data = reinterpret_cast<const char*>(btn->get_data("actionData"));
+
+    std::string user_only;
+    std::string pkexec_only;
+    if (action_type == "user_service") {
+        user_only   = "--user";
+        pkexec_only = "--user $(logname)";
+    }
+
+    std::string cmd{};
+    if (ranges::find(g_refHello->get_enabled_units(), action_data) != g_refHello->get_enabled_units().end()) {
+        cmd = fmt::format("/sbin/pkexec {} bash -c \"systemctl {} enable --now --force {}\"", pkexec_only, user_only, action_data);
+    } else {
+        cmd = fmt::format("/sbin/pkexec {} bash -c \"systemctl {} disable --now {}\"", pkexec_only, user_only, action_data);
+    }
+    Glib::spawn_command_line_sync(cmd);
+
+    if (action_type == "user_service") {
+        g_refHello->load_global_enabled_units();
+    } else {
+        g_refHello->load_enabled_units();
+    }
+}
+
+void on_appbtn_clicked(GtkWidget* widget) noexcept {
+    const std::string_view& name = gtk_button_get_label(GTK_BUTTON(widget));
+    std::string binname{};
+    bool is_sudo{};
+    if (name == "CachyOS PackageInstaller") {
+        binname = "cachyos-pi-bin";
+        is_sudo = true;
+    } else if (name == "CachyOS Kernel Manager") {
+        binname = "cachyos-kernel-manager";
+        is_sudo = false;
+    }
+    const auto& status_code = system(fmt::format("which {}", binname).c_str());
+    if (status_code != 0) {
+        return;
+    }
+    int child_stdout{};
+    int child_stderr{};
+    Glib::Pid child_pid;
+
+    std::string envs;
+    for (const auto& env : Glib::listenv()) {
+        if (env == "PATH") {
+            envs += "PATH=/sbin:/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/sbin ";
+            continue;
+        }
+        envs += fmt::format("{}={} ", env, Glib::getenv(env));
+    }
+
+    // Spawn child process.
+    try {
+        const auto& exe_path = utils::exec(fmt::format("which {}", binname));
+        std::vector<std::string> argv{exe_path};
+        if (is_sudo) {
+            argv = {"/sbin/pkexec", "bash", "-c", fmt::format("{} {}", envs, exe_path)};
+        }
+        Glib::spawn_async_with_pipes(".", argv, Glib::SpawnFlags::SPAWN_DO_NOT_REAP_CHILD, Glib::SlotSpawnChildSetup(), &child_pid, nullptr, &child_stdout, &child_stderr);
+    } catch (Glib::Error& error) {
+        g_critical("%s", error.what().c_str());
+    }
+    // Add a child watch function which will be called when the child process
+    // exits.
+    g_child_watch_add(child_pid, child_watch_cb, nullptr);
+}
+
+Gtk::Box* create_options_section() {
+    Gtk::Box* topbox = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL, 2));
+    Gtk::Box* box = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL, 10));
+    Gtk::Label* label = Gtk::manage(new Gtk::Label());
+    label->set_line_wrap(true);
+    label->set_justify(Gtk::JUSTIFY_CENTER);
+    label->set_text("Tweaks");
+
+    Gtk::CheckButton* psd_btn = Gtk::manage(new Gtk::CheckButton("Profile-sync-daemon enabled"));
+    Gtk::CheckButton* systemd_oomd_btn = Gtk::manage(new Gtk::CheckButton("Systemd-oomd enabled"));
+    Gtk::CheckButton* apparmor_btn = Gtk::manage(new Gtk::CheckButton("Apparmor enabled"));
+    Gtk::CheckButton* ananicy_cpp_btn = Gtk::manage(new Gtk::CheckButton("Ananicy Cpp enabled"));
+
+    psd_btn->set_data("actionData", reinterpret_cast<void*>(const_cast<char*>("psd.service")));
+    psd_btn->set_data("actionType", reinterpret_cast<void*>(const_cast<char*>("user_service")));
+    systemd_oomd_btn->set_data("actionData", reinterpret_cast<void*>(const_cast<char*>("systemd-oomd.service")));
+    systemd_oomd_btn->set_data("actionType", reinterpret_cast<void*>(const_cast<char*>("service")));
+    apparmor_btn->set_data("actionData", reinterpret_cast<void*>(const_cast<char*>("apparmor.service")));
+    apparmor_btn->set_data("actionType", reinterpret_cast<void*>(const_cast<char*>("service")));
+    ananicy_cpp_btn->set_data("actionData", reinterpret_cast<void*>(const_cast<char*>("ananicy-cpp.service")));
+    ananicy_cpp_btn->set_data("actionType", reinterpret_cast<void*>(const_cast<char*>("service")));
+
+    for (auto& btn : {psd_btn, systemd_oomd_btn, apparmor_btn, ananicy_cpp_btn}) {
+        const std::string data = reinterpret_cast<const char*>(btn->get_data("actionData"));
+        if ((ranges::find(g_refHello->get_enabled_units(), data) != g_refHello->get_enabled_units().end()) ||
+            (ranges::find(g_refHello->get_global_enabled_units(), data) != g_refHello->get_global_enabled_units().end())) {
+            btn->set_active(true);
+        }
+    }
+
+    g_signal_connect(GTK_WIDGET(psd_btn->gobj()), "clicked", G_CALLBACK(&on_servbtn_clicked), nullptr);
+    g_signal_connect(GTK_WIDGET(systemd_oomd_btn->gobj()), "clicked", G_CALLBACK(&on_servbtn_clicked), nullptr);
+    g_signal_connect(GTK_WIDGET(apparmor_btn->gobj()), "clicked", G_CALLBACK(&on_servbtn_clicked), nullptr);
+    g_signal_connect(GTK_WIDGET(ananicy_cpp_btn->gobj()), "clicked", G_CALLBACK(&on_servbtn_clicked), nullptr);
+
+    topbox->pack_start(*label, true, false, 1);
+    box->pack_start(*psd_btn, true, false, 2);
+    box->pack_start(*systemd_oomd_btn, true, false, 2);
+    box->pack_start(*apparmor_btn, true, false, 2);
+    box->pack_start(*ananicy_cpp_btn, true, false, 2);
+    box->set_halign(Gtk::ALIGN_FILL);
+    topbox->pack_start(*box, true, false, 1);
+
+    topbox->set_hexpand();
+
+    return topbox;
+}
+
+Gtk::Box* create_apps_section() {
+    Gtk::Box* topbox = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL, 2));
+    Gtk::Box* box = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL, 10));
+    Gtk::Label* label = Gtk::manage(new Gtk::Label());
+    label->set_line_wrap(true);
+    label->set_justify(Gtk::JUSTIFY_CENTER);
+    label->set_text("Applications");
+
+    Gtk::Button* cachyos_pi = Gtk::manage(new Gtk::Button("CachyOS PackageInstaller"));
+    Gtk::Button* cachyos_km = Gtk::manage(new Gtk::Button("CachyOS Kernel Manager"));
+
+    g_signal_connect(GTK_WIDGET(cachyos_pi->gobj()), "clicked", G_CALLBACK(&on_appbtn_clicked), nullptr);
+    g_signal_connect(GTK_WIDGET(cachyos_km->gobj()), "clicked", G_CALLBACK(&on_appbtn_clicked), nullptr);
+
+    box->pack_start(*cachyos_pi, true, true, 2);
+    box->pack_start(*cachyos_km, true, true, 2);
+
+    topbox->pack_start(*label, true, true, 2);
+
+    box->set_halign(Gtk::ALIGN_FILL);
+    topbox->pack_start(*box, true, true);
+
+    topbox->set_hexpand();
+
+    return topbox;
 }
 }  // namespace
 
@@ -273,7 +482,48 @@ Hello::Hello(int argc, char** argv) {
         Gtk::Button* install;
         m_builder->get_widget("install", install);
         install->set_visible(true);
+        return;
     }
+    Gtk::Button* install;
+    m_builder->get_widget("appBrowser", install);
+    install->set_visible(true);
+
+    load_enabled_units();
+    load_global_enabled_units();
+
+    auto* viewport        = gtk_viewport_new(nullptr, nullptr);
+    //auto* label = gtk_label_new(nullptr);
+    //gtk_label_set_line_wrap(GTK_LABEL(label), true);
+    auto* image   = gtk_image_new_from_icon_name("go-previous", GTK_ICON_SIZE_BUTTON);
+    auto* backBtn = gtk_button_new();
+    gtk_button_set_image(GTK_BUTTON(backBtn), image);
+    gtk_widget_set_name(backBtn, "home");
+    g_signal_connect(backBtn, "clicked", G_CALLBACK(&on_btn_clicked), nullptr);
+
+    auto* options_section_box = create_options_section();
+    auto* apps_section_box = create_apps_section();
+
+    Gtk::Grid* grid = Gtk::manage(new Gtk::Grid());
+    grid->set_hexpand();
+    grid->set_margin_start(10);
+    grid->set_margin_end(10);
+    grid->set_margin_top(5);
+    grid->set_margin_bottom(5);
+    grid->attach(*Glib::wrap(backBtn), 0, 1, 1, 1);
+    Gtk::Box* box = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL, 5));
+
+    box->pack_start(*options_section_box, true, true, 5);
+    box->pack_start(*apps_section_box, true, true, 5);
+
+    box->set_valign(Gtk::ALIGN_CENTER);
+    box->set_halign(Gtk::ALIGN_CENTER);
+    grid->attach(*box, 1, 2, 5, 1);
+    gtk_container_add(GTK_CONTAINER(viewport), GTK_WIDGET(grid->gobj()));
+    gtk_widget_show_all(viewport);
+
+    Glib::RefPtr<Glib::Object> stack = m_builder->get_object("stack");
+    const std::string child_name = "appBrowserpage";
+    gtk_stack_add_named(GTK_STACK(stack->gobj()), viewport, child_name.c_str());
 }
 
 /// Returns the best locale, based on user's preferences.
@@ -416,6 +666,31 @@ auto Hello::get_page(const std::string& name) const noexcept -> std::string {
     return read_whole_file(filename);
 }
 
+void Hello::load_enabled_units() noexcept {
+    m_loaded_units.clear();
+    m_enabled_units.clear();
+
+    const auto& service_list = utils::make_multiline(utils::exec("systemctl list-unit-files -q --no-pager | tr -s \" \""), false, "\n");
+    for (const auto &service : service_list) {
+        const auto& out = utils::make_multiline(service, false, " ");
+        m_loaded_units.push_back(out[0]);
+        if (out[1] == "enabled")
+            m_enabled_units.push_back(out[0]);
+    }
+}
+void Hello::load_global_enabled_units() noexcept {
+    m_global_loaded_units.clear();
+    m_global_enabled_units.clear();
+
+    const auto& service_list = utils::make_multiline(utils::exec("systemctl --global list-unit-files -q --no-pager | tr -s \" \""), false, "\n");
+    for (const auto &service : service_list) {
+        const auto& out = utils::make_multiline(service, false, " ");
+        m_global_loaded_units.push_back(out[0]);
+        if (out[1] == "enabled")
+            m_global_enabled_units.push_back(out[0]);
+    }
+}
+
 // Handlers
 void Hello::on_languages_changed(GtkComboBox* combobox) noexcept {
     const auto& active_id = gtk_combo_box_get_active_id(combobox);
@@ -436,7 +711,6 @@ void Hello::on_action_clicked(GtkWidget* widget) noexcept {
 
     Gtk::AboutDialog* dialog;
     g_refHello->m_builder->get_widget("aboutdialog", dialog);
-    dialog->set_decorated(false);
     dialog->run();
     dialog->hide();
 }

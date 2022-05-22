@@ -27,7 +27,7 @@ pkg_check_modules(
 
 FetchContent_Declare(fmt
   GIT_REPOSITORY "https://github.com/fmtlib/fmt.git"
-  GIT_TAG "3b6e409cd8573f63e4acad7717d9082bd898ec87"
+  GIT_TAG "f5cdf7cb0481afdafa7ff2f5ea640f05215d4ffb"
 )
 FetchContent_MakeAvailable(fmt)
 
@@ -42,7 +42,7 @@ endif()
 
 # Link this 'library' to set the c++ standard / compile-time options requested
 add_library(project_options INTERFACE)
-target_compile_features(project_options INTERFACE cxx_std_17)
+target_compile_features(project_options INTERFACE cxx_std_20)
 
 ##
 ## Target

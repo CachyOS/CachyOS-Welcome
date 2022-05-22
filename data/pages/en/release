@@ -1,50 +1,58 @@
 <big>CachyOS 22.05</big>
 
-After about one year when CachyOS was founded we are really proud to announce our first GUI Installer Stable Release.
-We investigated much work into the repo management, kernel development, infrastructure, theming, ... and finally also into the CachyOS GUI Installer.
-We worked on many features to implement into the installer to give the user a completely customizable experience.
+Компания CachyOS была основана год назад. После почти года разработки мы с гордостью объявляем о нашем первом стабильном выпуске GUI Installer.
+Мы потратили много времени на изучение управления репозиториями, разработки ядра, инфраструктуры, тематизации ... и, наконец, поместили все это в установщик CachyOS GUI.
+Все функции, над которыми мы работали и внедрили в установщик, просто пытаются предложить пользователям полностью настраиваемый интерфейс.
 
-###  **Features:**
+<big>Features:</big>
 
-**Filesystems:**
+<b>Filesystems:</b>
 
+- btrfs
+- zfs
 - ext4
 - xfs
-- btrfs
 - f2fs
-- zfs
 
-After we found a solution to provide all our custom kernels with the zfs module integrated we have implemented a direct out of a box install with zfs.
-For the ZFS install are some minimal changes needed at the online install which can be found here:
-https://wiki.cachyos.org/en/home/cachyos-zfs
+После того, как мы нашли решение для обеспечения всех наших пользовательских ядер интегрированным модулем zfs, мы внедрили установку zfs в один клик.
+Для установки ZFS вам необходимо выбрать cachyos-zfs в разделе Cachyos Kernels - ZFS во время установки. Для получения дополнительной информации:
+<a href="https://wiki.cachyos.org/en/home/cachyos-zfs">https://wiki.cachyos.org/en/home/cachyos-zfs</a>
 
-**Desktop Environments:**
+<b>Desktop Environments:</b>
 
--     CuteFish – An Elegant, Beautiful and Easy-to-Use Linux Desktop
--     i3 tiling window manager, primarily targeted at developers and advanced users
--     KDE-Plasma Desktop - Simple by default, powerful when needed
--     GNOME Desktop - designed to put you in control and get things done
--     Openbox is a highly configurable, floating window manager with extensive standards support
--     Wayfire is a wayland compositor based on wlroots. It aims to create a customizable, extendable and lightweight environment without sacrificing its appearance
--     LXQT - The Lightweight Qt Desktop Environment.
--     bspwm is a tiling window manager that represents windows as the leaves of a full binary tree. bspwm supports multiple monitors and is configured and controlled through messages
--     Kofuku (bliss in Japanese) is a lightweight and minimalist Linux setup. This setup uses BSPWM as the tiling window manager.
--     Xfce is a lightweight desktop environment for UNIX-like operating systems. It aims to be fast and low on system resources, while still being visually appealing and user friendly
+-     KDE-Plasma - Простой по умолчанию, мощный, когда это необходимо
+-     CuteFish – Элегантный, красивый и простой в использовании рабочий стол Linux
+-     i3 tiling WM, в первую очередь ориентированный на разработчиков и продвинутых пользователей
+-     GNOME - предназначен для того, чтобы держать вас под контролем и добиваться цели
+-     Openbox - легко настраиваемый менеджер плавающих окон с обширной поддержкой стандартов
+-     Wayfire - композитор wayland, основанный на wlroots. Он направлен на создание настраиваемой, расширяемой и легкой среды без ущерба для ее внешнего вида
+-     LXQT - Облегченная Среда Рабочего Стола Qt.
+-     bspwm - плиточный оконный менеджер, который представляет окна в виде листьев полного двоичного дерева. bspwm поддерживает несколько мониторов и настраивается и управляется с помощью сообщений
+-     Kofuku (блаженство по-японски) - легкая и минималистичная настройка Linux. Эта настройка использует BSPWM в качестве оконного менеджера плиток.
+-     Xfce - облегченная среда рабочего стола для UNIX-подобных операционных систем. Он нацелен на то, чтобы быть быстрым и потреблять мало системных ресурсов, оставаясь при этом визуально привлекательным и удобным для пользователя
 
-Also the installer has a auto detection which detects your cpu march and will use automatically the optimized repo's which are compiled if the optimized x86-64-v3 compiler flags, more you can find here:
-https://wiki.cachyos.org/en/home/cachyos-performance
+Также установщик автоматически определит ваш процессор и соответственно выберет оптимизированное хранилище, подробнее вы можете найти здесь:
+<a href="https://wiki.cachyos.org/en/home/cachyos-performance">https://wiki.cachyos.org/en/home/cachyos-performance</a>
 
-**Linux Kernels:**
+<b>Linux Kernels:</b>
 
-The CachyOS are improved kernels which improve the performance and other improvements. Following Scheduler are supported:
+Ядра CachyOS используют различные планировщики и исправления для повышения производительности. Поддерживаются следующие планировщики:
 
--     Standard Scheduler Completely Fair Scheduler (CFS) - linux-cachyos
+-     BORE (Burst-Oriented Response Enhancer) CPU Scheduler by firelzrd (BORE) - linux-cachyos
+-     Standard Scheduler Completely Fair Scheduler (CFS) - linux-cachyos-cfs
 -     CacULE and CacULE-RDB created from Hamad Marri, maintained by CachyOS - linux-cachyos-cacule
 -     BitMap Queue (BMQ) Alfred Chen Scheduler - linux-cachyos-bmq
 -     Priority and Deadline based Skiplist multiple queue scheduler (PDS) - Alfred Chen Scheduler » linux-cachyos-pds
 -     Task Type Scheduler by Hamad Marri (TT) - linux-cachyos-tt
--     BORE (Burst-Oriented Response Enhancer) CPU Scheduler by firelzrd (BORE) - linux-cachyos-bore
 
-All kernels are prebuilt in two different march versions (x86_64 and x86_64_v3) and also with the llvm/lto enabled kernels in the cachyos repo.
+Все ядра встроены в две версии (x86_64 и x86_64_v3), а ядра с поддержкой llvm/lto включены в репозиторий cachyos.
 
-We are really happy to this release and looking forward into the future!
+<b>Introducing CachyOS Kernel Manager:</b>
+
+Мы работали над приложением, которое дает лучший обзор того, какие ядра установлены или могут быть установлены в вашей системе.
+В будущем мы подумали о том, чтобы реализовать также возможность компиляции ядер CachyOS с несколькими опциями просто через диспетчер ядра, что поможет легче настроить компиляцию ядра в соответствии с их собственными потребностями.
+
+<b>Introducing CachyOS Package Manager:</b>
+
+Простой установщик пакета прикладных программ для CachyOS, который помогает настраивать и устанавливать приложения.
+Мы действительно рады этому релизу и с нетерпением ждем будущего!

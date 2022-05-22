@@ -24,7 +24,7 @@ along with cachyos-welcome.  If not, see <http://www.gnu.org/licenses/>.
   <!-- interface-css-provider-path style.css -->
   <!-- interface-license-type gplv3 -->
   <!-- interface-name cachyos-welcome -->
-  <!-- interface-copyright 2021-2022 CachyOS team  -->
+  <!-- interface-copyright 2021-2022 CachyOS team -->
   <object class="GtkImage" id="abouticon">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -425,11 +425,11 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                 <property name="homogeneous">True</property>
                 <child>
                   <object class="GtkButton" id="appBrowser">
-                    <property name="label" translatable="yes">Applications</property>
+                    <property name="label" translatable="yes">Apps/Tweaks</property>
                     <property name="name">appBrowser</property>
                     <property name="can-focus">False</property>
                     <property name="receives-default">True</property>
-                    <property name="tooltip-text" translatable="yes">Common application selection</property>
+                    <property name="tooltip-text" translatable="yes">Apps/Tweaks</property>
                     <property name="margin-left">15</property>
                     <property name="margin-right">15</property>
                     <signal name="clicked" handler="on_btn_clicked" swapped="no"/>
