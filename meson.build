@@ -1,95 +1,82 @@
-project('cachyos-hello', 'cpp',
-        version: '0.6.10',
+project('cachyos-hello', 'rust',
+        version: '0.7.0',
         license: 'GPLv3',
-        meson_version: '>=0.55.0',
-        default_options: ['cpp_std=c++20',
-                          'buildtype=debugoptimized',
+        meson_version: '>=0.56.0',
+        default_options: ['buildtype=debugoptimized',
                           'warning_level=3',
                           'werror=true',
                           'b_ndebug=if-release'])
 
-cc = meson.get_compiler('cpp')
+i18n = import('i18n')
+gnome = import('gnome')
 
-# Common dependencies
-fmt = dependency('fmt', version : ['>=8.0.0'], fallback : ['fmt', 'fmt_dep'])
-gtkmm = dependency('gtkmm-3.0', version : ['>=3.22.0'])
+base_id = 'org.cachyos.hello'
 
-src_files = files(
-    'src/hello.cpp', 'src/hello.hpp',
-    'src/main.cpp',
+dependency('glib-2.0', version: '>= 2.66')
+dependency('gio-2.0', version: '>= 2.66')
+dependency('gtk+-3.0', version: '>= 3.24.34')
+
+glib_compile_resources = find_program('glib-compile-resources', required: true)
+glib_compile_schemas = find_program('glib-compile-schemas', required: true)
+desktop_file_validate = find_program('desktop-file-validate', required: false)
+appstream_util = find_program('appstream-util', required: false)
+cargo = find_program('cargo', required: true)
+cargo_script = find_program('build-aux/cargo.py')
+
+version = meson.project_version()
+version_array = version.split('.')
+major_version = version_array[0].to_int()
+minor_version = version_array[1].to_int()
+version_micro = version_array[2].to_int()
+
+prefix = get_option('prefix')
+bindir = prefix / get_option('bindir')
+localedir = prefix / get_option('localedir')
+
+datadir = prefix / get_option('datadir')
+pkgdatadir = datadir / meson.project_name()
+iconsdir = datadir / 'icons'
+podir = meson.project_source_root() / 'po'
+gettext_package = meson.project_name()
+
+if get_option('profile') == 'development'
+  profile = 'Devel'
+  vcs_tag = run_command('git', 'rev-parse', '--short', 'HEAD').stdout().strip()
+  if vcs_tag == ''
+    version_suffix = '-devel'
+  else
+    version_suffix = '-@0@'.format(vcs_tag)
+  endif
+  application_id = '@0@.@1@'.format(base_id, profile)
+else
+  profile = ''
+  version_suffix = ''
+  application_id = base_id
+endif
+
+meson.add_dist_script(
+  'build-aux/dist-vendor.sh',
+  meson.project_build_root() / 'meson-dist' / meson.project_name() + '-' + version,
+  meson.project_source_root()
 )
 
-possible_cc_flags = [
-        '-Wshadow',
-
-        '-Wnon-virtual-dtor',
-
-        '-Wcast-align',
-        '-Wunused',
-        '-Woverloaded-virtual',
-
-        '-Wpedantic', # non-standard C++
-        '-Wconversion', # type conversion that may lose data
-        '-Wnull-dereference',
-        '-Wdouble-promotion', # float to double
-
-        '-Wformat=2',
-]
-
-if cc.get_id() == 'gcc'
-        possible_cc_flags += [
-                '-Wmisleading-indentation',
-
-                '-Wduplicated-cond',
-                '-Wduplicated-branches',
-                '-Wlogical-op',
-        ]
+if get_option('profile') == 'development'
+  # Setup pre-commit hook for ensuring coding style is always consistent
+  message('Setting up git pre-commit hook..')
+  run_command('cp', '-f', 'hooks/pre-commit.hook', '.git/hooks/pre-commit')
 endif
 
-if get_option('buildtype') != 'debug'
-   if cc.get_id() == 'gcc'
-      possible_cc_flags += [
-         '-flto',
-         '-fwhole-program',
-      ]
-   else
-      possible_cc_flags += [
-         '-flto=thin',
-      ]
-   endif
-endif
+cargo_sources = files(
+  'Cargo.toml',
+  'Cargo.lock',
+)
 
-add_project_arguments(cc.get_supported_arguments(possible_cc_flags), language : 'cpp')
-
-executable(
-  'cachyos-hello',
-  src_files,
-  dependencies: [fmt, gtkmm],
-  include_directories: [include_directories('src')],
-  install: true)
+subdir('po')
+subdir('src')
 
 install_data (
     meson.project_name () + '.desktop',
     install_dir: join_paths(get_option('datadir'), 'applications')
 )
 
-meson.add_install_script('postinstall.sh')
-
-summary(
-  {
-    'Build type': get_option('buildtype'),
-  },
-  bool_yn: true
-)
-
-clangtidy = find_program('clang-tidy', required: false)
-
-if clangtidy.found()
-    run_target(
-        'tidy',
-        command: [
-            clangtidy,
-            '-checks=*,-fuchsia-default-arguments',
-            '-p', meson.build_root()
-        ] + src_files)
-endif
+#meson.add_install_script('postinstall.sh')
