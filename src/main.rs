@@ -667,7 +667,7 @@ fn on_servbtn_clicked(button: &gtk::CheckButton) {
     let cmd: String;
     unsafe {
         let local_units = &g_local_units.lock().unwrap().enabled_units;
-        cmd = if local_units.contains(&String::from(action_data)) {
+        cmd = if !local_units.contains(&String::from(action_data)) {
             format!(
                 "/sbin/pkexec {} bash -c \"systemctl {} enable --now --force {}\"",
                 pkexec_only, user_only, action_data
