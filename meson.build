@@ -71,7 +71,7 @@ cargo_sources = files(
   'Cargo.lock',
 )
 
-subdir('po')
+#subdir('po')
 subdir('src')
 
 install_data (
@@ -79,4 +79,4 @@ install_data (
     install_dir: join_paths(get_option('datadir'), 'applications')
 )
 
-#meson.add_install_script('postinstall.sh')
+meson.add_install_script('postinstall.sh')
