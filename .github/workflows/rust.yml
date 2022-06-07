@@ -1,4 +1,4 @@
-name: Rust
+name: Build
 
 on:
   push:
@@ -10,12 +10,41 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  build:
-
+  archlinux:
+    strategy:
+      matrix:
+        arch:
+          [
+            "linux/amd64 x86_64"
+          ]
+    name: "Archlinux ${{ matrix.arch }}"
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+        with:
+          platforms: all
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          version: latest
+      - name: Read info
+        id: tags
+        shell: bash
+        run: |
+          arch="${{ matrix.arch }}"
+          echo ::set-output name=PLATFORM::${arch%% *}
+          echo ::set-output name=ARCH::${arch##* }
+      - name: Build ${{ matrix.arch }} release
+        shell: bash
+        run: |
+          docker buildx build --platform ${{ steps.tags.outputs.PLATFORM }} \
+          --tag cachyos_welcome:${{ steps.tags.outputs.ARCH }} \
+          -f .github/archlinux/Dockerfile \
+          --load \
+          .
     
     - name: Install dependencies
       run: |
