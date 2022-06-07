@@ -1,9 +1,9 @@
 FROM archlinux/archlinux:base-devel
 
 WORKDIR /app
-COPY . .
+ENV CARGO_TERM_COLOR=always
 
-RUN pacman -Syu --noconfirm --noprogressbar git rustup glib2 gtk3 pkg-config meson
+RUN pacman -Syu --noconfirm --noprogressbar git rustup glib2 gtk3 pkg-config meson wget
 
 RUN useradd -d /app builder
 RUN echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
@@ -18,6 +18,6 @@ RUN rustup toolchain install nightly
 RUN rustup component add cargo
 RUN rustup component add clippy
 
-RUN meson --prefix=/usr build
-RUN echo "============ Running build =============" && cargo build --verbose
-RUN echo "============ Running test  =============" && cargo test --verbose
+RUN wget https://github.com/CachyOS/CachyOS-PKGBUILDS/raw/master/cachyos-hello-git/PKGBUILD
+
+RUN makepkg -sf --noconfirm --needed
