@@ -63,7 +63,7 @@ jobs:
       - name: install deps
         run: |
           sudo apt update
-          sudo apt install ninja libgtk-3-dev
+          sudo apt install ninja-build libgtk-3-dev
         shell: bash
 
       - uses: BSFishy/pip-action@v1
