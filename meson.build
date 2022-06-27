@@ -14,7 +14,7 @@ base_id = 'org.cachyos.hello'
 
 dependency('glib-2.0', version: '>= 2.66')
 dependency('gio-2.0', version: '>= 2.66')
-dependency('gtk+-3.0', version: '>= 3.24.34')
+dependency('gtk+-3.0', version: '>= 3.24.33')
 
 glib_compile_resources = find_program('glib-compile-resources', required: true)
 glib_compile_schemas = find_program('glib-compile-schemas', required: true)
