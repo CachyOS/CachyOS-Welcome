@@ -58,6 +58,18 @@ jobs:
           toolchain: nightly
           override: true
           components: rustfmt
+
+      - name: install deps
+        run: |
+          sudo apt update
+          sudo apt install meson
+        shell: bash
+
+      - name: Configure
+        shell: bash
+        run: |
+          meson --buildtype=release --prefix=/usr build
+
       - uses: actions-rs/cargo@v1
         with:
           command: fmt
