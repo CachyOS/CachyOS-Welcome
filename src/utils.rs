@@ -1,3 +1,4 @@
+use gtk::prelude::*;
 use std::fs::File;
 use std::{fs, slice, str};
 
@@ -52,6 +53,16 @@ pub fn check_regular_file(path: &str) -> bool {
     } else {
         false
     }
+}
+
+pub fn create_combo_with_model(group_store: &gtk::ListStore) -> gtk::ComboBox {
+    let group_combo = gtk::ComboBox::with_model(group_store);
+    let combo_renderer = gtk::CellRendererText::new();
+    group_combo.pack_start(&combo_renderer, true);
+    group_combo.add_attribute(&combo_renderer, "text", 0);
+    group_combo.set_active(Some(0));
+
+    group_combo
 }
 
 #[cfg(test)]
