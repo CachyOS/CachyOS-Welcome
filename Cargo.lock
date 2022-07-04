@@ -37,7 +37,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "01c6892a7ced000868007e9ee99a80680c96f5b3e535e9ade81a54501e391232"
 dependencies = [
  "alpm",
- "pacmanconf 2.0.0",
+ "pacmanconf",
 ]
 
 [[package]]
@@ -101,7 +101,7 @@ dependencies = [
  "glib",
  "gtk",
  "once_cell",
- "pacmanconf 1.0.0",
+ "pacmanconf",
  "serde",
  "serde_json",
  "subprocess",
@@ -145,12 +145,6 @@ checksum = "0aacacf4d96c24b2ad6eb8ee6df040e4f27b0d0b39a5710c30091baa830485db"
 dependencies = [
  "smallvec",
 ]
-
-[[package]]
-name = "cini"
-version = "0.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "895f4cd6403d7bd85e13ff3ec635d58183e5e708e7bd70430a91d661b04548e2"
 
 [[package]]
 name = "cini"
@@ -537,20 +531,11 @@ checksum = "ac8b1a9b2518dc799a2271eff1688707eb315f0d4697aa6b0871369ca4c4da55"
 
 [[package]]
 name = "pacmanconf"
-version = "1.0.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "faba895e4237d5dfd3459a4c0ef807b3510e088d28e7f5fd71a72962af84fef4"
-dependencies = [
- "cini 0.1.1",
-]
-
-[[package]]
-name = "pacmanconf"
 version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ba64fdfa5d4589657dc8c8497b67322d8a64c162357ea0359656bfe23eec6185"
 dependencies = [
- "cini 1.0.0",
+ "cini",
 ]
 
 [[package]]
