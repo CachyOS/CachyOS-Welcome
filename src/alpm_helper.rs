@@ -7,12 +7,12 @@ pub struct AlpmHelper {
     pub pkg_list_removal: Vec<String>,
 }
 
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub enum AlpmHelperResult {
-    NOTHING,
-    REMOVE,
-    ADD,
-    BOTH,
+    Nothing,
+    Remove,
+    Add,
+    Both,
 }
 
 impl AlpmHelper {
@@ -30,23 +30,19 @@ impl AlpmHelper {
     }
 
     pub fn do_update(&self) -> AlpmHelperResult {
-        let mut result = AlpmHelperResult::NOTHING;
+        let mut result = AlpmHelperResult::Nothing;
         if self.pkg_list_install.is_empty() && self.pkg_list_removal.is_empty() {
             return result;
         }
 
-        if !self.pkg_list_removal.is_empty() {
-            if self.install_apps(&self.pkg_list_removal, false) {
-                result = AlpmHelperResult::REMOVE;
-            }
+        if !self.pkg_list_removal.is_empty() && self.install_apps(&self.pkg_list_removal, false) {
+            result = AlpmHelperResult::Remove;
         }
-        if !self.pkg_list_install.is_empty() {
-            if self.install_apps(&self.pkg_list_install, true) {
-                if result == AlpmHelperResult::NOTHING {
-                    result = AlpmHelperResult::ADD;
-                } else {
-                    result = AlpmHelperResult::BOTH;
-                }
+        if !self.pkg_list_install.is_empty() && self.install_apps(&self.pkg_list_install, true) {
+            if result == AlpmHelperResult::Nothing {
+                result = AlpmHelperResult::Add;
+            } else {
+                result = AlpmHelperResult::Both;
             }
         }
 
@@ -54,14 +50,14 @@ impl AlpmHelper {
     }
 
     pub fn set_package(&mut self, pkg_name: &String, install: bool, installed: bool) {
-        if self.to_remove(&pkg_name) {
+        if self.to_remove(pkg_name) {
             let index = self.pkg_list_removal.iter().position(|x| *x == *pkg_name).unwrap();
             self.pkg_list_removal.remove(index);
         } else if !install && installed {
             self.pkg_list_removal.push(String::from(pkg_name));
         }
 
-        if self.to_install(&pkg_name) {
+        if self.to_install(pkg_name) {
             let index = self.pkg_list_install.iter().position(|x| *x == *pkg_name).unwrap();
             self.pkg_list_install.remove(index);
         } else if install && !installed {
@@ -70,11 +66,11 @@ impl AlpmHelper {
     }
 
     pub fn to_install(&self, pkg_name: &String) -> bool {
-        self.pkg_list_install.contains(&pkg_name)
+        self.pkg_list_install.contains(pkg_name)
     }
 
     pub fn to_remove(&self, pkg_name: &String) -> bool {
-        self.pkg_list_removal.contains(&pkg_name)
+        self.pkg_list_removal.contains(pkg_name)
     }
 
     fn install_apps(&self, pkg_list: &Vec<String>, install: bool) -> bool {
@@ -97,9 +93,6 @@ impl AlpmHelper {
         let pacman =
             pacmanconf::Config::with_opts(None, Some("/etc/pacman.conf"), Some("/")).unwrap();
         let alpm = alpm_utils::alpm_with_conf(&pacman).unwrap();
-        match alpm.localdb().pkg(pkg_name) {
-            Ok(_) => true,
-            _ => false,
-        }
+        matches!(alpm.localdb().pkg(pkg_name), Ok(_))
     }
 }

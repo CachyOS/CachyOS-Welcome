@@ -10,7 +10,7 @@ use gtk::prelude::{
 };
 
 use once_cell::sync::Lazy;
-use serde_json;
+
 use std::fs;
 use std::sync::Mutex;
 
@@ -389,7 +389,7 @@ fn on_app_toggle(_cell: &gtk::CellRendererToggle, path: gtk::TreePath) {
 
 fn on_update_system_clicked(_: &gtk::Button) {
     let app_browser = unsafe { &mut G_APP_BROWSER.lock().unwrap() };
-    if app_browser.alpm_helper.do_update() != AlpmHelperResult::NOTHING {
+    if app_browser.alpm_helper.do_update() != AlpmHelperResult::Nothing {
         // reload json for view new apps installed
         app_browser.reload_app_data(true);
     }
@@ -402,7 +402,7 @@ fn load_groups_data(groups: &serde_json::Value) -> gtk::ListStore {
 
     for group in groups.as_array().unwrap() {
         let g_name = String::from(group["name"].as_str().unwrap());
-        store.set(&store.append(), &[(0, &String::from(g_name))]);
+        store.set(&store.append(), &[(0, &g_name)]);
     }
 
     store

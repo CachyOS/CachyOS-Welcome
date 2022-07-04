@@ -89,8 +89,8 @@ mod test {
 
     #[test]
     fn check_file() {
-        assert_eq!(check_regular_file("/etc/fstab"), true);
-        assert_eq!(check_regular_file("/etc"), false);
+        assert!(check_regular_file("/etc/fstab"));
+        assert!(!check_regular_file("/etc"));
     }
 
     #[test]
