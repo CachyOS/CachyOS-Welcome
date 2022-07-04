@@ -12,7 +12,7 @@
     "style_path": "/usr/share/cachyos-hello/ui/style.css",
     "urls": {
         "development": "https://github.com/cachyos",
-        "discover": "https://github.com/cachyos/cachyos-pkgbuilds",
+        "software": "https://github.com/cachyos/cachyos-pkgbuilds",
         "donate": "https://cachyos.org/donate",
         "forum": "https://forum.cachyos.org",
         "telegram": "https://t.me/+oR-kWT47vRdmMDli",

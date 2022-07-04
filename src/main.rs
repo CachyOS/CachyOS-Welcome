@@ -179,12 +179,6 @@ fn build_ui(application: &gtk::Application) {
     if Path::new(&logo_path).exists() {
         let logo = Pixbuf::from_file(logo_path).unwrap();
         main_window.set_icon(Some(&logo));
-
-        let image: gtk::Image = builder.object("distriblogo").unwrap();
-        image.set_from_pixbuf(Some(&logo));
-
-        let dialog: gtk::AboutDialog = builder.object("aboutdialog").unwrap();
-        dialog.set_logo(Some(&logo));
     }
 
     let social_box: gtk::Box = builder.object("social").unwrap();
@@ -344,9 +338,8 @@ fn set_locale(use_locale: &str) {
 
     // Real-time locale changing
     let elts: HashMap<String, serde_json::Value> = serde_json::from_str(&serde_json::to_string(&json!({
-        "comments": ["aboutdialog"],
-        "label": ["autostartlabel", "development", "discover", "donate", "firstcategory", "forum", "install", "installlabel", "involved", "mailling", "readme", "release", "secondcategory", "thirdcategory", "welcomelabel", "welcometitle", "wiki"],
-        "tooltip_text": ["about", "development", "discover", "donate", "forum", "mailling", "wiki"],
+        "label": ["autostartlabel", "development", "software", "donate", "firstcategory", "forum", "install", "installlabel", "involved", "mailling", "readme", "release", "secondcategory", "thirdcategory", "welcomelabel", "welcometitle", "wiki"],
+        "tooltip_text": ["about", "development", "software", "donate", "forum", "mailling", "wiki"],
     })).unwrap()).unwrap();
 
     let mut default_texts = json!(null);
@@ -364,7 +357,7 @@ fn set_locale(use_locale: &str) {
                     let item_buf = item.property::<String>(method.0.as_str());
                     default_texts[method.0][elt_value] = json!(item_buf);
                 }
-                if method.0 == "tooltip_text" || method.0 == "comments" {
+                if method.0 == "tooltip_text" {
                     item.set_property(
                         method.0,
                         &gettextrs::gettext(default_texts[method.0][elt_value].as_str().unwrap()),

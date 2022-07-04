@@ -95,9 +95,9 @@ impl ApplicationBrowser {
             String::static_type(),
             String::static_type(),
             String::static_type(),
-            bool::static_type(),
+            i32::static_type(),
             String::static_type(),
-            bool::static_type(),
+            i32::static_type(),
         ];
 
         Self {
@@ -146,9 +146,9 @@ impl ApplicationBrowser {
                     (ICON, &g_icon),
                     (APPLICATION, &g_name),
                     (DESCRIPTION, &g_desc),
-                    (ACTIVE, &false),
+                    (ACTIVE, &-1),
                     (PACKAGE, &None::<String>),
-                    (INSTALLED, &false),
+                    (INSTALLED, &-1),
                 ]);
                 store_size += 1;
 
@@ -291,13 +291,11 @@ fn treeview_cell_app_data_function(
     model: &gtk::TreeModel,
     iter_a: &gtk::TreeIter,
 ) {
-    let value_gobj = model.value(iter_a, INSTALLED as i32);
-    let value = value_gobj.get::<bool>().unwrap();
-    if value {
-        renderer_cell.set_width(600);
-    } else {
-        renderer_cell.set_width(400);
-    }
+    let value_gobj = model.value(iter_a, INSTALLED as i32).get::<i32>();
+    match value_gobj {
+        Ok(1) | Ok(0) => renderer_cell.set_width(280),
+        _ => (),
+    };
 }
 
 fn treeview_cell_check_data_function(
@@ -306,9 +304,9 @@ fn treeview_cell_check_data_function(
     model: &gtk::TreeModel,
     iter_a: &gtk::TreeIter,
 ) {
-    let value_gobj = model.value(iter_a, GROUP as i32);
-    let value = value_gobj.get::<&str>().is_ok();
-    renderer_cell.set_visible(!value);
+    // hide checkbox for groups
+    let value = model.value(iter_a, INSTALLED as i32).get::<i32>().unwrap();
+    renderer_cell.set_visible(value != -1);
 }
 
 fn on_reload_clicked(_button: &gtk::Button) {
@@ -351,13 +349,11 @@ fn on_query_tooltip_tree_view(
     let tooltip_context = treeview.tooltip_context(&mut x, &mut y, keyboard_tip);
     if let Some((model_tmp, path, iter_a)) = tooltip_context {
         let model = model_tmp.unwrap();
-        let value_gobj = model.value(&iter_a, INSTALLED as i32);
-        let value = value_gobj.get::<bool>();
-        if value.is_ok() && value.unwrap() {
+        let value = model.value(&iter_a, INSTALLED as i32).get::<i32>().unwrap();
+        if value == 1 {
             let mut msg = String::from("Installed");
-            let active_gobj = model.value(&iter_a, ACTIVE as i32);
-            let active = active_gobj.get::<bool>();
-            if active.is_ok() && !active.unwrap() {
+            let active = model.value(&iter_a, ACTIVE as i32).get::<i32>().unwrap();
+            if active == 0 {
                 msg.push_str(" , to remove");
             }
             tooltip.set_markup(Some(msg.as_str()));
@@ -376,7 +372,7 @@ fn on_app_toggle(_cell: &gtk::CellRendererToggle, path: gtk::TreePath) {
 
     // a group has no package attached and we don't install groups
     if value_gobj.get::<&str>().is_ok() {
-        let toggle_a = app_store.value(&iter_a, ACTIVE as i32).get::<bool>().unwrap();
+        let toggle_a = app_store.value(&iter_a, ACTIVE as i32).get::<i32>().unwrap() == 1;
         app_store.set(&iter_a, &[(ACTIVE, &!toggle_a)]);
 
         let alpm_handle = app_browser.get_alpm_handle();
