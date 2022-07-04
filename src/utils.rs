@@ -2,6 +2,8 @@ use gtk::prelude::*;
 use std::fs::File;
 use std::{fs, slice, str};
 
+use subprocess::{Exec, Redirection};
+
 #[inline]
 pub fn fix_path(path: &str) -> String {
     if !path.starts_with('~') {
@@ -63,6 +65,22 @@ pub fn create_combo_with_model(group_store: &gtk::ListStore) -> gtk::ComboBox {
     group_combo.set_active(Some(0));
 
     group_combo
+}
+
+pub fn run_cmd_terminal(cmd: String, escalate: bool) -> bool {
+    let cmd_formated = format!("{}; read -p 'Press enter to exit'", cmd);
+    let mut args: Vec<&str> = vec![];
+    if escalate {
+        args.extend_from_slice(&["-s", "pkexec /usr/share/cachyos-hello/scripts/rootshell.sh"]);
+    }
+    args.push(cmd_formated.as_str());
+
+    let exit_status = Exec::cmd("/usr/share/cachyos-hello/scripts/terminal-helper")
+        .args(args.as_slice())
+        .stdout(Redirection::Pipe)
+        .join()
+        .unwrap();
+    exit_status.success()
 }
 
 #[cfg(test)]

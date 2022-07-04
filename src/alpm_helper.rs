@@ -1,3 +1,5 @@
+use crate::utils;
+
 #[derive(Clone, Debug)]
 #[repr(C)]
 pub struct AlpmHelper {
@@ -76,18 +78,18 @@ impl AlpmHelper {
     }
 
     fn install_apps(&self, pkg_list: &Vec<String>, install: bool) -> bool {
-        let mut install_arg: &str = "";
+        let mut install_arg: &str = "-Sy";
         if pkg_list.is_empty() {
             return false;
         } else if !install {
             install_arg = "-R";
         }
 
-        println!("pacman {} {:?}", install_arg, pkg_list);
-
+        let packages_do = pkg_list.iter().map(|s| s.to_string() + " ").collect::<String>();
+        let _ = utils::run_cmd_terminal(format!("pacman {} {}", install_arg, packages_do), true);
         match install {
-            true => !self.app_installed(&pkg_list[0]),
-            false => self.app_installed(&pkg_list[0]),
+            true => self.app_installed(&pkg_list[0]),
+            false => !self.app_installed(&pkg_list[0]),
         }
     }
 

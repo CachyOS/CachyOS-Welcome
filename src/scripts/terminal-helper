@@ -1,0 +1,64 @@
+#!/usr/bin/bash
+#
+###
+# This code has been taken from Garuda
+# Its is only temporal implementation
+###
+#
+# This script tries to exec a terminal emulator by trying some known terminal
+# emulators.
+#
+# Invariants:
+# 1. $TERMINAL must come first
+# 2. Distribution-specific mechanisms come next, e.g. x-terminal-emulator
+# 3. The terminal emulator with best accessibility comes first.
+# 4. No order is guaranteed/desired for the remaining terminal emulators.
+
+set -e
+LAUNCHER_CMD=bash
+
+usage() {
+    echo "Usage: ${0##*/} [cmd]"
+    echo '    -s [shell]         Change shell to [shell]'
+    echo '    -h                 This help'
+    exit 1
+}
+
+opts='s:h'
+
+while getopts "${opts}" arg; do
+    case "${arg}" in
+        s) LAUNCHER_CMD="$OPTARG" ;;
+        h|?) usage 0 ;;
+        *) echo "invalid argument '${arg}'"; usage 1 ;;
+    esac
+done
+
+shift $(($OPTIND - 1))
+
+file="$(mktemp)"
+echo "$1" > "$file"
+cmd="${LAUNCHER_CMD} \"$file\""
+echo $cmd
+
+#declare -a terminals=(x-terminal-emulator mate-terminal gnome-terminal terminator xfce4-terminal urxvt rxvt termit Eterm aterm uxterm xterm roxterm termite lxterminal terminology st qterminal lilyterm tilix terminix konsole kitty guake tilda alacritty)
+terminal=""
+declare -A terminals=( ["alacritty"]="alacritty -e $cmd || LIBGL_ALWAYS_SOFTWARE=1 alacritty -e $cmd" ["konsole"]="konsole -e $cmd" ["gnome-terminal"]="gnome-terminal --wait -- $cmd" ["xfce4-terminal"]="xfce4-terminal --disable-server --command '$cmd'" ["lxterminal"]="lxterminal -e $cmd" ["xterm"]="xterm -e $cmd" ["st"]="st $cmd")
+declare -a term_order=( "alacritty" "konsole" "gnome-terminal" "xfce4-terminal" "lxterminal" "xterm" "st")
+
+if [ -z "$terminal" ] || ! command -v "$terminal" &> /dev/null; then
+for entry in ${term_order[@]}; do
+    if command -v "$entry" > /dev/null 2>&1; then
+        terminal="$entry"
+        break;
+    fi
+done
+fi
+
+if [ -z "$terminal" ]; then
+    notify-send -t 1500 --app-name=CachyOS "No terminal installed" "Could not find a terminal emulator. Please install one."
+    exit 1
+fi
+
+eval "${terminals[${terminal}]}" || { rm "$file"; exit 2; }
+rm "$file"

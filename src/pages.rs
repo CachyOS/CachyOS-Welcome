@@ -11,67 +11,6 @@ use gtk::prelude::*;
 
 use std::str;
 use subprocess::{Exec, Redirection};
-// static mut g_app_browser: Lazy<Mutex<ApplicationBrowser>> =
-//    Lazy::new(|| Mutex::new(ApplicationBrowser::new()));
-
-// pub fn create_appbrowser_page() -> gtk::Box {
-// NOTE: we might not even need that here
-// let app_browser_box = ApplicationBrowser::default_impl().create_page();
-// let app_browser_box = ApplicationBrowser::default_impl().lock().expect("Initialization
-// failed!").create_page();
-
-//   let app_browser_box = gtk::Box::new(gtk::Orientation::Vertical, 10);
-//   app_browser_box.set_expand(true);
-
-//   let button_box = gtk::Box::new(gtk::Orientation::Horizontal, 10);
-//   let advanced_button = gtk::Button::with_label("advanced");
-//   advanced_button.set_tooltip_text(Some("Toggle an extended selection of packages"));
-//   advanced_button.connect_clicked(on_advanced_clicked);
-// let download_button = gtk::Button::with_label("download");
-// download_button.set_tooltip_text(Some("Download the most recent selection of packages"));
-// download_button.connect_clicked(on_download_clicked);
-//   let reset_button = gtk::Button::with_label("reset");
-//   reset_button.set_tooltip_text(Some("Reset your current selections..."));
-//   reset_button.connect_clicked(on_reload_clicked);
-//   let update_system_button = unsafe { g_app_browser.lock().unwrap().update_system_btn };
-
-// Group filter
-//   let data = fs::read_to_string(format!("{}/data/application_utility/default.json",
-// PKGDATADIR))       .expect("Unable to read file");
-//   let groups: serde_json::Value = serde_json::from_str(&data).expect("Unable to parse");
-//   let group_store = load_groups_data(&groups);
-//   let group_combo = utils::create_combo_with_model(&group_store);
-
-// Packing button box
-//   button_box.pack_start(&advanced_button, false, false, 10);
-//   button_box.pack_start(&group_combo, false, false, 10);
-//   button_box.pack_end(&update_system_button, false, false, 10);
-
-//   button_box.pack_end(&reset_button, false, false, 10);
-// button_box.pack_end(&download_button, false, false, 10);
-//   app_browser_box.pack_start(&button_box, false, false, 10);
-
-// create view and app store
-//   let (tree_view, app_store_size) = create_view_tree(&groups);
-
-// create a scrollable window
-//    let app_window = gtk::ScrolledWindow::new(gtk::Adjustment::NONE, gtk::Adjustment::NONE);
-//    app_window.set_vexpand(true);
-//    app_window.set_policy(gtk::PolicyType::Never, gtk::PolicyType::Automatic);
-// add window to tree view
-//    app_window.add(&tree_view);
-
-//    // setup grid
-//    let grid_inter = gtk::Grid::new();
-//    grid_inter.set_column_homogeneous(true);
-//    grid_inter.set_row_homogeneous(true);
-//    // add grid to app browser
-//    app_browser_box.add(&grid_inter);
-//    grid_inter.attach(&app_window, 0, 0, 5, app_store_size as i32);
-//
-// app_browser_box
-//    gtk::Box::new(gtk::Orientation::Vertical, 10)
-//}
 
 static mut g_local_units: Lazy<Mutex<SystemdUnits>> = Lazy::new(|| Mutex::new(SystemdUnits::new()));
 static mut g_global_units: Lazy<Mutex<SystemdUnits>> =

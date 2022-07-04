@@ -193,6 +193,7 @@ impl ApplicationBrowser {
         self.app_store.clear();
 
         if refresh {
+            self.alpm_handle = new_alpm().unwrap();
             self.group_store = load_groups_data(&self.groups);
         }
         self.load_app_data();
