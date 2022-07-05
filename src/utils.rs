@@ -1,8 +1,17 @@
 use gtk::prelude::*;
 use std::fs::File;
+use std::path::Path;
 use std::{fs, slice, str};
 
 use subprocess::{Exec, Redirection};
+
+#[derive(Debug)]
+pub enum PacmanWrapper {
+    Pak,
+    Yay,
+    Paru,
+    Pacman,
+}
 
 #[inline]
 pub fn fix_path(path: &str) -> String {
@@ -81,6 +90,19 @@ pub fn run_cmd_terminal(cmd: String, escalate: bool) -> bool {
         .join()
         .unwrap();
     exit_status.success()
+}
+
+#[inline]
+pub fn get_pacman_wrapper() -> PacmanWrapper {
+    if Path::new("/sbin/pak").exists() {
+        return PacmanWrapper::Pak;
+    } else if Path::new("/sbin/yay").exists() {
+        return PacmanWrapper::Yay;
+    } else if Path::new("/sbin/paru").exists() {
+        return PacmanWrapper::Paru;
+    }
+
+    PacmanWrapper::Pacman
 }
 
 #[cfg(test)]

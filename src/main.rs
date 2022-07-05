@@ -1,5 +1,6 @@
 #![feature(const_slice_from_raw_parts)]
 #![feature(const_str_from_utf8)]
+#![feature(string_remove_matches)]
 #![allow(non_upper_case_globals)]
 
 mod alpm_helper;
@@ -74,13 +75,16 @@ fn show_about_dialog() {
     unsafe {
         main_window = g_hello_window.clone().unwrap().window.clone();
     }
+    let logo_path = format!("/usr/share/icons/hicolor/scalable/apps/{}.svg", APP_ID);
+    let logo = Pixbuf::from_file(logo_path).unwrap();
+
     let dialog = gtk::AboutDialog::builder()
         .transient_for(&main_window)
         .modal(true)
         .program_name(&gettextrs::gettext("CachyOS Hello"))
         .comments(&gettextrs::gettext("Welcome screen for CachyOS"))
         .version(VERSION)
-        .logo_icon_name(APP_ID)
+        .logo(&logo)
         .authors(vec![
             "Vladislav Nepogodin".into(),
         ])
@@ -133,14 +137,14 @@ fn build_ui(application: &gtk::Application) {
 
     // Import Css
     let provider = gtk::CssProvider::new();
-    provider.load_from_path(preferences["style_path"].as_str().unwrap()).unwrap();
-    if let Some(screen) = gdk::Screen::default() {
-        gtk::StyleContext::add_provider_for_screen(
-            &screen,
-            &provider,
-            gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
-        );
-    }
+    provider
+        .load_from_path(preferences["style_path"].as_str().unwrap())
+        .expect("Failed to load CSS");
+    gtk::StyleContext::add_provider_for_screen(
+        &gdk::Screen::default().expect("Error initializing gtk css provider."),
+        &provider,
+        gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
+    );
 
     // Init window
     let builder: Builder = Builder::from_file(preferences["ui_path"].as_str().unwrap());
@@ -175,7 +179,7 @@ fn build_ui(application: &gtk::Application) {
     header.set_subtitle(Some("CachyOS rolling"));
 
     // Load images
-    let logo_path = preferences["logo_path"].as_str().unwrap();
+    let logo_path = format!("{}/{}.svg", preferences["logo_path"].as_str().unwrap(), APP_ID);
     if Path::new(&logo_path).exists() {
         let logo = Pixbuf::from_file(logo_path).unwrap();
         main_window.set_icon(Some(&logo));

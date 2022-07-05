@@ -1,10 +1,11 @@
-// extern crate gtk;
-
 use crate::application_browser::ApplicationBrowser;
 use crate::data_types::*;
+use crate::utils;
+use crate::utils::PacmanWrapper;
 use gtk::{glib, Builder};
 use once_cell::sync::Lazy;
 use std::fmt::Write as _;
+use std::path::Path;
 use std::sync::Mutex;
 
 use gtk::prelude::*;
@@ -15,6 +16,65 @@ use subprocess::{Exec, Redirection};
 static mut g_local_units: Lazy<Mutex<SystemdUnits>> = Lazy::new(|| Mutex::new(SystemdUnits::new()));
 static mut g_global_units: Lazy<Mutex<SystemdUnits>> =
     Lazy::new(|| Mutex::new(SystemdUnits::new()));
+
+fn create_fixes_section() -> gtk::Box {
+    let topbox = gtk::Box::new(gtk::Orientation::Vertical, 2);
+    let button_box_f = gtk::Box::new(gtk::Orientation::Horizontal, 10);
+    let button_box_s = gtk::Box::new(gtk::Orientation::Horizontal, 10);
+    let label = gtk::Label::new(None);
+    label.set_line_wrap(true);
+    label.set_justify(gtk::Justification::Center);
+    label.set_text("Fixes");
+
+    let removelock_btn = gtk::Button::with_label("Remove db lock");
+    let reinstall_btn = gtk::Button::with_label("Reinstall all packages");
+    let refreshkeyring_btn = gtk::Button::with_label("Refresh keyrings");
+    let update_system_btn = gtk::Button::with_label("System update");
+    let remove_orphans_btn = gtk::Button::with_label("Remove orphans");
+    let clear_pkgcache_btn = gtk::Button::with_label("Clear package cache");
+
+    removelock_btn.connect_clicked(move |_| {
+        if Path::new("/var/lib/pacman/db.lck").exists() {
+            let _ = Exec::cmd("/sbin/pkexec")
+                .arg("bash")
+                .arg("-c")
+                .arg("rm /var/lib/pacman/db.lck")
+                .join()
+                .unwrap();
+            if !Path::new("/var/lib/pacman/db.lck").exists() {
+                let dialog = gtk::MessageDialog::builder()
+                    .message_type(gtk::MessageType::Info)
+                    .text("Pacman db lock was removed!")
+                    .build();
+                dialog.show();
+            }
+        }
+    });
+    reinstall_btn.connect_clicked(move |_| {
+        let _ = utils::run_cmd_terminal(String::from("pacman -S $(pacman -Qnq)"), true);
+    });
+    refreshkeyring_btn.connect_clicked(on_refreshkeyring_btn_clicked);
+    update_system_btn.connect_clicked(on_update_system_btn_clicked);
+    remove_orphans_btn.connect_clicked(move |_| {
+        let _ = utils::run_cmd_terminal(String::from("pacman -Rns $(pacman -Qtdq)"), true);
+    });
+    clear_pkgcache_btn.connect_clicked(on_clear_pkgcache_btn_clicked);
+
+    topbox.pack_start(&label, true, false, 1);
+    button_box_f.pack_start(&update_system_btn, true, true, 2);
+    button_box_f.pack_start(&reinstall_btn, true, true, 2);
+    button_box_f.pack_end(&refreshkeyring_btn, true, true, 2);
+    button_box_s.pack_start(&removelock_btn, true, true, 2);
+    button_box_s.pack_start(&clear_pkgcache_btn, true, true, 2);
+    button_box_s.pack_end(&remove_orphans_btn, true, true, 2);
+    button_box_f.set_halign(gtk::Align::Fill);
+    button_box_s.set_halign(gtk::Align::Fill);
+    topbox.pack_end(&button_box_s, true, true, 5);
+    topbox.pack_end(&button_box_f, true, true, 5);
+
+    topbox.set_hexpand(true);
+    topbox
+}
 
 fn create_options_section() -> gtk::Box {
     let topbox = gtk::Box::new(gtk::Orientation::Vertical, 2);
@@ -62,7 +122,7 @@ fn create_options_section() -> gtk::Box {
     box_collection.pack_start(&apparmor_btn, true, false, 2);
     box_collection.pack_start(&ananicy_cpp_btn, true, false, 2);
     box_collection.set_halign(gtk::Align::Fill);
-    topbox.pack_start(&box_collection, true, false, 1);
+    topbox.pack_end(&box_collection, true, false, 1);
 
     topbox.set_hexpand(true);
     topbox
@@ -85,10 +145,10 @@ fn create_apps_section() -> gtk::Box {
     box_collection.pack_start(&cachyos_pi, true, true, 2);
     box_collection.pack_start(&cachyos_km, true, true, 2);
 
-    topbox.pack_start(&label, true, true, 2);
+    topbox.pack_start(&label, true, true, 5);
 
     box_collection.set_halign(gtk::Align::Fill);
-    topbox.pack_start(&box_collection, true, true, 0);
+    topbox.pack_end(&box_collection, true, true, 0);
 
     topbox.set_hexpand(true);
     topbox
@@ -110,9 +170,9 @@ fn load_enabled_units() {
 
         for service in service_list {
             let out: Vec<&str> = service.split(' ').collect();
-            g_local_units.lock().unwrap().loaded_units.push(out[0].to_string());
+            g_local_units.lock().unwrap().loaded_units.push(String::from(out[0]));
             if out[1] == "enabled" {
-                g_local_units.lock().unwrap().enabled_units.push(out[0].to_string());
+                g_local_units.lock().unwrap().enabled_units.push(String::from(out[0]));
             }
         }
     }
@@ -134,9 +194,9 @@ fn load_global_enabled_units() {
         let service_list = exec_out.split('\n');
         for service in service_list {
             let out: Vec<&str> = service.split(' ').collect();
-            g_global_units.lock().unwrap().loaded_units.push(out[0].to_string());
+            g_global_units.lock().unwrap().loaded_units.push(String::from(out[0]));
             if out[1] == "enabled" {
-                g_global_units.lock().unwrap().enabled_units.push(out[0].to_string());
+                g_global_units.lock().unwrap().enabled_units.push(String::from(out[0]));
             }
         }
     }
@@ -150,8 +210,6 @@ pub fn create_tweaks_page(builder: &Builder) {
     load_global_enabled_units();
 
     let viewport = gtk::Viewport::new(gtk::Adjustment::NONE, gtk::Adjustment::NONE);
-    // let label = gtk::Label::new(None);
-    // label.set_line_wrap(true);
     let image = gtk::Image::from_icon_name(Some("go-previous"), gtk::IconSize::Button);
     let back_btn = gtk::Button::new();
     back_btn.set_image(Some(&image));
@@ -164,6 +222,7 @@ pub fn create_tweaks_page(builder: &Builder) {
     }));
 
     let options_section_box = create_options_section();
+    let fixes_section_box = create_fixes_section();
     let apps_section_box = create_apps_section();
 
     let grid = gtk::Grid::new();
@@ -175,8 +234,9 @@ pub fn create_tweaks_page(builder: &Builder) {
     grid.attach(&back_btn, 0, 1, 1, 1);
     let box_collection = gtk::Box::new(gtk::Orientation::Vertical, 5);
 
-    box_collection.pack_start(&options_section_box, true, true, 5);
-    box_collection.pack_start(&apps_section_box, true, true, 5);
+    box_collection.pack_start(&options_section_box, false, false, 10);
+    box_collection.pack_start(&fixes_section_box, false, false, 10);
+    box_collection.pack_end(&apps_section_box, false, false, 10);
 
     box_collection.set_valign(gtk::Align::Center);
     box_collection.set_halign(gtk::Align::Center);
@@ -194,8 +254,6 @@ pub fn create_appbrowser_page(builder: &Builder) {
     install.set_visible(true);
 
     let viewport = gtk::Viewport::new(gtk::Adjustment::NONE, gtk::Adjustment::NONE);
-    // let label = gtk::Label::new(None);
-    // label.set_line_wrap(true);
     let image = gtk::Image::from_icon_name(Some("go-previous"), gtk::IconSize::Button);
     let back_btn = gtk::Button::new();
     back_btn.set_image(Some(&image));
@@ -267,6 +325,49 @@ fn on_servbtn_clicked(button: &gtk::CheckButton) {
             load_enabled_units();
         }
     });
+}
+
+fn on_refreshkeyring_btn_clicked(_: &gtk::Button) {
+    let pacman = pacmanconf::Config::with_opts(None, Some("/etc/pacman.conf"), Some("/")).unwrap();
+    let alpm = alpm_utils::alpm_with_conf(&pacman).unwrap();
+    // pacman -Qq | grep keyring
+    let needles = alpm
+        .localdb()
+        .search([".*-keyring"].iter())
+        .unwrap()
+        .into_iter()
+        .filter(|pkg| pkg.name() != "gnome-keyring")
+        .map(|pkg| {
+            let mut pkgname = String::from(pkg.name());
+            pkgname.remove_matches("-keyring");
+            format!("{} ", pkgname)
+        })
+        .collect::<String>();
+
+    let _ = utils::run_cmd_terminal(
+        format!("pacman-key --init && pacman-key --populate {}", needles),
+        true,
+    );
+}
+
+fn on_update_system_btn_clicked(_: &gtk::Button) {
+    let (cmd, escalate) = match utils::get_pacman_wrapper() {
+        PacmanWrapper::Pak => ("pak -Syu", false),
+        PacmanWrapper::Yay => ("yay -Syu", false),
+        PacmanWrapper::Paru => ("paru --removemake -Syu", false),
+        _ => ("pacman -Syu", true),
+    };
+    let _ = utils::run_cmd_terminal(String::from(cmd), escalate);
+}
+
+fn on_clear_pkgcache_btn_clicked(_: &gtk::Button) {
+    let (cmd, escalate) = match utils::get_pacman_wrapper() {
+        PacmanWrapper::Pak => ("pak -Sc", false),
+        PacmanWrapper::Yay => ("yay -Sc", false),
+        PacmanWrapper::Paru => ("paru -Sc", false),
+        _ => ("pacman -Sc", true),
+    };
+    let _ = utils::run_cmd_terminal(String::from(cmd), escalate);
 }
 
 fn on_appbtn_clicked(button: &gtk::Button) {

@@ -6,7 +6,7 @@
     "installer_path": "/usr/bin/calamares",
     "live_path": "/run/archiso/bootmnt/arch",
     "locale_path": "/usr/share/locale/",
-    "logo_path": "/usr/share/icons/hicolor/64x64/apps/cachyos.png",
+    "logo_path": "/usr/share/icons/hicolor/scalable/apps/",
     "save_path": "~/.config/cachyos-hello.json",
     "ui_path": "/usr/share/cachyos-hello/ui/cachyos-hello.glade",
     "style_path": "/usr/share/cachyos-hello/ui/style.css",
