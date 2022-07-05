@@ -5,10 +5,17 @@
         "description": "Web browsing and communication",
         "apps": [
             {
-                "name": "Vivaldi",
-                "icon": "vivaldi",
-                "description": "Configurable browser for power users",
-                "pkg": "vivaldi",
+                "name": "Brave",
+                "icon": "brave",
+                "description": "A web browser that stops ads and trackers by default.",
+                "pkg": "brave-bin",
+                "extra": []
+            },
+            {
+                "name": "Ungoogled Chromium",
+                "icon": "chromium",
+                "description": "A lightweight approach to removing Google web service dependency",
+                "pkg": "ungoogled-chromium",
                 "extra": []
             },
             {
@@ -33,7 +40,7 @@
                 "icon": "mozilla-firefox",
                 "description": "Privacy oriented Web Browser",
                 "pkg": "firefox",
-                "extra": ["firefox-gnome-theme-maia"]
+                "extra": []
             },
             {
                 "name": "Midori",
@@ -117,13 +124,6 @@
                 "extra": []
             },
             {
-                "name": "Sylpheed",
-                "icon": "sylpheed",
-                "description": "E-mail client",
-                "pkg": "sylpheed",
-                "extra": []
-            },
-            {
                 "name": "Thunderbird",
                 "icon": "thunderbird",
                 "description": "Send and receive mail, contacts and schedule",
@@ -137,13 +137,6 @@
         "icon": "applications-office",
         "description": "Office suites like MS Office",
         "apps": [
-            {
-                "name": "FreeOffice",
-                "icon": "ms-word",
-                "description": "Microsoft Office compatible suite",
-                "pkg": "freeoffice",
-                "extra": []
-            },
             {
                 "name": "Libre Office (Fresh)",
                 "icon": "libreoffice-main",
@@ -159,40 +152,12 @@
                 "extra": []
             },
             {
-                "name": "MS Office Online",
-                "icon": "ms-word",
-                "description": "Microsoft Office Online",
-                "pkg": "microsoft-office-web-jak",
-                "extra": []
-            },
-            {
                 "name": "OnlyOffice Desktop Editors",
                 "icon": "ms-word",
                 "description": "Light and free MS Office clone.",
-                "pkg": "onlyoffice-desktopeditors",
+                "pkg": "onlyoffice-bin",
                 "extra": []
             }
-        ]
-    },
-    {
-        "name": "Extended language support",
-        "icon": "gnumeric",
-        "description": "Manjaro extended language support",
-        "apps": [
-          {
-            "name": "Manjaro Asian Input Support Fcitx",
-            "icon": "gnumeric",
-            "description": "Manjaro extended language support with fcitx support",
-            "pkg": "manjaro-asian-input-support-fcitx",
-            "extra": []
-          },
-          {
-            "name": "Manjaro Asian Input Support Ibus",
-            "icon": "gnumeric",
-            "description": "Manjaro extended language support with ibus support",
-            "pkg": "manjaro-asian-input-support-ibus",
-            "extra": []
-          }
         ]
     },
     {
@@ -242,14 +207,34 @@
                 "name": "Micro",
                 "icon": "micro",
                 "description": "Inituitive Text Editor for terminal",
-                "pkg": "micro-manjaro",
+                "pkg": "micro",
                 "extra": []
             },
-                        {
+            {
                 "name": "Vim",
-                "icon": "gvim",
+                "icon": "vim",
                 "description": "Keyboard controlled text-editor",
-                "pkg": "gvim",
+                "pkg": "vim",
+                "filter": [
+                    "advanced"
+                ],
+                "extra": []
+            },
+            {
+                "name": "NeoVim",
+                "icon": "neovim",
+                "description": "Vim-fork focused on extensibility and usability",
+                "pkg": "neovim",
+                "filter": [
+                    "advanced"
+                ],
+                "extra": []
+            },
+            {
+                "name": "Neovide",
+                "icon": "neovide",
+                "description": "No Nonsense Neovim Client in Rust",
+                "pkg": "neovide",
                 "filter": [
                     "advanced"
                 ],
@@ -267,7 +252,7 @@
             },
             {
                 "name": "Gnome builder",
-                "icon": "gedit",
+                "icon": "gnome-builder",
                 "description": "An IDE for writing GNOME-based software",
                 "pkg": "gnome-builder",
                 "filter": [
@@ -287,14 +272,14 @@
     {
         "name": "Printing",
         "icon": "printer",
-        "description": "Support for printing CUPS, HPLIP",
+        "description": "Support for printing CUPS",
         "apps": [
             {
-                "name": "Manjaro Printing",
+                "name": "The CUPS Printing System",
                 "icon": "printer",
-                "description": "Printing Meta Package",
-                "pkg": "manjaro-printer",
-                "extra": []
+                "description": "Printing support",
+                "pkg": "cups",
+                "extra": ["cups-pdf", "cups-pk-helper"]
             }
         ]
     },
@@ -768,10 +753,13 @@
                 "extra": []
             },
             {
-                "name": "Enpass",
-                "icon": "enpass",
-                "description": "Premium Cross-platform Password Manager",
-                "pkg": "enpass",
+                "name": "Unix Pass",
+                "icon": "pass",
+                "description": "The standard unix password manager.",
+                "pkg": "pass",
+                "filter": [
+                    "advanced"
+                ],
                 "extra": []
             }
         ]
@@ -785,9 +773,16 @@
         ],
         "apps": [
             {
+                "name": "balenaEtcher",
+                "icon": "mintstick",
+                "description": "Flash OS images to SD cards & USB drives, safely and easily",
+                "pkg": "balena-etcher",
+                "extra": []
+            },
+            {
                 "name": "Popsicle",
                 "icon": "mintstick",
-                "description": "Graphical tool to write ISO to USB",
+                "description": "Linux utility for flashing multiple USB devices in parallel",
                 "pkg": "popsicle",
                 "extra": []
             },
@@ -809,31 +804,10 @@
                 "extra": []
             },
             {
-                "name": "IsoUSB",
-                "icon": "mintstick",
-                "description": "A graphical tool to copy a hybrid ISO onto a USB key.",
-                "pkg": "isousb",
-                "extra": []
-            },
-            {
-                "name": "Mintstick",
-                "icon": "mintstick",
-                "description": "Format or write imges to usb sticks (Linux Mint tool).",
-                "pkg": "mintstick",
-                "extra": []
-            },
-            {
                 "name": "Ventoy",
                 "icon": "mintstick",
                 "description": "Tool for creating multiboot isos",
-                "pkg": "ventoy",
-                "extra": []
-            },
-            {
-                "name": "Alma",
-                "icon": "mintstick",
-                "description": "Tool for creating persistent live isos",
-                "pkg": "alma-git",
+                "pkg": "ventoy-bin",
                 "extra": []
             }
         ]
