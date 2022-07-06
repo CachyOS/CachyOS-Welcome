@@ -73,6 +73,7 @@ cargo_sources = files(
 
 #subdir('po')
 subdir('src')
+subdir('icons')
 
 install_data (
     meson.project_name () + '.desktop',
