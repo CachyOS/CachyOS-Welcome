@@ -1,4 +1,5 @@
 use crate::utils;
+use crate::utils::PacmanWrapper;
 
 #[derive(Clone, Debug)]
 #[repr(C)]
@@ -74,15 +75,28 @@ impl AlpmHelper {
     }
 
     fn install_apps(&self, pkg_list: &Vec<String>, install: bool) -> bool {
-        let mut install_arg: &str = "-Sy";
         if pkg_list.is_empty() {
             return false;
-        } else if !install {
-            install_arg = "-R";
         }
+        let (cmd, escalate) = match install {
+            true => match utils::get_pacman_wrapper_gui() {
+                PacmanWrapper::Pamac => ("pamac-installer", false),
+                PacmanWrapper::Pak => ("pak -Sy", false),
+                PacmanWrapper::Yay => ("yay -Sy", false),
+                PacmanWrapper::Paru => ("paru -Sy", false),
+                _ => ("pacman -Sy", true),
+            },
+            false => match utils::get_pacman_wrapper_gui() {
+                PacmanWrapper::Pamac => ("pamac-installer --remove", false),
+                PacmanWrapper::Pak => ("pak -R", false),
+                PacmanWrapper::Yay => ("yay -R", false),
+                PacmanWrapper::Paru => ("paru -R", false),
+                _ => ("pacman -R", true),
+            },
+        };
 
         let packages_do = pkg_list.iter().map(|s| s.to_string() + " ").collect::<String>();
-        let _ = utils::run_cmd_terminal(format!("pacman {} {}", install_arg, packages_do), true);
+        let _ = utils::run_cmd_terminal(format!("{} {}", cmd, packages_do), escalate);
         match install {
             true => self.app_installed(&pkg_list[0]),
             false => !self.app_installed(&pkg_list[0]),
