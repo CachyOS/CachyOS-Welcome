@@ -10,7 +10,6 @@ pub enum PacmanWrapper {
     Pak,
     Yay,
     Paru,
-    Pamac,
     Pacman,
 }
 
@@ -96,21 +95,6 @@ pub fn run_cmd_terminal(cmd: String, escalate: bool) -> bool {
 #[inline]
 pub fn get_pacman_wrapper() -> PacmanWrapper {
     if Path::new("/sbin/pak").exists() {
-        return PacmanWrapper::Pak;
-    } else if Path::new("/sbin/yay").exists() {
-        return PacmanWrapper::Yay;
-    } else if Path::new("/sbin/paru").exists() {
-        return PacmanWrapper::Paru;
-    }
-
-    PacmanWrapper::Pacman
-}
-
-#[inline]
-pub fn get_pacman_wrapper_gui() -> PacmanWrapper {
-    if Path::new("/sbin/pamac-installer").exists() {
-        return PacmanWrapper::Pamac;
-    } else if Path::new("/sbin/pak").exists() {
         return PacmanWrapper::Pak;
     } else if Path::new("/sbin/yay").exists() {
         return PacmanWrapper::Yay;

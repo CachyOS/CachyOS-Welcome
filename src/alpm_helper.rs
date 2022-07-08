@@ -1,5 +1,7 @@
 use crate::utils;
 use crate::utils::PacmanWrapper;
+use std::path::Path;
+use subprocess::Exec;
 
 #[derive(Clone, Debug)]
 #[repr(C)]
@@ -78,25 +80,32 @@ impl AlpmHelper {
         if pkg_list.is_empty() {
             return false;
         }
-        let (cmd, escalate) = match install {
-            true => match utils::get_pacman_wrapper_gui() {
-                PacmanWrapper::Pamac => ("pamac-installer", false),
-                PacmanWrapper::Pak => ("pak -Sy", false),
-                PacmanWrapper::Yay => ("yay -Sy", false),
-                PacmanWrapper::Paru => ("paru -Sy", false),
-                _ => ("pacman -Sy", true),
-            },
-            false => match utils::get_pacman_wrapper_gui() {
-                PacmanWrapper::Pamac => ("pamac-installer --remove", false),
-                PacmanWrapper::Pak => ("pak -R", false),
-                PacmanWrapper::Yay => ("yay -R", false),
-                PacmanWrapper::Paru => ("paru -R", false),
-                _ => ("pacman -R", true),
-            },
-        };
 
         let packages_do = pkg_list.iter().map(|s| s.to_string() + " ").collect::<String>();
-        let _ = utils::run_cmd_terminal(format!("{} {}", cmd, packages_do), escalate);
+        if Path::new("/sbin/pamac-installer").exists() {
+            let arg = match install {
+                false => "--remove",
+                _ => "",
+            };
+            Exec::shell(format!("pamac-installer {} {}", arg, packages_do)).join().unwrap();
+        } else {
+            let (cmd, escalate) = match install {
+                true => match utils::get_pacman_wrapper() {
+                    PacmanWrapper::Pak => ("pak -Sy", false),
+                    PacmanWrapper::Yay => ("yay -Sy", false),
+                    PacmanWrapper::Paru => ("paru -Sy", false),
+                    _ => ("pacman -Sy", true),
+                },
+                false => match utils::get_pacman_wrapper() {
+                    PacmanWrapper::Pak => ("pak -R", false),
+                    PacmanWrapper::Yay => ("yay -R", false),
+                    PacmanWrapper::Paru => ("paru -R", false),
+                    _ => ("pacman -R", true),
+                },
+            };
+            let _ = utils::run_cmd_terminal(format!("{} {}", cmd, packages_do), escalate);
+        }
+
         match install {
             true => self.app_installed(&pkg_list[0]),
             false => !self.app_installed(&pkg_list[0]),
