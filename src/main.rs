@@ -33,7 +33,7 @@ static mut g_save_json: Lazy<Mutex<serde_json::Value>> = Lazy::new(|| Mutex::new
 
 static mut g_hello_window: Option<Arc<HelloWindow>> = None;
 
-fn quick_message(message: &str) {
+fn quick_message(message: &'static str) {
     // Create the widgets
     let dialog = gtk::Dialog::builder().title(message).modal(true).build();
 
@@ -62,6 +62,22 @@ fn quick_message(message: &str) {
 
     // Spawn child process in separate thread.
     std::thread::spawn(move || {
+        let status = match reqwest::blocking::get("https://cachyos.org") {
+            Ok(resp) => resp.status().is_success() || resp.status().is_server_error(),
+            _ => false,
+        };
+
+        if !status && result == gtk::ResponseType::Yes {
+            let errordialog = gtk::MessageDialog::builder()
+                .title(message)
+                .text("Unable to start online installation! No internet connection")
+                .modal(true)
+                .message_type(gtk::MessageType::Error)
+                .build();
+            errordialog.show();
+            return;
+        }
+
         Exec::shell(cmd).join().unwrap();
     });
 
