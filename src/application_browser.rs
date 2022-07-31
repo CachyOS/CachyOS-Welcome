@@ -210,6 +210,7 @@ impl ApplicationBrowser {
         self.tree_view.set_activate_on_single_click(true);
         self.tree_view.set_has_tooltip(true);
         self.tree_view.connect_query_tooltip(on_query_tooltip_tree_view);
+        self.tree_view.connect_button_press_event(on_button_press_event_tree_view);
 
         // column model: icon
         let icon = gtk::CellRendererPixbuf::new();
@@ -362,6 +363,37 @@ fn on_query_tooltip_tree_view(
         }
     }
     false
+}
+
+fn on_button_press_event_tree_view(
+    treeview: &gtk::TreeView,
+    event_btn: &gdk::EventButton,
+) -> gtk::glib::signal::Inhibit {
+    if event_btn.button() == 1 && event_btn.event_type() == gdk::EventType::DoubleButtonPress {
+        if let Some(coords) = event_btn.coords() {
+            let (x, y) = coords;
+            let path_info = treeview.path_at_pos(x as i32, y as i32);
+            if path_info == None {
+                return gtk::glib::signal::Inhibit(true);
+            }
+
+            let (path, ..) = path_info.unwrap();
+            let app_browser = unsafe { &mut G_APP_BROWSER.lock().unwrap() };
+            let app_store = app_browser.app_store.clone();
+            let iter_a = app_store.iter(&path.clone().unwrap()).unwrap();
+            let value_gobj = app_store.value(&iter_a, PACKAGE as i32);
+
+            if value_gobj.get::<&str>().is_err() {
+                if treeview.row_expanded(&path.clone().unwrap()) {
+                    treeview.collapse_row(&path.unwrap());
+                } else {
+                    treeview.expand_to_path(&path.unwrap());
+                }
+            }
+        }
+    }
+
+    gtk::glib::signal::Inhibit(false)
 }
 
 fn on_app_toggle(_cell: &gtk::CellRendererToggle, path: gtk::TreePath) {

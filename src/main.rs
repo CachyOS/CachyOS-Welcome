@@ -1,4 +1,3 @@
-#![feature(const_slice_from_raw_parts)]
 #![feature(const_str_from_utf8)]
 #![feature(string_remove_matches)]
 #![allow(non_upper_case_globals)]
