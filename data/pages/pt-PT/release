@@ -1,58 +1,20 @@
-<big>CachyOS 22.05</big>
-
-CachyOS was founded a year ago. After almost one year of development, we are really proud to announce our first Stable Release of GUI Installer.
-We spent a lot of time investigating repo management, kernel development, infrastructure, theming, ... and finally put them all into the CachyOS GUI Installer.
-All the features we worked on and implemented into the Installer are just trying to offer users a completely customizable experience.
+<big>CachyOS 22.07</big>
 
 <big>Features:</big>
 
-<b>Filesystems:</b>
+- Boot-loader selection: User can now choose on the online installation between grub and systemd-boot
+- At online installation will now always the newest calamares installed, which helps to do bug fixes on the "air"
+- Calamares has now a mhwd module which automatically installs the needed drivers (free drivers)
+- Calamares has new picture slides at the installation
+- fstab and zfs mount options got updated
+- HiDPI support
 
-- btrfs
-- zfs
-- ext4
-- xfs
-- f2fs
+<big>Bug-fixes:</big>
 
-After we found a solution to provide all our custom kernels with the zfs module integrated, we have implemented a one click install for zfs.
-For the ZFS install, you need to select cachyos-zfs under Cachyos Kernels - ZFS during installation. For more information:
-<a href="https://wiki.cachyos.org/en/home/cachyos-zfs">https://wiki.cachyos.org/en/home/cachyos-zfs</a>
-
-<b>Desktop Environments:</b>
-
--     KDE-Plasma - Simple by default, powerful when needed
--     CuteFish – An Elegant, Beautiful and Easy-to-Use Linux Desktop
--     i3 tiling WM, primarily targeted at developers and advanced users
--     GNOME - designed to put you in control and get things done
--     Openbox - a highly configurable, floating window manager with extensive standards support
--     Wayfire - a wayland compositor based on wlroots. It aims to create a customizable, extendable and lightweight environment without sacrificing its appearance
--     LXQT - The Lightweight Qt Desktop Environment.
--     bspwm - a tiling window manager that represents windows as the leaves of a full binary tree. bspwm supports multiple monitors and is configured and controlled through messages
--     Kofuku (bliss in Japanese) - a lightweight and minimalist Linux setup. This setup uses BSPWM as the tiling window manager.
--     Xfce - a lightweight desktop environment for UNIX-like operating systems. It aims to be fast and low on system resources, while still being visually appealing and user friendly
-
-Also the installer will automatically detect your CPU and choose optimized repo accordingly , more you can find here:
-<a href="https://wiki.cachyos.org/en/home/cachyos-performance">https://wiki.cachyos.org/en/home/cachyos-performance</a>
-
-<b>Linux Kernels:</b>
-
-The CachyOS kernels use different Schedulers and patches to improve performance. Following Schedulers are supported:
-
--     BORE (Burst-Oriented Response Enhancer) CPU Scheduler by firelzrd (BORE) - linux-cachyos
--     Standard Scheduler Completely Fair Scheduler (CFS) - linux-cachyos-cfs
--     CacULE and CacULE-RDB created from Hamad Marri, maintained by CachyOS - linux-cachyos-cacule
--     BitMap Queue (BMQ) Alfred Chen Scheduler - linux-cachyos-bmq
--     Priority and Deadline based Skiplist multiple queue scheduler (PDS) - Alfred Chen Scheduler » linux-cachyos-pds
--     Task Type Scheduler by Hamad Marri (TT) - linux-cachyos-tt
-
-All kernels are built into two versions (x86_64 and x86_64_v3) and llvm/lto enabled kernels are included in the cachyos repo.
-
-<b>Introducing CachyOS Kernel Manager:</b>
-
-We have worked on a application which gives a better overview which kernel are installed or can be installed on your system.
-For the future we thought about to implement also a possibility to compile the CachyOS kernels with several options simply over the kernel manager which will help easier to configure the kernel compile to suite their own needs.
-
-<b>Introducing CachyOS Package Manager:</b>
-
-Simple Software Application Package Installer for CachyOS which helps setting up &amp; installing applications.
-We are really happy for this release and looking forward to the future!
+- The locales bug in calamares got fixed
+- F2FS has been removed for the grub boot loader since it is currently not working (calamares issue), it can be still with systemd-boot used
+- Calamares shows now the correct default filesystem
+- Gnome ISO got fixed
+- Missing packages at the live ISO has been added for the offline installation
+- btrfs swap luksencryption got fixed
+- usual translation fixes
