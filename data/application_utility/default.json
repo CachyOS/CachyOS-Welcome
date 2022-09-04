@@ -615,6 +615,13 @@
                 "extra": []
             },
             {
+                "name": "Element",
+                "icon": "element-desktop",
+                "description": "Glossy Matrix collaboration client - desktop version",
+                "pkg": "element-desktop",
+                "extra": []
+            },
+            {
                 "name": "Telegram",
                 "icon": "telegram-desktop",
                 "description": "Official Telegram Desktop client",
