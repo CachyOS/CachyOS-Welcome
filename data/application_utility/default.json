@@ -164,6 +164,13 @@
                 "description": "Light and free MS Office clone.",
                 "pkg": "onlyoffice-bin",
                 "extra": []
+            },
+            {
+                "name": "MS Office Electron",
+                "icon": "ms-word",
+                "description": "Unofficial Microsoft Office Online Desktop Client.",
+                "pkg": "ms-office-electron-bin",
+                "extra": []
             }
         ]
     },
@@ -612,6 +619,13 @@
                 "icon": "hexchat",
                 "description": "Graphic IRC Client",
                 "pkg": "hexchat",
+                "extra": []
+            },
+            {
+                "name": "Element",
+                "icon": "element-desktop",
+                "description": "Glossy Matrix collaboration client - desktop version",
+                "pkg": "element-desktop",
                 "extra": []
             },
             {
