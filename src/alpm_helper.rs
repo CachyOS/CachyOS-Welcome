@@ -112,10 +112,13 @@ impl AlpmHelper {
         }
     }
 
-    fn app_installed(&self, pkg_name: &str) -> bool {
+    fn app_installed(&self, pkg_names: &str) -> bool {
+        let pkg_name_vec = pkg_names.split(' ').map(String::from).collect::<Vec<String>>();
+        let pkg_name = pkg_name_vec.first().unwrap();
+
         let pacman =
             pacmanconf::Config::with_opts(None, Some("/etc/pacman.conf"), Some("/")).unwrap();
         let alpm = alpm_utils::alpm_with_conf(&pacman).unwrap();
-        matches!(alpm.localdb().pkg(pkg_name), Ok(_))
+        matches!(alpm.localdb().pkg(pkg_name.as_bytes()), Ok(_))
     }
 }

@@ -172,13 +172,23 @@ impl ApplicationBrowser {
                         status = false;
                     }
 
+                    let mut alpm_packages_vec = vec![String::from(app["pkg"].as_str().unwrap())];
+                    {
+                        let alpm_packages_temp = app["extra"].as_array().unwrap();
+                        for alpm_package in alpm_packages_temp {
+                            alpm_packages_vec.push(alpm_package.as_str().unwrap().to_owned());
+                        }
+                    }
+
+                    let alpm_packages = alpm_packages_vec.join(" ");
+
                     self.app_store.insert_with_values(Some(&index), None, &[
                         (GROUP, &None::<String>),
                         (ICON, &String::from(app["icon"].as_str().unwrap())),
                         (APPLICATION, &String::from(app["name"].as_str().unwrap())),
                         (DESCRIPTION, &String::from(app["description"].as_str().unwrap())),
                         (ACTIVE, &status),
-                        (PACKAGE, &String::from(app["pkg"].as_str().unwrap())),
+                        (PACKAGE, &alpm_packages),
                         (INSTALLED, &status),
                     ]);
                 }
@@ -410,11 +420,14 @@ fn on_app_toggle(_cell: &gtk::CellRendererToggle, path: gtk::TreePath) {
         let alpm_handle = app_browser.get_alpm_handle();
         let update_system_button = app_browser.update_system_btn.clone();
         let localdb = alpm_handle.localdb();
-        let pkg = app_store.value(&iter_a, PACKAGE as i32).get::<String>().unwrap();
+        let alpm_packages = app_store.value(&iter_a, PACKAGE as i32).get::<String>().unwrap();
+        let alpm_packages_vec = alpm_packages.split(' ').map(String::from).collect::<Vec<String>>();
 
-        let installed = localdb.pkg(pkg.clone()).is_ok();
+        let pkg = alpm_packages_vec.first().unwrap();
+
+        let installed = localdb.pkg(pkg.as_bytes()).is_ok();
         // update lists
-        app_browser.alpm_helper.set_package(&pkg, !toggle_a, installed);
+        app_browser.alpm_helper.set_package(&alpm_packages, !toggle_a, installed);
         update_system_button.set_sensitive(!app_browser.alpm_helper.is_empty());
     }
 }
