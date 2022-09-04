@@ -137,7 +137,7 @@ impl ApplicationBrowser {
                 if self.group_tofilter != "*" && self.group_tofilter != g_name {
                     continue;
                 }
-                if group["filter"].as_array() != None && !self.filter {
+                if group["filter"].as_array().is_some() && !self.filter {
                     continue;
                 }
 
@@ -156,7 +156,7 @@ impl ApplicationBrowser {
                     let app_name = String::from(app["pkg"].as_str().unwrap());
                     let mut status = localdb.pkg(app_name).is_ok();
 
-                    if app["filter"].as_array() != None && !self.filter {
+                    if app["filter"].as_array().is_some() && !self.filter {
                         continue;
                     }
 
@@ -373,7 +373,7 @@ fn on_button_press_event_tree_view(
         if let Some(coords) = event_btn.coords() {
             let (x, y) = coords;
             let path_info = treeview.path_at_pos(x as i32, y as i32);
-            if path_info == None {
+            if path_info.is_none() {
                 return gtk::glib::signal::Inhibit(true);
             }
 

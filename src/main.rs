@@ -363,7 +363,7 @@ fn set_locale(use_locale: &str) {
 
     let mut default_texts = json!(null);
     for method in elts.iter() {
-        if default_texts.get(method.0) == None {
+        if default_texts.get(method.0).is_none() {
             default_texts[method.0] = json![null];
         }
 
@@ -372,7 +372,7 @@ fn set_locale(use_locale: &str) {
             unsafe {
                 let item: gtk::Widget =
                     g_hello_window.clone().unwrap().builder.object(elt_value).unwrap();
-                if default_texts[method.0].get(elt_value) == None {
+                if default_texts[method.0].get(elt_value).is_none() {
                     let item_buf = item.property::<String>(method.0.as_str());
                     default_texts[method.0][elt_value] = json!(item_buf);
                 }
@@ -403,7 +403,7 @@ fn set_locale(use_locale: &str) {
                 "{}page",
                 page.as_ref().unwrap().path().file_name().unwrap().to_str().unwrap()
             ));
-            if child == None {
+            if child.is_none() {
                 eprintln!("child not found");
                 continue;
             }
