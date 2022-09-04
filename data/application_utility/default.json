@@ -164,6 +164,13 @@
                 "description": "Light and free MS Office clone.",
                 "pkg": "onlyoffice-bin",
                 "extra": []
+            },
+            {
+                "name": "MS Office Electron",
+                "icon": "ms-word",
+                "description": "Unofficial Microsoft Office Online Desktop Client.",
+                "pkg": "ms-office-electron-bin",
+                "extra": []
             }
         ]
     },
