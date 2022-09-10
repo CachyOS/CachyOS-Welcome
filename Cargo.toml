@@ -1,6 +1,6 @@
 [package]
 name = "cachyos-hello"
-version = "0.8.6"
+version = "0.8.7"
 authors = ["Vladislav Nepogodin <nepogodin.vlad@gmail.com>"]
 license = "GPLv3"
 edition = "2021"
