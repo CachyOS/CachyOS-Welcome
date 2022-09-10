@@ -170,6 +170,7 @@ fn build_ui(application: &gtk::Application) {
             "on_action_clicked" => Box::new(on_action_clicked),
             "on_btn_clicked" => Box::new(on_btn_clicked),
             "on_link_clicked" => Box::new(on_link_clicked),
+            "on_link1_clicked" => Box::new(on_link1_clicked),
             "on_delete_window" => Box::new(on_delete_window),
             _ => Box::new(|_| None),
         }
@@ -518,6 +519,20 @@ fn on_link_clicked(param: &[glib::Value]) -> Option<glib::Value> {
     }
 
     None
+}
+
+fn on_link1_clicked(param: &[glib::Value]) -> Option<glib::Value> {
+    let widget = param[0].get::<gtk::Widget>().unwrap();
+    let name = widget.widget_name();
+
+    unsafe {
+        let preferences = &g_hello_window.clone().unwrap().preferences["urls"];
+
+        let uri = preferences[name.as_str()].as_str().unwrap();
+        let _ = gtk::show_uri_on_window(gtk::Window::NONE, uri, 0);
+    }
+
+    Some(false.to_value())
 }
 
 fn on_delete_window(_param: &[glib::Value]) -> Option<glib::Value> {

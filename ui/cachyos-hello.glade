@@ -476,7 +476,7 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                     <property name="name">telegram</property>
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <signal name="button-press-event" handler="on_link_clicked" swapped="no"/>
+                    <signal name="button-press-event" handler="on_link1_clicked" swapped="no"/>
                     <child>
                       <object class="GtkImage" id="telegram">
                         <property name="visible">True</property>
@@ -496,7 +496,7 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                     <property name="name">discord</property>
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <signal name="button-press-event" handler="on_link_clicked" swapped="no"/>
+                    <signal name="button-press-event" handler="on_link1_clicked" swapped="no"/>
                     <child>
                       <object class="GtkImage" id="discord">
                         <property name="visible">True</property>
@@ -516,7 +516,7 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                     <property name="name">reddit</property>
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <signal name="button-press-event" handler="on_link_clicked" swapped="no"/>
+                    <signal name="button-press-event" handler="on_link1_clicked" swapped="no"/>
                     <child>
                       <object class="GtkImage" id="reddit">
                         <property name="visible">True</property>
