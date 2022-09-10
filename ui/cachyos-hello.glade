@@ -241,7 +241,7 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
               <object class="GtkButton" id="mailling">
                 <property name="label" translatable="yes">Mailing lists</property>
                 <property name="name">mailling</property>
-                <property name="visible">True</property>
+                <property name="visible">False</property>
                 <property name="can-focus">False</property>
                 <property name="receives-default">True</property>
                 <property name="tooltip-text" translatable="yes">Web resource</property>
