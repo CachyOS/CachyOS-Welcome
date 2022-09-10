@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.38.2
+<!-- Generated with glade 3.40.0
 
 Copyright (C) 2021-2022 CachyOS team
 
@@ -493,6 +493,26 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                 </child>
                 <child>
                   <object class="GtkEventBox">
+                    <property name="name">discord</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <signal name="button-press-event" handler="on_link_clicked" swapped="no"/>
+                    <child>
+                      <object class="GtkImage" id="discord">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="tooltip-text">Discord</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkEventBox">
                     <property name="name">reddit</property>
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
@@ -508,7 +528,7 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
-                    <property name="position">3</property>
+                    <property name="position">2</property>
                   </packing>
                 </child>
                 <style>
