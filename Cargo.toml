@@ -11,7 +11,7 @@ alpm-utils = "2.0.0"
 pacmanconf = "2.0.0"
 
 subprocess = "0.2.9"
-once_cell = "1.14.0"
+once_cell = "1.15.0"
 gettext-rs = { version = "0.7", features = ["gettext-system"] }
 gtk = { version = "0.15.5", features = ["v3_24_30"] }
 gio = { version = "0.15.12", features = ["v2_72"] }
