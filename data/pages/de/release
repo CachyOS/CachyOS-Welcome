@@ -1,20 +1,37 @@
-<big>CachyOS 22.07</big>
+<big>CachyOS 22.11</big>
+
+Dies ist hauptsächlich eine Aufräumaktion und es sind einige kleine Fehlerkorrekturen enthalten.
+Wir haben die Internet Installations Pakete wirklich aufgeräumt, um eine übersichtlichere Installation zu haben.
+Außerdem wurde ein Shellprozess hinzugefügt, der automatisch den nicht benötigten ucode entfernt.
+
+
+Das Release enthält einige Fehlerkorrekturen und einige neue Features.
 
 <big>Features:</big>
 
-- Auswahl des Boot-Loaders: Der Benutzer kann nun bei der Online-Installation zwischen grub und systemd-boot wählen
-- Bei der Online-Installation wird nun immer das neueste Calamares installiert, was hilft, Fehlerbehebungen "on the air" durchzuführen
-- Calamares hat jetzt ein mhwd-Modul, das automatisch die benötigten Treiber installiert (freie Treiber)
-- Calamares hat neue Bildfolien bei der Installation
-- fstab und zfs mount Optionen wurden aktualisiert
-- HiDPI-Unterstützung
+- Calamares und seine Konfiguration werden in einem Paket ausgeliefert
+- Vollständige Bereinigung der Pakete in der Internet Installation
+- Hinzufügen eines Moduls, das automatisch den nicht benötigten ucode entfernt
+- Benötigter RAM auf 2.5GB gesenkt
+- Pakete, die für btrfs benötigt werden, werden jetzt nur noch für btrfs installiert
+- Calamares wurde auf den neuesten Stand gebracht
+- Der ISO Bootloader hat jetzt einen Hintergrund
+- Allgemeine Paket-Upgrades (mesa, kernel, ...)
+- Ersetze systemd-network mit networkmanager
 
 <big>Fehlerbehebungen:</big>
 
-- Der Locales-Bug in Calamares wurde behoben
-- F2FS wurde für den Grub-Bootloader entfernt, da es derzeit nicht funktioniert (Calamares-Problem), es kann aber weiterhin mit systemd-boot verwendet werden
-- Calamares zeigt nun das korrekte Standard-Dateisystem an
-- Gnome ISO wurde korrigiert
-- Fehlende Pakete im Live-ISO wurden für die Offline-Installation hinzugefügt
-- btrfs swap luksencryption wurde behoben
-- übliche Übersetzungskorrekturen
+- qemu-quest-agent.service wurde aus dem ISO entfernt
+- copytoram wurde komplett deaktiviert, es bricht die Offline-Installation ab
+- mkinitcpio.conf wurde aktualisiert
+- Und weitere ISO-Korrekturen
+
+
+Wie immer kann der Download auf unseren Mirrors auf Sourceforge gefunden werden.
+
+https://mirror.cachyos.org/ISO/
+https://sourceforge.net/projects/cachyos-arch/files/
+
+Mit freundlichen Grüßen
+
+CachyOS - Team

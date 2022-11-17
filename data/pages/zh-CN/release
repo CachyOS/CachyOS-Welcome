@@ -1,20 +1,37 @@
-<big>CachyOS 22.07</big>
+<big>CachyOS 22.11</big>
+
+This is mainly a cleanup release and some little bug fixes are included.
+We really cleaned up the netinstall packages, to have a more clear installation.
+Also there has been a shellprocess added, which automatically removes the not needed ucode.
+
+
+The release contains several bug fixes and some new features.
 
 <big>Features:</big>
 
-- Boot-loader selection: User can now choose on the online installation between grub and systemd-boot
-- At online installation will now always the newest calamares installed, which helps to do bug fixes on the "air"
-- Calamares has now a mhwd module which automatically installs the needed drivers (free drivers)
-- Calamares has new picture slides at the installation
-- fstab and zfs mount options got updated
-- HiDPI support
+- Calamares and its config are shipped in one package
+- Complete Cleanup of the packages in the netinstall
+- Add a module which automatically removes the not needed ucode
+- Required RAM decreased to 2.5GB
+- Packages which are required for btrfs, are now only installed for btrfs
+- Calamares updated to the latest commit
+- The ISO Bootloader has now a background
+- Common package upgrades (mesa, kernel, ...)
+- Replace systemd-network with networkmanager
 
 <big>Bug-fixes:</big>
 
-- The locales bug in calamares got fixed
-- F2FS has been removed for the grub boot loader since it is currently not working (calamares issue), it can be still with systemd-boot used
-- Calamares shows now the correct default filesystem
-- Gnome ISO got fixed
-- Missing packages at the live ISO has been added for the offline installation
-- btrfs swap luksencryption got fixed
-- usual translation fixes
+- qemu-quest-agent.service got removed from the ISO
+- copytoram got completly disabled, it breaks the offline installation
+- mkinitcpio.conf got updated
+- And more ISO fixes
+
+
+As always the download can be found at our mirrors our sourgeforge.
+
+https://mirror.cachyos.org/ISO/
+https://sourceforge.net/projects/cachyos-arch/files/
+
+Regards
+
+CachyOS - Team
