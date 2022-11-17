@@ -128,7 +128,7 @@ fn create_options_section() -> gtk::Box {
     topbox
 }
 
-fn create_apps_section() -> gtk::Box {
+fn create_apps_section() -> Option<gtk::Box> {
     let topbox = gtk::Box::new(gtk::Orientation::Vertical, 2);
     let box_collection = gtk::Box::new(gtk::Orientation::Horizontal, 10);
     let label = gtk::Label::new(None);
@@ -136,14 +136,18 @@ fn create_apps_section() -> gtk::Box {
     label.set_justify(gtk::Justification::Center);
     label.set_text("Applications");
 
-    let cachyos_pi = gtk::Button::with_label("CachyOS PackageInstaller");
-    let cachyos_km = gtk::Button::with_label("CachyOS Kernel Manager");
-
-    cachyos_pi.connect_clicked(on_appbtn_clicked);
-    cachyos_km.connect_clicked(on_appbtn_clicked);
-
-    box_collection.pack_start(&cachyos_pi, true, true, 2);
-    box_collection.pack_start(&cachyos_km, true, true, 2);
+    // Check first btn.
+    if Path::new("/sbin/cachyos-pi-bin").exists() {
+        let cachyos_pi = gtk::Button::with_label("CachyOS PackageInstaller");
+        cachyos_pi.connect_clicked(on_appbtn_clicked);
+        box_collection.pack_start(&cachyos_pi, true, true, 2);
+    }
+    // Check second btn.
+    if Path::new("/sbin/cachyos-kernel-manager").exists() {
+        let cachyos_km = gtk::Button::with_label("CachyOS Kernel Manager");
+        cachyos_km.connect_clicked(on_appbtn_clicked);
+        box_collection.pack_start(&cachyos_km, true, true, 2);
+    }
 
     topbox.pack_start(&label, true, true, 5);
 
@@ -151,7 +155,10 @@ fn create_apps_section() -> gtk::Box {
     topbox.pack_end(&box_collection, true, true, 0);
 
     topbox.set_hexpand(true);
-    topbox
+    match !box_collection.children().is_empty() {
+        true => Some(topbox),
+        _ => None,
+    }
 }
 
 fn load_enabled_units() {
@@ -223,7 +230,7 @@ pub fn create_tweaks_page(builder: &Builder) {
 
     let options_section_box = create_options_section();
     let fixes_section_box = create_fixes_section();
-    let apps_section_box = create_apps_section();
+    let apps_section_box_opt = create_apps_section();
 
     let grid = gtk::Grid::new();
     grid.set_hexpand(true);
@@ -236,7 +243,10 @@ pub fn create_tweaks_page(builder: &Builder) {
 
     box_collection.pack_start(&options_section_box, false, false, 10);
     box_collection.pack_start(&fixes_section_box, false, false, 10);
-    box_collection.pack_end(&apps_section_box, false, false, 10);
+
+    if let Some(apps_section_box) = apps_section_box_opt {
+        box_collection.pack_end(&apps_section_box, false, false, 10);
+    }
 
     box_collection.set_valign(gtk::Align::Center);
     box_collection.set_halign(gtk::Align::Center);
