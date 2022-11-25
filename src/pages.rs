@@ -21,6 +21,7 @@ fn create_fixes_section() -> gtk::Box {
     let topbox = gtk::Box::new(gtk::Orientation::Vertical, 2);
     let button_box_f = gtk::Box::new(gtk::Orientation::Horizontal, 10);
     let button_box_s = gtk::Box::new(gtk::Orientation::Horizontal, 10);
+    let button_box_t = gtk::Box::new(gtk::Orientation::Horizontal, 10);
     let label = gtk::Label::new(None);
     label.set_line_wrap(true);
     label.set_justify(gtk::Justification::Center);
@@ -32,6 +33,7 @@ fn create_fixes_section() -> gtk::Box {
     let update_system_btn = gtk::Button::with_label("System update");
     let remove_orphans_btn = gtk::Button::with_label("Remove orphans");
     let clear_pkgcache_btn = gtk::Button::with_label("Clear package cache");
+    let rankmirrors_btn = gtk::Button::with_label("Rank mirrors");
 
     removelock_btn.connect_clicked(move |_| {
         if Path::new("/var/lib/pacman/db.lck").exists() {
@@ -59,6 +61,9 @@ fn create_fixes_section() -> gtk::Box {
         let _ = utils::run_cmd_terminal(String::from("pacman -Rns $(pacman -Qtdq)"), true);
     });
     clear_pkgcache_btn.connect_clicked(on_clear_pkgcache_btn_clicked);
+    rankmirrors_btn.connect_clicked(move |_| {
+        let _ = utils::run_cmd_terminal(String::from("cachyos-rate-mirrors"), true);
+    });
 
     topbox.pack_start(&label, true, false, 1);
     button_box_f.pack_start(&update_system_btn, true, true, 2);
@@ -67,8 +72,11 @@ fn create_fixes_section() -> gtk::Box {
     button_box_s.pack_start(&removelock_btn, true, true, 2);
     button_box_s.pack_start(&clear_pkgcache_btn, true, true, 2);
     button_box_s.pack_end(&remove_orphans_btn, true, true, 2);
+    button_box_t.pack_end(&rankmirrors_btn, true, true, 2);
     button_box_f.set_halign(gtk::Align::Fill);
     button_box_s.set_halign(gtk::Align::Fill);
+    button_box_t.set_halign(gtk::Align::Fill);
+    topbox.pack_end(&button_box_t, true, true, 5);
     topbox.pack_end(&button_box_s, true, true, 5);
     topbox.pack_end(&button_box_f, true, true, 5);
 
@@ -79,6 +87,7 @@ fn create_fixes_section() -> gtk::Box {
 fn create_options_section() -> gtk::Box {
     let topbox = gtk::Box::new(gtk::Orientation::Vertical, 2);
     let box_collection = gtk::Box::new(gtk::Orientation::Horizontal, 10);
+    let box_collection_s = gtk::Box::new(gtk::Orientation::Horizontal, 10);
     let label = gtk::Label::new(None);
     label.set_line_wrap(true);
     label.set_justify(gtk::Justification::Center);
@@ -88,6 +97,7 @@ fn create_options_section() -> gtk::Box {
     let systemd_oomd_btn = gtk::CheckButton::with_label("Systemd-oomd enabled");
     let apparmor_btn = gtk::CheckButton::with_label("Apparmor enabled");
     let ananicy_cpp_btn = gtk::CheckButton::with_label("Ananicy Cpp enabled");
+    let dnscrypt_btn = gtk::CheckButton::with_label("DNSCrypt enabled");
 
     unsafe {
         psd_btn.set_data("actionData", "psd.service");
@@ -111,17 +121,56 @@ fn create_options_section() -> gtk::Box {
         }
     }
 
+    let check_is_pkg_installed = |pkg_name: &str| -> bool {
+        let pacman =
+            pacmanconf::Config::with_opts(None, Some("/etc/pacman.conf"), Some("/")).unwrap();
+        let alpm = alpm_utils::alpm_with_conf(&pacman).unwrap();
+
+        matches!(alpm.localdb().pkg(pkg_name.as_bytes()), Ok(_))
+    };
+    let is_local_service_enabled = |service_unit_name: &str| -> bool {
+        let local_units = unsafe { &g_local_units.lock().unwrap().enabled_units };
+        local_units.contains(&String::from(service_unit_name))
+    };
+
+    {
+        let pkg_name = "cachyos-dnscrypt-proxy";
+        let service_unit_name = "dnscrypt-proxy.service";
+
+        let is_installed = check_is_pkg_installed(pkg_name);
+        let service_enabled = is_local_service_enabled(service_unit_name);
+        let is_valid = is_installed && service_enabled;
+        if is_valid {
+            dnscrypt_btn.set_active(true);
+        }
+    };
+
     psd_btn.connect_clicked(on_servbtn_clicked);
     systemd_oomd_btn.connect_clicked(on_servbtn_clicked);
     apparmor_btn.connect_clicked(on_servbtn_clicked);
     ananicy_cpp_btn.connect_clicked(on_servbtn_clicked);
+    dnscrypt_btn.connect_clicked(move |_| {
+        let pkg_name = "cachyos-dnscrypt-proxy";
+        let service_unit_name = "dnscrypt-proxy.service";
+        if !check_is_pkg_installed(pkg_name) {
+            let _ = utils::run_cmd_terminal(format!("pacman -S {}", pkg_name), true);
+            load_enabled_units();
+            return;
+        }
+        if !is_local_service_enabled(service_unit_name) {
+            load_enabled_units();
+        }
+    });
 
     topbox.pack_start(&label, true, false, 1);
     box_collection.pack_start(&psd_btn, true, false, 2);
     box_collection.pack_start(&systemd_oomd_btn, true, false, 2);
     box_collection.pack_start(&apparmor_btn, true, false, 2);
     box_collection.pack_start(&ananicy_cpp_btn, true, false, 2);
+    box_collection_s.pack_start(&dnscrypt_btn, true, false, 2);
     box_collection.set_halign(gtk::Align::Fill);
+    box_collection_s.set_halign(gtk::Align::Fill);
+    topbox.pack_end(&box_collection_s, true, false, 1);
     topbox.pack_end(&box_collection, true, false, 1);
 
     topbox.set_hexpand(true);
