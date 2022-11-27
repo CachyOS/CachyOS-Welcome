@@ -166,10 +166,10 @@
                 "extra": []
             },
             {
-                "name": "MS Office Electron",
+                "name": "MS 365 Electron",
                 "icon": "ms-word",
-                "description": "Unofficial Microsoft Office Online Desktop Client.",
-                "pkg": "ms-office-electron-bin",
+                "description": "Unofficial Microsoft 365 Web Desktop Wrapper made with Electron",
+                "pkg": "ms-365-electron-bin",
                 "extra": []
             }
         ]
