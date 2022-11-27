@@ -36,33 +36,45 @@ fn create_fixes_section() -> gtk::Box {
     let rankmirrors_btn = gtk::Button::with_label("Rank mirrors");
 
     removelock_btn.connect_clicked(move |_| {
-        if Path::new("/var/lib/pacman/db.lck").exists() {
-            let _ = Exec::cmd("/sbin/pkexec")
-                .arg("bash")
-                .arg("-c")
-                .arg("rm /var/lib/pacman/db.lck")
-                .join()
-                .unwrap();
-            if !Path::new("/var/lib/pacman/db.lck").exists() {
-                let dialog = gtk::MessageDialog::builder()
-                    .message_type(gtk::MessageType::Info)
-                    .text("Pacman db lock was removed!")
-                    .build();
-                dialog.show();
+        // Spawn child process in separate thread.
+        std::thread::spawn(move || {
+            if Path::new("/var/lib/pacman/db.lck").exists() {
+                let _ = Exec::cmd("/sbin/pkexec")
+                    .arg("bash")
+                    .arg("-c")
+                    .arg("rm /var/lib/pacman/db.lck")
+                    .join()
+                    .unwrap();
+                if !Path::new("/var/lib/pacman/db.lck").exists() {
+                    let dialog = gtk::MessageDialog::builder()
+                        .message_type(gtk::MessageType::Info)
+                        .text("Pacman db lock was removed!")
+                        .build();
+                    dialog.show();
+                }
             }
-        }
+        });
     });
     reinstall_btn.connect_clicked(move |_| {
-        let _ = utils::run_cmd_terminal(String::from("pacman -S $(pacman -Qnq)"), true);
+        // Spawn child process in separate thread.
+        std::thread::spawn(move || {
+            let _ = utils::run_cmd_terminal(String::from("pacman -S $(pacman -Qnq)"), true);
+        });
     });
     refreshkeyring_btn.connect_clicked(on_refreshkeyring_btn_clicked);
     update_system_btn.connect_clicked(on_update_system_btn_clicked);
     remove_orphans_btn.connect_clicked(move |_| {
-        let _ = utils::run_cmd_terminal(String::from("pacman -Rns $(pacman -Qtdq)"), true);
+        // Spawn child process in separate thread.
+        std::thread::spawn(move || {
+            let _ = utils::run_cmd_terminal(String::from("pacman -Rns $(pacman -Qtdq)"), true);
+        });
     });
     clear_pkgcache_btn.connect_clicked(on_clear_pkgcache_btn_clicked);
     rankmirrors_btn.connect_clicked(move |_| {
-        let _ = utils::run_cmd_terminal(String::from("cachyos-rate-mirrors"), true);
+        // Spawn child process in separate thread.
+        std::thread::spawn(move || {
+            let _ = utils::run_cmd_terminal(String::from("cachyos-rate-mirrors"), true);
+        });
     });
 
     topbox.pack_start(&label, true, false, 1);
@@ -150,16 +162,19 @@ fn create_options_section() -> gtk::Box {
     apparmor_btn.connect_clicked(on_servbtn_clicked);
     ananicy_cpp_btn.connect_clicked(on_servbtn_clicked);
     dnscrypt_btn.connect_clicked(move |_| {
-        let pkg_name = "cachyos-dnscrypt-proxy";
-        let service_unit_name = "dnscrypt-proxy.service";
-        if !check_is_pkg_installed(pkg_name) {
-            let _ = utils::run_cmd_terminal(format!("pacman -S {}", pkg_name), true);
-            load_enabled_units();
-            return;
-        }
-        if !is_local_service_enabled(service_unit_name) {
-            load_enabled_units();
-        }
+        // Spawn child process in separate thread.
+        std::thread::spawn(move || {
+            let pkg_name = "cachyos-dnscrypt-proxy";
+            let service_unit_name = "dnscrypt-proxy.service";
+            if !check_is_pkg_installed(pkg_name) {
+                let _ = utils::run_cmd_terminal(format!("pacman -S {}", pkg_name), true);
+                load_enabled_units();
+                return;
+            }
+            if !is_local_service_enabled(service_unit_name) {
+                load_enabled_units();
+            }
+        });
     });
 
     topbox.pack_start(&label, true, false, 1);
@@ -403,10 +418,13 @@ fn on_refreshkeyring_btn_clicked(_: &gtk::Button) {
         })
         .collect::<String>();
 
-    let _ = utils::run_cmd_terminal(
-        format!("pacman-key --init && pacman-key --populate {}", needles),
-        true,
-    );
+    // Spawn child process in separate thread.
+    std::thread::spawn(move || {
+        let _ = utils::run_cmd_terminal(
+            format!("pacman-key --init && pacman-key --populate {}", needles),
+            true,
+        );
+    });
 }
 
 fn on_update_system_btn_clicked(_: &gtk::Button) {
@@ -416,7 +434,10 @@ fn on_update_system_btn_clicked(_: &gtk::Button) {
         PacmanWrapper::Paru => ("paru --removemake -Syu", false),
         _ => ("pacman -Syu", true),
     };
-    let _ = utils::run_cmd_terminal(String::from(cmd), escalate);
+    // Spawn child process in separate thread.
+    std::thread::spawn(move || {
+        let _ = utils::run_cmd_terminal(String::from(cmd), escalate);
+    });
 }
 
 fn on_clear_pkgcache_btn_clicked(_: &gtk::Button) {
@@ -426,7 +447,10 @@ fn on_clear_pkgcache_btn_clicked(_: &gtk::Button) {
         PacmanWrapper::Paru => ("paru -Sc", false),
         _ => ("pacman -Sc", true),
     };
-    let _ = utils::run_cmd_terminal(String::from(cmd), escalate);
+    // Spawn child process in separate thread.
+    std::thread::spawn(move || {
+        let _ = utils::run_cmd_terminal(String::from(cmd), escalate);
+    });
 }
 
 fn on_appbtn_clicked(button: &gtk::Button) {
