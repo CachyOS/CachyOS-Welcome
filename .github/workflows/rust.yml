@@ -7,27 +7,16 @@ on:
       - 'hooks/**'
       - 'po/**'
       - 'icons/**'
-      - '.github/*.yml'
-      - 'LICENSE'
-      - '*.md'
-      - '*.sh'
-      - '*.desktop'
-      - '*.png'
-    branches: [ "develop" ]
-  pull_request:
-    paths-ignore:
-      - 'data/**'
-      - 'hooks/**'
-      - 'po/**'
-      - 'icons/**'
-      - '.github/*.yml'
       - 'LICENSE'
       - '*.md'
       - '*.sh'
       - '*.desktop'
       - '*.png'
     branches:
-      branches: [ "develop" ]
+      - develop
+  pull_request:
+    branches:
+      - develop
 
 env:
   CARGO_TERM_COLOR: always
