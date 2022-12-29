@@ -2,9 +2,32 @@ name: Build
 
 on:
   push:
+    paths-ignore:
+      - 'data/**'
+      - 'hooks/**'
+      - 'po/**'
+      - 'icons/**'
+      - '.github/*.yml'
+      - 'LICENSE'
+      - '*.md'
+      - '*.sh'
+      - '*.desktop'
+      - '*.png'
     branches: [ "develop" ]
   pull_request:
-    branches: [ "develop" ]
+    paths-ignore:
+      - 'data/**'
+      - 'hooks/**'
+      - 'po/**'
+      - 'icons/**'
+      - '.github/*.yml'
+      - 'LICENSE'
+      - '*.md'
+      - '*.sh'
+      - '*.desktop'
+      - '*.png'
+    branches:
+      branches: [ "develop" ]
 
 env:
   CARGO_TERM_COLOR: always
