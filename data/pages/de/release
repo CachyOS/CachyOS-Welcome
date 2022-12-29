@@ -1,35 +1,35 @@
-<big>CachyOS 22.11</big>
+<big>CachyOS 22.12</big>
 
-Dies ist hauptsächlich eine Aufräumaktion und es sind einige kleine Fehlerkorrekturen enthalten.
-Wir haben die Internet Installations Pakete wirklich aufgeräumt, um eine übersichtlichere Installation zu haben.
-Außerdem wurde ein Shellprozess hinzugefügt, der automatisch den nicht benötigten ucode entfernt.
+Dies ist unser letztes Release für dieses Jahr. Es enthält eine Menge Fehlerbehebungen und das ISO wurde weiter aufpoliert.
+Das zfshostid funktioniert nun wie erwartet, auch das Ranking der Mirrors berücksichtigt nun auch die CachyOS Mirrors um eine schnellere Online-Installation zu ermöglichen.
+Außerdem werden wir eine ISO veröffentlichen, die llvm 15 enthält, um die Kompatibilität mit neueren AMD-Karten zu gewährleisten.
+Das llvm 15 ISO funktioniert NICHT für x86-64 CPUs und funktioniert nur für neuere (2012+) CPUs.
 
-
-Das Release enthält einige Fehlerkorrekturen und einige neue Features.
+Außerdem beginnen wir damit, x86-64-v4 kompilierte Pakete in unser cachyos-v4 Repo aufzunehmen. Dieses Repo wird mit dem nächsten Release zusätzlich mit einer automatischen Erkennung versehen.
 
 <big>Features:</big>
 
-- Calamares und seine Konfiguration werden in einem Paket ausgeliefert
-- Vollständige Bereinigung der Pakete in der Internet Installation
-- Hinzufügen eines Moduls, das automatisch den nicht benötigten ucode entfernt
-- Benötigter RAM auf 2.5GB gesenkt
-- Pakete, die für btrfs benötigt werden, werden jetzt nur noch für btrfs installiert
-- Calamares wurde auf den neuesten Stand gebracht
-- Der ISO Bootloader hat jetzt einen Hintergrund
-- Allgemeine Paket-Upgrades (mesa, kernel, ...)
-- Ersetze systemd-network mit networkmanager
+- Neuer GRUB-Hintergrund beim ISO-Bootloader
+- Memtest ist jetzt für UEFI-Systeme enthalten
+- CachyOS-sddm-Theme wurde der KDE-Installation hinzugefügt
+- Automatisches Versionsskript beim Erstellen der ISO hinzugefügt
+- Calamares auf den neuesten Stand gebracht
+- Die Spiegel werden nun mit "cachyos-rate-mirros" eingestuft, welches unsere Spiegel und die arch-Spiegel einstuft
+- Pakete aktualisiert: 6.1.1 Kernel, mesa 22.3.1, plasma 5.26.4,...
+- Das Kofuku Desktop Enviroment wurde entfernt
+- extra ISO mit llvm 15 enthalten, um Unterstützung für neuere AMD-Karten zu bieten
 
 <big>Fehlerbehebungen:</big>
 
-- qemu-quest-agent.service wurde aus dem ISO entfernt
-- copytoram wurde komplett deaktiviert, es bricht die Offline-Installation ab
-- mkinitcpio.conf wurde aktualisiert
+- Calamares wurde behoben, wenn GNOME als ISO verwendet wird
+- zfshostid funktioniert nun korrekt für die Offline- und Online-Installation
+- Hinzufügen des "kms"-Hakens zum initcpiocfg-Modul, um den archlinux-Vorgaben zu folgen
 - Und weitere ISO-Korrekturen
 
-
-Wie immer kann der Download auf unseren Mirrors auf Sourceforge gefunden werden.
+Wie immer kann der Download auf unseren Mirrors in der Sourgeforge gefunden werden.
 
 https://mirror.cachyos.org/ISO/
+https://mirror.cachyos.org/ISO/kde/221230-llvm-15/ # Damit neuere AMD-Karten korrekt booten
 https://sourceforge.net/projects/cachyos-arch/files/
 
 Mit freundlichen Grüßen
