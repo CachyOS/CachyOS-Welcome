@@ -1,35 +1,36 @@
-<big>CachyOS 22.11</big>
+<big>CachyOS 22.12</big>
 
-This is mainly a cleanup release and some little bug fixes are included.
-We really cleaned up the netinstall packages, to have a more clear installation.
-Also there has been a shellprocess added, which automatically removes the not needed ucode.
+This is our last Release for this year. It includes a lot of fixes and the ISO got more polished.
+The zfshostid is now working as expected, also the ranking of the mirrors does also rank now the CachyOS Mirrors to provide a faster online installation.
+Aditonally we will Release a ISO which includes llvm 15 to have a compatbility for newer AMD Cards.
+The llvm 15 ISO does NOT work for x86-64 CPUs and just works for newer (2012+) CPUs.
 
-
-The release contains several bug fixes and some new features.
+Also we starting to include x86-64-v4 compiled packages to our cachyos-v4 repo. This repo will be aditonally added with a autodetection with the next release.
 
 <big>Features:</big>
 
-- Calamares and its config are shipped in one package
-- Complete Cleanup of the packages in the netinstall
-- Add a module which automatically removes the not needed ucode
-- Required RAM decreased to 2.5GB
-- Packages which are required for btrfs, are now only installed for btrfs
+- New GRUB background at the ISO bootloader
+- memtest is now included for UEFI Systems
+- CachyOS-sddm-theme got added to the KDE Installation
+- Automatic version script added when creating the ISO
 - Calamares updated to the latest commit
-- The ISO Bootloader has now a background
-- Common package upgrades (mesa, kernel, ...)
-- Replace systemd-network with networkmanager
+- The mirrors are now ranked with "cachyos-rate-mirros", which ranks our mirrors and the arch ones
+- Packages Update: 6.1.1 Kernel, mesa 22.3.1, plasma 5.26.4,...
+- The Kofuku Desktop Enviroment got removed
+- extra ISO with llvm 15 included to provide support for newer AMD Cards
 
 <big>Bug-fixes:</big>
 
-- qemu-quest-agent.service got removed from the ISO
-- copytoram got completly disabled, it breaks the offline installation
-- mkinitcpio.conf got updated
+- Calamares got fixed when using GNOME as ISO
+- zfshostid does now work proper for the offline and online installation
+- Add "kms" hook to the initcpiocfg module to follow archlinux defaults
 - And more ISO fixes
 
 
 As always the download can be found at our mirrors our sourgeforge.
 
 https://mirror.cachyos.org/ISO/
+https://mirror.cachyos.org/ISO/kde/221230-llvm-15/ # To get newer AMD cards correctly booting
 https://sourceforge.net/projects/cachyos-arch/files/
 
 Regards
