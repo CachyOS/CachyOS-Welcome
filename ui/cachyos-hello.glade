@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Generated with glade 3.40.0
 
-Copyright (C) 2021-2022 CachyOS team
+Copyright (C) 2021-2023 CachyOS team
 
 This file is part of cachyos-welcome.
 
@@ -24,7 +24,7 @@ along with cachyos-welcome.  If not, see <http://www.gnu.org/licenses/>.
   <!-- interface-css-provider-path style.css -->
   <!-- interface-license-type gplv3 -->
   <!-- interface-name cachyos-welcome -->
-  <!-- interface-copyright 2021-2022 CachyOS team -->
+  <!-- interface-copyright 2021-2023 CachyOS team -->
   <object class="GtkImage" id="abouticon">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
