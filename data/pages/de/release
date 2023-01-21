@@ -1,35 +1,35 @@
-<big>CachyOS 22.12</big>
+<big>CachyOS 23.01</big>
 
-Dies ist unser letztes Release für dieses Jahr. Es enthält eine Menge Fehlerbehebungen und das ISO wurde weiter aufpoliert.
-Das zfshostid funktioniert nun wie erwartet, auch das Ranking der Mirrors berücksichtigt nun auch die CachyOS Mirrors um eine schnellere Online-Installation zu ermöglichen.
-Außerdem werden wir eine ISO veröffentlichen, die llvm 15 enthält, um die Kompatibilität mit neueren AMD-Karten zu gewährleisten.
-Das llvm 15 ISO funktioniert NICHT für x86-64 CPUs und funktioniert nur für neuere (2012+) CPUs.
+Dies ist unsere erste Veröffentlichung für 2023.
+Wie ihr bereits in einer anderen Ankündigung erfahren habt, kompilieren wir das Community Repo nun in x86-64-v3. Bevor wir dies zu unserem Installer hinzufügen, würden wir gerne eine 1-monatige Testphase durchführen.
+Das Community x86-64-v3 Repo wird im Februar veröffentlicht werden.
+Wir haben zwei neue Desktop-Umgebungen, UKUI und Cinnamon Desktop, der Netinstallation hinzugefügt.
+Dieses Release enthält eine Reihe von Fehlerkorrekturen und auch Paket-Updates wie LLVM 15.0.7, Mesa 22.3.3, gcc 12.1.1 und binutils 2.40.
+Da LLVM 15 nun standardmäßig enthalten ist, ist kein zusätzliches ISO für neuere RDNA3-Karten erforderlich.
 
-Außerdem beginnen wir damit, x86-64-v4 kompilierte Pakete in unser cachyos-v4 Repo aufzunehmen. Dieses Repo wird mit dem nächsten Release zusätzlich mit einer automatischen Erkennung versehen.
+Benutzer haben Probleme mit dem power-profiles-daemon gemeldet und wir lassen ihn nun deaktiviert.
 
 <big>Features:</big>
 
-- Neuer GRUB-Hintergrund beim ISO-Bootloader
-- Memtest ist jetzt für UEFI-Systeme enthalten
-- CachyOS-sddm-Theme wurde der KDE-Installation hinzugefügt
-- Automatisches Versionsskript beim Erstellen der ISO hinzugefügt
+- Calamares Slides wurden überarbeitet und aktualisiert
+- UKUI Desktop Enviroment wurde der Netinstallation hinzugefügt
+- Cinnamon Desktop Enviroment wurde zur Netinstallation hinzugefügt
+- Cmdline: zswap ist nun standardmäßig deaktiviert, da CachyOS standardmäßig zram anbietet
 - Calamares auf den neuesten Stand gebracht
-- Die Spiegel werden nun mit "cachyos-rate-mirros" eingestuft, welches unsere Spiegel und die arch-Spiegel einstuft
-- Pakete aktualisiert: 6.1.1 Kernel, mesa 22.3.1, plasma 5.26.4,...
-- Das Kofuku Desktop Enviroment wurde entfernt
-- extra ISO mit llvm 15 enthalten, um Unterstützung für neuere AMD-Karten zu bieten
+- LLVM 15 wird nun als Standard ausgeliefert
+- Paket Updates: linux-cachyos 6.1.7, mesa 22.3.3, Plasma 5.26.5, llvm 15.0.7, gcc 12.1.1, binutils 2.40, zfs-utils 2.1.8, nvidia 525.85.05
+- CLI Installer wurde aktualisiert
 
 <big>Fehlerbehebungen:</big>
 
-- Calamares wurde behoben, wenn GNOME als ISO verwendet wird
-- zfshostid funktioniert nun korrekt für die Offline- und Online-Installation
-- Hinzufügen des "kms"-Hakens zum initcpiocfg-Modul, um den archlinux-Vorgaben zu folgen
-- Und weitere ISO-Korrekturen
+- remove-ucode shellprocess läuft jetzt auch bei der Offline-Installation
+- pamac wurde aus der Netzinstallation entfernt
+- Die geordneten cachyos-Spiegel werden nun korrekt in das Installationsziel kopiert
+- power-profile-daemon wird nicht mehr als Standard aktiviert
 
 Wie immer kann der Download auf unseren Mirrors in der Sourgeforge gefunden werden.
 
 https://mirror.cachyos.org/ISO/
-https://mirror.cachyos.org/ISO/kde/221230-llvm-15/ # Damit neuere AMD-Karten korrekt booten
 https://sourceforge.net/projects/cachyos-arch/files/
 
 Mit freundlichen Grüßen
