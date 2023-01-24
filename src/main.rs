@@ -150,6 +150,9 @@ fn build_ui(application: &gtk::Application) {
         read_json(save_path.as_str())
     };
 
+    let best_locale = get_best_locale(&preferences, &save);
+    std::env::set_var("LANGUAGE", best_locale.as_str());
+
     // Import Css
     let provider = gtk::CssProvider::new();
     provider
@@ -271,7 +274,7 @@ fn build_ui(application: &gtk::Application) {
         .expect("Unable to set domain encoding.");
     gettextrs::textdomain(GETTEXT_PACKAGE).expect("Unable to switch to the text domain.");
     let languages: gtk::ComboBoxText = builder.object("languages").unwrap();
-    languages.set_active_id(Some(get_best_locale(&preferences, &save).as_str()));
+    languages.set_active_id(Some(best_locale.as_str()));
 
     // Set autostart switcher state
     let autostart = Path::new(&fix_path(preferences["autostart_path"].as_str().unwrap())).exists();
