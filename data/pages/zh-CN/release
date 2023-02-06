@@ -1,38 +1,36 @@
-<big>CachyOS 23.01</big>
+<big>CachyOS 23.02</big>
 
-This is our first release for 2023.
-As you have already learned in another announcement, we are now compiling the community repo in x86-64-v3. Before adding this to our installer, we would like to do a 1 month testing phase.
-The community x86-64-v3 repo will be in the release in february.
-We have added two new desktop enviroments, UKUI and Cinnamon Desktop to the Netinstallation.
-This Release contains a bunch of bug fixes and as well Package Updates like llvm 15.0.7, mesa 22.3.3, gcc 12.1.1 and binutils 2.40.
-Since LLVM 15 is now as default included, there is no need for a extra ISO for newer RDNA3 Cards.
+We've just released the second update of 2023! This release primarily focuses on fixing some issues with the rate-mirrors backend, which is used to rate the mirrors before the netinstallation.
+In addition, we're excited to introduce the cachyos-community-v3 repo to both the netinstall and offline installations. This repo has been tested for a month now and everything is working great.
+Most of the packages have been recompiled for better performance.
 
-Users has reported issues with the power-profiles-daemon and we keep it disabled now.
+We've also added three new desktop environments - Budgie, Mate, and LXDE - to the online installation. We're still testing hyperland, but it's not ready to be included as a default just yet.
 
 <big>Features:</big>
 
-- Calamares Slides got reworked and updated
-- UKUI Desktop Enviroment got added to the Netinstallation
-- Cinnamon Desktop Enviroment got added to the Netinstallation
-- Cmdline: zswap is now disabled as default because CachyOS provides zram as default
-- Calamares updated to the latest commit
-- LLVM 15 is now shipped as default
-- Package Updates: linux-cachyos 6.1.7, mesa 22.3.3, Plasma 5.26.5, llvm 15.0.7, gcc 12.1.1, binutils 2.40, zfs-utils 2.1.8, nvidia 525.85.05
-- CLI Installer got updated
+- The cachyos-community-v3 repo has been added
+- Budgie, Mate, and LXDE desktop environments have been added to the Netinstallation
+- Bluetooth.service is now enabled by default
+- F2FS and grub are enabled and working again
+- Package Updates: linux-cachyos 6.1.10, mesa 22.3.4, zfs-utils 2.1.9, glibc 2.37, cachy-browser 109.0.1
 
 <big>Bug-fixes:</big>
 
-- remove-ucode shellprocess does also run now at the offline installation
-- pamac got removed from the netinstall
-- The ranked cachyos mirrors gets now correctly copied to the install target
-- power-profile-daemon don't gets enabled anymore as default
+- Rate-mirrors now fall back to unranked mirrors if it fails to rate them
+- cachyos-rate-mirrors has a longer fetch-mirrors-timeout
+- Github has been added to the hosts to avoid mirrorlist issues
+- Boot entries for BIOS have been updated in syslinux
 
 
-As always the download can be found at our mirrors our sourgeforge.
+You can find the download at our mirrors or sourceforge.
 
 https://mirror.cachyos.org/ISO/
 https://sourceforge.net/projects/cachyos-arch/files/
 
-Regards
+If you'd like to support us, you can donate to help cover our monthly server costs.
 
-CachyOS - Team
+https://paypal.me/pttrr
+https://www.patreon.com/CachyOS
+
+Thanks,
+The CachyOS Team

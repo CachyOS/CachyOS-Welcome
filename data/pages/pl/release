@@ -1,38 +1,36 @@
-<big>CachyOS 23.01</big>
+<big>CachyOS 23.02</big>
 
-This is our first release for 2023.
-As you have already learned in another announcement, we are now compiling the community repo in x86-64-v3. Before adding this to our installer, we would like to do a 1 month testing phase.
-The community x86-64-v3 repo will be in the release in february.
-We have added two new desktop enviroments, UKUI and Cinnamon Desktop to the Netinstallation.
-This Release contains a bunch of bug fixes and as well Package Updates like llvm 15.0.7, mesa 22.3.3, gcc 12.1.1 and binutils 2.40.
-Since LLVM 15 is now as default included, there is no need for a extra ISO for newer RDNA3 Cards.
+Właśnie wydaliśmy drugie uaktualnienie w 2023 roku! Ta wersja skupia się głównie na naprawianiu niektórych problemów z tyłu rate-mirrors, który jest używany do oceny lustrzanych przed netinstallation.
+Ponadto jesteśmy zachwyceni, że możemy wprowadzić repozytorium cachyos-community-v3 do netinstall i instalacji offline. To repozytorium było testowane przez ostatni miesiąc i wszystko działa świetnie.
+Większość pakietów została przekompilowana dla lepszej wydajności.
+Dodaliśmy także trzy nowe środowiska pulpitu - Budgie, Mate i LXDE - do instalacji online. Nadal testujemy hyperland, ale nie jest jeszcze gotowe, aby być domyślnie zawarte.
 
-Users has reported issues with the power-profiles-daemon and we keep it disabled now.
+<big>Nowe funkcje:</big>
 
-<big>Features:</big>
+- Dodano repozytorium cachyos-community-v3
+- Środowiska pulpitu Budgie, Mate i LXDE zostały dodane do Netinstallation
+- Usługa Bluetooth jest teraz włączona domyślnie
+- F2FS i grub są włączone i działają ponownie
+- Aktualizacje pakietów: linux-cachyos 6.1.10, mesa 22.3.4, zfs-utils 2.1.9, glibc 2.37, cachy-browser 109.0.1
 
-- Calamares Slides got reworked and updated
-- UKUI Desktop Enviroment got added to the Netinstallation
-- Cinnamon Desktop Enviroment got added to the Netinstallation
-- Cmdline: zswap is now disabled as default because CachyOS provides zram as default
-- Calamares updated to the latest commit
-- LLVM 15 is now shipped as default
-- Package Updates: linux-cachyos 6.1.7, mesa 22.3.3, Plasma 5.26.5, llvm 15.0.7, gcc 12.1.1, binutils 2.40, zfs-utils 2.1.8, nvidia 525.85.05
-- CLI Installer got updated
+<big>Naprawy błędów:</big>
 
-<big>Bug-fixes:</big>
-
-- remove-ucode shellprocess does also run now at the offline installation
-- pamac got removed from the netinstall
-- The ranked cachyos mirrors gets now correctly copied to the install target
-- power-profile-daemon don't gets enabled anymore as default
+- Rate-mirrors teraz przechodzi do lustrzanek bez oceny, jeśli nie może ich ocenić
+- cachyos-rate-mirrors ma dłuższy fetch-mirrors-timeout
+- Github został dodany do hostów, aby uniknąć problemów z mirrorlist
+- Wpisy bootowe dla BIOS zostały zaktualizowane w syslinux
+- Możesz znaleźć pobieranie na naszych lustrach na sourceforge.
 
 
-As always the download can be found at our mirrors our sourgeforge.
+Pobieranie można znaleźć w naszych mirrorach lub sourceforge
 
 https://mirror.cachyos.org/ISO/
 https://sourceforge.net/projects/cachyos-arch/files/
 
-Regards
+Jeśli chcesz nas wesprzeć, możesz przekazać darowiznę, aby pomóc pokryć nasze miesięczne koszty serwerów.
 
-CachyOS - Team
+https://paypal.me/pttrr
+https://www.patreon.com/CachyOS
+
+Dzięki,
+The CachyOS Zespół
