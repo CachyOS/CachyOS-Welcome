@@ -108,6 +108,7 @@ fn create_options_section() -> gtk::Box {
     let psd_btn = gtk::CheckButton::with_label("Profile-sync-daemon enable");
     let systemd_oomd_btn = gtk::CheckButton::with_label("Systemd-oomd enabled");
     let apparmor_btn = gtk::CheckButton::with_label("Apparmor enabled");
+    let bluetooth_btn = gtk::CheckButton::with_label("Bluetooth enabled");
     let ananicy_cpp_btn = gtk::CheckButton::with_label("Ananicy Cpp enabled");
     let dnscrypt_btn = gtk::CheckButton::with_label("DNSCrypt enabled");
 
@@ -118,11 +119,13 @@ fn create_options_section() -> gtk::Box {
         systemd_oomd_btn.set_data("actionType", "service");
         apparmor_btn.set_data("actionData", "apparmor.service");
         apparmor_btn.set_data("actionType", "service");
+        bluetooth_btn.set_data("actionData", "bluetooth.service");
+        bluetooth_btn.set_data("actionType", "service");
         ananicy_cpp_btn.set_data("actionData", "ananicy-cpp.service");
         ananicy_cpp_btn.set_data("actionType", "service");
     }
 
-    for btn in &[&psd_btn, &systemd_oomd_btn, &apparmor_btn, &ananicy_cpp_btn] {
+    for btn in &[&psd_btn, &systemd_oomd_btn, &apparmor_btn, &bluetooth_btn, &ananicy_cpp_btn] {
         unsafe {
             let data: &str = *btn.data("actionData").unwrap().as_ptr();
             if g_local_units.lock().unwrap().enabled_units.contains(&String::from(data))
@@ -160,6 +163,7 @@ fn create_options_section() -> gtk::Box {
     psd_btn.connect_clicked(on_servbtn_clicked);
     systemd_oomd_btn.connect_clicked(on_servbtn_clicked);
     apparmor_btn.connect_clicked(on_servbtn_clicked);
+    bluetooth_btn.connect_clicked(on_servbtn_clicked);
     ananicy_cpp_btn.connect_clicked(on_servbtn_clicked);
     dnscrypt_btn.connect_clicked(move |_| {
         // Spawn child process in separate thread.
@@ -181,6 +185,7 @@ fn create_options_section() -> gtk::Box {
     box_collection.pack_start(&psd_btn, true, false, 2);
     box_collection.pack_start(&systemd_oomd_btn, true, false, 2);
     box_collection.pack_start(&apparmor_btn, true, false, 2);
+    box_collection.pack_start(&bluetooth_btn, true, false, 2);
     box_collection.pack_start(&ananicy_cpp_btn, true, false, 2);
     box_collection_s.pack_start(&dnscrypt_btn, true, false, 2);
     box_collection.set_halign(gtk::Align::Fill);
