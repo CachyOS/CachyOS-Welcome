@@ -17,7 +17,7 @@ gtk = { version = "0.16.2", features = ["v3_24_30"] }
 gio = { version = "0.16.7", features = ["v2_72"] }
 gdk = "0.16.2"
 gdk-pixbuf = "0.16.7"
-glib = "0.16.7"
+glib = "0.17.1"
 serde = { version = "1.0.152", features = ["derive"] }
 serde_json = "1.0.92"
 reqwest = { version = "0.11.14", features = ["blocking"] }
