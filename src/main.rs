@@ -9,7 +9,7 @@ mod data_types;
 mod pages;
 mod utils;
 
-use config::{APP_ID, GETTEXT_PACKAGE, LOCALEDIR, PKGDATADIR, PROFILE, VERSION};
+use config::{APP_ID, GETTEXT_PACKAGE, LOCALEDIR, PKGDATADIR, PROFILE, RESOURCES_FILE, VERSION};
 use data_types::*;
 use gettextrs::LocaleCategory;
 use gtk::{gio, glib, Builder, HeaderBar, Window};
@@ -124,6 +124,9 @@ fn main() {
 
     gtk::init().expect("Unable to start GTK3.");
 
+    let res = gio::Resource::load(RESOURCES_FILE).expect("Could not load gresource file.");
+    gio::resources_register(&res);
+
     let application = gtk::Application::new(
         Some(APP_ID),       // Application id
         Default::default(), // Using default flags
@@ -155,9 +158,7 @@ fn build_ui(application: &gtk::Application) {
 
     // Import Css
     let provider = gtk::CssProvider::new();
-    provider
-        .load_from_path(preferences["style_path"].as_str().unwrap())
-        .expect("Failed to load CSS");
+    provider.load_from_resource("/org/cachyos/hello/ui/style.css");
     gtk::StyleContext::add_provider_for_screen(
         &gdk::Screen::default().expect("Error initializing gtk css provider."),
         &provider,
@@ -165,7 +166,7 @@ fn build_ui(application: &gtk::Application) {
     );
 
     // Init window
-    let builder: Builder = Builder::from_file(preferences["ui_path"].as_str().unwrap());
+    let builder: Builder = Builder::from_resource("/org/cachyos/hello/ui/cachyos-hello.glade");
     builder.connect_signals(|_builder, handler_name| {
         match handler_name {
             // handler_name as defined in the glade file => handler function as defined above

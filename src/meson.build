@@ -18,8 +18,12 @@ run_command(
   check: true
 )
 
-cargo_options = [ '--manifest-path', meson.project_source_root() / 'Cargo.toml' ]
-cargo_options += [ '--target-dir', meson.project_build_root() / 'src' ]
+manifest_path = meson.project_source_root() / 'Cargo.toml'
+cargo_home = meson.project_build_root() / 'cargo-home'
+cargo_target_dir = meson.project_build_root() / 'src'
+
+cargo_options = [ '--manifest-path', manifest_path ]
+cargo_options += [ '--target-dir', cargo_target_dir ]
 
 if get_option('profile') == 'default'
   cargo_options += [ '--release' ]
@@ -30,13 +34,14 @@ else
   message('Building in debug mode')
 endif
 
-cargo_env = [ 'CARGO_HOME=' + meson.project_build_root() / 'cargo-home' ]
+cargo_env = [ 'CARGO_HOME=' + cargo_home ]
 
 cargo_build = custom_target(
   'cargo-build',
   build_by_default: true,
   build_always_stale: true,
   output: meson.project_name(),
+  depends: resources,
   console: true,
   install: true,
   install_dir: bindir,
@@ -50,11 +55,7 @@ cargo_build = custom_target(
   ]
 )
 
-cargo_target_dir = meson.project_build_root() / 'target'
-cargo_home = meson.project_build_root() / 'cargo-home'
-manifest_path = meson.project_source_root() / 'Cargo.toml'
-
-test (
+test(
   'cargo-test',
   cargo,
   args: [
@@ -65,13 +66,14 @@ test (
     '--nocapture',
   ],
   env: [
+    'RUST_BACKTRACE=1',
     'CARGO_HOME=@0@'.format(cargo_home),
     'PATH=/app/bin:/usr/bin:/usr/lib/sdk/rust-stable/bin',
   ],
   timeout: 300, # give cargo more time
 )
 
-test (
+test(
   'cargo-clippy',
   cargo,
   args: [

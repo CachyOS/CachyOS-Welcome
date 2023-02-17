@@ -39,6 +39,15 @@ iconsdir = datadir / 'icons'
 podir = meson.project_source_root() / 'po'
 gettext_package = meson.project_name()
 
+resources = gnome.compile_resources(
+  'cachyos-welcome',
+  'cachyos-welcome.gresource.xml',
+  gresource_bundle: true,
+  source_dir: meson.current_build_dir(),
+  install: true,
+  install_dir: pkgdatadir,
+)
+
 if get_option('profile') == 'development'
   profile = 'Devel'
   vcs_tag = run_command('git', 'rev-parse', '--short', 'HEAD').stdout().strip()
