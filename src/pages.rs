@@ -13,9 +13,8 @@ use gtk::prelude::*;
 use std::str;
 use subprocess::{Exec, Redirection};
 
-static mut g_local_units: Lazy<Mutex<SystemdUnits>> = Lazy::new(|| Mutex::new(SystemdUnits::new()));
-static mut g_global_units: Lazy<Mutex<SystemdUnits>> =
-    Lazy::new(|| Mutex::new(SystemdUnits::new()));
+static G_LOCAL_UNITS: Lazy<Mutex<SystemdUnits>> = Lazy::new(|| Mutex::new(SystemdUnits::new()));
+static G_GLOBAL_UNITS: Lazy<Mutex<SystemdUnits>> = Lazy::new(|| Mutex::new(SystemdUnits::new()));
 
 fn create_fixes_section() -> gtk::Box {
     let topbox = gtk::Box::new(gtk::Orientation::Vertical, 2);
@@ -128,8 +127,8 @@ fn create_options_section() -> gtk::Box {
     for btn in &[&psd_btn, &systemd_oomd_btn, &apparmor_btn, &bluetooth_btn, &ananicy_cpp_btn] {
         unsafe {
             let data: &str = *btn.data("actionData").unwrap().as_ptr();
-            if g_local_units.lock().unwrap().enabled_units.contains(&String::from(data))
-                || g_global_units.lock().unwrap().enabled_units.contains(&String::from(data))
+            if G_LOCAL_UNITS.lock().unwrap().enabled_units.contains(&String::from(data))
+                || G_GLOBAL_UNITS.lock().unwrap().enabled_units.contains(&String::from(data))
             {
                 btn.set_active(true);
             }
@@ -144,7 +143,7 @@ fn create_options_section() -> gtk::Box {
         matches!(alpm.localdb().pkg(pkg_name.as_bytes()), Ok(_))
     };
     let is_local_service_enabled = |service_unit_name: &str| -> bool {
-        let local_units = unsafe { &g_local_units.lock().unwrap().enabled_units };
+        let local_units = &G_LOCAL_UNITS.lock().unwrap().enabled_units;
         local_units.contains(&String::from(service_unit_name))
     };
 
@@ -231,49 +230,45 @@ fn create_apps_section() -> Option<gtk::Box> {
 }
 
 fn load_enabled_units() {
-    unsafe {
-        g_local_units.lock().unwrap().loaded_units.clear();
-        g_local_units.lock().unwrap().enabled_units.clear();
+    G_LOCAL_UNITS.lock().unwrap().loaded_units.clear();
+    G_LOCAL_UNITS.lock().unwrap().enabled_units.clear();
 
-        let mut exec_out = Exec::shell("systemctl list-unit-files -q --no-pager | tr -s \" \"")
-            .stdout(Redirection::Pipe)
-            .capture()
-            .unwrap()
-            .stdout_str();
-        exec_out.pop();
+    let mut exec_out = Exec::shell("systemctl list-unit-files -q --no-pager | tr -s \" \"")
+        .stdout(Redirection::Pipe)
+        .capture()
+        .unwrap()
+        .stdout_str();
+    exec_out.pop();
 
-        let service_list = exec_out.split('\n');
+    let service_list = exec_out.split('\n');
 
-        for service in service_list {
-            let out: Vec<&str> = service.split(' ').collect();
-            g_local_units.lock().unwrap().loaded_units.push(String::from(out[0]));
-            if out[1] == "enabled" {
-                g_local_units.lock().unwrap().enabled_units.push(String::from(out[0]));
-            }
+    for service in service_list {
+        let out: Vec<&str> = service.split(' ').collect();
+        G_LOCAL_UNITS.lock().unwrap().loaded_units.push(String::from(out[0]));
+        if out[1] == "enabled" {
+            G_LOCAL_UNITS.lock().unwrap().enabled_units.push(String::from(out[0]));
         }
     }
 }
 
 fn load_global_enabled_units() {
-    unsafe {
-        g_global_units.lock().unwrap().loaded_units.clear();
-        g_global_units.lock().unwrap().enabled_units.clear();
+    G_GLOBAL_UNITS.lock().unwrap().loaded_units.clear();
+    G_GLOBAL_UNITS.lock().unwrap().enabled_units.clear();
 
-        let mut exec_out =
-            Exec::shell("systemctl --global list-unit-files -q --no-pager | tr -s \" \"")
-                .stdout(Redirection::Pipe)
-                .capture()
-                .unwrap()
-                .stdout_str();
-        exec_out.pop();
+    let mut exec_out =
+        Exec::shell("systemctl --global list-unit-files -q --no-pager | tr -s \" \"")
+            .stdout(Redirection::Pipe)
+            .capture()
+            .unwrap()
+            .stdout_str();
+    exec_out.pop();
 
-        let service_list = exec_out.split('\n');
-        for service in service_list {
-            let out: Vec<&str> = service.split(' ').collect();
-            g_global_units.lock().unwrap().loaded_units.push(String::from(out[0]));
-            if out[1] == "enabled" {
-                g_global_units.lock().unwrap().enabled_units.push(String::from(out[0]));
-            }
+    let service_list = exec_out.split('\n');
+    for service in service_list {
+        let out: Vec<&str> = service.split(' ').collect();
+        G_GLOBAL_UNITS.lock().unwrap().loaded_units.push(String::from(out[0]));
+        if out[1] == "enabled" {
+            G_GLOBAL_UNITS.lock().unwrap().enabled_units.push(String::from(out[0]));
         }
     }
 }
@@ -378,21 +373,18 @@ fn on_servbtn_clicked(button: &gtk::CheckButton) {
     let (user_only, pkexec_only) =
         if action_type == "user_service" { ("--user", "--user $(logname)") } else { ("", "") };
 
-    let cmd: String;
-    unsafe {
-        let local_units = &g_local_units.lock().unwrap().enabled_units;
-        cmd = if !local_units.contains(&String::from(action_data)) {
-            format!(
-                "/sbin/pkexec {pkexec_only} bash -c \"systemctl {user_only} enable --now --force \
-                 {action_data}\""
-            )
-        } else {
-            format!(
-                "/sbin/pkexec {pkexec_only} bash -c \"systemctl {user_only} disable --now \
-                 {action_data}\""
-            )
-        };
-    }
+    let local_units = &G_LOCAL_UNITS.lock().unwrap().enabled_units;
+    let cmd = if !local_units.contains(&String::from(action_data)) {
+        format!(
+            "/sbin/pkexec {pkexec_only} bash -c \"systemctl {user_only} enable --now --force \
+             {action_data}\""
+        )
+    } else {
+        format!(
+            "/sbin/pkexec {pkexec_only} bash -c \"systemctl {user_only} disable --now \
+             {action_data}\""
+        )
+    };
 
     // Spawn child process in separate thread.
     std::thread::spawn(move || {
