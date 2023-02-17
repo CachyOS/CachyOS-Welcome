@@ -171,7 +171,7 @@ fn create_options_section() -> gtk::Box {
             let pkg_name = "cachyos-dnscrypt-proxy";
             let service_unit_name = "dnscrypt-proxy.service";
             if !check_is_pkg_installed(pkg_name) {
-                let _ = utils::run_cmd_terminal(format!("pacman -S {}", pkg_name), true);
+                let _ = utils::run_cmd_terminal(format!("pacman -S {pkg_name}"), true);
                 load_enabled_units();
                 return;
             }
@@ -294,7 +294,7 @@ pub fn create_tweaks_page(builder: &Builder) {
     back_btn.connect_clicked(glib::clone!(@weak builder => move |button| {
         let name = button.widget_name();
         let stack: gtk::Stack = builder.object("stack").unwrap();
-        stack.set_visible_child_name(&format!("{}page", name));
+        stack.set_visible_child_name(&format!("{name}page"));
     }));
 
     let options_section_box = create_options_section();
@@ -341,7 +341,7 @@ pub fn create_appbrowser_page(builder: &Builder) {
     back_btn.connect_clicked(glib::clone!(@weak builder => move |button| {
         let name = button.widget_name();
         let stack: gtk::Stack = builder.object("stack").unwrap();
-        stack.set_visible_child_name(&format!("{}page", name));
+        stack.set_visible_child_name(&format!("{name}page"));
     }));
 
     let grid = gtk::Grid::new();
@@ -383,13 +383,13 @@ fn on_servbtn_clicked(button: &gtk::CheckButton) {
         let local_units = &g_local_units.lock().unwrap().enabled_units;
         cmd = if !local_units.contains(&String::from(action_data)) {
             format!(
-                "/sbin/pkexec {} bash -c \"systemctl {} enable --now --force {}\"",
-                pkexec_only, user_only, action_data
+                "/sbin/pkexec {pkexec_only} bash -c \"systemctl {user_only} enable --now --force \
+                 {action_data}\""
             )
         } else {
             format!(
-                "/sbin/pkexec {} bash -c \"systemctl {} disable --now {}\"",
-                pkexec_only, user_only, action_data
+                "/sbin/pkexec {pkexec_only} bash -c \"systemctl {user_only} disable --now \
+                 {action_data}\""
             )
         };
     }
@@ -419,14 +419,14 @@ fn on_refreshkeyring_btn_clicked(_: &gtk::Button) {
         .map(|pkg| {
             let mut pkgname = String::from(pkg.name());
             pkgname.remove_matches("-keyring");
-            format!("{} ", pkgname)
+            format!("{pkgname} ")
         })
         .collect::<String>();
 
     // Spawn child process in separate thread.
     std::thread::spawn(move || {
         let _ = utils::run_cmd_terminal(
-            format!("pacman-key --init && pacman-key --populate {}", needles),
+            format!("pacman-key --init && pacman-key --populate {needles}"),
             true,
         );
     });
@@ -510,7 +510,7 @@ fn on_appbtn_clicked(button: &gtk::Button) {
     });
 
     rx.attach(None, move |text| {
-        println!("{}", text);
+        println!("{text}");
         glib::Continue(true)
     });
 }

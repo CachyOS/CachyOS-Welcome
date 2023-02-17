@@ -3,14 +3,14 @@ use crate::utils::PacmanWrapper;
 use std::path::Path;
 use subprocess::Exec;
 
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 #[repr(C)]
 pub struct AlpmHelper {
     pub pkg_list_install: Vec<String>,
     pub pkg_list_removal: Vec<String>,
 }
 
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq)]
 pub enum AlpmHelperResult {
     Nothing,
     Remove,
@@ -87,7 +87,7 @@ impl AlpmHelper {
                 false => "--remove",
                 _ => "",
             };
-            Exec::shell(format!("pamac-installer {} {}", arg, packages_do)).join().unwrap();
+            Exec::shell(format!("pamac-installer {arg} {packages_do}")).join().unwrap();
         } else {
             let (cmd, escalate) = match install {
                 true => match utils::get_pacman_wrapper() {
@@ -103,7 +103,7 @@ impl AlpmHelper {
                     _ => ("pacman -R", true),
                 },
             };
-            let _ = utils::run_cmd_terminal(format!("{} {}", cmd, packages_do), escalate);
+            let _ = utils::run_cmd_terminal(format!("{cmd} {packages_do}"), escalate);
         }
 
         match install {

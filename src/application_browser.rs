@@ -74,7 +74,7 @@ impl ApplicationBrowser {
 
         // Group filter
         let data =
-            fs::read_to_string(format!("{}/data/application_utility/default.json", PKGDATADIR))
+            fs::read_to_string(format!("{PKGDATADIR}/data/application_utility/default.json"))
                 .expect("Unable to read file");
         let groups: serde_json::Value = serde_json::from_str(&data).expect("Unable to parse");
         let group_store = load_groups_data(&groups);
@@ -389,12 +389,12 @@ fn on_button_press_event_tree_view(
 
             let (path, ..) = path_info.unwrap();
             let app_browser = unsafe { &mut G_APP_BROWSER.lock().unwrap() };
-            let app_store = app_browser.app_store.clone();
-            let iter_a = app_store.iter(&path.clone().unwrap()).unwrap();
+            let app_store = &app_browser.app_store;
+            let iter_a = app_store.iter(path.as_ref().unwrap()).unwrap();
             let value_gobj = app_store.value(&iter_a, PACKAGE as i32);
 
             if value_gobj.get::<&str>().is_err() {
-                if treeview.row_expanded(&path.clone().unwrap()) {
+                if treeview.row_expanded(path.as_ref().unwrap()) {
                     treeview.collapse_row(&path.unwrap());
                 } else {
                     treeview.expand_to_path(&path.unwrap());
@@ -408,7 +408,7 @@ fn on_button_press_event_tree_view(
 
 fn on_app_toggle(_cell: &gtk::CellRendererToggle, path: gtk::TreePath) {
     let app_browser = unsafe { &mut G_APP_BROWSER.lock().unwrap() };
-    let app_store = app_browser.app_store.clone();
+    let app_store = &app_browser.app_store;
     let iter_a = app_store.iter(&path).unwrap();
     let value_gobj = app_store.value(&iter_a, PACKAGE as i32);
 

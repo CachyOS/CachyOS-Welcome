@@ -86,15 +86,12 @@ fn quick_message(message: &'static str) {
 }
 
 fn show_about_dialog() {
-    let main_window: Window;
-    unsafe {
-        main_window = g_hello_window.clone().unwrap().window.clone();
-    }
-    let logo_path = format!("/usr/share/icons/hicolor/scalable/apps/{}.svg", APP_ID);
+    let main_window: &Window = unsafe { g_hello_window.as_ref().unwrap().window.as_ref() };
+    let logo_path = format!("/usr/share/icons/hicolor/scalable/apps/{APP_ID}.svg");
     let logo = Pixbuf::from_file(logo_path).unwrap();
 
     let dialog = gtk::AboutDialog::builder()
-        .transient_for(&main_window)
+        .transient_for(main_window)
         .modal(true)
         .program_name(&gettextrs::gettext("CachyOS Hello"))
         .comments(&gettextrs::gettext("Welcome screen for CachyOS"))
@@ -141,7 +138,7 @@ fn main() {
 }
 
 fn build_ui(application: &gtk::Application) {
-    let data = fs::read_to_string(format!("{}/data/preferences.json", PKGDATADIR))
+    let data = fs::read_to_string(format!("{PKGDATADIR}/data/preferences.json"))
         .expect("Unable to read file");
     let preferences: serde_json::Value = serde_json::from_str(&data).expect("Unable to parse");
 
@@ -190,7 +187,7 @@ fn build_ui(application: &gtk::Application) {
             preferences: preferences.clone(),
         }));
 
-        *g_save_json.lock().unwrap() = save.clone();
+        *g_save_json.lock().unwrap() = save;
     };
 
     // Subtitle of headerbar
@@ -208,7 +205,7 @@ fn build_ui(application: &gtk::Application) {
     let social_box: gtk::Box = builder.object("social").unwrap();
     for btn in social_box.children() {
         let name = btn.widget_name();
-        let icon_path = format!("{}/data/img/{}.png", PKGDATADIR, name);
+        let icon_path = format!("{PKGDATADIR}/data/img/{name}.png");
         let image: gtk::Image = builder.object(name.as_str()).unwrap();
         image.set_from_file(Some(&icon_path));
     }
@@ -224,7 +221,7 @@ fn build_ui(application: &gtk::Application) {
         if btn.image_position() != gtk::PositionType::Right {
             continue;
         }
-        let image_path = format!("{}/data/img/external-link.png", PKGDATADIR);
+        let image_path = format!("{PKGDATADIR}/data/img/external-link.png");
         let image = gtk::Image::new();
         image.set_from_file(Some(&image_path));
         image.set_margin_start(2);
@@ -252,7 +249,7 @@ fn build_ui(application: &gtk::Application) {
         back_btn.connect_clicked(glib::clone!(@weak builder => move |button| {
             let name = button.widget_name();
             let stack: gtk::Stack = builder.object("stack").unwrap();
-            stack.set_visible_child_name(&format!("{}page", name));
+            stack.set_visible_child_name(&format!("{name}page"));
         }));
 
         let grid = gtk::Grid::new();
@@ -323,7 +320,7 @@ pub fn get_best_locale(preferences: &serde_json::Value, save: &serde_json::Value
     let sys_locale =
         string_substr(locale_name.as_str(), 0, locale_name.find('.').unwrap_or(usize::MAX))
             .unwrap();
-    let user_locale = format!("{}/{}/LC_MESSAGES/cachyos-hello.mo", LOCALEDIR, sys_locale);
+    let user_locale = format!("{LOCALEDIR}/{sys_locale}/LC_MESSAGES/cachyos-hello.mo");
     let two_letters = string_substr(sys_locale, 0, 2).unwrap();
 
     // If user's locale is supported
@@ -335,7 +332,7 @@ pub fn get_best_locale(preferences: &serde_json::Value, save: &serde_json::Value
     }
     // If two first letters of user's locale is supported (ex: en_US -> en)
     else if check_regular_file(
-        format!("{}/{}/LC_MESSAGES/cachyos-hello.mo", LOCALEDIR, two_letters).as_str(),
+        format!("{LOCALEDIR}/{two_letters}/LC_MESSAGES/cachyos-hello.mo").as_str(),
     ) {
         return String::from(two_letters);
     }
@@ -349,7 +346,7 @@ fn set_locale(use_locale: &str) {
         println!(
             "┌{0:─^40}┐\n│{1: ^40}│\n└{0:─^40}┘",
             "",
-            format!("Locale changed to {}", use_locale)
+            format!("Locale changed to {use_locale}")
         );
     }
 
@@ -376,7 +373,7 @@ fn set_locale(use_locale: &str) {
             let elt_value = elt.as_str().unwrap();
             unsafe {
                 let item: gtk::Widget =
-                    g_hello_window.clone().unwrap().builder.object(elt_value).unwrap();
+                    g_hello_window.as_ref().unwrap().builder.object(elt_value).unwrap();
                 if default_texts[method.0].get(elt_value).is_none() {
                     let item_buf = item.property::<String>(method.0.as_str());
                     default_texts[method.0][elt_value] = json!(item_buf);
@@ -392,7 +389,7 @@ fn set_locale(use_locale: &str) {
     }
 
     unsafe {
-        let preferences = &g_hello_window.clone().unwrap().preferences;
+        let preferences = &g_hello_window.as_ref().unwrap().preferences;
         let save = &*g_save_json.lock().unwrap();
 
         // Change content of pages
@@ -403,7 +400,7 @@ fn set_locale(use_locale: &str) {
         );
         for page in fs::read_dir(pages).unwrap() {
             let stack: gtk::Stack =
-                g_hello_window.clone().unwrap().builder.object("stack").unwrap();
+                g_hello_window.as_ref().unwrap().builder.object("stack").unwrap();
             let child = stack.child_by_name(&format!(
                 "{}page",
                 page.as_ref().unwrap().path().file_name().unwrap().to_str().unwrap()
@@ -432,25 +429,20 @@ fn set_locale(use_locale: &str) {
 }
 
 fn set_autostart(autostart: bool) {
-    let autostart_path: String;
-    let desktop_path: String;
-    unsafe {
-        autostart_path = fix_path(
-            g_hello_window.clone().unwrap().preferences["autostart_path"].as_str().unwrap(),
-        );
-        desktop_path = g_hello_window.clone().unwrap().preferences["desktop_path"]
-            .as_str()
-            .unwrap()
-            .to_string();
-    }
+    let autostart_path = unsafe {
+        fix_path(g_hello_window.as_ref().unwrap().preferences["autostart_path"].as_str().unwrap())
+    };
+    let desktop_path = unsafe {
+        g_hello_window.as_ref().unwrap().preferences["desktop_path"].as_str().unwrap().to_owned()
+    };
     let config_dir = Path::new(&autostart_path).parent().unwrap();
     if !config_dir.exists() {
         fs::create_dir_all(config_dir).unwrap();
     }
-    if autostart && !check_regular_file(autostart_path.as_str()) {
-        std::os::unix::fs::symlink(desktop_path, autostart_path).unwrap();
-    } else if !autostart && check_regular_file(autostart_path.as_str()) {
-        std::fs::remove_file(autostart_path).unwrap();
+    if autostart && !check_regular_file(&autostart_path) {
+        std::os::unix::fs::symlink(desktop_path, &autostart_path).unwrap();
+    } else if !autostart && check_regular_file(&autostart_path) {
+        std::fs::remove_file(&autostart_path).unwrap();
     }
 }
 
@@ -504,8 +496,8 @@ fn on_btn_clicked(param: &[glib::Value]) -> Option<glib::Value> {
     let name = widget.widget_name();
 
     unsafe {
-        let stack: gtk::Stack = g_hello_window.clone().unwrap().builder.object("stack").unwrap();
-        stack.set_visible_child_name(&format!("{}page", name));
+        let stack: gtk::Stack = g_hello_window.as_ref().unwrap().builder.object("stack").unwrap();
+        stack.set_visible_child_name(&format!("{name}page"));
     };
 
     None
@@ -516,10 +508,11 @@ fn on_link_clicked(param: &[glib::Value]) -> Option<glib::Value> {
     let name = widget.widget_name();
 
     unsafe {
-        let preferences = &g_hello_window.clone().unwrap().preferences["urls"];
+        let window_ref = &g_hello_window.as_ref().unwrap().window;
+        let preferences = &g_hello_window.as_ref().unwrap().preferences["urls"];
 
         let uri = preferences[name.as_str()].as_str().unwrap();
-        let _ = gtk::show_uri_on_window(gtk::Window::NONE, uri, 0);
+        let _ = gtk::show_uri_on_window(Some(window_ref), uri, 0);
     }
 
     None
@@ -530,10 +523,11 @@ fn on_link1_clicked(param: &[glib::Value]) -> Option<glib::Value> {
     let name = widget.widget_name();
 
     unsafe {
-        let preferences = &g_hello_window.clone().unwrap().preferences["urls"];
+        let window_ref = &g_hello_window.as_ref().unwrap().window;
+        let preferences = &g_hello_window.as_ref().unwrap().preferences["urls"];
 
         let uri = preferences[name.as_str()].as_str().unwrap();
-        let _ = gtk::show_uri_on_window(gtk::Window::NONE, uri, 0);
+        let _ = gtk::show_uri_on_window(Some(window_ref), uri, 0);
     }
 
     Some(false.to_value())
@@ -541,7 +535,7 @@ fn on_link1_clicked(param: &[glib::Value]) -> Option<glib::Value> {
 
 fn on_delete_window(_param: &[glib::Value]) -> Option<glib::Value> {
     unsafe {
-        let preferences = &g_hello_window.clone().unwrap().preferences["save_path"];
+        let preferences = &g_hello_window.as_ref().unwrap().preferences["save_path"];
         let save = &*g_save_json.lock().unwrap();
         write_json(preferences.as_str().unwrap(), save);
     }
