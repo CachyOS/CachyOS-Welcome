@@ -183,11 +183,11 @@ fn create_options_section() -> gtk::Box {
 
     topbox.pack_start(&label, true, false, 1);
     box_collection.pack_start(&psd_btn, true, false, 2);
-    box_collection.pack_start(&systemd_oomd_btn, true, false, 2);
+    box_collection_s.pack_start(&systemd_oomd_btn, true, false, 2);
     box_collection.pack_start(&apparmor_btn, true, false, 2);
-    box_collection.pack_start(&bluetooth_btn, true, false, 2);
     box_collection.pack_start(&ananicy_cpp_btn, true, false, 2);
     box_collection_s.pack_start(&dnscrypt_btn, true, false, 2);
+    box_collection_s.pack_start(&bluetooth_btn, true, false, 2);
     box_collection.set_halign(gtk::Align::Fill);
     box_collection_s.set_halign(gtk::Align::Fill);
     topbox.pack_end(&box_collection_s, true, false, 1);
