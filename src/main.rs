@@ -28,8 +28,9 @@ use serde_json::json;
 use std::{fs, str};
 use subprocess::Exec;
 
-static G_SAVE_JSON: Lazy<Mutex<serde_json::Value>> = Lazy::new(|| Mutex::new(json!(null)));
+const RESPREFIX: &str = "/org/cachyos/hello";
 
+static G_SAVE_JSON: Lazy<Mutex<serde_json::Value>> = Lazy::new(|| Mutex::new(json!(null)));
 static mut G_HELLO_WINDOW: Option<Arc<HelloWindow>> = None;
 
 fn quick_message(message: &'static str) {
@@ -155,7 +156,7 @@ fn build_ui(application: &gtk::Application) {
 
     // Import Css
     let provider = gtk::CssProvider::new();
-    provider.load_from_resource("/org/cachyos/hello/ui/style.css");
+    provider.load_from_resource(&format!("{RESPREFIX}/ui/style.css"));
     gtk::StyleContext::add_provider_for_screen(
         &gdk::Screen::default().expect("Error initializing gtk css provider."),
         &provider,
@@ -163,7 +164,7 @@ fn build_ui(application: &gtk::Application) {
     );
 
     // Init window
-    let builder: Builder = Builder::from_resource("/org/cachyos/hello/ui/cachyos-hello.glade");
+    let builder: Builder = Builder::from_resource(&format!("{RESPREFIX}/ui/cachyos-hello.glade"));
     builder.connect_signals(|_builder, handler_name| {
         match handler_name {
             // handler_name as defined in the glade file => handler function as defined above
@@ -204,9 +205,9 @@ fn build_ui(application: &gtk::Application) {
     let social_box: gtk::Box = builder.object("social").unwrap();
     for btn in social_box.children() {
         let name = btn.widget_name();
-        let icon_path = format!("{PKGDATADIR}/data/img/{name}.png");
+        let icon_path = format!("{RESPREFIX}/data/img/{name}.png");
         let image: gtk::Image = builder.object(name.as_str()).unwrap();
-        image.set_from_file(Some(&icon_path));
+        image.set_from_resource(Some(&icon_path));
     }
 
     let homepage_grid: gtk::Grid = builder.object("homepage").unwrap();
@@ -220,9 +221,9 @@ fn build_ui(application: &gtk::Application) {
         if btn.image_position() != gtk::PositionType::Right {
             continue;
         }
-        let image_path = format!("{PKGDATADIR}/data/img/external-link.png");
+        let image_path = format!("{RESPREFIX}/data/img/external-link.png");
         let image = gtk::Image::new();
-        image.set_from_file(Some(&image_path));
+        image.set_from_resource(Some(&image_path));
         image.set_margin_start(2);
         btn.set_image(Some(&image));
     }

@@ -44,8 +44,6 @@ const ACTIVE: u32 = 4;
 const PACKAGE: u32 = 5;
 const INSTALLED: u32 = 6;
 
-// static mut G_APP_BROWSER: Rc<Mutex<ApplicationBrowser>> =
-// Rc::new(Mutex::new(ApplicationBrowser::new()));
 static mut G_APP_BROWSER: Lazy<Mutex<ApplicationBrowser>> = Lazy::new(|| {
     let mut app_browser = ApplicationBrowser::new();
     app_browser.create_page();
