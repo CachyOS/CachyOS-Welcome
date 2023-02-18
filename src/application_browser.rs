@@ -26,6 +26,7 @@ pub struct ApplicationBrowser {
     pub tree_view: gtk::TreeView,
     pub app_browser_box: gtk::Box,
     pub button_box: gtk::Box,
+    pub back_btn: gtk::Button,
     pub update_system_btn: gtk::Button,
 }
 
@@ -56,6 +57,17 @@ impl ApplicationBrowser {
         app_browser_box.set_expand(true);
 
         let child_name = "appBrowserpage";
+
+        let back_image = gtk::Image::from_icon_name(Some("go-previous"), gtk::IconSize::Button);
+        let back_btn = gtk::Button::new();
+        back_btn.set_image(Some(&back_image));
+        back_btn.set_widget_name("home");
+
+        let back_grid = gtk::Grid::new();
+        back_grid.set_hexpand(true);
+        back_grid.set_margin_start(10);
+        back_grid.set_margin_top(5);
+        back_grid.attach(&back_btn, 0, 1, 1, 1);
 
         let button_box = gtk::Box::new(gtk::Orientation::Horizontal, 10);
         button_box.set_widget_name(child_name);
@@ -89,6 +101,7 @@ impl ApplicationBrowser {
 
         button_box.pack_end(&reset_button, false, false, 10);
         // button_box.pack_end(&download_button, false, false, 10);
+        app_browser_box.pack_start(&back_grid, false, false, 0);
         app_browser_box.pack_start(&button_box, false, false, 10);
 
         let col_types: [glib::Type; 7] = [
@@ -112,6 +125,7 @@ impl ApplicationBrowser {
             tree_view: gtk::TreeView::new(),
             app_browser_box,
             button_box,
+            back_btn,
             update_system_btn,
         }
     }

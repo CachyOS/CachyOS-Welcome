@@ -310,6 +310,7 @@ pub fn create_tweaks_page(builder: &Builder) {
     grid.set_margin_top(5);
     grid.set_margin_bottom(5);
     grid.attach(&back_btn, 0, 1, 1, 1);
+    let box_collection_s = gtk::Box::new(gtk::Orientation::Vertical, 5);
     let box_collection = gtk::Box::new(gtk::Orientation::Vertical, 5);
     box_collection.set_widget_name(child_name);
 
@@ -322,8 +323,9 @@ pub fn create_tweaks_page(builder: &Builder) {
 
     box_collection.set_valign(gtk::Align::Center);
     box_collection.set_halign(gtk::Align::Center);
-    grid.attach(&box_collection, 1, 2, 5, 1);
-    viewport.add(&grid);
+    box_collection_s.pack_start(&grid, false, false, 0);
+    box_collection_s.pack_start(&box_collection, false, false, 10);
+    viewport.add(&box_collection_s);
     viewport.show_all();
 
     let stack: gtk::Stack = builder.object("stack").unwrap();
@@ -335,32 +337,17 @@ pub fn create_appbrowser_page(builder: &Builder) {
     install.set_visible(true);
 
     let viewport = gtk::Viewport::new(gtk::Adjustment::NONE, gtk::Adjustment::NONE);
-    let image = gtk::Image::from_icon_name(Some("go-previous"), gtk::IconSize::Button);
-    let back_btn = gtk::Button::new();
-    back_btn.set_image(Some(&image));
-    back_btn.set_widget_name("home");
-
-    back_btn.connect_clicked(glib::clone!(@weak builder => move |button| {
+    let app_browser_ref = ApplicationBrowser::default_impl().lock().unwrap();
+    app_browser_ref.back_btn.connect_clicked(glib::clone!(@weak builder => move |button| {
         let name = button.widget_name();
         let stack: gtk::Stack = builder.object("stack").unwrap();
         stack.set_visible_child_name(&format!("{name}page"));
     }));
-
-    let grid = gtk::Grid::new();
-    grid.set_hexpand(true);
-    grid.set_margin_start(10);
-    grid.set_margin_end(10);
-    grid.set_margin_top(5);
-    grid.set_margin_bottom(5);
-    grid.attach(&back_btn, 0, 1, 1, 1);
-
-    let app_browser_ref = ApplicationBrowser::default_impl().lock().unwrap();
     let app_browser_box = app_browser_ref.get_page();
-    grid.attach(app_browser_box, 0, 2, 1, 1);
 
     // Add grid to the viewport
     // NOTE: we might eliminate that?
-    viewport.add(&grid);
+    viewport.add(app_browser_box);
     viewport.show_all();
 
     let stack: gtk::Stack = builder.object("stack").unwrap();
