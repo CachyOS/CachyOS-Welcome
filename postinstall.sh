@@ -5,6 +5,7 @@ cp -r "${MESON_SOURCE_ROOT}/src/scripts" "${DESTDIR}/${MESON_INSTALL_PREFIX}/sha
 cp -r "${MESON_SOURCE_ROOT}/data" "${DESTDIR}/${MESON_INSTALL_PREFIX}/share/cachyos-hello/"
 
 rm -rf "${DESTDIR}/${MESON_INSTALL_PREFIX}/share/cachyos-hello/data/img"
+rm -f "${DESTDIR}/${MESON_INSTALL_PREFIX}/share/cachyos-hello/data/pages/copy-release-trans.py"
 
 cd "${MESON_SOURCE_ROOT}/po"
 for lang in $(ls *.po); do
