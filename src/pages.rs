@@ -296,6 +296,13 @@ pub fn create_tweaks_page(builder: &Builder) {
     let fixes_section_box = create_fixes_section();
     let apps_section_box_opt = create_apps_section();
 
+    let child_name = "tweaksBrowserpage";
+    options_section_box.set_widget_name(&format!("{child_name}_options"));
+    fixes_section_box.set_widget_name(&format!("{child_name}_fixes"));
+    if apps_section_box_opt.is_some() {
+        apps_section_box_opt.as_ref().unwrap().set_widget_name(&format!("{child_name}_apps"));
+    }
+
     let grid = gtk::Grid::new();
     grid.set_hexpand(true);
     grid.set_margin_start(10);
@@ -304,6 +311,7 @@ pub fn create_tweaks_page(builder: &Builder) {
     grid.set_margin_bottom(5);
     grid.attach(&back_btn, 0, 1, 1, 1);
     let box_collection = gtk::Box::new(gtk::Orientation::Vertical, 5);
+    box_collection.set_widget_name(child_name);
 
     box_collection.pack_start(&options_section_box, false, false, 10);
     box_collection.pack_start(&fixes_section_box, false, false, 10);
@@ -319,7 +327,6 @@ pub fn create_tweaks_page(builder: &Builder) {
     viewport.show_all();
 
     let stack: gtk::Stack = builder.object("stack").unwrap();
-    let child_name = "tweaksBrowserpage";
     stack.add_named(&viewport, child_name);
 }
 

@@ -55,7 +55,10 @@ impl ApplicationBrowser {
         let app_browser_box = gtk::Box::new(gtk::Orientation::Vertical, 0);
         app_browser_box.set_expand(true);
 
+        let child_name = "appBrowserpage";
+
         let button_box = gtk::Box::new(gtk::Orientation::Horizontal, 10);
+        button_box.set_widget_name(child_name);
         let advanced_button = gtk::ToggleButton::with_label("advanced");
         advanced_button.set_tooltip_text(Some("Toggle an extended selection of packages"));
         advanced_button.connect_clicked(on_advanced_clicked);

@@ -3,6 +3,18 @@ window {
     border-bottom-right-radius: 7px;
 }
 
+#tweaksBrowserpage button {
+    padding: 5px 15px;
+    border: none;
+    border-radius: 5px 5px 5px 5px;
+}
+
+#appBrowserpage button {
+    padding: 5px 20px;
+    border: none;
+    border-radius: 5px 5px 5px 5px;
+}
+
 .homepage button {
     transition: border 100ms ease-in-out;
     padding: 10px 30px;

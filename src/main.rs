@@ -252,7 +252,11 @@ fn build_ui(application: &gtk::Application) {
             stack.set_visible_child_name(&format!("{name}page"));
         }));
 
+        let child_name =
+            format!("{}page", page.unwrap().path().file_name().unwrap().to_str().unwrap());
+
         let grid = gtk::Grid::new();
+        grid.set_widget_name(&child_name);
         grid.attach(&back_btn, 0, 1, 1, 1);
         grid.attach(&label, 1, 2, 1, 1);
         viewport.add(&grid);
@@ -260,8 +264,6 @@ fn build_ui(application: &gtk::Application) {
         scrolled_window.show_all();
 
         let stack: gtk::Stack = builder.object("stack").unwrap();
-        let child_name =
-            format!("{}page", page.unwrap().path().file_name().unwrap().to_str().unwrap());
         stack.add_named(&scrolled_window, &child_name);
     }
 
