@@ -99,7 +99,7 @@ fn show_about_dialog() {
         .version(VERSION)
         .logo(&logo)
         .authors(vec![
-            "Vladislav Nepogodin".into(),
+            "Vladislav Nepogodin".to_owned(),
         ])
         // Translators: Replace "translator-credits" with your names. Put a comma between.
         .translator_credits(&gettextrs::gettext("translator-credits"))
