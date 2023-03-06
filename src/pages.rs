@@ -67,9 +67,9 @@ fn create_fixes_section() -> gtk::Box {
         std::thread::spawn(move || {
             // check if you have orphans packages.
             let status = std::process::Command::new("pacman")
-                     .arg("-Qtdq")
-                     .status()
-                     .expect("Found orphans packages");
+                .arg("-Qtdq")
+                .status()
+                .expect("Found orphans packages");
 
             if status.success() {
                 let _ = utils::run_cmd_terminal(String::from("pacman -Rns $(pacman -Qtdq)"), true);
