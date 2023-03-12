@@ -65,7 +65,26 @@ fn create_fixes_section() -> gtk::Box {
     remove_orphans_btn.connect_clicked(move |_| {
         // Spawn child process in separate thread.
         std::thread::spawn(move || {
-            let _ = utils::run_cmd_terminal(String::from("pacman -Rns $(pacman -Qtdq)"), true);
+            // check if you have orphans packages.
+            let mut orphan_pkgs = Exec::cmd("/sbin/pacman")
+                .arg("-Qtdq")
+                .stdout(Redirection::Pipe)
+                .capture()
+                .unwrap()
+                .stdout_str();
+
+            // get list of packages separated by space,
+            // and check if it's empty or not.
+            orphan_pkgs = orphan_pkgs.replace('\n', " ");
+            if orphan_pkgs.is_empty() {
+                let dialog = gtk::MessageDialog::builder()
+                    .message_type(gtk::MessageType::Info)
+                    .text("No orphan packages found!")
+                    .build();
+                dialog.show();
+                return;
+            }
+            let _ = utils::run_cmd_terminal(format!("pacman -Rns {orphan_pkgs}"), true);
         });
     });
     clear_pkgcache_btn.connect_clicked(on_clear_pkgcache_btn_clicked);
