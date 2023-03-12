@@ -94,15 +94,15 @@ fn show_about_dialog() {
     let dialog = gtk::AboutDialog::builder()
         .transient_for(main_window)
         .modal(true)
-        .program_name(&gettextrs::gettext("CachyOS Hello"))
-        .comments(&gettextrs::gettext("Welcome screen for CachyOS"))
+        .program_name(gettextrs::gettext("CachyOS Hello"))
+        .comments(gettextrs::gettext("Welcome screen for CachyOS"))
         .version(VERSION)
         .logo(&logo)
         .authors(vec![
             "Vladislav Nepogodin".to_owned(),
         ])
         // Translators: Replace "translator-credits" with your names. Put a comma between.
-        .translator_credits(&gettextrs::gettext("translator-credits"))
+        .translator_credits(gettextrs::gettext("translator-credits"))
         .copyright("2021-2023 CachyOS team")
         .license_type(gtk::License::Gpl30)
         .website("https://github.com/cachyos/cachyos-welcome")
