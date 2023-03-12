@@ -300,51 +300,10 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <items>
-                      <item id="sq">Albanian</item>
-                      <item id="ar">Arabic</item>
-                      <item id="ast-ES">Asturian (Spain)</item>
-                      <item id="be">Belarusian</item>
-                      <item id="bg">Bulgarian</item>
-                      <item id="ca">Catalan</item>
-                      <item id="zh-CN">Chinese (China)</item>
-                      <item id="zh-TW">Chinese (Taiwan)</item>
-                      <item id="hr">Croatian</item>
-                      <item id="cs">Czech</item>
-                      <item id="da">Danish</item>
-                      <item id="nl">Dutch</item>
-                      <item id="en">English</item>
-                      <item id="fi">Finnish</item>
-                      <item id="fr">French</item>
                       <item id="de">German</item>
-                      <item id="ka">Georgian</item>
-                      <item id="el-GR">Greek (Greece)</item>
-                      <item id="he">Hebrew</item>
-                      <item id="hi-IN">Hindi (India)</item>
-                      <item id="hu">Hungarian</item>
-                      <item id="is">Icelandic</item>
-                      <item id="id-ID">Indonesian (Indonesia)</item>
-                      <item id="it">Italian</item>
-                      <item id="ja">Japanese</item>
-                      <item id="ko-KR">Korean (Korea)</item>
-                      <item id="lt">Lithuanian</item>
-                      <item id="nb">Norwegian Bokmål</item>
-                      <item id="fa-IR">Persian (Iran)</item>
+                      <item id="en">English</item>
                       <item id="pl">Polish</item>
-                      <item id="pt-BR">Portuguese (Brazil)</item>
-                      <item id="pt-PT">Portuguese (Portugal)</item>
-                      <item id="ro-RO">Romanian (Romania)</item>
                       <item id="ru">Russian</item>
-                      <item id="sk">Slovak</item>
-                      <item id="sl-SI">Slovenian (Slovenia)</item>
-                      <item id="sl">Slovenian</item>
-                      <item id="es">Spanish</item>
-                      <item id="sr-RS">Serbian (Serbia)</item>
-                      <item id="sr">Serbian</item>
-                      <item id="sv">Swedish</item>
-                      <item id="th">Thai</item>
-                      <item id="tr">Turkish</item>
-                      <item id="uk">Ukrainian</item>
-                      <item id="vi-VN">Vietnamese (Viet Nam)</item>
                     </items>
                     <signal name="changed" handler="on_languages_changed" swapped="no"/>
                   </object>
