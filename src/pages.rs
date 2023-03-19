@@ -1,7 +1,7 @@
 use crate::application_browser::ApplicationBrowser;
 use crate::data_types::*;
-use crate::utils;
 use crate::utils::PacmanWrapper;
+use crate::{fl, utils};
 use gtk::{glib, Builder};
 use once_cell::sync::Lazy;
 use std::fmt::Write as _;
@@ -24,15 +24,15 @@ fn create_fixes_section() -> gtk::Box {
     let label = gtk::Label::new(None);
     label.set_line_wrap(true);
     label.set_justify(gtk::Justification::Center);
-    label.set_text("Fixes");
+    label.set_text(&fl!("fixes"));
 
-    let removelock_btn = gtk::Button::with_label("Remove db lock");
-    let reinstall_btn = gtk::Button::with_label("Reinstall all packages");
-    let refreshkeyring_btn = gtk::Button::with_label("Refresh keyrings");
-    let update_system_btn = gtk::Button::with_label("System update");
-    let remove_orphans_btn = gtk::Button::with_label("Remove orphans");
-    let clear_pkgcache_btn = gtk::Button::with_label("Clear package cache");
-    let rankmirrors_btn = gtk::Button::with_label("Rank mirrors");
+    let removelock_btn = gtk::Button::with_label(&fl!("remove-lock-title"));
+    let reinstall_btn = gtk::Button::with_label(&fl!("reinstall-title"));
+    let refreshkeyring_btn = gtk::Button::with_label(&fl!("refresh-keyrings-title"));
+    let update_system_btn = gtk::Button::with_label(&fl!("update-system-title"));
+    let remove_orphans_btn = gtk::Button::with_label(&fl!("remove-orphans-title"));
+    let clear_pkgcache_btn = gtk::Button::with_label(&fl!("clear-pkgcache-title"));
+    let rankmirrors_btn = gtk::Button::with_label(&fl!("rankmirrors-title"));
 
     removelock_btn.connect_clicked(move |_| {
         // Spawn child process in separate thread.
@@ -121,14 +121,20 @@ fn create_options_section() -> gtk::Box {
     let label = gtk::Label::new(None);
     label.set_line_wrap(true);
     label.set_justify(gtk::Justification::Center);
-    label.set_text("Tweaks");
+    label.set_text(&fl!("tweaks"));
 
-    let psd_btn = gtk::CheckButton::with_label("Profile-sync-daemon enable");
-    let systemd_oomd_btn = gtk::CheckButton::with_label("Systemd-oomd enabled");
-    let apparmor_btn = gtk::CheckButton::with_label("Apparmor enabled");
-    let bluetooth_btn = gtk::CheckButton::with_label("Bluetooth enabled");
-    let ananicy_cpp_btn = gtk::CheckButton::with_label("Ananicy Cpp enabled");
-    let dnscrypt_btn = gtk::CheckButton::with_label("DNSCrypt enabled");
+    let psd_btn =
+        gtk::CheckButton::with_label(&fl!("tweak-enabled-title", tweak = "Profile-sync-daemon"));
+    let systemd_oomd_btn =
+        gtk::CheckButton::with_label(&fl!("tweak-enabled-title", tweak = "Systemd-oomd"));
+    let apparmor_btn =
+        gtk::CheckButton::with_label(&fl!("tweak-enabled-title", tweak = "Apparmor"));
+    let bluetooth_btn =
+        gtk::CheckButton::with_label(&fl!("tweak-enabled-title", tweak = "Bluetooth"));
+    let ananicy_cpp_btn =
+        gtk::CheckButton::with_label(&fl!("tweak-enabled-title", tweak = "Ananicy Cpp"));
+    let dnscrypt_btn =
+        gtk::CheckButton::with_label(&fl!("tweak-enabled-title", tweak = "DNSCrypt"));
 
     unsafe {
         psd_btn.set_data("actionData", "psd.service");
@@ -221,7 +227,7 @@ fn create_apps_section() -> Option<gtk::Box> {
     let label = gtk::Label::new(None);
     label.set_line_wrap(true);
     label.set_justify(gtk::Justification::Center);
-    label.set_text("Applications");
+    label.set_text(&fl!("applications"));
 
     // Check first btn.
     if Path::new("/sbin/cachyos-pi-bin").exists() {
@@ -295,6 +301,7 @@ fn load_global_enabled_units() {
 pub fn create_tweaks_page(builder: &Builder) {
     let install: gtk::Button = builder.object("tweaksBrowser").unwrap();
     install.set_visible(true);
+    install.set_label(&fl!("tweaksbrowser-label"));
 
     load_enabled_units();
     load_global_enabled_units();
@@ -354,6 +361,7 @@ pub fn create_tweaks_page(builder: &Builder) {
 pub fn create_appbrowser_page(builder: &Builder) {
     let install: gtk::Button = builder.object("appBrowser").unwrap();
     install.set_visible(true);
+    install.set_label(&fl!("appbrowser-label"));
 
     let viewport = gtk::Viewport::new(gtk::Adjustment::NONE, gtk::Adjustment::NONE);
     let app_browser_ref = ApplicationBrowser::default_impl().lock().unwrap();

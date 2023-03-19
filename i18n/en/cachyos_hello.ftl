@@ -2,6 +2,23 @@
 about-dialog-title = CachyOS Hello
 about-dialog-comments = Welcome screen for CachyOS
 
+# Tweaks page
+tweaks = Tweaks
+fixes = Fixes
+applications = Applications
+
+# Tweaks page (tweaks)
+tweak-enabled-title = {$tweak} enabled
+
+# Tweaks page (fixes)
+remove-lock-title = Remove db lock
+reinstall-title = Reinstall all packages
+refresh-keyrings-title = Refresh keyrings
+update-system-title = System update
+remove-orphans-title = Remove orphans
+clear-pkgcache-title = Clear package cache
+rankmirrors-title = Rank mirrors
+
 # Main Page (buttons)
 button-about-tooltip = About
 button-web-resource-tooltip = Web resource
@@ -22,6 +39,8 @@ section-support = SUPPORT
 section-project = PROJECT
 
 # Main Page (body)
+tweaksbrowser-label = Apps/Tweaks
+appbrowser-label = Install Apps
 launch-start-label = Launch at start
 welcome-title = Welcome to CachyOS!
 welcome-body =
