@@ -76,6 +76,28 @@ pub fn create_combo_with_model(group_store: &gtk::ListStore) -> gtk::ComboBox {
     group_combo
 }
 
+pub fn get_translation_msgid(objname: &str) -> &'static str {
+    match objname {
+        "autostartlabel" => "launch-start-label",
+        "development" => "button-development-label",
+        "software" => "button-software-label",
+        "donate" => "button-donate-label",
+        "forum" => "button-forum-label",
+        "firstcategory" => "section-docs",
+        "secondcategory" => "section-support",
+        "thirdcategory" => "section-project",
+        "install" => "button-installer-label",
+        "installlabel" => "section-installer",
+        "involved" => "button-involved-label",
+        "readme" => "button-readme-label",
+        "release" => "button-release-info-label",
+        "welcomelabel" => "welcome-body",
+        "welcometitle" => "welcome-title",
+        "wiki" => "button-wiki-label",
+        _ => panic!("unknown objname '{objname}'!"),
+    }
+}
+
 pub fn run_cmd_terminal(cmd: String, escalate: bool) -> bool {
     let cmd_formated = format!("{cmd}; read -p 'Press enter to exit'");
     let mut args: Vec<&str> = vec![];

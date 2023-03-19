@@ -6,17 +6,22 @@ mod alpm_helper;
 mod application_browser;
 mod config;
 mod data_types;
+mod embed_data;
+mod gresource;
+mod localization;
 mod pages;
 mod utils;
 
-use config::{APP_ID, GETTEXT_PACKAGE, LOCALEDIR, PKGDATADIR, PROFILE, RESOURCES_FILE, VERSION};
+use config::{APP_ID, PROFILE, VERSION};
 use data_types::*;
-use gettextrs::LocaleCategory;
+use glib::GString;
 use gtk::{gio, glib, Builder, HeaderBar, Window};
+use i18n_embed::DesktopLanguageRequester;
 use once_cell::sync::Lazy;
 use std::collections::HashMap;
 use std::path::Path;
 use std::sync::{Arc, Mutex};
+use unic_langid::LanguageIdentifier;
 use utils::*;
 
 use gio::prelude::*;
@@ -30,7 +35,10 @@ use subprocess::Exec;
 
 const RESPREFIX: &str = "/org/cachyos/hello";
 
-static G_SAVE_JSON: Lazy<Mutex<serde_json::Value>> = Lazy::new(|| Mutex::new(json!(null)));
+static G_SAVE_JSON: Lazy<Mutex<serde_json::Value>> = Lazy::new(|| {
+    let saved_json = get_saved_json();
+    Mutex::new(saved_json)
+});
 static mut G_HELLO_WINDOW: Option<Arc<HelloWindow>> = None;
 
 fn quick_message(message: &'static str) {
@@ -94,15 +102,15 @@ fn show_about_dialog() {
     let dialog = gtk::AboutDialog::builder()
         .transient_for(main_window)
         .modal(true)
-        .program_name(gettextrs::gettext("CachyOS Hello"))
-        .comments(gettextrs::gettext("Welcome screen for CachyOS"))
+        .program_name(GString::from_string_unchecked(crate::fl!("about-dialog-title")))
+        .comments(GString::from_string_unchecked(crate::fl!("about-dialog-comments")))
         .version(VERSION)
         .logo(&logo)
         .authors(vec![
             "Vladislav Nepogodin".to_owned(),
         ])
         // Translators: Replace "translator-credits" with your names. Put a comma between.
-        .translator_credits(gettextrs::gettext("translator-credits"))
+        .translator_credits("translator-credits")
         .copyright("2021-2023 CachyOS team")
         .license_type(gtk::License::Gpl30)
         .website("https://github.com/cachyos/cachyos-welcome")
@@ -113,17 +121,50 @@ fn show_about_dialog() {
     dialog.hide();
 }
 
+fn get_preferences() -> serde_json::Value {
+    let page_file = crate::embed_data::get("preferences.json").unwrap();
+    let page = std::str::from_utf8(page_file.data.as_ref());
+    serde_json::from_str(&page.unwrap()).expect("Unable to parse")
+}
+
+fn get_saved_locale() -> Option<String> {
+    let saved_json = &*G_SAVE_JSON.lock().unwrap();
+    Some(saved_json["locale"].as_str()?.to_owned())
+}
+
+fn get_saved_json() -> serde_json::Value {
+    let preferences = get_preferences();
+    let save_path = fix_path(preferences["save_path"].as_str().unwrap());
+    if !Path::new(&save_path).exists() {
+        json!({"locale": ""})
+    } else {
+        read_json(save_path.as_str())
+    }
+}
+
 fn main() {
-    gettextrs::setlocale(LocaleCategory::LcAll, "");
-    gettextrs::bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR).expect("Unable to bind the text domain.");
-    gettextrs::textdomain(GETTEXT_PACKAGE).expect("Unable to switch to the text domain.");
+    // Setup localization.
+    let saved_locale = get_saved_locale().unwrap();
+    let requested_languages = if !saved_locale.is_empty() {
+        let lang_id: LanguageIdentifier = saved_locale.parse().unwrap();
+        vec![lang_id]
+    } else {
+        DesktopLanguageRequester::requested_languages()
+    };
 
-    glib::set_application_name("CachyOSHello");
+    let localizer = crate::localization::localizer();
+    if let Err(error) = localizer.select(&requested_languages) {
+        eprintln!("Error while loading languages for library_fluent {}", error);
+    }
 
+    // Register UI.
     gtk::init().expect("Unable to start GTK3.");
 
-    let res = gio::Resource::load(RESOURCES_FILE).expect("Could not load gresource file.");
-    gio::resources_register(&res);
+    gresource::init().expect("Could not load gresource file.");
+
+    // Set program name.
+    glib::set_program_name("CachyOSHello".into());
+    glib::set_application_name("CachyOSHello");
 
     let application = gtk::Application::new(
         Some(APP_ID),       // Application id
@@ -139,20 +180,11 @@ fn main() {
 }
 
 fn build_ui(application: &gtk::Application) {
-    let data = fs::read_to_string(format!("{PKGDATADIR}/data/preferences.json"))
-        .expect("Unable to read file");
-    let preferences: serde_json::Value = serde_json::from_str(&data).expect("Unable to parse");
+    let preferences = get_preferences();
 
     // Get saved infos
-    let save_path = fix_path(preferences["save_path"].as_str().unwrap());
-    let save: serde_json::Value = if !Path::new(&save_path).exists() {
-        json!({"locale": ""})
-    } else {
-        read_json(save_path.as_str())
-    };
-
-    let best_locale = get_best_locale(&preferences, &save);
-    std::env::set_var("LANGUAGE", best_locale.as_str());
+    let saved_locale = get_saved_locale().unwrap();
+    let best_locale = get_best_locale(&preferences, &saved_locale).unwrap();
 
     // Import Css
     let provider = gtk::CssProvider::new();
@@ -181,7 +213,6 @@ fn build_ui(application: &gtk::Application) {
     let main_window: Window = builder.object("window").expect("Could not get the object window");
     main_window.set_application(Some(application));
 
-    *G_SAVE_JSON.lock().unwrap() = save;
     unsafe {
         G_HELLO_WINDOW = Some(Arc::new(HelloWindow {
             window: main_window.clone(),
@@ -229,10 +260,13 @@ fn build_ui(application: &gtk::Application) {
     }
 
     // Create pages
-    let pages =
-        format!("{}/data/pages/{}", PKGDATADIR, preferences["default_locale"].as_str().unwrap());
+    let file_pages_path = crate::embed_data::HelloData::iter()
+        .filter(|pkg| pkg.starts_with(&format!("pages/{}", &best_locale)))
+        .collect::<Vec<_>>();
 
-    for page in fs::read_dir(pages).unwrap() {
+    for file_path in file_pages_path {
+        // let page_file = HelloData::get(&file_path).unwrap();
+        // let page = std::str::from_utf8(page_file.data.as_ref());
         let scrolled_window =
             gtk::ScrolledWindow::new(gtk::Adjustment::NONE, gtk::Adjustment::NONE);
 
@@ -252,8 +286,10 @@ fn build_ui(application: &gtk::Application) {
             stack.set_visible_child_name(&format!("{name}page"));
         }));
 
-        let child_name =
-            format!("{}page", page.unwrap().path().file_name().unwrap().to_str().unwrap());
+        let child_name = format!(
+            "{}page",
+            Path::new(&file_path.as_ref()).file_name().unwrap().to_str().unwrap()
+        );
 
         let grid = gtk::Grid::new();
         grid.set_widget_name(&child_name);
@@ -268,11 +304,6 @@ fn build_ui(application: &gtk::Application) {
     }
 
     // Init translation
-    gettextrs::bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR)
-        .expect("Unable to switch to the text domain.");
-    gettextrs::bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8")
-        .expect("Unable to set domain encoding.");
-    gettextrs::textdomain(GETTEXT_PACKAGE).expect("Unable to switch to the text domain.");
     let languages: gtk::ComboBoxText = builder.object("languages").unwrap();
     languages.set_active_id(Some(best_locale.as_str()));
 
@@ -309,37 +340,34 @@ fn build_ui(application: &gtk::Application) {
 }
 
 /// Returns the best locale, based on user's preferences.
-pub fn get_best_locale(preferences: &serde_json::Value, save: &serde_json::Value) -> String {
-    let saved_locale =
-        format!("{}/{}/LC_MESSAGES/cachyos-hello.mo", LOCALEDIR, save["locale"].as_str().unwrap());
-    if check_regular_file(saved_locale.as_str()) {
-        return String::from(save["locale"].as_str().unwrap());
-    } else if save["locale"].as_str().unwrap() == preferences["default_locale"].as_str().unwrap() {
-        return String::from(preferences["default_locale"].as_str().unwrap());
+pub fn get_best_locale(
+    preferences: &serde_json::Value,
+    saved_locale: &str,
+) -> Result<String, str::Utf8Error> {
+    if crate::localization::check_language_valid(saved_locale) {
+        return Ok(saved_locale.to_owned());
+    } else if saved_locale == preferences["default_locale"].as_str().unwrap() {
+        return Ok(preferences["default_locale"].as_str().unwrap().to_owned());
     }
 
-    let locale_name = std::env::var("LC_ALL").unwrap_or_else(|_| String::from("en_US.UTF-8"));
+    let locale_name = std::env::var("LC_MESSAGES").unwrap_or_else(|_| String::from("en_US.UTF-8"));
     let sys_locale =
-        string_substr(locale_name.as_str(), 0, locale_name.find('.').unwrap_or(usize::MAX))
-            .unwrap();
-    let user_locale = format!("{LOCALEDIR}/{sys_locale}/LC_MESSAGES/cachyos-hello.mo");
-    let two_letters = string_substr(sys_locale, 0, 2).unwrap();
+        string_substr(locale_name.as_str(), 0, locale_name.find('.').unwrap_or(usize::MAX))?;
+    let two_letters = string_substr(sys_locale, 0, 2)?;
 
     // If user's locale is supported
-    if check_regular_file(user_locale.as_str()) {
+    if crate::localization::check_language_valid(sys_locale) {
         if sys_locale.contains('_') {
-            return sys_locale.replace('_', "-");
+            return Ok(sys_locale.replace('_', "-"));
         }
-        return String::from(sys_locale);
+        return Ok(sys_locale.to_owned());
     }
     // If two first letters of user's locale is supported (ex: en_US -> en)
-    else if check_regular_file(
-        format!("{LOCALEDIR}/{two_letters}/LC_MESSAGES/cachyos-hello.mo").as_str(),
-    ) {
-        return String::from(two_letters);
+    else if crate::localization::check_language_valid(two_letters) {
+        return Ok(two_letters.to_owned());
     }
 
-    String::from(preferences["default_locale"].as_str().unwrap())
+    Ok(preferences["default_locale"].as_str().unwrap().to_owned())
 }
 
 /// Sets locale of ui and pages.
@@ -352,53 +380,68 @@ fn set_locale(use_locale: &str) {
         );
     }
 
-    gettextrs::textdomain(GETTEXT_PACKAGE).expect("Unable to switch to the text domain.");
-    glib::setenv("LANGUAGE", use_locale, true).expect("Unable to change env variable.");
+    let localizer = crate::localization::localizer();
+    let req_locale: LanguageIdentifier = use_locale.parse().unwrap();
+
+    if let Err(error) = localizer.select(&[req_locale]) {
+        eprintln!("Error while loading languages for library_fluent {}", error);
+    }
 
     G_SAVE_JSON.lock().unwrap()["locale"] = json!(use_locale);
 
-    // Real-time locale changing
-    let elts: HashMap<String, serde_json::Value> = serde_json::from_str(&serde_json::to_string(&json!({
-        "label": ["autostartlabel", "development", "software", "donate", "firstcategory", "forum", "install", "installlabel", "involved", "mailling", "readme", "release", "secondcategory", "thirdcategory", "welcomelabel", "welcometitle", "wiki"],
-        "tooltip_text": ["about", "development", "software", "donate", "forum", "mailling", "wiki"],
-    })).unwrap()).unwrap();
+    // Run-time locale changing
+    let elts: HashMap<&str, Vec<_>> = HashMap::from([
+        ("label", vec![
+            "autostartlabel",
+            "development",
+            "software",
+            "donate",
+            "firstcategory",
+            "forum",
+            "install",
+            "installlabel",
+            "involved",
+            "readme",
+            "release",
+            "secondcategory",
+            "thirdcategory",
+            "welcomelabel",
+            "welcometitle",
+            "wiki",
+        ]),
+        ("tooltip_text", vec!["about", "development", "software", "donate", "forum", "wiki"]),
+    ]);
 
     let builder_ref = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().builder };
 
-    let mut default_texts = json!(null);
-    for method in elts.iter() {
-        if default_texts.get(method.0).is_none() {
-            default_texts[method.0] = json![null];
-        }
-
-        for elt in elts[method.0].as_array().unwrap() {
-            let elt_value = elt.as_str().unwrap();
-            let item: &gtk::Widget = &builder_ref.object(elt_value).unwrap();
-            if default_texts[method.0].get(elt_value).is_none() {
-                let item_buf = item.property::<String>(method.0.as_str());
-                default_texts[method.0][elt_value] = json!(item_buf);
-            }
-            if method.0 == "tooltip_text" {
-                item.set_property(
-                    method.0,
-                    &gettextrs::gettext(default_texts[method.0][elt_value].as_str().unwrap()),
-                );
+    for (method, objnames) in &elts {
+        for objname in objnames {
+            let item: &gtk::Widget = &builder_ref.object(objname).unwrap();
+            if method == &"label" {
+                let translated_text =
+                    crate::localization::get_locale_text(utils::get_translation_msgid(&objname));
+                item.set_property(method, &translated_text);
+            } else if method == &"tooltip_text" {
+                let translated_text = if objname == &"about" {
+                    crate::fl!("button-about-tooltip")
+                } else {
+                    crate::fl!("button-web-resource-tooltip")
+                };
+                item.set_property(method, &translated_text);
             }
         }
     }
 
-    let save = &*G_SAVE_JSON.lock().unwrap();
-    let preferences = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().preferences };
-
     // Change content of pages
-    let pages =
-        format!("{}/data/pages/{}", PKGDATADIR, preferences["default_locale"].as_str().unwrap());
-    for page in fs::read_dir(pages).unwrap() {
+    let file_pages_path = crate::embed_data::HelloData::iter()
+        .filter(|pkg| pkg.starts_with(&format!("pages/{}", &use_locale)))
+        .collect::<Vec<_>>();
+
+    for file_path in file_pages_path {
+        let page_file_name = Path::new(file_path.as_ref()).file_name().unwrap().to_str().unwrap();
+
         let stack: &gtk::Stack = &builder_ref.object("stack").unwrap();
-        let child = stack.child_by_name(&format!(
-            "{}page",
-            page.as_ref().unwrap().path().file_name().unwrap().to_str().unwrap()
-        ));
+        let child = stack.child_by_name(&format!("{}page", &page_file_name));
         if child.is_none() {
             eprintln!("child not found");
             continue;
@@ -408,24 +451,14 @@ fn set_locale(use_locale: &str) {
         let third_child = &second_child[0].clone().downcast::<gtk::Container>().unwrap().children();
 
         let label = &third_child[0].clone().downcast::<gtk::Label>().unwrap();
-        label.set_markup(
-            get_page(
-                page.unwrap().path().file_name().unwrap().to_str().unwrap(),
-                preferences,
-                save,
-            )
-            .as_str(),
-        );
+        label.set_markup(get_page(file_path.as_ref()).as_str());
     }
 }
 
 fn set_autostart(autostart: bool) {
-    let autostart_path = unsafe {
-        fix_path(G_HELLO_WINDOW.as_ref().unwrap().preferences["autostart_path"].as_str().unwrap())
-    };
-    let desktop_path = unsafe {
-        G_HELLO_WINDOW.as_ref().unwrap().preferences["desktop_path"].as_str().unwrap().to_owned()
-    };
+    let preferences = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().preferences };
+    let autostart_path = fix_path(preferences["autostart_path"].as_str().unwrap());
+    let desktop_path = preferences["desktop_path"].as_str().unwrap().to_owned();
     let config_dir = Path::new(&autostart_path).parent().unwrap();
     if !config_dir.exists() {
         fs::create_dir_all(config_dir).unwrap();
@@ -438,19 +471,10 @@ fn set_autostart(autostart: bool) {
 }
 
 #[inline]
-fn get_page(name: &str, preferences: &serde_json::Value, save: &serde_json::Value) -> String {
-    let mut filename =
-        format!("{}/data/pages/{}/{}", PKGDATADIR, save["locale"].as_str().unwrap(), name);
-    if !check_regular_file(filename.as_str()) {
-        filename = format!(
-            "{}/data/pages/{}/{}",
-            PKGDATADIR,
-            preferences["default_locale"].as_str().unwrap(),
-            name
-        );
-    }
-
-    fs::read_to_string(filename).unwrap()
+fn get_page(file_path: &str) -> String {
+    let page_file = crate::embed_data::get(&file_path).unwrap();
+    let page = std::str::from_utf8(page_file.data.as_ref());
+    page.unwrap().to_owned()
 }
 
 /// Handlers
@@ -520,9 +544,9 @@ fn on_link1_clicked(param: &[glib::Value]) -> Option<glib::Value> {
 }
 
 fn on_delete_window(_param: &[glib::Value]) -> Option<glib::Value> {
-    let save = &*G_SAVE_JSON.lock().unwrap();
+    let saved_json = &*G_SAVE_JSON.lock().unwrap();
     let preferences = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().preferences["save_path"] };
-    write_json(preferences.as_str().unwrap(), save);
+    write_json(preferences.as_str().unwrap(), saved_json);
 
     Some(false.to_value())
 }

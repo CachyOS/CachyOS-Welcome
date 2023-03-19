@@ -1,5 +1,4 @@
 use crate::alpm_helper::*;
-use crate::config::PKGDATADIR;
 use crate::utils;
 
 use gio::prelude::*;
@@ -10,8 +9,6 @@ use gtk::prelude::{
 };
 
 use once_cell::sync::Lazy;
-
-use std::fs;
 use std::sync::Mutex;
 
 #[derive(Debug)]
@@ -86,10 +83,11 @@ impl ApplicationBrowser {
         update_system_btn.set_sensitive(false);
 
         // Group filter
-        let data =
-            fs::read_to_string(format!("{PKGDATADIR}/data/application_utility/default.json"))
-                .expect("Unable to read file");
-        let groups: serde_json::Value = serde_json::from_str(&data).expect("Unable to parse");
+        let app_util_manifest_file =
+            crate::embed_data::get("application_utility/default.json").unwrap();
+        let app_util_manifest = std::str::from_utf8(app_util_manifest_file.data.as_ref()).unwrap();
+        let groups: serde_json::Value =
+            serde_json::from_str(&app_util_manifest).expect("Unable to parse");
         let group_store = load_groups_data(&groups);
         let group_combo = utils::create_combo_with_model(&group_store);
         group_combo.connect_changed(on_group_filter_changed);
