@@ -22,7 +22,7 @@ section-support = ПОДДЕРЖКА
 section-project = ПРОЕКТ
 
 # Main Page (body)
-launch-start-label = Запускать при старте
+launch-start-label = Автозапуск
 welcome-title = Добро пожаловать в CachyOS!
 welcome-body =
     Благодарим Вас за то, что Вы присоединились к нашему сообществу!
