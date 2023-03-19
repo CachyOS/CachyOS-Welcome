@@ -350,7 +350,7 @@ pub fn get_best_locale(
         return Ok(preferences["default_locale"].as_str().unwrap().to_owned());
     }
 
-    let locale_name = std::env::var("LC_MESSAGES").unwrap_or_else(|_| String::from("en_US.UTF-8"));
+    let locale_name = crate::localization::get_default_lang();
     let sys_locale =
         string_substr(locale_name.as_str(), 0, locale_name.find('.').unwrap_or(usize::MAX))?;
     let two_letters = string_substr(sys_locale, 0, 2)?;
