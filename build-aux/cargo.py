@@ -15,6 +15,7 @@ args = parser.parse_args()
 
 environ["CARGO_TARGET_DIR"] = path.join(args.build_root, "target")
 environ["CARGO_HOME"] = path.join(args.build_root, "cargo-home")
+environ["OUT_DIR"] = path.join(args.build_root, "target")
 
 cargo_toml_path = path.join(args.source_root, "Cargo.toml")
 
