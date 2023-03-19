@@ -1,4 +1,4 @@
-use gettextrs::gettext;
+//use gettextrs::gettext;
 use gtk::gio;
 use gtk::glib::{self, clone, WeakRef};
 use gtk::prelude::*;
@@ -9,7 +9,7 @@ use std::path::Path;
 
 use crate::config::{APP_ID, PKGDATADIR, VERSION};
 use crate::widgets::MainWindow;
-
+/*
 mod imp {
     use super::*;
 
@@ -109,4 +109,4 @@ impl Default for Application {
     fn default() -> Self {
         gio::Application::default().unwrap().downcast().unwrap()
     }
-}
+}*/

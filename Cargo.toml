@@ -12,7 +12,9 @@ pacmanconf = "2.0.0"
 
 subprocess = "0.2.9"
 once_cell = { default-features = false, version = "1.17.1" }
-gettext-rs = { version = "0.7", default-features = false }
+i18n-embed = { version = "0.13.4", features = ["fluent-system", "desktop-requester"] }
+i18n-embed-fl = "0.6.4"
+rust-embed = { version = "6.4.1", features = ["debug-embed", "include-exclude"] }
 gtk = { version = "0.17.0", default-features = false }
 gio = { version = "0.17.4", default-features = false }
 gdk = "0.17.0"
@@ -21,6 +23,7 @@ glib = { default-features = false, version = "0.17.5" }
 serde = { version = "1.0.156", default-features = false }
 serde_json = "1.0.94"
 reqwest = { version = "0.11.14", features = ["blocking"] }
+unic-langid = "0.9.1"
 
 [profile.release]
 strip = "symbols"

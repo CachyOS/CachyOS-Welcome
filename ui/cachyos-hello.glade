@@ -238,23 +238,6 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="mailling">
-                <property name="label" translatable="yes">Mailing lists</property>
-                <property name="name">mailling</property>
-                <property name="visible">False</property>
-                <property name="can-focus">False</property>
-                <property name="receives-default">True</property>
-                <property name="tooltip-text" translatable="yes">Web resource</property>
-                <property name="image-position">right</property>
-                <property name="always-show-image">True</property>
-                <signal name="clicked" handler="on_link_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="left-attach">1</property>
-                <property name="top-attach">7</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkButton" id="development">
                 <property name="label" translatable="yes">Development</property>
                 <property name="name">development</property>
@@ -300,8 +283,8 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <items>
-                      <item id="de">German</item>
                       <item id="en">English</item>
+                      <item id="de">German</item>
                       <item id="pl">Polish</item>
                       <item id="ru">Russian</item>
                     </items>
