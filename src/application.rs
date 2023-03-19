@@ -1,4 +1,3 @@
-//use gettextrs::gettext;
 use gtk::gio;
 use gtk::glib::{self, clone, WeakRef};
 use gtk::prelude::*;
