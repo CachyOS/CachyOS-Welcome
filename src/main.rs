@@ -453,6 +453,8 @@ fn set_locale(use_locale: &str) {
         let label = &third_child[0].clone().downcast::<gtk::Label>().unwrap();
         label.set_markup(get_page(file_path.as_ref()).as_str());
     }
+
+    pages::update_translations(&builder_ref);
 }
 
 fn set_autostart(autostart: bool) {

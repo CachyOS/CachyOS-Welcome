@@ -16,6 +16,82 @@ use subprocess::{Exec, Redirection};
 static G_LOCAL_UNITS: Lazy<Mutex<SystemdUnits>> = Lazy::new(|| Mutex::new(SystemdUnits::new()));
 static G_GLOBAL_UNITS: Lazy<Mutex<SystemdUnits>> = Lazy::new(|| Mutex::new(SystemdUnits::new()));
 
+fn update_translation_apps_section(section_box: &gtk::Box) {
+    for section_box_element in section_box.children() {
+        if let Ok(section_label) = section_box_element.clone().downcast::<gtk::Label>() {
+            section_label.set_text(&fl!("applications"));
+        }
+    }
+}
+
+fn update_translation_fixes_section(section_box: &gtk::Box) {
+    for section_box_element in section_box.children() {
+        if let Ok(button_box) = section_box_element.clone().downcast::<gtk::Box>() {
+            for button_box_widget in button_box.children() {
+                let box_element_btn = button_box_widget.downcast::<gtk::Button>().unwrap();
+                let widget_name = box_element_btn.widget_name().to_string();
+                let translated_text = crate::localization::get_locale_text(&widget_name);
+                box_element_btn.set_label(&translated_text);
+            }
+        } else if let Ok(section_label) = section_box_element.clone().downcast::<gtk::Label>() {
+            section_label.set_text(&fl!("fixes"));
+        }
+    }
+}
+
+fn update_translation_options_section(section_box: &gtk::Box) {
+    for section_box_element in section_box.children() {
+        if let Ok(button_box) = section_box_element.clone().downcast::<gtk::Box>() {
+            for button_box_widget in button_box.children() {
+                let box_element_btn = button_box_widget.downcast::<gtk::Button>().unwrap();
+                let widget_name = box_element_btn.widget_name().to_string();
+                let translated_text = fl!("tweak-enabled-title", tweak = widget_name);
+                box_element_btn.set_label(&translated_text);
+            }
+        } else if let Ok(section_label) = section_box_element.clone().downcast::<gtk::Label>() {
+            section_label.set_text(&fl!("tweaks"));
+        }
+    }
+}
+
+pub fn update_translations(builder: &Builder) {
+    // Update buttons
+    let tweakbrowser_btn: gtk::Button = builder.object("tweaksBrowser").unwrap();
+    tweakbrowser_btn.set_label(&fl!("tweaksbrowser-label"));
+
+    let appbrowser_btn: gtk::Button = builder.object("appBrowser").unwrap();
+    appbrowser_btn.set_label(&fl!("appbrowser-label"));
+
+    let stack: gtk::Stack = builder.object("stack").unwrap();
+    {
+        if let Some(widget) = stack.child_by_name("tweaksBrowserpage") {
+            if let Ok(viewport) = widget.downcast::<gtk::Viewport>() {
+                let first_child = &viewport.children()[0].clone().downcast::<gtk::Box>().unwrap();
+                let second_child =
+                    &first_child.children()[1].clone().downcast::<gtk::Box>().unwrap();
+
+                for second_child_child_widget in second_child.children() {
+                    let second_child_child_box =
+                        second_child_child_widget.downcast::<gtk::Box>().unwrap();
+
+                    match second_child_child_box.widget_name().to_string().as_str() {
+                        "tweaksBrowserpage_options" => {
+                            update_translation_options_section(&second_child_child_box)
+                        },
+                        "tweaksBrowserpage_fixes" => {
+                            update_translation_fixes_section(&second_child_child_box)
+                        },
+                        "tweaksBrowserpage_apps" => {
+                            update_translation_apps_section(&second_child_child_box)
+                        },
+                        _ => panic!("Unknown widget!"),
+                    }
+                }
+            }
+        }
+    }
+}
+
 fn create_fixes_section() -> gtk::Box {
     let topbox = gtk::Box::new(gtk::Orientation::Vertical, 2);
     let button_box_f = gtk::Box::new(gtk::Orientation::Horizontal, 10);
@@ -33,6 +109,16 @@ fn create_fixes_section() -> gtk::Box {
     let remove_orphans_btn = gtk::Button::with_label(&fl!("remove-orphans-title"));
     let clear_pkgcache_btn = gtk::Button::with_label(&fl!("clear-pkgcache-title"));
     let rankmirrors_btn = gtk::Button::with_label(&fl!("rankmirrors-title"));
+
+    {
+        removelock_btn.set_widget_name("remove-lock-title");
+        reinstall_btn.set_widget_name("reinstall-title");
+        refreshkeyring_btn.set_widget_name("refresh-keyrings-title");
+        update_system_btn.set_widget_name("update-system-title");
+        remove_orphans_btn.set_widget_name("remove-orphans-title");
+        clear_pkgcache_btn.set_widget_name("clear-pkgcache-title");
+        rankmirrors_btn.set_widget_name("rankmirrors-title");
+    }
 
     removelock_btn.connect_clicked(move |_| {
         // Spawn child process in separate thread.
@@ -135,6 +221,15 @@ fn create_options_section() -> gtk::Box {
         gtk::CheckButton::with_label(&fl!("tweak-enabled-title", tweak = "Ananicy Cpp"));
     let dnscrypt_btn =
         gtk::CheckButton::with_label(&fl!("tweak-enabled-title", tweak = "DNSCrypt"));
+
+    {
+        psd_btn.set_widget_name("Profile-sync-daemon");
+        systemd_oomd_btn.set_widget_name("Systemd-oomd");
+        apparmor_btn.set_widget_name("Apparmor");
+        bluetooth_btn.set_widget_name("Bluetooth");
+        ananicy_cpp_btn.set_widget_name("Ananicy Cpp");
+        dnscrypt_btn.set_widget_name("DNSCrypt");
+    }
 
     unsafe {
         psd_btn.set_data("actionData", "psd.service");
