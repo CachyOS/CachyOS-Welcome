@@ -87,7 +87,7 @@ impl ApplicationBrowser {
             crate::embed_data::get("application_utility/default.json").unwrap();
         let app_util_manifest = std::str::from_utf8(app_util_manifest_file.data.as_ref()).unwrap();
         let groups: serde_json::Value =
-            serde_json::from_str(&app_util_manifest).expect("Unable to parse");
+            serde_json::from_str(app_util_manifest).expect("Unable to parse");
         let group_store = load_groups_data(&groups);
         let group_combo = utils::create_combo_with_model(&group_store);
         group_combo.connect_changed(on_group_filter_changed);

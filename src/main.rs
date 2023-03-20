@@ -124,7 +124,7 @@ fn show_about_dialog() {
 fn get_preferences() -> serde_json::Value {
     let page_file = crate::embed_data::get("preferences.json").unwrap();
     let page = std::str::from_utf8(page_file.data.as_ref());
-    serde_json::from_str(&page.unwrap()).expect("Unable to parse")
+    serde_json::from_str(page.unwrap()).expect("Unable to parse")
 }
 
 fn get_saved_locale() -> Option<String> {
@@ -419,7 +419,7 @@ fn set_locale(use_locale: &str) {
             let item: &gtk::Widget = &builder_ref.object(objname).unwrap();
             if method == &"label" {
                 let translated_text =
-                    crate::localization::get_locale_text(utils::get_translation_msgid(&objname));
+                    crate::localization::get_locale_text(utils::get_translation_msgid(objname));
                 item.set_property(method, &translated_text);
             } else if method == &"tooltip_text" {
                 let translated_text = if objname == &"about" {
@@ -454,7 +454,7 @@ fn set_locale(use_locale: &str) {
         label.set_markup(get_page(file_path.as_ref()).as_str());
     }
 
-    pages::update_translations(&builder_ref);
+    pages::update_translations(builder_ref);
 }
 
 fn set_autostart(autostart: bool) {
@@ -474,7 +474,7 @@ fn set_autostart(autostart: bool) {
 
 #[inline]
 fn get_page(file_path: &str) -> String {
-    let page_file = crate::embed_data::get(&file_path).unwrap();
+    let page_file = crate::embed_data::get(file_path).unwrap();
     let page = std::str::from_utf8(page_file.data.as_ref());
     page.unwrap().to_owned()
 }
