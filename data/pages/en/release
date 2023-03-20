@@ -1,26 +1,18 @@
-<big>CachyOS 23.02</big>
+<big>CachyOS 23.03.1</big>
 
-We've just released the second update of 2023! This release primarily focuses on fixing some issues with the rate-mirrors backend, which is used to rate the mirrors before the netinstallation.
-In addition, we're excited to introduce the cachyos-community-v3 repo to both the netinstall and offline installations. This repo has been tested for a month now and everything is working great.
-Most of the packages have been recompiled for better performance.
-
-We've also added three new desktop environments - Budgie, Mate, and LXDE - to the online installation. We're still testing hyperland, but it's not ready to be included as a default just yet.
+This is just a little fixing release.
+There was currently a issue in the upstream calamares, which did bring netinstallation to fail, when the "lightdm" displaymanager was used.
+Actually due a cleanup in the latest release of the offline installation, there was a issue with the keyring when the offline installation was used.
 
 <big>Features:</big>
 
-- The cachyos-community-v3 repo has been added
-- Budgie, Mate, and LXDE desktop environments have been added to the Netinstallation
-- Bluetooth.service is now enabled by default
-- F2FS and grub are enabled and working again
-- Package Updates: linux-cachyos 6.1.10, mesa 22.3.4, zfs-utils 2.1.9, glibc 2.37, cachy-browser 109.0.1
+- Package updates: linux-cachyos 6.2.7, cachy-browser 111.0
 
 <big>Bug-fixes:</big>
 
-- Rate-mirrors now fall back to unranked mirrors if it fails to rate them
-- cachyos-rate-mirrors has a longer fetch-mirrors-timeout
-- Github has been added to the hosts to avoid mirrorlist issues
-- Boot entries for BIOS have been updated in syslinux
-
+- Calamares got fixed with the lightdm displaymanager due faulty calamares upstream commits
+- Offline installation keyring issue got fixed
+- Refind: Use linux-cachyos-lts as defaullt. Current 6.2 seems not to work well together with refind
 
 You can find the download at our mirrors or sourceforge.
 
