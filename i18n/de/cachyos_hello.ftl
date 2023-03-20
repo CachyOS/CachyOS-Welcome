@@ -6,8 +6,10 @@ about-dialog-comments = Willkommensdialog für CachyOS
 tweaks = Tweaks
 fixes = Fixes
 applications = Anwendungen
+
 # Tweaks page (tweaks)
 tweak-enabled-title = {$tweak} aktiviert
+
 # Tweaks page (fixes)
 remove-lock-title = Entferne Datenbanksperre
 reinstall-title = Alle Pakete neu installieren
