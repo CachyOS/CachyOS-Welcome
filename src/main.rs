@@ -58,9 +58,9 @@ fn quick_message(message: &'static str) {
     let result = dialog.run();
     let cmd: String;
     if result == gtk::ResponseType::No {
-        cmd = fix_path("/usr/local/bin/calamares-offline.sh");
+        cmd = "/usr/local/bin/calamares-offline.sh".to_owned();
     } else if result == gtk::ResponseType::Yes {
-        cmd = fix_path("/usr/local/bin/calamares-online.sh");
+        cmd = "/usr/local/bin/calamares-online.sh".to_owned();
     } else {
         unsafe {
             dialog.destroy();
