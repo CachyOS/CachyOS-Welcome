@@ -31,14 +31,13 @@ else
   message('Building in debug mode')
 endif
 
-cargo_env = [ 'CARGO_HOME=' + cargo_home, 'OUT_DIR=' + meson.project_build_root() ]
+cargo_env = [ 'CARGO_HOME=' + cargo_home ]
 
 cargo_build = custom_target(
   'cargo-build',
   build_by_default: true,
   build_always_stale: true,
   output: meson.project_name(),
-  depends: resources,
   console: true,
   install: true,
   install_dir: bindir,

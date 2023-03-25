@@ -16,8 +16,6 @@ dependency('glib-2.0', version: '>= 2.66')
 dependency('gio-2.0', version: '>= 2.66')
 dependency('gtk+-3.0', version: '>= 3.24.33')
 
-glib_compile_resources = find_program('glib-compile-resources', required: true)
-glib_compile_schemas = find_program('glib-compile-schemas', required: true)
 desktop_file_validate = find_program('desktop-file-validate', required: false)
 appstream_util = find_program('appstream-util', required: false)
 cargo = find_program('cargo', required: true)
@@ -36,14 +34,6 @@ localedir = prefix / get_option('localedir')
 datadir = prefix / get_option('datadir')
 pkgdatadir = datadir / meson.project_name()
 iconsdir = datadir / 'icons'
-
-resources = gnome.compile_resources(
-  'cachyos-welcome',
-  'cachyos-welcome.gresource.xml',
-  gresource_bundle: true,
-  source_dir: meson.current_build_dir(),
-  install: false,
-)
 
 if get_option('profile') == 'development'
   profile = 'Devel'
