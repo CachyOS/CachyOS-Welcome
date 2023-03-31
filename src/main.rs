@@ -43,9 +43,19 @@ static mut G_HELLO_WINDOW: Option<Arc<HelloWindow>> = None;
 
 fn quick_message(message: &'static str) {
     // Create the widgets
-    let dialog = gtk::Dialog::builder().title(message).modal(true).build();
+    let window_ref = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().window };
+    let application_window =
+        window_ref.application().expect("Unable to retrieve application instance!");
+    let dialog = gtk::Dialog::builder()
+        .application(&application_window)
+        .attached_to(window_ref)
+        .transient_for(window_ref)
+        .title(message)
+        .modal(true)
+        .expand(true)
+        .destroy_with_parent(true)
+        .build();
 
-    dialog.set_destroy_with_parent(true);
     dialog.add_button("_Offline", gtk::ResponseType::No);
     dialog.add_button("_Online", gtk::ResponseType::Yes);
     let content_area = dialog.content_area();
@@ -76,11 +86,18 @@ fn quick_message(message: &'static str) {
         };
 
         if !status && result == gtk::ResponseType::Yes {
+            let window_ref = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().window };
+            let application_window =
+                window_ref.application().expect("Unable to retrieve application instance!");
+
             let errordialog = gtk::MessageDialog::builder()
-                .title(message)
-                .text("Unable to start online installation! No internet connection")
-                .modal(true)
+                .application(&application_window)
+                .attached_to(window_ref)
+                .transient_for(window_ref)
                 .message_type(gtk::MessageType::Error)
+                .text("Unable to start online installation! No internet connection")
+                .title(message)
+                .modal(true)
                 .build();
             errordialog.show();
             return;
