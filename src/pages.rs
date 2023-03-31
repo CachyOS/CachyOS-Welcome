@@ -17,6 +17,17 @@ use subprocess::{Exec, Redirection};
 static G_LOCAL_UNITS: Lazy<Mutex<SystemdUnits>> = Lazy::new(|| Mutex::new(SystemdUnits::new()));
 static G_GLOBAL_UNITS: Lazy<Mutex<SystemdUnits>> = Lazy::new(|| Mutex::new(SystemdUnits::new()));
 
+struct DialogMessage {
+    pub msg: String,
+    pub msg_type: gtk::MessageType,
+    pub action: Action,
+}
+
+enum Action {
+    RemoveLock,
+    RemoveOrphans,
+}
+
 fn update_translation_apps_section(section_box: &gtk::Box) {
     for section_box_element in section_box.children() {
         if let Ok(section_label) = section_box_element.clone().downcast::<gtk::Label>() {
@@ -121,8 +132,13 @@ fn create_fixes_section() -> gtk::Box {
         rankmirrors_btn.set_widget_name("rankmirrors-title");
     }
 
+    // Create context channel.
+    let (dialog_tx, dialog_rx) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
+
+    // Connect signals.
+    let dialog_tx_clone = dialog_tx.clone();
     removelock_btn.connect_clicked(move |_| {
-        // Spawn child process in separate thread.
+        let dialog_tx_clone = dialog_tx_clone.clone();
         std::thread::spawn(move || {
             if Path::new("/var/lib/pacman/db.lck").exists() {
                 let _ = Exec::cmd("/sbin/pkexec")
@@ -132,12 +148,22 @@ fn create_fixes_section() -> gtk::Box {
                     .join()
                     .unwrap();
                 if !Path::new("/var/lib/pacman/db.lck").exists() {
-                    let dialog = gtk::MessageDialog::builder()
-                        .message_type(gtk::MessageType::Info)
-                        .text("Pacman db lock was removed!")
-                        .build();
-                    dialog.show();
+                    dialog_tx_clone
+                        .send(DialogMessage {
+                            msg: "Pacman db lock was removed!".to_owned(),
+                            msg_type: gtk::MessageType::Info,
+                            action: Action::RemoveLock,
+                        })
+                        .expect("Couldn't send data to channel");
                 }
+            } else {
+                dialog_tx_clone
+                    .send(DialogMessage {
+                        msg: "Pacman db lock does not exist!".to_owned(),
+                        msg_type: gtk::MessageType::Info,
+                        action: Action::RemoveLock,
+                    })
+                    .expect("Couldn't send data to channel");
             }
         });
     });
@@ -151,6 +177,7 @@ fn create_fixes_section() -> gtk::Box {
     update_system_btn.connect_clicked(on_update_system_btn_clicked);
     remove_orphans_btn.connect_clicked(move |_| {
         // Spawn child process in separate thread.
+        let dialog_tx_clone = dialog_tx.clone();
         std::thread::spawn(move || {
             // check if you have orphans packages.
             let mut orphan_pkgs = Exec::cmd("/sbin/pacman")
@@ -164,11 +191,13 @@ fn create_fixes_section() -> gtk::Box {
             // and check if it's empty or not.
             orphan_pkgs = orphan_pkgs.replace('\n', " ");
             if orphan_pkgs.is_empty() {
-                let dialog = gtk::MessageDialog::builder()
-                    .message_type(gtk::MessageType::Info)
-                    .text("No orphan packages found!")
-                    .build();
-                dialog.show();
+                dialog_tx_clone
+                    .send(DialogMessage {
+                        msg: "No orphan packages found!".to_owned(),
+                        msg_type: gtk::MessageType::Info,
+                        action: Action::RemoveOrphans,
+                    })
+                    .expect("Couldn't send data to channel");
                 return;
             }
             let _ = utils::run_cmd_terminal(format!("pacman -Rns {orphan_pkgs}"), true);
@@ -180,6 +209,31 @@ fn create_fixes_section() -> gtk::Box {
         std::thread::spawn(move || {
             let _ = utils::run_cmd_terminal(String::from("cachyos-rate-mirrors"), true);
         });
+    });
+
+    // Setup receiver.
+    let removelock_btn_clone = removelock_btn.clone();
+    let remove_orphans_btn_clone = remove_orphans_btn.clone();
+    dialog_rx.attach(None, move |msg| {
+        let widget_obj = match msg.action {
+            Action::RemoveLock => &removelock_btn_clone,
+            Action::RemoveOrphans => &remove_orphans_btn_clone,
+        };
+        let widget_window = get_window_from_widget(widget_obj).expect("Failed to retrieve window");
+        let window_application = get_application_from_widget(widget_obj)
+            .expect("Failed to retrieve application instance");
+
+        let dialog = gtk::MessageDialog::builder()
+            .application(&window_application)
+            .attached_to(&widget_window)
+            .transient_for(&widget_window)
+            .message_type(msg.msg_type)
+            .text(msg.msg)
+            .title(msg.msg_type.to_string())
+            .modal(true)
+            .build();
+        dialog.show();
+        glib::Continue(true)
     });
 
     topbox.pack_start(&label, true, false, 1);
@@ -516,11 +570,6 @@ fn on_servbtn_clicked(button: &gtk::CheckButton) {
             }
             if !utils::is_alpm_pkg_installed(alpm_package_name) {
                 tx.send(false).expect("Couldn't send data to channel");
-                let dialog = gtk::MessageDialog::builder()
-                    .message_type(gtk::MessageType::Error)
-                    .text(format!("Package '{alpm_package_name}' has not been installed!"))
-                    .build();
-                dialog.show();
                 return;
             }
         }
@@ -536,11 +585,27 @@ fn on_servbtn_clicked(button: &gtk::CheckButton) {
     let button_sh = button.clone();
     rx.attach(None, move |msg| {
         if !msg {
+            let widget_window =
+                get_window_from_widget(&button_sh).expect("Failed to retrieve window");
+            let window_application = get_application_from_widget(&button_sh)
+                .expect("Failed to retrieve application instance");
+
             let sighandle_id_obj =
                 unsafe { glib::signal::SignalHandlerId::from_glib(signal_handler) };
             button_sh.block_signal(&sighandle_id_obj);
             button_sh.set_active(msg);
             button_sh.unblock_signal(&sighandle_id_obj);
+
+            let dialog = gtk::MessageDialog::builder()
+                .application(&window_application)
+                .attached_to(&widget_window)
+                .transient_for(&widget_window)
+                .message_type(gtk::MessageType::Error)
+                .text(format!("Package '{alpm_package_name}' has not been installed!"))
+                .title("Error")
+                .modal(true)
+                .build();
+            dialog.show();
         }
         glib::Continue(true)
     });
@@ -663,4 +728,18 @@ where
     unsafe {
         passed_btn.set_data("signalHandle", sighandle_id.as_raw());
     }
+}
+
+fn get_window_from_widget(passed_widget: &impl IsA<gtk::Widget>) -> Option<gtk::Window> {
+    if let Some(widget) = passed_widget.toplevel() {
+        return widget.downcast::<gtk::Window>().ok();
+    }
+    None
+}
+
+fn get_application_from_widget(passed_widget: &impl IsA<gtk::Widget>) -> Option<gtk::Application> {
+    if let Some(window_widget) = get_window_from_widget(passed_widget) {
+        return window_widget.application();
+    }
+    None
 }
