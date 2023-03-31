@@ -305,13 +305,11 @@ fn create_options_section() -> gtk::Box {
     }
 
     for btn in &[&psd_btn, &systemd_oomd_btn, &apparmor_btn, &bluetooth_btn, &ananicy_cpp_btn] {
-        unsafe {
-            let data: &str = *btn.data("actionData").unwrap().as_ptr();
-            if G_LOCAL_UNITS.lock().unwrap().enabled_units.contains(&String::from(data))
-                || G_GLOBAL_UNITS.lock().unwrap().enabled_units.contains(&String::from(data))
-            {
-                btn.set_active(true);
-            }
+        let data: &str = unsafe { *btn.data("actionData").unwrap().as_ptr() };
+        if G_LOCAL_UNITS.lock().unwrap().enabled_units.contains(&String::from(data))
+            || G_GLOBAL_UNITS.lock().unwrap().enabled_units.contains(&String::from(data))
+        {
+            btn.set_active(true);
         }
     }
 
