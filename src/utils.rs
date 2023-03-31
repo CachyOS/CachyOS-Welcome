@@ -127,6 +127,12 @@ pub fn get_pacman_wrapper() -> PacmanWrapper {
     PacmanWrapper::Pacman
 }
 
+pub fn is_alpm_pkg_installed(package_name: &str) -> bool {
+    let pacman = pacmanconf::Config::with_opts(None, Some("/etc/pacman.conf"), Some("/")).unwrap();
+    let alpm = alpm_utils::alpm_with_conf(&pacman).unwrap();
+    matches!(alpm.localdb().pkg(package_name.as_bytes()), Ok(_))
+}
+
 #[cfg(test)]
 mod test {
     use super::*;

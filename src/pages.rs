@@ -2,6 +2,7 @@ use crate::application_browser::ApplicationBrowser;
 use crate::data_types::*;
 use crate::utils::PacmanWrapper;
 use crate::{fl, utils};
+use glib::translate::FromGlib;
 use gtk::{glib, Builder};
 use once_cell::sync::Lazy;
 use std::fmt::Write as _;
@@ -234,14 +235,19 @@ fn create_options_section() -> gtk::Box {
     unsafe {
         psd_btn.set_data("actionData", "psd.service");
         psd_btn.set_data("actionType", "user_service");
+        psd_btn.set_data("alpmPackage", "profile-sync-daemon");
         systemd_oomd_btn.set_data("actionData", "systemd-oomd.service");
         systemd_oomd_btn.set_data("actionType", "service");
+        systemd_oomd_btn.set_data("alpmPackage", "");
         apparmor_btn.set_data("actionData", "apparmor.service");
         apparmor_btn.set_data("actionType", "service");
+        apparmor_btn.set_data("alpmPackage", "apparmor");
         bluetooth_btn.set_data("actionData", "bluetooth.service");
         bluetooth_btn.set_data("actionType", "service");
+        bluetooth_btn.set_data("alpmPackage", "bluez");
         ananicy_cpp_btn.set_data("actionData", "ananicy-cpp.service");
         ananicy_cpp_btn.set_data("actionType", "service");
+        ananicy_cpp_btn.set_data("alpmPackage", "ananicy-cpp");
     }
 
     for btn in &[&psd_btn, &systemd_oomd_btn, &apparmor_btn, &bluetooth_btn, &ananicy_cpp_btn] {
@@ -255,13 +261,6 @@ fn create_options_section() -> gtk::Box {
         }
     }
 
-    let check_is_pkg_installed = |pkg_name: &str| -> bool {
-        let pacman =
-            pacmanconf::Config::with_opts(None, Some("/etc/pacman.conf"), Some("/")).unwrap();
-        let alpm = alpm_utils::alpm_with_conf(&pacman).unwrap();
-
-        matches!(alpm.localdb().pkg(pkg_name.as_bytes()), Ok(_))
-    };
     let is_local_service_enabled = |service_unit_name: &str| -> bool {
         let local_units = &G_LOCAL_UNITS.lock().unwrap().enabled_units;
         local_units.contains(&String::from(service_unit_name))
@@ -271,7 +270,7 @@ fn create_options_section() -> gtk::Box {
         let pkg_name = "cachyos-dnscrypt-proxy";
         let service_unit_name = "dnscrypt-proxy.service";
 
-        let is_installed = check_is_pkg_installed(pkg_name);
+        let is_installed = utils::is_alpm_pkg_installed(pkg_name);
         let service_enabled = is_local_service_enabled(service_unit_name);
         let is_valid = is_installed && service_enabled;
         if is_valid {
@@ -279,17 +278,17 @@ fn create_options_section() -> gtk::Box {
         }
     };
 
-    psd_btn.connect_clicked(on_servbtn_clicked);
-    systemd_oomd_btn.connect_clicked(on_servbtn_clicked);
-    apparmor_btn.connect_clicked(on_servbtn_clicked);
-    bluetooth_btn.connect_clicked(on_servbtn_clicked);
-    ananicy_cpp_btn.connect_clicked(on_servbtn_clicked);
-    dnscrypt_btn.connect_clicked(move |_| {
+    connect_clicked_and_save(&psd_btn, on_servbtn_clicked);
+    connect_clicked_and_save(&systemd_oomd_btn, on_servbtn_clicked);
+    connect_clicked_and_save(&apparmor_btn, on_servbtn_clicked);
+    connect_clicked_and_save(&bluetooth_btn, on_servbtn_clicked);
+    connect_clicked_and_save(&ananicy_cpp_btn, on_servbtn_clicked);
+    connect_clicked_and_save(&dnscrypt_btn, move |_| {
         // Spawn child process in separate thread.
         std::thread::spawn(move || {
             let pkg_name = "cachyos-dnscrypt-proxy";
             let service_unit_name = "dnscrypt-proxy.service";
-            if !check_is_pkg_installed(pkg_name) {
+            if !utils::is_alpm_pkg_installed(pkg_name) {
                 let _ = utils::run_cmd_terminal(format!("pacman -S {pkg_name}"), true);
                 load_enabled_units();
                 return;
@@ -481,9 +480,13 @@ fn on_servbtn_clicked(button: &gtk::CheckButton) {
     // Get action data/type.
     let action_type: &str;
     let action_data: &str;
+    let alpm_package_name: &str;
+    let signal_handler: u64;
     unsafe {
         action_type = *button.data("actionType").unwrap().as_ptr();
         action_data = *button.data("actionData").unwrap().as_ptr();
+        alpm_package_name = *button.data("alpmPackage").unwrap().as_ptr();
+        signal_handler = *button.data("signalHandle").unwrap().as_ptr();
     }
 
     let (user_only, pkexec_only) =
@@ -502,8 +505,25 @@ fn on_servbtn_clicked(button: &gtk::CheckButton) {
         )
     };
 
+    // Create context channel.
+    let (tx, rx) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
+
     // Spawn child process in separate thread.
     std::thread::spawn(move || {
+        if !alpm_package_name.is_empty() {
+            if !utils::is_alpm_pkg_installed(alpm_package_name) {
+                let _ = utils::run_cmd_terminal(format!("pacman -S {alpm_package_name}"), true);
+            }
+            if !utils::is_alpm_pkg_installed(alpm_package_name) {
+                tx.send(false).expect("Couldn't send data to channel");
+                let dialog = gtk::MessageDialog::builder()
+                    .message_type(gtk::MessageType::Error)
+                    .text(format!("Package '{alpm_package_name}' has not been installed!"))
+                    .build();
+                dialog.show();
+                return;
+            }
+        }
         Exec::shell(cmd).join().unwrap();
 
         if action_type == "user_service" {
@@ -511,6 +531,18 @@ fn on_servbtn_clicked(button: &gtk::CheckButton) {
         } else {
             load_enabled_units();
         }
+    });
+
+    let button_sh = button.clone();
+    rx.attach(None, move |msg| {
+        if !msg {
+            let sighandle_id_obj =
+                unsafe { glib::signal::SignalHandlerId::from_glib(signal_handler) };
+            button_sh.block_signal(&sighandle_id_obj);
+            button_sh.set_active(msg);
+            button_sh.unblock_signal(&sighandle_id_obj);
+        }
+        glib::Continue(true)
     });
 }
 
@@ -621,4 +653,14 @@ fn on_appbtn_clicked(button: &gtk::Button) {
         println!("{text}");
         glib::Continue(true)
     });
+}
+
+fn connect_clicked_and_save<F>(passed_btn: &gtk::CheckButton, callback: F)
+where
+    F: Fn(&gtk::CheckButton) + 'static,
+{
+    let sighandle_id = passed_btn.connect_clicked(callback);
+    unsafe {
+        passed_btn.set_data("signalHandle", sighandle_id.as_raw());
+    }
 }
