@@ -302,54 +302,27 @@ fn create_options_section() -> gtk::Box {
         ananicy_cpp_btn.set_data("actionData", "ananicy-cpp.service");
         ananicy_cpp_btn.set_data("actionType", "service");
         ananicy_cpp_btn.set_data("alpmPackage", "ananicy-cpp");
+        dnscrypt_btn.set_data("actionData", "dnscrypt-proxy.service");
+        dnscrypt_btn.set_data("actionType", "service");
+        dnscrypt_btn.set_data("alpmPackage", "cachyos-dnscrypt-proxy");
     }
 
-    for btn in &[&psd_btn, &systemd_oomd_btn, &apparmor_btn, &bluetooth_btn, &ananicy_cpp_btn] {
+    for btn in &[
+        &psd_btn,
+        &systemd_oomd_btn,
+        &apparmor_btn,
+        &bluetooth_btn,
+        &ananicy_cpp_btn,
+        &dnscrypt_btn,
+    ] {
         let data: &str = unsafe { *btn.data("actionData").unwrap().as_ptr() };
         if G_LOCAL_UNITS.lock().unwrap().enabled_units.contains(&String::from(data))
             || G_GLOBAL_UNITS.lock().unwrap().enabled_units.contains(&String::from(data))
         {
             btn.set_active(true);
         }
+        connect_clicked_and_save(btn, on_servbtn_clicked)
     }
-
-    let is_local_service_enabled = |service_unit_name: &str| -> bool {
-        let local_units = &G_LOCAL_UNITS.lock().unwrap().enabled_units;
-        local_units.contains(&String::from(service_unit_name))
-    };
-
-    {
-        let pkg_name = "cachyos-dnscrypt-proxy";
-        let service_unit_name = "dnscrypt-proxy.service";
-
-        let is_installed = utils::is_alpm_pkg_installed(pkg_name);
-        let service_enabled = is_local_service_enabled(service_unit_name);
-        let is_valid = is_installed && service_enabled;
-        if is_valid {
-            dnscrypt_btn.set_active(true);
-        }
-    };
-
-    connect_clicked_and_save(&psd_btn, on_servbtn_clicked);
-    connect_clicked_and_save(&systemd_oomd_btn, on_servbtn_clicked);
-    connect_clicked_and_save(&apparmor_btn, on_servbtn_clicked);
-    connect_clicked_and_save(&bluetooth_btn, on_servbtn_clicked);
-    connect_clicked_and_save(&ananicy_cpp_btn, on_servbtn_clicked);
-    connect_clicked_and_save(&dnscrypt_btn, move |_| {
-        // Spawn child process in separate thread.
-        std::thread::spawn(move || {
-            let pkg_name = "cachyos-dnscrypt-proxy";
-            let service_unit_name = "dnscrypt-proxy.service";
-            if !utils::is_alpm_pkg_installed(pkg_name) {
-                let _ = utils::run_cmd_terminal(format!("pacman -S {pkg_name}"), true);
-                load_enabled_units();
-                return;
-            }
-            if !is_local_service_enabled(service_unit_name) {
-                load_enabled_units();
-            }
-        });
-    });
 
     topbox.pack_start(&label, true, false, 1);
     box_collection.pack_start(&psd_btn, true, false, 2);
