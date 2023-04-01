@@ -6,6 +6,9 @@ about-dialog-comments = Приветственный экран CachyOS
 tweaks = Настройки
 fixes = Исправления
 applications = Приложения
+removed-db-lock = Блокировка БД Pacman была снята!
+lock-doesnt-exist = Pacman БД не заблокирован!
+package-not-installed = Пакет '{$package_name}' не был установлен!
 
 # Tweaks page (tweaks)
 tweak-enabled-title = {$tweak} включен
@@ -39,6 +42,7 @@ section-support = ПОДДЕРЖКА
 section-project = ПРОЕКТ
 
 # Main Page (body)
+offline-error = Не удается запустить онлайн-установку! Нет подключения к Интернету
 tweaksbrowser-label = Приложения/Настройки
 appbrowser-label = Установить ПO
 launch-start-label = Автозапуск

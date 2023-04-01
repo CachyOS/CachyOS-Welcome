@@ -150,7 +150,7 @@ fn create_fixes_section() -> gtk::Box {
                 if !Path::new("/var/lib/pacman/db.lck").exists() {
                     dialog_tx_clone
                         .send(DialogMessage {
-                            msg: "Pacman db lock was removed!".to_owned(),
+                            msg: fl!("removed-db-lock"),
                             msg_type: gtk::MessageType::Info,
                             action: Action::RemoveLock,
                         })
@@ -159,7 +159,7 @@ fn create_fixes_section() -> gtk::Box {
             } else {
                 dialog_tx_clone
                     .send(DialogMessage {
-                        msg: "Pacman db lock does not exist!".to_owned(),
+                        msg: fl!("lock-doesnt-exist"),
                         msg_type: gtk::MessageType::Info,
                         action: Action::RemoveLock,
                     })
@@ -193,7 +193,7 @@ fn create_fixes_section() -> gtk::Box {
             if orphan_pkgs.is_empty() {
                 dialog_tx_clone
                     .send(DialogMessage {
-                        msg: "No orphan packages found!".to_owned(),
+                        msg: fl!("orphans-not-found"),
                         msg_type: gtk::MessageType::Info,
                         action: Action::RemoveOrphans,
                     })
@@ -572,7 +572,7 @@ fn on_servbtn_clicked(button: &gtk::CheckButton) {
                 .attached_to(&widget_window)
                 .transient_for(&widget_window)
                 .message_type(gtk::MessageType::Error)
-                .text(format!("Package '{alpm_package_name}' has not been installed!"))
+                .text(fl!("package-not-installed", package_name = alpm_package_name))
                 .title("Error")
                 .modal(true)
                 .build();

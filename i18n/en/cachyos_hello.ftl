@@ -6,6 +6,10 @@ about-dialog-comments = Welcome screen for CachyOS
 tweaks = Tweaks
 fixes = Fixes
 applications = Applications
+removed-db-lock = Pacman db lock was removed!
+lock-doesnt-exist = Pacman db lock does not exist!
+orphans-not-found = No orphan packages found!
+package-not-installed = Package '{$package_name}' has not been installed!
 
 # Tweaks page (tweaks)
 tweak-enabled-title = {$tweak} enabled
@@ -39,6 +43,7 @@ section-support = SUPPORT
 section-project = PROJECT
 
 # Main Page (body)
+offline-error = Unable to start online installation! No internet connection
 tweaksbrowser-label = Apps/Tweaks
 appbrowser-label = Install Apps
 launch-start-label = Launch at start

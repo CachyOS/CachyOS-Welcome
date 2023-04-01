@@ -95,7 +95,7 @@ fn quick_message(message: &'static str) {
                 .attached_to(window_ref)
                 .transient_for(window_ref)
                 .message_type(gtk::MessageType::Error)
-                .text("Unable to start online installation! No internet connection")
+                .text(fl!("offline-error"))
                 .title(message)
                 .modal(true)
                 .build();
