@@ -76,6 +76,14 @@ pub fn create_combo_with_model(group_store: &gtk::ListStore) -> gtk::ComboBox {
     group_combo
 }
 
+pub fn get_window_from_widget(passed_widget: &impl IsA<gtk::Widget>) -> Option<gtk::Window> {
+    passed_widget.toplevel()?.downcast::<gtk::Window>().ok()
+}
+
+pub fn get_application_from_widget(passed_widget: &impl IsA<gtk::Widget>) -> Option<gtk::Application> {
+    get_window_from_widget(passed_widget)?.application()
+}
+
 pub fn get_translation_msgid(objname: &str) -> &'static str {
     match objname {
         "autostartlabel" => "launch-start-label",

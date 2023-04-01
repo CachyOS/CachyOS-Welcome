@@ -219,8 +219,8 @@ fn create_fixes_section() -> gtk::Box {
             Action::RemoveLock => &removelock_btn_clone,
             Action::RemoveOrphans => &remove_orphans_btn_clone,
         };
-        let widget_window = get_window_from_widget(widget_obj).expect("Failed to retrieve window");
-        let window_application = get_application_from_widget(widget_obj)
+        let widget_window = utils::get_window_from_widget(widget_obj).expect("Failed to retrieve window");
+        let window_application = utils::get_application_from_widget(widget_obj)
             .expect("Failed to retrieve application instance");
 
         let dialog = gtk::MessageDialog::builder()
@@ -557,8 +557,8 @@ fn on_servbtn_clicked(button: &gtk::CheckButton) {
     rx.attach(None, move |msg| {
         if !msg {
             let widget_window =
-                get_window_from_widget(&button_sh).expect("Failed to retrieve window");
-            let window_application = get_application_from_widget(&button_sh)
+                utils::get_window_from_widget(&button_sh).expect("Failed to retrieve window");
+            let window_application = utils::get_application_from_widget(&button_sh)
                 .expect("Failed to retrieve application instance");
 
             let sighandle_id_obj =
@@ -699,18 +699,4 @@ where
     unsafe {
         passed_btn.set_data("signalHandle", sighandle_id.as_raw());
     }
-}
-
-fn get_window_from_widget(passed_widget: &impl IsA<gtk::Widget>) -> Option<gtk::Window> {
-    if let Some(widget) = passed_widget.toplevel() {
-        return widget.downcast::<gtk::Window>().ok();
-    }
-    None
-}
-
-fn get_application_from_widget(passed_widget: &impl IsA<gtk::Widget>) -> Option<gtk::Application> {
-    if let Some(window_widget) = get_window_from_widget(passed_widget) {
-        return window_widget.application();
-    }
-    None
 }
