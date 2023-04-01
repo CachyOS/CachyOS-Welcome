@@ -219,13 +219,10 @@ fn create_fixes_section() -> gtk::Box {
             Action::RemoveLock => &removelock_btn_clone,
             Action::RemoveOrphans => &remove_orphans_btn_clone,
         };
-        let widget_window = utils::get_window_from_widget(widget_obj).expect("Failed to retrieve window");
-        let window_application = utils::get_application_from_widget(widget_obj)
-            .expect("Failed to retrieve application instance");
+        let widget_window =
+            utils::get_window_from_widget(widget_obj).expect("Failed to retrieve window");
 
         let dialog = gtk::MessageDialog::builder()
-            .application(&window_application)
-            .attached_to(&widget_window)
             .transient_for(&widget_window)
             .message_type(msg.msg_type)
             .text(msg.msg)
@@ -558,8 +555,6 @@ fn on_servbtn_clicked(button: &gtk::CheckButton) {
         if !msg {
             let widget_window =
                 utils::get_window_from_widget(&button_sh).expect("Failed to retrieve window");
-            let window_application = utils::get_application_from_widget(&button_sh)
-                .expect("Failed to retrieve application instance");
 
             let sighandle_id_obj =
                 unsafe { glib::signal::SignalHandlerId::from_glib(signal_handler) };
@@ -568,8 +563,6 @@ fn on_servbtn_clicked(button: &gtk::CheckButton) {
             button_sh.unblock_signal(&sighandle_id_obj);
 
             let dialog = gtk::MessageDialog::builder()
-                .application(&window_application)
-                .attached_to(&widget_window)
                 .transient_for(&widget_window)
                 .message_type(gtk::MessageType::Error)
                 .text(fl!("package-not-installed", package_name = alpm_package_name))

@@ -80,10 +80,6 @@ pub fn get_window_from_widget(passed_widget: &impl IsA<gtk::Widget>) -> Option<g
     passed_widget.toplevel()?.downcast::<gtk::Window>().ok()
 }
 
-pub fn get_application_from_widget(passed_widget: &impl IsA<gtk::Widget>) -> Option<gtk::Application> {
-    get_window_from_widget(passed_widget)?.application()
-}
-
 pub fn get_translation_msgid(objname: &str) -> &'static str {
     match objname {
         "autostartlabel" => "launch-start-label",

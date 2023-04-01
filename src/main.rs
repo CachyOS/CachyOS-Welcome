@@ -44,11 +44,7 @@ static mut G_HELLO_WINDOW: Option<Arc<HelloWindow>> = None;
 fn quick_message(message: &'static str) {
     // Create the widgets
     let window_ref = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().window };
-    let application_window =
-        window_ref.application().expect("Unable to retrieve application instance!");
     let dialog = gtk::Dialog::builder()
-        .application(&application_window)
-        .attached_to(window_ref)
         .transient_for(window_ref)
         .title(message)
         .modal(true)
@@ -87,12 +83,7 @@ fn quick_message(message: &'static str) {
 
         if !status && result == gtk::ResponseType::Yes {
             let window_ref = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().window };
-            let application_window =
-                window_ref.application().expect("Unable to retrieve application instance!");
-
             let errordialog = gtk::MessageDialog::builder()
-                .application(&application_window)
-                .attached_to(window_ref)
                 .transient_for(window_ref)
                 .message_type(gtk::MessageType::Error)
                 .text(fl!("offline-error"))
