@@ -511,20 +511,19 @@ fn on_servbtn_clicked(button: &gtk::CheckButton) {
         signal_handler = *button.data("signalHandle").unwrap().as_ptr();
     }
 
-    let (user_only, pkexec_only) =
-        if action_type == "user_service" { ("--user", "--user $(logname)") } else { ("", "") };
-
     let local_units = &G_LOCAL_UNITS.lock().unwrap().enabled_units;
     let cmd = if !local_units.contains(&String::from(action_data)) {
-        format!(
-            "/sbin/pkexec {pkexec_only} bash -c \"systemctl {user_only} enable --now --force \
-             {action_data}\""
-        )
+        if action_type == "user_service" {
+            format!("systemctl --user enable --now --force {action_data}")
+        } else {
+            format!("/sbin/pkexec bash -c \"systemctl enable --now --force {action_data}\"")
+        }
     } else {
-        format!(
-            "/sbin/pkexec {pkexec_only} bash -c \"systemctl {user_only} disable --now \
-             {action_data}\""
-        )
+        if action_type == "user_service" {
+            format!("systemctl --user disable --now {action_data}")
+        } else {
+            format!("/sbin/pkexec bash -c \"systemctl disable --now {action_data}\"")
+        }
     };
 
     // Create context channel.
@@ -543,11 +542,8 @@ fn on_servbtn_clicked(button: &gtk::CheckButton) {
         }
         Exec::shell(cmd).join().unwrap();
 
-        if action_type == "user_service" {
-            load_global_enabled_units();
-        } else {
-            load_enabled_units();
-        }
+        load_global_enabled_units();
+        load_enabled_units();
     });
 
     let button_sh = button.clone();
