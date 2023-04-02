@@ -511,8 +511,10 @@ fn on_servbtn_clicked(button: &gtk::CheckButton) {
         signal_handler = *button.data("signalHandle").unwrap().as_ptr();
     }
 
-    let local_units = &G_LOCAL_UNITS.lock().unwrap().enabled_units;
-    let cmd = if !local_units.contains(&String::from(action_data)) {
+    let units_handle = if action_type == "user_service" { &G_GLOBAL_UNITS } else { &G_LOCAL_UNITS }
+        .lock()
+        .unwrap();
+    let cmd = if !units_handle.enabled_units.contains(&String::from(action_data)) {
         if action_type == "user_service" {
             format!("systemctl --user enable --now --force {action_data}")
         } else {
@@ -542,8 +544,11 @@ fn on_servbtn_clicked(button: &gtk::CheckButton) {
         }
         Exec::shell(cmd).join().unwrap();
 
-        load_global_enabled_units();
-        load_enabled_units();
+        if action_type == "user_service" {
+            load_global_enabled_units();
+        } else {
+            load_enabled_units();
+        }
     });
 
     let button_sh = button.clone();
