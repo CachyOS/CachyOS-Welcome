@@ -578,10 +578,13 @@ fn on_servbtn_clicked(button: &gtk::CheckButton) {
 fn on_refreshkeyring_btn_clicked(_: &gtk::Button) {
     let pacman = pacmanconf::Config::with_opts(None, Some("/etc/pacman.conf"), Some("/")).unwrap();
     let alpm = alpm_utils::alpm_with_conf(&pacman).unwrap();
-    // pacman -Qq | grep keyring
-    let needles = alpm
+
+    // search local database for packages matching the regex ".*-keyring"
+    // e.g pacman -Qq | grep keyring
+    let needles: &[String] = &[".*-keyring".into()];
+    let found_keyrings = alpm
         .localdb()
-        .search([".*-keyring"].iter())
+        .search(needles.iter())
         .unwrap()
         .into_iter()
         .filter(|pkg| pkg.name() != "gnome-keyring")
@@ -595,7 +598,7 @@ fn on_refreshkeyring_btn_clicked(_: &gtk::Button) {
     // Spawn child process in separate thread.
     std::thread::spawn(move || {
         let _ = utils::run_cmd_terminal(
-            format!("pacman-key --init && pacman-key --populate {needles}"),
+            format!("pacman-key --init && pacman-key --populate {found_keyrings}"),
             true,
         );
     });
