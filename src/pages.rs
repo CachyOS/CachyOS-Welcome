@@ -520,12 +520,10 @@ fn on_servbtn_clicked(button: &gtk::CheckButton) {
         } else {
             format!("/sbin/pkexec bash -c \"systemctl enable --now --force {action_data}\"")
         }
+    } else if action_type == "user_service" {
+        format!("systemctl --user disable --now {action_data}")
     } else {
-        if action_type == "user_service" {
-            format!("systemctl --user disable --now {action_data}")
-        } else {
-            format!("/sbin/pkexec bash -c \"systemctl disable --now {action_data}\"")
-        }
+        format!("/sbin/pkexec bash -c \"systemctl disable --now {action_data}\"")
     };
 
     // Create context channel.
