@@ -1,18 +1,20 @@
-<big>CachyOS 23.03.1</big>
+<big>CachyOS 23.04</big>
 
-This is just a little fixing release.
-There was currently a issue in the upstream calamares, which did bring netinstallation to fail, when the "lightdm" displaymanager was used.
-Actually due a cleanup in the latest release of the offline installation, there was a issue with the keyring when the offline installation was used.
+This is our fourth release in 2023.
+We are introducing now also "Qtile" as desktop enviroment at the netinstallation. Thanks to @array for maintaing the dotfiles.
+There were also a bunch of fixes in the Hardware Detection. The upcomming releases will have a complete own "CachyOS Hardware Detection". We migrate Manjaro's Hardware Detection to a standalone CachyOS Tool, since mhwd is not well maintained and has a lot of issues in.
+
+The next release will include then some major updates like python 3.11, llvm 16, gnome 44 and the 6.2 Kernel
 
 <big>Features:</big>
 
-- Package updates: linux-cachyos 6.2.7, cachy-browser 111.0
+- Introduce the Qtile desktop enviroment
+- Reworked mhwd: Rust rewrite; Simplified profiles for GPUs and network cards; Removed bunch of ancient code
+- Package updates: linux-cachyos 6.2.12, cachy-browser 112.0.1, mesa 23.0.3
 
 <big>Bug-fixes:</big>
 
-- Calamares got fixed with the lightdm displaymanager due faulty calamares upstream commits
-- Offline installation keyring issue got fixed
-- Refind: Use linux-cachyos-lts as defaullt. Current 6.2 seems not to work well together with refind
+- f2fs: Remove "atgc" mount options since it has issues with systemd
 
 You can find the download at our mirrors or sourceforge.
 
