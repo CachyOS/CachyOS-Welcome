@@ -1,18 +1,20 @@
-<big>CachyOS 23.03.1</big>
+<big>CachyOS 23.04</big>
 
-To jest tylko małe wydanie naprawcze.
-Obecnie istniał problem w upstreamowym calamares, który powodował, że netinstalacja kończyła się niepowodzeniem, gdy używany był "lightdm" displaymanager.
-Właściwie to z powodu czyszczenia w ostatnim wydaniu instalacji offline, był problem z keyringiem, gdy używana była instalacja offline.
+To jest nasze czwarte wydanie w 2023 roku.
+Wprowadzamy teraz także "Qtile" jako środowisko desktopowe przy instalacji sieciowej. Podziękowania dla @array'a za utrzymanie dotfiles.
+Było też kilka poprawek w wykrywaniu sprzętu. Następne wydania będą miały kompletny własny "CachyOS Hardware Detection". Migrujemy Hardware Detection z Manjaro do samodzielnego narzędzia CachyOS, ponieważ mhwd nie jest dobrze utrzymywany i ma wiele problemów.
+
+Następne wydanie będzie zawierać kilka głównych aktualizacji takich jak python 3.11, llvm 16, gnome 44 i 6.2 Kernel.
 
 <big>Nowe funkcje:</big>
 
-- Aktualizacje pakietów: linux-cachyos 6.2.7, cachy-browser 111.0
+- Wprowadzenie środowiska graficznego Qtile
+- Przerobione mhwd: Rust rewrite; Uproszczone profile dla GPU i kart sieciowych; Usunięta masa starożytnego kodu
+- Aktualizacje pakietów: linux-cachyos 6.2.12, cachy-browser 112.0.1, mesa 23.0.3
 
 <big>Naprawy błędów:</big>
 
-- Calamares został naprawiony z lightdm displaymanager z powodu wadliwych commitów upstream calamares
-- Naprawiono problem z kluczem do instalacji offline
-- Refind: Użyj linux-cachyos-lts jako domyślnego. Obecna wersja 6.2 wydaje się nie współpracować dobrze z refindem.
+- f2fs: Usuń opcje montowania "atgc", ponieważ ma problemy z systemd
 
 Pobieranie można znaleźć w naszych mirrorach lub sourceforge
 
