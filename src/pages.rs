@@ -396,12 +396,11 @@ fn load_global_enabled_units() {
     G_GLOBAL_UNITS.lock().unwrap().loaded_units.clear();
     G_GLOBAL_UNITS.lock().unwrap().enabled_units.clear();
 
-    let mut exec_out =
-        Exec::shell("systemctl --global list-unit-files -q --no-pager | tr -s \" \"")
-            .stdout(Redirection::Pipe)
-            .capture()
-            .unwrap()
-            .stdout_str();
+    let mut exec_out = Exec::shell("systemctl --user list-unit-files -q --no-pager | tr -s \" \"")
+        .stdout(Redirection::Pipe)
+        .capture()
+        .unwrap()
+        .stdout_str();
     exec_out.pop();
 
     let service_list = exec_out.split('\n');
