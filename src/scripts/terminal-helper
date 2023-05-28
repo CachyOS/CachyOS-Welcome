@@ -43,8 +43,8 @@ echo $cmd
 
 #declare -a terminals=(x-terminal-emulator mate-terminal gnome-terminal terminator xfce4-terminal urxvt rxvt termit Eterm aterm uxterm xterm roxterm termite lxterminal terminology st qterminal lilyterm tilix terminix konsole kitty guake tilda alacritty)
 terminal=""
-declare -A terminals=( ["alacritty"]="alacritty -e $cmd || LIBGL_ALWAYS_SOFTWARE=1 alacritty -e $cmd" ["konsole"]="konsole -e $cmd" ["gnome-terminal"]="gnome-terminal --wait -- $cmd" ["xfce4-terminal"]="xfce4-terminal --disable-server --command '$cmd'" ["lxterminal"]="lxterminal -e $cmd" ["xterm"]="xterm -e $cmd" ["st"]="st $cmd")
-declare -a term_order=( "alacritty" "konsole" "gnome-terminal" "xfce4-terminal" "lxterminal" "xterm" "st")
+declare -A terminals=( ["alacritty"]="alacritty -e $cmd || LIBGL_ALWAYS_SOFTWARE=1 alacritty -e $cmd" ["konsole"]="konsole -e $cmd" ["gnome-terminal"]="gnome-terminal --wait -- $cmd" ["xfce4-terminal"]="xfce4-terminal --disable-server --command '$cmd'" ["lxterminal"]="lxterminal -e $cmd" ["xterm"]="xterm -e $cmd" ["st"]="st $cmd" ["foot"]="foot $cmd")
+declare -a term_order=( "alacritty" "konsole" "gnome-terminal" "xfce4-terminal" "lxterminal" "xterm" "st" "foot")
 
 if [ -z "$terminal" ] || ! command -v "$terminal" &> /dev/null; then
 for entry in ${term_order[@]}; do
