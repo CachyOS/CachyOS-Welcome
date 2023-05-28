@@ -271,8 +271,6 @@ fn create_options_section() -> gtk::Box {
         gtk::CheckButton::with_label(&fl!("tweak-enabled-title", tweak = "Bluetooth"));
     let ananicy_cpp_btn =
         gtk::CheckButton::with_label(&fl!("tweak-enabled-title", tweak = "Ananicy Cpp"));
-    let dnscrypt_btn =
-        gtk::CheckButton::with_label(&fl!("tweak-enabled-title", tweak = "DNSCrypt"));
 
     {
         psd_btn.set_widget_name("Profile-sync-daemon");
@@ -280,7 +278,6 @@ fn create_options_section() -> gtk::Box {
         apparmor_btn.set_widget_name("Apparmor");
         bluetooth_btn.set_widget_name("Bluetooth");
         ananicy_cpp_btn.set_widget_name("Ananicy Cpp");
-        dnscrypt_btn.set_widget_name("DNSCrypt");
     }
 
     unsafe {
@@ -299,19 +296,9 @@ fn create_options_section() -> gtk::Box {
         ananicy_cpp_btn.set_data("actionData", "ananicy-cpp.service");
         ananicy_cpp_btn.set_data("actionType", "service");
         ananicy_cpp_btn.set_data("alpmPackage", "ananicy-cpp");
-        dnscrypt_btn.set_data("actionData", "dnscrypt-proxy.service");
-        dnscrypt_btn.set_data("actionType", "service");
-        dnscrypt_btn.set_data("alpmPackage", "cachyos-dnscrypt-proxy");
     }
 
-    for btn in &[
-        &psd_btn,
-        &systemd_oomd_btn,
-        &apparmor_btn,
-        &bluetooth_btn,
-        &ananicy_cpp_btn,
-        &dnscrypt_btn,
-    ] {
+    for btn in &[&psd_btn, &systemd_oomd_btn, &apparmor_btn, &bluetooth_btn, &ananicy_cpp_btn] {
         let data: &str = unsafe { *btn.data("actionData").unwrap().as_ptr() };
         if G_LOCAL_UNITS.lock().unwrap().enabled_units.contains(&String::from(data))
             || G_GLOBAL_UNITS.lock().unwrap().enabled_units.contains(&String::from(data))
@@ -326,7 +313,6 @@ fn create_options_section() -> gtk::Box {
     box_collection_s.pack_start(&systemd_oomd_btn, true, false, 2);
     box_collection.pack_start(&apparmor_btn, true, false, 2);
     box_collection.pack_start(&ananicy_cpp_btn, true, false, 2);
-    box_collection_s.pack_start(&dnscrypt_btn, true, false, 2);
     box_collection_s.pack_start(&bluetooth_btn, true, false, 2);
     box_collection.set_halign(gtk::Align::Fill);
     box_collection_s.set_halign(gtk::Align::Fill);
