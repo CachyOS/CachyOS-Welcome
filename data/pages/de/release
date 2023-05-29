@@ -1,20 +1,27 @@
-<big>CachyOS 23.04</big>
+<big>CachyOS 23.05</big>
 
-Dies ist unser viertes Release im Jahr 2023.
-Wir führen nun auch "Qtile" als Desktop-Umgebung bei der Netzinstallation ein. Danke an @array für die Pflege der Dotfiles.
-Es gab auch eine Reihe von Korrekturen in der Hardware-Erkennung. Die kommenden Versionen werden eine komplett eigene "CachyOS Hardware Detection" haben. Wir migrieren Manjaros Hardware Detection in ein eigenständiges CachyOS-Tool, da mhwd nicht gut gewartet wird und eine Menge Fehler enthält.
-
-Die nächste Version wird dann einige größere Updates wie python 3.11, llvm 16, gnome 44 und den 6.2 Kernel enthalten
+Dies ist unsere fünfte Veröffentlichung im Jahr 2023.
+Wir haben unsere "Git-Migration" abgeschlossen und diese Version spiegelt die letzten Änderungen im Repository-Layout wider.
+Das Repository "cachyos-v3" enthält jetzt nur noch CachyOS-Pakete wie Kernel und eigene optimierte Pakete (Python, gcc, glibc, ...).
+Die rekompilierten Pakete befinden sich nun in den Repositories "cachyos-core-v3" und "cachyos-extra-v3".
+Die "Qtile"-Desktop-Umgebung hat auch einige Korrekturen und Änderungen erhalten. Dank an @Array
+Calamares hat einige minimale Korrekturen erhalten und @NextWorks hat unsere Calamares-Folie aktualisiert, um die Änderungen in den bereitgestellten Desktop-Umgebungen zu reflektieren.
+Wie immer gab es auch größere Paket-Upgrades wie linux-cachyos 6.3, python 3.11, cachy-browser 113.0.2 und mesa 23.1.1.
+Im nächsten Monat werden wir mit der Migration auf einen neuen Server beginnen und daran arbeiten, einen vollständigen x86-64-v4-Rebuild bereitzustellen.
+Außerdem ist für die nächste Version geplant, die Netzinstallation zu überarbeiten, um eine "saubere" Installation ohne CachyOS-bezogene Pakete zu erleichtern.
 
 <big>Features:</big>
 
-- Einführung in die Qtile-Desktop-Umgebung
-- Überarbeitetes mhwd: Rust neu geschrieben; Profile für GPUs und Netzwerkkarten vereinfacht; eine Menge alten Codes entfernt
-- Paket Updates: linux-cachyos 6.2.12, cachy-browser 112.0.1, mesa 23.0.3
+- Das Layout der CachyOS Git-Migration wird nun in der Installation berücksichtigt
+- chwd (mhwd) erhielt mehrere Korrekturen
+- Pacman: Wir haben eine Funktion hinzugefügt, die es ermöglicht, unseren Nutzern vor der Aktualisierung eine Nachricht zukommen zu lassen
+- Calamares wurde mit Upstream synchronisiert
+- Paket Updates: linux-cachyos 6.3.4, cachy-browser 113.0.1, mesa 23.1.1, python 3.11
 
 <big>Fehlerbehebungen:</big>
 
-- f2fs: Entfernen der "atgc"-Einhängeoptionen, da sie Probleme mit systemd haben
+- netinstall: minimale Korrekturen aufgrund von Paketänderungen
+- Folien: Folie 6 wurde aktualisiert, um die letzten Änderungen widerzuspiegeln
 
 Wie immer kann der Download auf unseren Mirrors in der Sourgeforge gefunden werden.
 
