@@ -2,6 +2,27 @@
 about-dialog-title = CachyOS Hello
 about-dialog-comments = Ekran powitalny CachyOS
 
+# Tweaks page
+tweaks = Usprawnienia
+fixes = Poprawki
+applications = Programy
+removed-db-lock = Blokada bazy pacmana została usunięta!
+lock-doesnt-exist = Blokada bazy pacmana nie istnieje!
+orphans-not-found = Nie znaleziono pakietów osieroconych!
+package-not-installed = Pakiet '{$package_name}' nie został zainstalowany!
+
+# Tweaks page (tweaks)
+tweak-enabled-title = {$tweak} włączony
+
+# Tweaks page (fixes)
+remove-lock-title = Usuń blokadę bazy
+reinstall-title = Przeinstaluj wszystkie pakiety
+refresh-keyrings-title = Odśwież klucze
+update-system-title = Aktualizuj system
+remove-orphans-title = Usuń pakiety osierocone
+clear-pkgcache-title = Wyczyść pamięć podręczną pakietów
+rankmirrors-title = Uszereguj serwery
+
 # Main Page (buttons)
 button-about-tooltip = O programie
 button-web-resource-tooltip = Zasób sieciowy
@@ -22,6 +43,9 @@ section-support = WSPARCIE
 section-project = PROJEKT
 
 # Main Page (body)
+offline-error = Instalacja online niemożliwa! Brak połączenia internetowego
+tweaksbrowser-label = Programy/Usprawnienia
+appbrowser-label = Instalator Programów
 launch-start-label = Uruchamiaj przy starcie
 welcome-title = Witaj w CachyOS!
 welcome-body =
