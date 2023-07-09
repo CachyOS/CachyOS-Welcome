@@ -119,6 +119,6 @@ impl AlpmHelper {
         let pacman =
             pacmanconf::Config::with_opts(None, Some("/etc/pacman.conf"), Some("/")).unwrap();
         let alpm = alpm_utils::alpm_with_conf(&pacman).unwrap();
-        matches!(alpm.localdb().pkg(pkg_name.as_bytes()), Ok(_))
+        alpm.localdb().pkg(pkg_name.as_bytes()).is_ok()
     }
 }
