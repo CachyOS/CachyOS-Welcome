@@ -1,29 +1,27 @@
-<big>CachyOS 23.05</big>
+<big>CachyOS 23.07</big>
 
-This is our fifth release in 2023.
-We got our "Git Migration" done and this release does reflect the latest changes in the repository layout.
-The repository "cachyos-v3" contains now only CachyOS packages like kernels and custom optimized packages (python, gcc, glibc, ...).
-The recompiled packages are now in the "cachyos-core-v3" and "cachyos-extra-v3" repositorys.
-The "Qtile" Desktop enviroment got also several fixes and changes. Thanks to @Array
-Calamars got some minimal fixes and @NextWorks did update our calamares slide to reflect the changes in the provided desktop enviroments.
-As always there were also major package upgrades like linux-cachyos 6.3, python 3.11, cachy-browser 113.0.2 and mesa 23.1.1.
-In the next month we will start to migrate to a new server and will work on providing a full x86-64-v4 rebuild.
-Also for the next release it is planned to rework the netinstallation to make it easier to install a "clean" without CachyOS related packages.
+This is our 7th release in 2023.
+The release mainly brings some little features, like bpftune which automatically does adjust the network settings depending on the workload.
+This means we don't need to provide manual network settings anymore, which may not suit to everyone's internet connection and network workload.
+Array did bring a lot of updates to cachyos-qtile-settings, which rebased the top bar, rebased and new icons, Memory and total memory are now shown, reduced paddings and margins, workspace circles are smaller and the complete date is now shown.
+
+Here's a summary of the changes:
 
 <big>Features:</big>
 
-- CachyOS Git Migration layout is now reflected in the installation
-- chwd (mhwd) got multiple fixes
-- Pacman: We added a feature, which makes it possible to provide a message to our users before updating
-- Calamares got synced with upstream
-- Package updates: linux-cachyos 6.3.4, cachy-browser 113.0.1, mesa 23.1.1, python 3.11
+- CachyOS-Settings includes now "bpftune", which automatically tweaks the network settings depending on the usage
+- CachyOS-Qtile-Settings: Quality of Life changes, better icons, ...
+- Package updates: linux-cachyos 6.4.2, cachy-browser 115.0.1, mesa 23.1.3,
 
 <big>Bug-fixes:</big>
 
-- netinstall: minimal fixes due package changes
-- Slides: Slide 6 got updated to reflect the lastest changes
+- rate-mirrors got fixed
+- chwd (Hardware Detection) got multiple fixes
+- fixed installation of nonfree drivers for hybrid setup in the installer
+- fixed Calamares freezes, which happened in some rare configurations (VM/QEMU)
+- Slides: Slide 6 typo fix
 
-You can find the download at our mirrors or sourceforge.
+You can find the download at our mirrors on sourceforge.
 
 https://mirror.cachyos.org/ISO/
 https://sourceforge.net/projects/cachyos-arch/files/
@@ -33,5 +31,6 @@ If you'd like to support us, you can donate to help cover our monthly server cos
 https://paypal.me/pttrr
 https://www.patreon.com/CachyOS
 
-Thanks,
+Thank you for your support!
+
 The CachyOS Team
