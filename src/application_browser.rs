@@ -3,9 +3,10 @@ use crate::utils;
 
 use gio::prelude::*;
 use gtk::prelude::{
-    BoxExt, ButtonExt, CellRendererExt, CellRendererToggleExt, ComboBoxExt, ContainerExt, GridExt,
-    GtkListStoreExt, GtkListStoreExtManual, ScrolledWindowExt, ToggleButtonExt, TreeModelExt,
-    TreeStoreExt, TreeStoreExtManual, TreeViewColumnExt, TreeViewExt, WidgetExt,
+    BoxExt, ButtonExt, CellRendererExt, CellRendererTextExt, CellRendererToggleExt, ComboBoxExt,
+    ContainerExt, GridExt, GtkListStoreExt, GtkListStoreExtManual, ScrolledWindowExt,
+    ToggleButtonExt, TreeModelExt, TreeStoreExt, TreeStoreExtManual, TreeViewColumnExt,
+    TreeViewExt, WidgetExt,
 };
 
 use once_cell::sync::Lazy;
@@ -260,8 +261,10 @@ impl ApplicationBrowser {
 
         // column model: description column
         let desc_renderer = gtk::CellRendererText::new();
+        desc_renderer.set_wrap_mode(gtk::pango::WrapMode::Word);
+        desc_renderer.set_wrap_width(290);
         let desc_column = create_column("Description", &desc_renderer, "text", DESCRIPTION);
-        desc_column.set_resizable(true);
+        desc_column.set_resizable(false);
         self.tree_view.append_column(&desc_column);
 
         // column model: install column
