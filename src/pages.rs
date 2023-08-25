@@ -265,7 +265,7 @@ fn create_options_section() -> gtk::Box {
         gtk::CheckButton::with_label(&fl!("tweak-enabled-title", tweak = "Profile-sync-daemon"));
     let systemd_oomd_btn =
         gtk::CheckButton::with_label(&fl!("tweak-enabled-title", tweak = "Systemd-oomd"));
-    let bptfune_btn = gtk::CheckButton::with_label(&fl!("tweak-enabled-title", tweak = "Bpftune"));
+    let bpftune_btn = gtk::CheckButton::with_label(&fl!("tweak-enabled-title", tweak = "Bpftune"));
     let apparmor_btn =
         gtk::CheckButton::with_label(&fl!("tweak-enabled-title", tweak = "Apparmor"));
     let bluetooth_btn =
