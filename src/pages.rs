@@ -265,6 +265,7 @@ fn create_options_section() -> gtk::Box {
         gtk::CheckButton::with_label(&fl!("tweak-enabled-title", tweak = "Profile-sync-daemon"));
     let systemd_oomd_btn =
         gtk::CheckButton::with_label(&fl!("tweak-enabled-title", tweak = "Systemd-oomd"));
+    let bpftune_btn = gtk::CheckButton::with_label(&fl!("tweak-enabled-title", tweak = "Bpftune"));
     let apparmor_btn =
         gtk::CheckButton::with_label(&fl!("tweak-enabled-title", tweak = "Apparmor"));
     let bluetooth_btn =
@@ -276,6 +277,7 @@ fn create_options_section() -> gtk::Box {
         psd_btn.set_widget_name("Profile-sync-daemon");
         systemd_oomd_btn.set_widget_name("Systemd-oomd");
         apparmor_btn.set_widget_name("Apparmor");
+        bpftune_btn.set_widget_name("Bpftune");
         bluetooth_btn.set_widget_name("Bluetooth");
         ananicy_cpp_btn.set_widget_name("Ananicy Cpp");
     }
@@ -290,6 +292,9 @@ fn create_options_section() -> gtk::Box {
         apparmor_btn.set_data("actionData", "apparmor.service");
         apparmor_btn.set_data("actionType", "service");
         apparmor_btn.set_data("alpmPackage", "apparmor");
+        bpftune_btn.set_data("actionData", "bpftune.service");
+        bpftune_btn.set_data("actionType", "service");
+        bpftune_btn.set_data("alpmPackage", "bpftune-git");
         bluetooth_btn.set_data("actionData", "bluetooth.service");
         bluetooth_btn.set_data("actionType", "service");
         bluetooth_btn.set_data("alpmPackage", "bluez");
@@ -298,7 +303,14 @@ fn create_options_section() -> gtk::Box {
         ananicy_cpp_btn.set_data("alpmPackage", "ananicy-cpp");
     }
 
-    for btn in &[&psd_btn, &systemd_oomd_btn, &apparmor_btn, &bluetooth_btn, &ananicy_cpp_btn] {
+    for btn in &[
+        &psd_btn,
+        &systemd_oomd_btn,
+        &apparmor_btn,
+        &bpftune_btn,
+        &bluetooth_btn,
+        &ananicy_cpp_btn,
+    ] {
         let data: &str = unsafe { *btn.data("actionData").unwrap().as_ptr() };
         if G_LOCAL_UNITS.lock().unwrap().enabled_units.contains(&String::from(data))
             || G_GLOBAL_UNITS.lock().unwrap().enabled_units.contains(&String::from(data))
@@ -312,6 +324,7 @@ fn create_options_section() -> gtk::Box {
     box_collection.pack_start(&psd_btn, true, false, 2);
     box_collection_s.pack_start(&systemd_oomd_btn, true, false, 2);
     box_collection.pack_start(&apparmor_btn, true, false, 2);
+    box_collection_s.pack_start(&bpftune_btn, true, false, 2);
     box_collection.pack_start(&ananicy_cpp_btn, true, false, 2);
     box_collection_s.pack_start(&bluetooth_btn, true, false, 2);
     box_collection.set_halign(gtk::Align::Fill);
