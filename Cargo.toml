@@ -6,24 +6,24 @@ license = "GPLv3"
 edition = "2021"
 
 [dependencies]
-alpm = { default-features = false, version = "2.2.2" }
-alpm-utils = { features = ["conf"], default-features = false, version = "2.0.0" }
-pacmanconf = "2.0.0"
+alpm = { default-features = false, version = "2" }
+alpm-utils = { features = ["conf"], default-features = false, version = "2" }
+pacmanconf = "2"
 
-subprocess = "0.2.9"
-once_cell = { default-features = false, version = "1.18.0" }
-i18n-embed = { version = "0.13.9", features = ["fluent-system", "desktop-requester"] }
-i18n-embed-fl = "0.6.7"
-rust-embed = { version = "6.7.0", features = ["debug-embed", "include-exclude"] }
-gtk = { version = "0.17.1", default-features = false }
-gio = { version = "0.17.10", default-features = false }
-gdk = "0.17.1"
-gdk-pixbuf = "0.17.10"
-glib = { default-features = false, version = "0.17.10" }
-serde = { version = "1.0.164", default-features = false }
-serde_json = "1.0.97"
-reqwest = { version = "0.11.18", features = ["blocking"] }
-unic-langid = "0.9.1"
+subprocess = "0.2"
+once_cell = { default-features = false, version = "1.18" }
+i18n-embed = { version = "0.14", features = ["fluent-system", "desktop-requester"] }
+i18n-embed-fl = "0.7"
+rust-embed = { version = "8", features = ["debug-embed", "include-exclude"] }
+gtk = { version = "0.18", default-features = false }
+gio = { version = "0.18", default-features = false }
+gdk = "0.18"
+gdk-pixbuf = "0.18"
+glib = { default-features = false, version = "0.18" }
+serde = { version = "1", default-features = false }
+serde_json = "1"
+reqwest = { version = "0.11", features = ["blocking"] }
+unic-langid = "0.9"
 
 [profile.release]
 strip = "symbols"

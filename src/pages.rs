@@ -133,7 +133,7 @@ fn create_fixes_section() -> gtk::Box {
     }
 
     // Create context channel.
-    let (dialog_tx, dialog_rx) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
+    let (dialog_tx, dialog_rx) = glib::MainContext::channel(glib::Priority::default());
 
     // Connect signals.
     let dialog_tx_clone = dialog_tx.clone();
@@ -230,7 +230,7 @@ fn create_fixes_section() -> gtk::Box {
             .modal(true)
             .build();
         dialog.show();
-        glib::Continue(true)
+        glib::ControlFlow::Continue
     });
 
     topbox.pack_start(&label, true, false, 1);
@@ -525,7 +525,7 @@ fn on_servbtn_clicked(button: &gtk::CheckButton) {
     };
 
     // Create context channel.
-    let (tx, rx) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
+    let (tx, rx) = glib::MainContext::channel(glib::Priority::default());
 
     // Spawn child process in separate thread.
     std::thread::spawn(move || {
@@ -568,7 +568,7 @@ fn on_servbtn_clicked(button: &gtk::CheckButton) {
                 .build();
             dialog.show();
         }
-        glib::Continue(true)
+        glib::ControlFlow::Continue
     });
 }
 
@@ -665,7 +665,7 @@ fn on_appbtn_clicked(button: &gtk::Button) {
     let bash_cmd = format!("{} {}", &envs, &exe_path);
 
     // Create context channel.
-    let (tx, rx) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
+    let (tx, rx) = glib::MainContext::channel(glib::Priority::default());
 
     // Spawn child process in separate thread.
     std::thread::spawn(move || {
@@ -680,7 +680,7 @@ fn on_appbtn_clicked(button: &gtk::Button) {
 
     rx.attach(None, move |text| {
         println!("{text}");
-        glib::Continue(true)
+        glib::ControlFlow::Continue
     });
 }
 
