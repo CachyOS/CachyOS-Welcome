@@ -1,25 +1,26 @@
-<big>CachyOS 23.07</big>
+<big>CachyOS 23.09</big>
 
-This is our 7th release in 2023.
-The release mainly brings some little features, like bpftune which automatically does adjust the network settings depending on the workload.
-This means we don't need to provide manual network settings anymore, which may not suit to everyone's internet connection and network workload.
-Array did bring a lot of updates to cachyos-qtile-settings, which rebased the top bar, rebased and new icons, Memory and total memory are now shown, reduced paddings and margins, workspace circles are smaller and the complete date is now shown.
+This is our 10th release in 2023.
+The release does change for systemd-boot the default encryption method to "luks2" and the netinstall got a clean up.
+It is now possible to not install CachyOS related packages and they have now their own category.
+We also got some major package upgrades, like llvm 16 and linux-cachyos 6.5.3.
+
+Currently we are also testing a new method to provide the nvidia module. This method will replace "nvidia-dkms" and the module comes precompiled to avoid further compilations on the users machine.
+This makes also sure, that the kernel does compile with the nvidia-driver.
+We will do some further stability testing and then implement this into future releases.
 
 Here's a summary of the changes:
 
 <big>Features:</big>
 
-- CachyOS-Settings includes now "bpftune", which automatically tweaks the network settings depending on the usage
-- CachyOS-Qtile-Settings: Quality of Life changes, better icons, ...
-- Package updates: linux-cachyos 6.4.2, cachy-browser 115.0.1, mesa 23.1.3,
+- systemd-boot: Default to luks2
+- netinstall: Provide a own category for CachyOS Packages
+- Calamares synced with upstream
+- Package updates: linux-cachyos 6.5.3, nvidia-utils 535.104.05, mesa 23.2.7
 
 <big>Bug-fixes:</big>
 
-- rate-mirrors got fixed
-- chwd (Hardware Detection) got multiple fixes
-- fixed installation of nonfree drivers for hybrid setup in the installer
-- fixed Calamares freezes, which happened in some rare configurations (VM/QEMU)
-- Slides: Slide 6 typo fix
+- shellprocess_sdboot: Avoid using "sudo", when generating the boot entries at the installation process
 
 You can find the download at our mirrors on sourceforge.
 
