@@ -65,6 +65,27 @@ fn update_translation_fixes_section(section_box: &gtk::Box) {
     }
 }
 
+fn update_translation_connections_section(section_box: &gtk::Box) {
+    for section_box_element in section_box.children() {
+        if let Ok(object_box) = section_box_element.clone().downcast::<gtk::Box>() {
+            for object_box_widget in object_box.children() {
+                let widget_name = object_box_widget.widget_name().to_string();
+                if let Ok(box_element_btn) = object_box_widget.clone().downcast::<gtk::Button>() {
+                    let translated_text = crate::localization::get_locale_text(&widget_name);
+                    box_element_btn.set_label(&translated_text);
+                } else if let Ok(box_element_label) =
+                    object_box_widget.clone().downcast::<gtk::Label>()
+                {
+                    let translated_text = crate::localization::get_locale_text(&widget_name);
+                    box_element_label.set_text(&translated_text);
+                }
+            }
+        } else if let Ok(section_label) = section_box_element.clone().downcast::<gtk::Label>() {
+            section_label.set_text(&fl!("dns-settings"));
+        }
+    }
+}
+
 fn update_translation_options_section(section_box: &gtk::Box) {
     for section_box_element in section_box.children() {
         if let Ok(button_box) = section_box_element.clone().downcast::<gtk::Box>() {
@@ -112,6 +133,19 @@ pub fn update_translations(builder: &Builder) {
                         },
                         _ => panic!("Unknown widget!"),
                     }
+                }
+            }
+        }
+        if let Some(widget) = stack.child_by_name("dnsConnectionsBrowserpage") {
+            if let Ok(viewport) = widget.downcast::<gtk::Viewport>() {
+                let first_child = &viewport.children()[0].clone().downcast::<gtk::Box>().unwrap();
+                let second_child =
+                    &first_child.children()[1].clone().downcast::<gtk::Box>().unwrap();
+
+                for second_child_child_widget in second_child.children() {
+                    let second_child_child_box =
+                        second_child_child_widget.downcast::<gtk::Box>().unwrap();
+                    update_translation_connections_section(&second_child_child_box);
                 }
             }
         }
@@ -420,11 +454,15 @@ fn create_connections_section() -> gtk::Box {
     let connections_label = gtk::Label::new(None);
     connections_label.set_justify(gtk::Justification::Left);
     connections_label.set_text(&fl!("select-connection"));
+    connections_label.set_widget_name("select-connection");
     let servers_label = gtk::Label::new(None);
     servers_label.set_justify(gtk::Justification::Left);
     servers_label.set_text(&fl!("select-dns-server"));
+    servers_label.set_widget_name("select-dns-server");
     let apply_btn = gtk::Button::with_label(&fl!("apply"));
     let reset_btn = gtk::Button::with_label(&fl!("reset"));
+    apply_btn.set_widget_name("apply");
+    reset_btn.set_widget_name("reset");
 
     let combo_conn = {
         let store = gtk::ListStore::new(&[String::static_type()]);
