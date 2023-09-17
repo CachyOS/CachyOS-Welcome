@@ -11,6 +11,17 @@ lock-doesnt-exist = Blokada bazy pacmana nie istnieje!
 orphans-not-found = Nie znaleziono pakietów osieroconych!
 package-not-installed = Pakiet '{$package_name}' nie został zainstalowany!
 
+# Dns Connections page
+dns-settings = Ustawienia DNS
+select-connections = Wybierz połączenie:
+select-dns-server = Wybierz serwer DNS:
+apply = Zastosuj
+reset = Resetuj
+dns-server-changed = Serwer DNS został pomyślnie zmieniony!
+dns-server-failed = Nie udało się ustawić serwera DNS!
+dns-server-reset = Serwer DNS został zresetowany!
+dns-server-reset-failed = Nie udało się zresetować serwera DNS!
+
 # Tweaks page (tweaks)
 tweak-enabled-title = {$tweak} włączony
 
@@ -22,6 +33,7 @@ update-system-title = Aktualizuj system
 remove-orphans-title = Usuń pakiety osierocone
 clear-pkgcache-title = Wyczyść pamięć podręczną pakietów
 rankmirrors-title = Uszereguj serwery
+dnsserver-title = Zmień serwer DNS
 
 # Main Page (buttons)
 button-about-tooltip = O programie
