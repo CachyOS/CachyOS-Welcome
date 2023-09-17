@@ -5,6 +5,7 @@ use crate::{fl, utils};
 use glib::translate::FromGlib;
 use gtk::{glib, Builder};
 use once_cell::sync::Lazy;
+use phf::phf_ordered_map;
 use std::fmt::Write as _;
 use std::path::Path;
 use std::sync::Mutex;
@@ -17,6 +18,18 @@ use subprocess::{Exec, Redirection};
 static G_LOCAL_UNITS: Lazy<Mutex<SystemdUnits>> = Lazy::new(|| Mutex::new(SystemdUnits::new()));
 static G_GLOBAL_UNITS: Lazy<Mutex<SystemdUnits>> = Lazy::new(|| Mutex::new(SystemdUnits::new()));
 
+static G_DNS_SERVERS: phf::OrderedMap<&'static str, &'static str> = phf_ordered_map! {
+    "Adguard" => "94.140.14.14",
+    "Adguard Family Protection" => "94.140.14.15",
+    "Cloudflare" => "1.1.1.1",
+    "Cloudflare Malware and adult content blocking" => "1.1.1.3",
+    "DNS.Watch" => "84.200.69.80",
+    "Cisco Umbrella(OpenDNS)" => "208.67.222.222,208.67.220.220",
+    "Quad9" => "9.9.9.9",
+    "Google" => "8.8.8.8,8.8.4.4",
+    "Yandex" => "77.88.8.8,77.88.8.1",
+};
+
 struct DialogMessage {
     pub msg: String,
     pub msg_type: gtk::MessageType,
@@ -26,6 +39,7 @@ struct DialogMessage {
 enum Action {
     RemoveLock,
     RemoveOrphans,
+    SetDnsServer,
 }
 
 fn update_translation_apps_section(section_box: &gtk::Box) {
@@ -104,11 +118,24 @@ pub fn update_translations(builder: &Builder) {
     }
 }
 
-fn create_fixes_section() -> gtk::Box {
+fn get_nm_connections() -> Vec<String> {
+    let connections = Exec::cmd("/sbin/nmcli")
+        .args(&["-t", "-f", "NAME", "connection", "show"])
+        .stdout(Redirection::Pipe)
+        .capture()
+        .unwrap()
+        .stdout_str();
+
+    // get list of connections separated by newline
+    connections.split('\n').filter(|x| !x.is_empty()).map(String::from).collect::<Vec<_>>()
+}
+
+fn create_fixes_section(builder: &Builder) -> gtk::Box {
     let topbox = gtk::Box::new(gtk::Orientation::Vertical, 2);
     let button_box_f = gtk::Box::new(gtk::Orientation::Horizontal, 10);
     let button_box_s = gtk::Box::new(gtk::Orientation::Horizontal, 10);
     let button_box_t = gtk::Box::new(gtk::Orientation::Horizontal, 10);
+    let button_box_frth = gtk::Box::new(gtk::Orientation::Horizontal, 10);
     let label = gtk::Label::new(None);
     label.set_line_wrap(true);
     label.set_justify(gtk::Justification::Center);
@@ -121,6 +148,7 @@ fn create_fixes_section() -> gtk::Box {
     let remove_orphans_btn = gtk::Button::with_label(&fl!("remove-orphans-title"));
     let clear_pkgcache_btn = gtk::Button::with_label(&fl!("clear-pkgcache-title"));
     let rankmirrors_btn = gtk::Button::with_label(&fl!("rankmirrors-title"));
+    let dnsserver_btn = gtk::Button::with_label(&fl!("dnsserver-title"));
 
     {
         removelock_btn.set_widget_name("remove-lock-title");
@@ -130,6 +158,7 @@ fn create_fixes_section() -> gtk::Box {
         remove_orphans_btn.set_widget_name("remove-orphans-title");
         clear_pkgcache_btn.set_widget_name("clear-pkgcache-title");
         rankmirrors_btn.set_widget_name("rankmirrors-title");
+        dnsserver_btn.set_widget_name("dnsserver-title");
     }
 
     // Create context channel.
@@ -210,6 +239,11 @@ fn create_fixes_section() -> gtk::Box {
             let _ = utils::run_cmd_terminal(String::from("cachyos-rate-mirrors"), true);
         });
     });
+    dnsserver_btn.connect_clicked(glib::clone!(@weak builder => move |_| {
+        let name = "dnsConnectionsBrowser";
+        let stack: gtk::Stack = builder.object("stack").unwrap();
+        stack.set_visible_child_name(&format!("{name}page"));
+    }));
 
     // Setup receiver.
     let removelock_btn_clone = removelock_btn.clone();
@@ -218,6 +252,7 @@ fn create_fixes_section() -> gtk::Box {
         let widget_obj = match msg.action {
             Action::RemoveLock => &removelock_btn_clone,
             Action::RemoveOrphans => &remove_orphans_btn_clone,
+            _ => panic!("Unexpected action!!"),
         };
         let widget_window =
             utils::get_window_from_widget(widget_obj).expect("Failed to retrieve window");
@@ -241,9 +276,12 @@ fn create_fixes_section() -> gtk::Box {
     button_box_s.pack_start(&clear_pkgcache_btn, true, true, 2);
     button_box_s.pack_end(&remove_orphans_btn, true, true, 2);
     button_box_t.pack_end(&rankmirrors_btn, true, true, 2);
+    button_box_frth.pack_end(&dnsserver_btn, true, true, 2);
     button_box_f.set_halign(gtk::Align::Fill);
     button_box_s.set_halign(gtk::Align::Fill);
     button_box_t.set_halign(gtk::Align::Fill);
+    button_box_frth.set_halign(gtk::Align::Fill);
+    topbox.pack_end(&button_box_frth, true, true, 5);
     topbox.pack_end(&button_box_t, true, true, 5);
     topbox.pack_end(&button_box_s, true, true, 5);
     topbox.pack_end(&button_box_f, true, true, 5);
@@ -369,6 +407,184 @@ fn create_apps_section() -> Option<gtk::Box> {
     }
 }
 
+fn create_connections_section() -> gtk::Box {
+    let topbox = gtk::Box::new(gtk::Orientation::Vertical, 2);
+    let connection_box = gtk::Box::new(gtk::Orientation::Horizontal, 2);
+    let dnsservers_box = gtk::Box::new(gtk::Orientation::Horizontal, 2);
+    let button_box = gtk::Box::new(gtk::Orientation::Horizontal, 2);
+    let label = gtk::Label::new(None);
+    label.set_line_wrap(true);
+    label.set_justify(gtk::Justification::Center);
+    label.set_text(&fl!("dns-settings"));
+
+    let connections_label = gtk::Label::new(None);
+    connections_label.set_justify(gtk::Justification::Left);
+    connections_label.set_text(&fl!("select-connections"));
+    let servers_label = gtk::Label::new(None);
+    servers_label.set_justify(gtk::Justification::Left);
+    servers_label.set_text(&fl!("select-dns-server"));
+    let apply_btn = gtk::Button::with_label(&fl!("apply"));
+    let reset_btn = gtk::Button::with_label(&fl!("reset"));
+
+    let combo_conn = {
+        let store = gtk::ListStore::new(&[String::static_type()]);
+        let nm_connections = get_nm_connections();
+        for nm_connection in nm_connections.iter() {
+            store.set(&store.append(), &[(0, nm_connection)]);
+        }
+        utils::create_combo_with_model(&store)
+    };
+    let combo_servers = {
+        let store = gtk::ListStore::new(&[String::static_type()]);
+        for dns_server in G_DNS_SERVERS.keys().into_iter() {
+            store.set(&store.append(), &[(0, dns_server)]);
+        }
+        utils::create_combo_with_model(&store)
+    };
+    combo_servers.set_active(Some(2));
+
+    combo_conn.set_widget_name("connections_combo");
+    combo_servers.set_widget_name("servers_combo");
+
+    // Create context channel.
+    let (dialog_tx, dialog_rx) = glib::MainContext::channel(glib::Priority::default());
+
+    // Connect signals.
+    let dialog_tx_clone = dialog_tx.clone();
+    let combo_conn_clone = combo_conn.clone();
+    let combo_serv_clone = combo_servers.clone();
+    apply_btn.connect_clicked(move |_| {
+        let dialog_tx_clone = dialog_tx_clone.clone();
+        let conn_name = {
+            if let Some(tree_iter) = combo_conn_clone.active_iter() {
+                let model = combo_conn_clone.model().unwrap();
+                let group_gobj = model.value(&tree_iter, 0);
+                let group = group_gobj.get::<&str>().unwrap();
+                String::from(group)
+            } else {
+                "".into()
+            }
+        };
+        let server_name = {
+            if let Some(tree_iter) = combo_serv_clone.active_iter() {
+                let model = combo_serv_clone.model().unwrap();
+                let group_gobj = model.value(&tree_iter, 0);
+                let group = group_gobj.get::<&str>().unwrap();
+                String::from(group)
+            } else {
+                "".into()
+            }
+        };
+        let server_addr = G_DNS_SERVERS.get(&server_name).unwrap();
+        std::thread::spawn(move || {
+            println!("conn_name := {conn_name:?}; server_addr := {server_addr:?}");
+            let status_code = Exec::cmd("/sbin/pkexec")
+                .arg("bash")
+                .arg("-c")
+                .arg(format!(
+                    "nmcli con mod '{conn_name}' ipv4.dns '{server_addr}' && systemctl restart \
+                     NetworkManager"
+                ))
+                .join()
+                .unwrap();
+            if status_code.success() {
+                dialog_tx_clone
+                    .send(DialogMessage {
+                        msg: fl!("dns-server-changed"),
+                        msg_type: gtk::MessageType::Info,
+                        action: Action::SetDnsServer,
+                    })
+                    .expect("Couldn't send data to channel");
+            } else {
+                dialog_tx_clone
+                    .send(DialogMessage {
+                        msg: fl!("dns-server-failed"),
+                        msg_type: gtk::MessageType::Error,
+                        action: Action::SetDnsServer,
+                    })
+                    .expect("Couldn't send data to channel");
+            }
+        });
+    });
+    let dialog_tx_clone = dialog_tx.clone();
+    let combo_conn_clone = combo_conn.clone();
+    reset_btn.connect_clicked(move |_| {
+        let dialog_tx_clone = dialog_tx_clone.clone();
+        let conn_name = {
+            if let Some(tree_iter) = combo_conn_clone.active_iter() {
+                let model = combo_conn_clone.model().unwrap();
+                let group_gobj = model.value(&tree_iter, 0);
+                let group = group_gobj.get::<&str>().unwrap();
+                String::from(group)
+            } else {
+                "".into()
+            }
+        };
+        std::thread::spawn(move || {
+            let status_code = Exec::cmd("/sbin/pkexec")
+                .arg("bash")
+                .arg("-c")
+                .arg(format!(
+                    "nmcli con mod '{conn_name}' ipv4.dns '' && systemctl restart NetworkManager"
+                ))
+                .join()
+                .unwrap();
+            if status_code.success() {
+                dialog_tx_clone
+                    .send(DialogMessage {
+                        msg: fl!("dns-server-reset"),
+                        msg_type: gtk::MessageType::Info,
+                        action: Action::SetDnsServer,
+                    })
+                    .expect("Couldn't send data to channel");
+            } else {
+                dialog_tx_clone
+                    .send(DialogMessage {
+                        msg: fl!("dns-server-reset-failed"),
+                        msg_type: gtk::MessageType::Error,
+                        action: Action::SetDnsServer,
+                    })
+                    .expect("Couldn't send data to channel");
+            }
+        });
+    });
+
+    // Setup receiver
+    let apply_btn_clone = apply_btn.clone();
+    dialog_rx.attach(None, move |msg| {
+        let widget_obj = &apply_btn_clone;
+        let widget_window =
+            utils::get_window_from_widget(widget_obj).expect("Failed to retrieve window");
+
+        let dialog = gtk::MessageDialog::builder()
+            .transient_for(&widget_window)
+            .message_type(msg.msg_type)
+            .text(msg.msg)
+            .title(msg.msg_type.to_string())
+            .modal(true)
+            .build();
+        dialog.show();
+        glib::ControlFlow::Continue
+    });
+
+    topbox.pack_start(&label, true, false, 1);
+    connection_box.pack_start(&connections_label, true, true, 2);
+    connection_box.pack_end(&combo_conn, true, true, 2);
+    dnsservers_box.pack_start(&servers_label, true, true, 2);
+    dnsservers_box.pack_end(&combo_servers, true, true, 2);
+    button_box.pack_start(&reset_btn, true, true, 2);
+    button_box.pack_end(&apply_btn, true, true, 2);
+    connection_box.set_halign(gtk::Align::Fill);
+    dnsservers_box.set_halign(gtk::Align::Fill);
+    button_box.set_halign(gtk::Align::Fill);
+    topbox.pack_start(&connection_box, true, true, 5);
+    topbox.pack_start(&dnsservers_box, true, true, 5);
+    topbox.pack_start(&button_box, true, true, 5);
+
+    topbox.set_hexpand(true);
+    topbox
+}
+
 fn load_enabled_units() {
     G_LOCAL_UNITS.lock().unwrap().loaded_units.clear();
     G_LOCAL_UNITS.lock().unwrap().enabled_units.clear();
@@ -433,7 +649,7 @@ pub fn create_tweaks_page(builder: &Builder) {
     }));
 
     let options_section_box = create_options_section();
-    let fixes_section_box = create_fixes_section();
+    let fixes_section_box = create_fixes_section(builder);
     let apps_section_box_opt = create_apps_section();
 
     let child_name = "tweaksBrowserpage";
@@ -460,6 +676,48 @@ pub fn create_tweaks_page(builder: &Builder) {
     if let Some(apps_section_box) = apps_section_box_opt {
         box_collection.pack_end(&apps_section_box, false, false, 10);
     }
+
+    box_collection.set_valign(gtk::Align::Center);
+    box_collection.set_halign(gtk::Align::Center);
+    box_collection_s.pack_start(&grid, false, false, 0);
+    box_collection_s.pack_start(&box_collection, false, false, 10);
+    viewport.add(&box_collection_s);
+    viewport.show_all();
+
+    let stack: gtk::Stack = builder.object("stack").unwrap();
+    stack.add_named(&viewport, child_name);
+}
+
+pub fn create_dnsconnections_page(builder: &Builder) {
+    let viewport = gtk::Viewport::new(gtk::Adjustment::NONE, gtk::Adjustment::NONE);
+    let image = gtk::Image::from_icon_name(Some("go-previous"), gtk::IconSize::Button);
+    let back_btn = gtk::Button::new();
+    back_btn.set_image(Some(&image));
+    back_btn.set_widget_name("tweaksBrowser");
+
+    back_btn.connect_clicked(glib::clone!(@weak builder => move |button| {
+        let name = button.widget_name();
+        let stack: gtk::Stack = builder.object("stack").unwrap();
+        stack.set_visible_child_name(&format!("{name}page"));
+    }));
+
+    let connections_section_box = create_connections_section();
+
+    let child_name = "dnsConnectionsBrowserpage";
+    connections_section_box.set_widget_name(&format!("{child_name}_connections"));
+
+    let grid = gtk::Grid::new();
+    grid.set_hexpand(true);
+    grid.set_margin_start(10);
+    grid.set_margin_end(10);
+    grid.set_margin_top(5);
+    grid.set_margin_bottom(5);
+    grid.attach(&back_btn, 0, 1, 1, 1);
+    let box_collection_s = gtk::Box::new(gtk::Orientation::Vertical, 5);
+    let box_collection = gtk::Box::new(gtk::Orientation::Vertical, 5);
+    box_collection.set_widget_name(child_name);
+
+    box_collection.pack_start(&connections_section_box, false, false, 10);
 
     box_collection.set_valign(gtk::Align::Center);
     box_collection.set_halign(gtk::Align::Center);
