@@ -13,7 +13,7 @@ package-not-installed = Pakiet '{$package_name}' nie został zainstalowany!
 
 # Dns Connections page
 dns-settings = Ustawienia DNS
-select-connections = Wybierz połączenie:
+select-connection = Wybierz połączenie:
 select-dns-server = Wybierz serwer DNS:
 apply = Zastosuj
 reset = Resetuj
