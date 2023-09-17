@@ -10,6 +10,17 @@ removed-db-lock = Блокировка БД Pacman была снята!
 lock-doesnt-exist = Pacman БД не заблокирован!
 package-not-installed = Пакет '{$package_name}' не был установлен!
 
+# Dns Connections page
+dns-settings = Настройки DNS
+select-connection = Выберите подключение:
+select-dns-server = Выберите DNS сервер:
+apply = Применить
+reset = Сбросить
+dns-server-changed = DNS-сервер был успешно изменен!
+dns-server-failed = Не удалось настроить DNS-сервер!
+dns-server-reset = DNS-сервер был сброшен!
+dns-server-reset-failed = Не удалось сбросить DNS-сервер!
+
 # Tweaks page (tweaks)
 tweak-enabled-title = {$tweak} включен
 
@@ -21,6 +32,7 @@ update-system-title = Обновить систему
 remove-orphans-title = Удалить orphans
 clear-pkgcache-title = Очистить кэш пакетов
 rankmirrors-title = Ранжировать зеркала
+dnsserver-title = Сменить DNS-сервер
 
 # Main Page (buttons)
 button-about-tooltip = О программе

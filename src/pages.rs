@@ -419,7 +419,7 @@ fn create_connections_section() -> gtk::Box {
 
     let connections_label = gtk::Label::new(None);
     connections_label.set_justify(gtk::Justification::Left);
-    connections_label.set_text(&fl!("select-connections"));
+    connections_label.set_text(&fl!("select-connection"));
     let servers_label = gtk::Label::new(None);
     servers_label.set_justify(gtk::Justification::Left);
     servers_label.set_text(&fl!("select-dns-server"));
