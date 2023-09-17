@@ -474,7 +474,7 @@ fn create_connections_section() -> gtk::Box {
     };
     let combo_servers = {
         let store = gtk::ListStore::new(&[String::static_type()]);
-        for dns_server in G_DNS_SERVERS.keys().into_iter() {
+        for dns_server in G_DNS_SERVERS.keys() {
             store.set(&store.append(), &[(0, dns_server)]);
         }
         utils::create_combo_with_model(&store)
@@ -515,7 +515,6 @@ fn create_connections_section() -> gtk::Box {
         };
         let server_addr = G_DNS_SERVERS.get(&server_name).unwrap();
         std::thread::spawn(move || {
-            println!("conn_name := {conn_name:?}; server_addr := {server_addr:?}");
             let status_code = Exec::cmd("/sbin/pkexec")
                 .arg("bash")
                 .arg("-c")
