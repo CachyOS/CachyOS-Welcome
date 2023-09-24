@@ -11,6 +11,17 @@ lock-doesnt-exist = Pacman db lock existiert nicht!
 orphans-not-found = Keine verwaisten Pakete gefunden!
 package-not-installed = Das Paket '{$package_name}' wurde nicht installiert!
 
+# Dns Connections page
+dns-settings = DNS Einstellung
+select-connection = Verbindung auswählen:
+select-dns-server = DNS-Server auswählen:
+apply = Anwenden
+reset = Reset
+dns-server-changed = DNS Server wurde erfolgreich geändert!
+dns-server-failed = DNS-Server konnte nicht eingestellt werden!
+dns-server-reset = DNS-Server wurde zurückgesetzt!
+dns-server-reset-failed = DNS-Server konnte nicht zurückgesetzt werden!
+
 # Tweaks page (tweaks)
 tweak-enabled-title = {$tweak} aktiviert
 
@@ -22,6 +33,7 @@ update-system-title = System-Aktualisierung
 remove-orphans-title = Nicht verwendete Pakete entfernen
 clear-pkgcache-title = Paket-Cache löschen
 rankmirrors-title = Rank Mirrors
+dnsserver-title = DNS-Server ändern
 
 # Main Page (buttons)
 button-about-tooltip = Über
