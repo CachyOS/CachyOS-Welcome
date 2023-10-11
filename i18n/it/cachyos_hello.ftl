@@ -56,8 +56,8 @@ section-project = PROGETTO
 
 # Main Page (body)
 offline-error = Impossibile avviare l'installazione online! Connessione a internet assente
-tweaksbrowser-label = App/Modifiche
-appbrowser-label = Installa App
+tweaksbrowser-label = Applicazioni/Modifiche
+appbrowser-label = Installa Applicazioni
 launch-start-label = Lancia all'avvio
 welcome-title = Benvenuto in CachyOS!
 welcome-body =
