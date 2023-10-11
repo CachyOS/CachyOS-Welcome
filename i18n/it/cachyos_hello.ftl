@@ -63,4 +63,4 @@ welcome-title = Benvenuto in CachyOS!
 welcome-body =
     Grazie per esserti unito alla nostra comunità!
 
-    Noi, gli sviluppatori di CachyOS, speriamo che ti divertirai a usare CachyOS tanto quanto noi ci divertiamo a costruirlo. I collegamenti qua sotto ti aiuteranno a fare i primi passi col tuo nuovo sistema operativo. Per cui goditi l'esperienza e non esitare a mandarci la tua opinione.
+    Noi, gli sviluppatori di CachyOS, speriamo che trovi l'utilizzo di CachyOS altrettanto piacevole quanto lo troviamo noi nello svilupparlo. I collegamenti sottostanti ti aiuteranno a orientarti nel tuo nuovo sistema operativo. Per cui goditi l'esperienza e non esitare a inviarci la tua opinione.
