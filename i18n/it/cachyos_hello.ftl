@@ -3,7 +3,7 @@ about-dialog-title = CachyOS Hello
 about-dialog-comments = Schermata di benvenuto per CachyOS
 
 # Tweaks page
-tweaks = Modifiche
+tweaks = Personalizzazioni
 fixes = Correzioni
 applications = Applicazioni
 removed-db-lock = Il blocco della base di dati di pacman è stato rimosso!
@@ -40,12 +40,12 @@ button-about-tooltip = Informazioni
 button-web-resource-tooltip = Risorse in rete
 button-development-label = Sviluppo
 button-software-label = Software
-button-donate-label = Dona
+button-donate-label = Supportaci
 button-forum-label = Forum
 button-installer-label = Lancia l'installer
 button-involved-label = Partecipa
 button-readme-label = Leggimi
-button-release-info-label = Informazioni di rilascio
+button-release-info-label = Note sulla versione
 button-wiki-label = Wiki
 
 # Main Page (sections)
@@ -56,7 +56,7 @@ section-project = PROGETTO
 
 # Main Page (body)
 offline-error = Impossibile avviare l'installazione online! Connessione a internet assente
-tweaksbrowser-label = Applicazioni/Modifiche
+tweaksbrowser-label = Applicazioni/Personalizzazioni
 appbrowser-label = Installa Applicazioni
 launch-start-label = Lancia all'avvio
 welcome-title = Benvenuto in CachyOS!
