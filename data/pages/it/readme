@@ -1,14 +1,14 @@
 <big>Gestione dell'hardware</big>
 
-CachyOS non solo supporta l'uso di kernel multipli (selezionabili dalle opzioni avanzate alla schermata di avvio), ma fornisce anche accesso ai kernel più recenti e all'avanguardia. Ciò può essere fatto attraverso il modulo Kernel nel Gestore Impostazioni grafiche di CachyOS, o tramite la riga di comando utilizzando il comando MHWD-kernel (Rilevamento Hardware di CachyOS).
+CachyOS non solo supporta l'uso di kernel multipli (selezionabili dalle opzioni avanzate alla schermata di avvio), ma fornisce anche accesso ai kernel più recenti e all'avanguardia. Ciò può essere fatto attraverso il modulo Kernel nel Gestore Impostazioni grafico di CachyOS o tramite la riga di comando utilizzando il comando MHWD-kernel (Rilevamento Hardware di CachyOS).
 
-Questi strumenti di CachyOS aggiorneranno automaticamente un kernel appena installato insieme a tutti i moduli attualmente in uso con il tuo kernel esistente. Ad esempio, se passi dal kernel 3.18 al 4.1, MHWD-kernel includerà automaticamente le versioni del kernel 4.1 e tutti i moduli utilizzati con il kernel 3.18. Che ne dici!
+Questi strumenti di CachyOS aggiorneranno automaticamente un kernel appena installato insieme a tutti i moduli attualmente in uso con il tuo kernel esistente. Ad esempio, se passassi dal kernel 3.18 al 4.1, MHWD-kernel includerebbe automaticamente le versioni del kernel 4.1 e tutti i moduli utilizzati con il kernel 3.18. Che ne dici!
 
-Puoi configurare il tuo hardware attraverso il modulo Rilevamento Hardware nel Gestore Impostazioni o, in alternativa, con l'applicazione CLI MHWD. Con questi strumenti, puoi installare, ad esempio, driver grafici, sia gratuiti che proprietari.
+Puoi configurare il tuo hardware attraverso il modulo Rilevamento Hardware nel Gestore Impostazioni o, in alternativa, con l'applicazione CLI MHWD. Con questi strumenti, puoi installare, ad esempio, driver grafici, sia liberi che proprietari.
 
 <big>Ottenere aiuto</big>
 
-Sebbene CachyOS sia progettato per funzionare il più possibile "out of the box", non affermiamo che sia perfetto. Ci possono essere momenti in cui le cose vanno storte, potresti avere domande e il desiderio di imparare di più, o semplicemente desideri personalizzarlo per adattarlo ai tuoi gusti. Questa pagina fornisce dettagli su alcune risorse disponibili per aiutarti!
+Sebbene CachyOS sia progettato per funzionare il più possibile "out of the box", non affermiamo che sia perfetto. Ci possono essere momenti in cui le cose vanno storte, potresti avere domande e il desiderio di saperne di più, o semplicemente desideri personalizzarlo per adattarlo ai tuoi gusti. Questa pagina fornisce dettagli su alcune risorse disponibili per aiutarti!
 
 <b>Cerca su Internet</b>
 
@@ -20,7 +20,7 @@ Poiché CachyOS si basa su Arch Linux, le guide e i suggerimenti progettati per 
 
 Per ottenere assistenza specifica su CachyOS, disponiamo di un forum online dedicato in cui puoi cercare argomenti o crearne uno tu stesso! Questo è probabilmente il prossimo miglior posto per trovare collaborazione, discussione e assistenza. Chiedi aiuto, condividi le tue opinioni o esponi suggerimenti. Non essere timido!
 
-Il forum di CachyOS è suddiviso in sotto-forum per diversi argomenti e ambienti, quindi per favore inserisci la tua richiesta nel luogo appropriato!
+Il forum di CachyOS è suddiviso in sotto-forum per diversi argomenti e ambienti, quindi per favore inserisci la tua richiesta nel posto appropriato!
 
 <big>Altre risorse</big>
 

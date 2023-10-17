@@ -7,7 +7,7 @@ Abbiamo anche apportato importanti aggiornamenti ai pacchetti, come llvm 16 e li
 
 Attualmente stiamo testando un nuovo metodo per fornire il modulo Nvidia. Questo metodo sostituirà "nvidia-dkms" e il modulo verrà fornito precompilato per evitare ulteriori compilazioni sulla macchina dell'utente.
 Ciò assicura anche che il kernel venga compilato correttamente con il driver Nvidia.
-Effettueremo ulteriori test di stabilità e poi implementeremo questa modifica nelle future release.
+Effettueremo ulteriori test di stabilità e poi implementeremo questa modifica nei rilasci futuri.
 
 Ecco un riepilogo delle modifiche:
 
@@ -15,7 +15,7 @@ Ecco un riepilogo delle modifiche:
 
     systemd-boot: Impostato su luks2 di default
     netinstall: Fornire una categoria dedicata per i pacchetti CachyOS
-    Calamares sincronizzato con il flusso principale
+    Calamares sincronizzato con la sorgente principale
     Aggiornamenti dei pacchetti: linux-cachyos 6.5.3, nvidia-utils 535.104.05, mesa 23.2.7
 
 <big>Correzioni di bug:</big>

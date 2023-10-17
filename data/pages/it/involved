@@ -1,6 +1,6 @@
 <big>Grazie per il tuo supporto</big>
 
-CachyOS Linux riceve un grande sostegno dalla sua comunità di utenti e desideriamo ringraziare ogni singolo contributore per la partecipazione. Stiamo crescendo costantemente, e la nostra distribuzione migliora ogni giorno grazie a voi.
+CachyOS Linux riceve un grande sostegno dalla propria comunità di utenti e desideriamo ringraziare ogni singolo contributore per la partecipazione. Stiamo crescendo costantemente, e la nostra distribuzione migliora ogni giorno grazie a voi.
 
 È molto semplice fare la differenza. A seconda delle tue competenze e disponibilità, puoi aiutare CachyOS in uno o più dei seguenti modi:
 
@@ -8,11 +8,11 @@ CachyOS Linux riceve un grande sostegno dalla sua comunità di utenti e desideri
 
 <b>Divulgare la parola</b>
 
-Se ti piace CachyOS, fai sapere alle persone. Scrivi una recensione e pubblicala su distrowatch.com. Parlane con i tuoi amici e le persone che ti circondano.
+Se ti piace CachyOS, fallo sapere alle persone. Scrivi una recensione e pubblicala su distrowatch.com. Parlane con i tuoi amici e le persone che ti circondano.
 
 <b>Unirti alla Comunità</b>
 
-CachyOS non è solo un sistema operativo, è anche una dinamica comunità di persone che apprezzano, si riuniscono e interagiscono con un progetto libero e aperto. Che si tratti di aiutare gli altri a risolvere problemi, farli sentire i benvenuti o semplicemente incontrare e parlare con altri utenti di CachyOS, ti consigliamo di unirti alla comunità e partecipare a rendere CachyOS migliore.
+CachyOS non è solo un sistema operativo, è anche una dinamica comunità di persone che apprezzano, si riuniscono e interagiscono con un progetto libero e aperto. Che si tratti di aiutare gli altri a risolvere problemi, farli sentire benvenuti o semplicemente incontrare e parlare con altri utenti di CachyOS, ti consigliamo di unirti alla comunità e partecipare a rendere CachyOS migliore.
 
 <b>Aiutare gli altri</b>
 
@@ -22,11 +22,11 @@ Se hai del tempo libero e sei disposto ad aiutare altri utenti con problemi tecn
 
 <b>Segnalazioni di bug</b>
 
-Se hai notato qualcosa che non funziona correttamente mentre usi CachyOS, faccelo sapere. Il problema che hai scoperto è probabile che interessi anche ad altri; quanto prima lo sapremo, tanto prima saremo in grado di risolverlo.
+Se hai notato qualcosa che non funziona correttamente mentre usi CachyOS, faccelo sapere. Il problema che hai scoperto è probabile che interessi anche altri; quanto prima lo sapremo, tanto prima saremo in grado di risolverlo.
 
 <b>Nuove idee</b>
 
-La stragrande maggioranza delle migliorie incluse in ogni versione proviene dalla comunità. Se pensi che manchi qualcosa o che potrebbe essere fatto meglio, per favore comunicacelo. Che si tratti dell'inclusione di un driver hardware mancante, di un'applicazione software che dovrebbe far parte dell'installazione di base, o se hai altre idee su come rendere CachyOS migliore, siamo sempre interessati a sentirle.
+La stragrande maggioranza delle migliorie incluse in ogni versione proviene dalla comunità. Se pensi che manchi qualcosa o che potrebbe essere fatto meglio, per favore comunicacelo. Che si tratti dell'inclusione di un driver hardware mancante, di un'applicazione software che dovrebbe far parte dell'installazione di base o se hai altre idee su come rendere CachyOS migliore, siamo sempre interessati a sentirle.
 
 <b>Grafica</b>
 
@@ -34,4 +34,4 @@ Se sei talentuoso nel design grafico e desideri contribuire al progetto, inviaci
 
 <b>Codice</b>
 
-La maggior parte del nostro sviluppo è realizzata in QT, C++, Python, HTML5/CSS e BASH. Usiamo anche Git per il controllo della versione e PKGBUILDs per l'impacchettamento. Se ti senti a tuo agio con queste tecnologie, non esitare a dare un'occhiata al codice. Se pensi di poter migliorare le nostre applicazioni o scriverne di nuove, non esitare a suggerire patch o fare un fork dei nostri repository Git.
+La maggior parte del nostro sviluppo è realizzata in QT, C++, Python, HTML5/CSS e BASH. Usiamo anche git per il controllo della versione e PKGBUILD per l'impacchettamento. Se ti senti a tuo agio con queste tecnologie, non esitare a dare un'occhiata al codice. Se pensi di poter migliorare le nostre applicazioni o scriverne di nuove, non esitare a suggerire patch o fare fork dei nostri repository git.
