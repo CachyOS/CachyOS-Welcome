@@ -1,0 +1,37 @@
+<big>CachyOS 23.09</big>
+
+Questa è la nostra decima release nel 2023.
+In questa versione, abbiamo cambiato il metodo predefinito di cifratura per systemd-boot a "luks2" e abbiamo effettuato una pulizia nella netinstall.
+Ora è possibile non installare pacchetti correlati a CachyOS, i quali hanno ora la loro categoria dedicata.
+Abbiamo anche apportato importanti aggiornamenti ai pacchetti, come llvm 16 e linux-cachyos 6.5.3.
+
+Attualmente stiamo testando un nuovo metodo per fornire il modulo Nvidia. Questo metodo sostituirà "nvidia-dkms" e il modulo verrà fornito precompilato per evitare ulteriori compilazioni sulla macchina dell'utente.
+Ciò assicura anche che il kernel venga compilato correttamente con il driver Nvidia.
+Effettueremo ulteriori test di stabilità e poi implementeremo questa modifica nei rilasci futuri.
+
+Ecco un riepilogo delle modifiche:
+
+<big>Caratteristiche:</big>
+
+    systemd-boot: Impostato su luks2 di default
+    netinstall: Fornire una categoria dedicata per i pacchetti CachyOS
+    Calamares sincronizzato con la sorgente principale
+    Aggiornamenti dei pacchetti: linux-cachyos 6.5.3, nvidia-utils 535.104.05, mesa 23.2.7
+
+<big>Correzioni di bug:</big>
+
+    shellprocess_sdboot: Evitare l'uso di "sudo" durante la generazione delle voci di avvio durante il processo di installazione
+
+È possibile scaricare il software dai nostri mirror su sourceforge.
+
+https://mirror.cachyos.org/ISO/
+https://sourceforge.net/projects/cachyos-arch/files/
+
+Se desideri supportarci, puoi effettuare una donazione per aiutarci a coprire i costi mensili del server.
+
+https://paypal.me/pttrr
+https://www.patreon.com/CachyOS
+
+Grazie per il tuo supporto!
+
+Il Team di CachyOS
