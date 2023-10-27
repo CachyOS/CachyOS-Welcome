@@ -1,5 +1,5 @@
 use crate::alpm_helper::*;
-use crate::utils;
+use crate::{fl, utils};
 
 use gio::prelude::*;
 use gtk::prelude::{
@@ -69,18 +69,21 @@ impl ApplicationBrowser {
 
         let button_box = gtk::Box::new(gtk::Orientation::Horizontal, 10);
         button_box.set_widget_name(child_name);
-        let advanced_button = gtk::ToggleButton::with_label("advanced");
-        advanced_button.set_tooltip_text(Some("Toggle an extended selection of packages"));
+        let advanced_button = gtk::ToggleButton::with_label(&fl!("advanced-btn"));
+        advanced_button.set_tooltip_text(Some(&fl!("advanced-btn-tooltip")));
         advanced_button.connect_clicked(on_advanced_clicked);
+        advanced_button.set_widget_name("advanced-btn");
         // let download_button = gtk::Button::with_label("download");
         // download_button.set_tooltip_text(Some("Download the most recent selection of packages"));
         // download_button.connect_clicked(on_download_clicked);
-        let reset_button = gtk::Button::with_label("reset");
-        reset_button.set_tooltip_text(Some("Reset your current selections..."));
+        let reset_button = gtk::Button::with_label(&fl!("reset-btn"));
+        reset_button.set_tooltip_text(Some(&fl!("reset-btn-tooltip")));
         reset_button.connect_clicked(on_reload_clicked);
-        let update_system_btn = gtk::Button::with_label("UPDATE SYSTEM");
-        update_system_btn.set_tooltip_text(Some("Apply your current selections to the system"));
+        reset_button.set_widget_name("reset-btn");
+        let update_system_btn = gtk::Button::with_label(&fl!("update-system-app-btn"));
+        update_system_btn.set_tooltip_text(Some(&fl!("update-system-app-btn-tooltip")));
         update_system_btn.connect_clicked(on_update_system_clicked);
+        update_system_btn.set_widget_name("update-system-app-btn");
         update_system_btn.set_sensitive(false);
 
         // Group filter
@@ -251,7 +254,8 @@ impl ApplicationBrowser {
 
         // column model: app name column
         let app_cell_renderer = gtk::CellRendererText::new();
-        let app_column = create_column("Application", &app_cell_renderer, "text", APPLICATION);
+        let app_column =
+            create_column(&fl!("application-column"), &app_cell_renderer, "text", APPLICATION);
         // app_column.set_resizable(false);
         app_column.set_cell_data_func(
             &app_cell_renderer,
@@ -263,14 +267,16 @@ impl ApplicationBrowser {
         let desc_renderer = gtk::CellRendererText::new();
         desc_renderer.set_wrap_mode(gtk::pango::WrapMode::Word);
         desc_renderer.set_wrap_width(290);
-        let desc_column = create_column("Description", &desc_renderer, "text", DESCRIPTION);
+        let desc_column =
+            create_column(&fl!("description-column"), &desc_renderer, "text", DESCRIPTION);
         desc_column.set_resizable(false);
         self.tree_view.append_column(&desc_column);
 
         // column model: install column
         let install_renderer = gtk::CellRendererToggle::new();
         install_renderer.connect_toggled(on_app_toggle);
-        let install_column = create_column("Install/Remove", &install_renderer, "active", ACTIVE);
+        let install_column =
+            create_column(&fl!("install-remove-column"), &install_renderer, "active", ACTIVE);
         install_column.set_cell_data_func(
             &install_renderer,
             Some(Box::new(treeview_cell_check_data_function)),

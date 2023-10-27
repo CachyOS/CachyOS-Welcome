@@ -10,6 +10,17 @@ removed-db-lock = Блокировка БД Pacman была снята!
 lock-doesnt-exist = Pacman БД не заблокирован!
 package-not-installed = Пакет '{$package_name}' не был установлен!
 
+# Application Browser page
+advanced-btn = дополнительные
+reset-btn = сброс
+update-system-app-btn = ОБНОВИТЬ СИСТЕМУ
+application-column = Приложение
+description-column = Описание
+install-remove-column = Установить/удалить
+advanced-btn-tooltip = Переключить на расширенный выбор пакетов
+reset-btn-tooltip = Сброс текущий выбор...
+update-system-app-btn-tooltip = Применить текущий выбор к системе
+
 # Dns Connections page
 dns-settings = Настройки DNS
 select-connection = Выберите подключение:

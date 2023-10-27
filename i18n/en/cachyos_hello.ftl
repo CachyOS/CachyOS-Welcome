@@ -11,6 +11,17 @@ lock-doesnt-exist = Pacman db lock does not exist!
 orphans-not-found = No orphan packages found!
 package-not-installed = Package '{$package_name}' has not been installed!
 
+# Application Browser page
+advanced-btn = advanced
+reset-btn = reset
+update-system-app-btn = UPDATE SYSTEM
+application-column = Application
+description-column = Description
+install-remove-column = Install/Remove
+advanced-btn-tooltip = Toggle an extended selection of packages
+reset-btn-tooltip = Reset your current selections...
+update-system-app-btn-tooltip = Apply your current selections to the system
+
 # Dns Connections page
 dns-settings = DNS Settings
 select-connection = Select Connection:
