@@ -879,7 +879,7 @@ fn on_refreshkeyring_btn_clicked(_: &gtk::Button) {
         .search(needles.iter())
         .unwrap()
         .into_iter()
-        .filter(|pkg| pkg.name() != "gnome-keyring")
+        .filter(|pkg| pkg.name() != "gnome-keyring" && pkg.name() != "python-keyring")
         .map(|pkg| {
             let mut pkgname = String::from(pkg.name());
             pkgname.remove_matches("-keyring");
