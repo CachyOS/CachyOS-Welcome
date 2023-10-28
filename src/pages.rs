@@ -945,6 +945,13 @@ fn on_appbtn_clicked(button: &gtk::Button) {
             envs += "PATH=/sbin:/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/sbin ";
             continue;
         }
+        if let Some(env) = env.to_str() {
+            const env_exceptions: &[&str] =
+                &["LESS", "LS", "HIST", "FZF", "CARGO", "RUST", "KITTY"];
+            if env_exceptions.iter().any(|x| env.starts_with(x)) {
+                continue;
+            }
+        }
         let _ = write!(
             envs,
             "{}=\"{}\" ",
