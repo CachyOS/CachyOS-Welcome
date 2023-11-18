@@ -1,26 +1,27 @@
-<big>CachyOS 23.09</big>
+<big>CachyOS 23.11</big>
 
-Dies ist unser 10. Release im Jahr 2023.
-Das Release ändert für systemd-boot die Standard-Verschlüsselungsmethode auf "luks2" und die Netzinstallation wurde aufgeräumt.
-Es ist nun möglich, CachyOS-bezogene Pakete nicht zu installieren und sie haben nun ihre eigene Kategorie.
-Wir haben auch einige größere Paket-Upgrades erhalten, wie llvm 16 und linux-cachyos 6.5.3.
+Dies ist unsere 11. Veröffentlichung im Jahr 2023.
+Diese Version bringt einige Änderungen im Zusammenhang mit dem nvidia-Modul. Wir werden aufhören, nvidia-dkms zu verwenden und werden vorkompilierte Module verwenden.
+Genauso wie wir es mit dem zfs-Modul machen.
+Dies wird die Aktualisierungszeiten bei der Installation des Kernels verbessern. Wir stellen das nvidia-Modul für **alle** unserer Kernel zur Verfügung.
+Außerdem haben wir das nvidia-Modul für linux-zen und linux-hardened hinzugefügt, um auch die arch-Kernel abzudecken.
 
-Derzeit testen wir auch eine neue Methode, um das nvidia-Modul bereitzustellen. Diese Methode wird "nvidia-dkms" ersetzen und das Modul wird vorkompiliert, um weitere Kompilierungen auf dem Benutzerrechner zu vermeiden.
-Dies stellt auch sicher, dass der Kernel mit dem nvidia-Treiber kompiliert wird.
-Wir werden noch einige Stabilitätstests durchführen und dies dann in zukünftige Versionen implementieren.
+Der neue "Cachybuilder" läuft jetzt sehr gut und wir sind froh, dass wir endlich mehr Kontrolle über die Pakete haben. Auch werden die Pakete nun schneller aktualisiert.
+Die x86-64-v4-Unterstützung ist noch für dieses Jahr geplant und wir werden bald damit beginnen, diese ISA zum Builder hinzuzufügen.
 
 Hier ist eine Zusammenfassung der Änderungen:
 
 <big>Features:</big>
 
-- systemd-boot: Standardmäßig auf luks2
-- netinstall: Bereitstellung einer eigenen Kategorie für CachyOS-Pakete
+- nvidia: Verwendung des nvidia-Moduls anstelle von dkms
 - Calamares mit Upstream synchronisiert
-- Paketaktualisierungen: linux-cachyos 6.5.3, nvidia-utils 535.104.05, mesa 23.2.7
+- Paketaktualisierungen: linux-cachyos 6.6.1, nvidia-utils 545.29.02, mesa 23.2.1, zfs-utils 2.2.0, mkinitcpio 37
 
 <big>Fehlerbehebungen:</big>
 
-- shellprocess_sdboot: Vermeiden Sie die Verwendung von "sudo", wenn Sie die Booteinträge während des Installationsprozesses erzeugen
+- netinstall: Pakete wurden umbenannt aufgrund der jüngsten Änderungen am KF5-Paket
+- netinstall: xdg-desktop-portal-gnome wurde der GNOME-Installation hinzugefügt
+- nvidia-hook: nvidia-hook wurde wieder hinzugefügt, um Probleme bei der Installation mit dem neuen Modul zu vermeiden
 
 Sie finden den Download auf unseren Spiegelservern auf Sourceforge.
 

@@ -1,26 +1,27 @@
-<big>CachyOS 23.09</big>
+<big>CachyOS 23.11</big>
 
-This is our 10th release in 2023.
-The release does change for systemd-boot the default encryption method to "luks2" and the netinstall got a clean up.
-It is now possible to not install CachyOS related packages and they have now their own category.
-We also got some major package upgrades, like llvm 16 and linux-cachyos 6.5.3.
+This is our 11th release in 2023.
+The release does bring some changes related to the nvidia module. We will stop using nvidia-dkms and will use precompiled modules.
+Equal as we do with the zfs module.
+This will improve the update times, when installing the kernel. We are providing the nvidia module for **all** of our kernel.
+Also we added the nvidia module for linux-zen and linux-hardened, to have the arch kernels also covered.
 
-Currently we are also testing a new method to provide the nvidia module. This method will replace "nvidia-dkms" and the module comes precompiled to avoid further compilations on the users machine.
-This makes also sure, that the kernel does compile with the nvidia-driver.
-We will do some further stability testing and then implement this into future releases.
+The new "Cachybuilder" is running very well now and we are happy that we have finally more control over the packages. Also packages are getting now faster updated.
+The x86-64-v4 support is still planned for this year and we will start adding this ISA to the builder soon.
 
 Here's a summary of the changes:
 
 <big>Features:</big>
 
-- systemd-boot: Default to luks2
-- netinstall: Provide a own category for CachyOS Packages
+- nvidia: Use nvidia module instead of dkms
 - Calamares synced with upstream
-- Package updates: linux-cachyos 6.5.3, nvidia-utils 535.104.05, mesa 23.2.7
+- Package updates: linux-cachyos 6.6.1, nvidia-utils 545.29.02, mesa 23.2.1, zfs-utils 2.2.0, mkinitcpio 37
 
 <big>Bug-fixes:</big>
 
-- shellprocess_sdboot: Avoid using "sudo", when generating the boot entries at the installation process
+- netinstall: Packages got renamed due the recent changes at the KF5 packaging
+- netinstall: xdg-desktop-portal-gnome got added to the GNOME Installation
+- nvidia-hook: Added nvidia-hook back to avoid issues at installation time with the new module
 
 You can find the download at our mirrors on sourceforge.
 
@@ -34,4 +35,4 @@ https://www.patreon.com/CachyOS
 
 Thank you for your support!
 
-The CachyOS Team
+**The CachyOS Team**

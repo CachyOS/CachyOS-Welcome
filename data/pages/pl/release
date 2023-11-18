@@ -1,26 +1,27 @@
-<big>CachyOS 23.09</big>
+<big>CachyOS 23.11</big>
 
-To nasze dziesiąte wydanie w 2023 roku.
-Wydanie zmienia się dla systemd-Uruchom domyślną metodę szyfrowania na "luks2", a netinstall został oczyszczony.
-Teraz Można nie instalować pakietów związanych z CachyOS i mają teraz własną kategorię.
-Dostaliśmy również kilka dużych aktualizacji pakietów, takich jak llvm 16 i linux-cachyos 6.5.3.
+To nasze 11. wydanie w 2023 roku.
+To wydanie przynosi pewne zmiany związane z modułem nvidia. Przestaniemy używać nvidia-dkms i będziemy używać prekompilowanych modułów.
+Tak samo jak w przypadku modułu zfs.
+Poprawi to czas aktualizacji podczas instalacji jądra. Dostarczamy moduł nvidia dla **całego** naszego jądra.
+Dodaliśmy również moduł nvidia dla linux-zen i linux-hardened, aby objąć również jądra arch.
 
-Obecnie testujemy również nową metodę dostarczania modułu nvidia. Ta metoda zastąpi "nvidia-dkms", a moduł zostanie wstępnie skompilowany, aby uniknąć dalszych kompilacji na komputerze użytkownika.
-Daje to również pewność, że jądro kompiluje się ze sterownikiem nvidia.
-Przeprowadzimy dalsze testy stabilności, a następnie wdrożymy to w przyszłych wydaniach.
+Nowy "Cachybuilder" działa teraz bardzo dobrze i cieszymy się, że w końcu mamy większą kontrolę nad pakietami. Również pakiety są teraz szybciej aktualizowane.
+Obsługa x86-64-v4 jest wciąż planowana na ten rok i wkrótce zaczniemy dodawać ten ISA do buildera.
 
 Oto podsumowanie zmian:
 
 <big>Nowe funkcje:</big>
 
-- systemd-boot: domyślnie luks2
-- netinstall: udostępnienie własnej kategorii Dla pakietów CachyOS
-- Calamares zsynchronizowane z upstream
-- Aktualizacje pakietów: linux-cachyos 6.5.3, nvidia-utils 535.104.05, mesa 23.2.7
+- nvidia: Użyj modułu nvidia zamiast dkms
+- Calamares zsynchronizowany z upstream
+- Aktualizacje pakietów: linux-cachyos 6.6.1, nvidia-utils 545.29.02, mesa 23.2.1, zfs-utils 2.2.0, mkinitcpio 37
 
 <big>Naprawy błędów:</big>
 
-- shellprocess_sdboot: Unikaj używania "sudo" podczas generowania wpisów rozruchowych w procesie instalacji
+- netinstall: Zmieniono nazwy pakietów z powodu ostatnich zmian w pakowaniu KF5
+- netinstall: xdg-desktop-portal-gnome został dodany do instalacji GNOME.
+- nvidia-hook: Dodano z powrotem nvidia-hook, aby uniknąć problemów podczas instalacji z nowym modułem.
 
 Pliki do pobrania można znaleźć na naszych serwerach lustrzanych lub sourceforge.
 
@@ -34,4 +35,4 @@ https://www.patreon.com/CachyOS
 
 Dziękujemy za wsparcie!
 
-Zespół CachyOS
+**Zespół CachyOS**
