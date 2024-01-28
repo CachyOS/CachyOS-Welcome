@@ -1,0 +1,37 @@
+<big>CachyOS 23.11</big>
+
+这是我们 2023 年的第 11 次发布。
+本次更新主要涉及 Nvidia 模块的变更。我们将停止使用 nvidia-dkms，转而使用预编译模块，就像我们处理 ZFS 模块那样。
+装时的更新速度。我们为**所有**内核提供 Nvidia 模块。
+此外，我们还为 Linux-zen 和 Linux-hardened 添加了 Nvidia 模块，以覆盖 Arch 内核。
+
+新的“Cachybuilder”现已运行良好，我们很高兴终于能更好地控制软件包。软件包的更新速度也变得更快了。
+对 x86-64-v4 的支持仍计划在今年内完成，我们将很快开始在构建器中添加这一指令集架构。
+
+以下是变更摘要：
+
+<big>特性：</big>
+
+- Nvidia：使用 Nvidia 模块代替 dkms
+- Calamares 与上游同步
+- Package updates: linux-cachyos 6.6.1, nvidia-utils 545.29.02, mesa 23.2.1, zfs-utils 2.2.0, mkinitcpio 37
+
+<big>错误修复：</big>
+
+- 网络安装：由于最近对 KF5 打包的更改，包名已更改
+- 网络安装：GNOME 安装中新增了 xdg-desktop-portal-gnome
+- nvidia-hook：为避免新模块安装时出现问题，重新添加了 nvidia-hook
+
+您可以在我们的源代码托管平台上的镜像中找到下载链接。
+
+https://mirror.cachyos.org/ISO/
+https://sourceforge.net/projects/cachyos-arch/files/
+
+如果您愿意支持我们，可以通过捐赠帮助我们支付每月服务器费用。
+
+https://paypal.me/pttrr
+https://www.patreon.com/CachyOS
+
+感谢您的支持！
+
+**CachyOS 团队**
