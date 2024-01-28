@@ -2,6 +2,7 @@ use i18n_embed::fluent::{fluent_language_loader, FluentLanguageLoader};
 use i18n_embed::{DefaultLocalizer, I18nEmbedError, LanguageLoader, Localizer};
 use once_cell::sync::Lazy;
 use rust_embed::RustEmbed;
+use unic_langid::LanguageIdentifier;
 
 #[derive(RustEmbed)]
 #[folder = "i18n"] // path to the compiled localization resources
@@ -43,11 +44,11 @@ pub fn get_available_languages() -> Result<Vec<unic_langid::LanguageIdentifier>,
 
 /// Check if language is available
 pub fn check_language_valid(requested_language: &str) -> bool {
+    let requested_lang_id: LanguageIdentifier =
+        requested_language.parse().expect("Invalid locale id");
+
     let available_languages = get_available_languages().unwrap();
-    available_languages.iter().any(|x| {
-        let lang = x.language.to_string();
-        lang == requested_language
-    })
+    available_languages.iter().any(|x| *x == requested_lang_id)
 }
 
 /// Get system language or default language if system one is not supported
