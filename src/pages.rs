@@ -947,7 +947,7 @@ fn on_appbtn_clicked(button: &gtk::Button) {
         }
         if let Some(env) = env.to_str() {
             const env_exceptions: &[&str] =
-                &["LESS", "LS", "HIST", "FZF", "CARGO", "RUST", "KITTY"];
+                &["LESS", "LS", "HIST", "FZF", "CARGO", "RUST", "KITTY", "PROMPT"];
             if env_exceptions.iter().any(|x| env.starts_with(x)) {
                 continue;
             }
