@@ -399,9 +399,9 @@ fn on_query_tooltip_tree_view(
 
 fn on_button_press_event_tree_view(
     treeview: &gtk::TreeView,
-    event_btn: &gdk::EventButton,
+    event_btn: &gtk::gdk::EventButton,
 ) -> gtk::glib::Propagation {
-    if event_btn.button() == 1 && event_btn.event_type() == gdk::EventType::DoubleButtonPress {
+    if event_btn.button() == 1 && event_btn.event_type() == gtk::gdk::EventType::DoubleButtonPress {
         if let Some(coords) = event_btn.coords() {
             let (x, y) = coords;
             let path_info = treeview.path_at_pos(x as i32, y as i32);

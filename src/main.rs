@@ -15,8 +15,8 @@ mod utils;
 
 use config::{APP_ID, PROFILE, VERSION};
 use data_types::*;
-use glib::GString;
-use gtk::{gio, glib, Builder, HeaderBar, Window};
+use gtk::glib::GString;
+use gtk::{gdk, glib, Builder, HeaderBar, Window};
 use i18n_embed::DesktopLanguageRequester;
 use once_cell::sync::Lazy;
 use std::collections::HashMap;
@@ -25,7 +25,7 @@ use std::sync::{Arc, Mutex};
 use unic_langid::LanguageIdentifier;
 use utils::*;
 
-use gio::prelude::*;
+use gtk::gio::prelude::*;
 use gtk::prelude::*;
 
 use gtk::gdk_pixbuf::Pixbuf;
