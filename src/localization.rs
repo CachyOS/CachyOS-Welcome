@@ -46,7 +46,7 @@ pub fn get_available_languages() -> Result<Vec<unic_langid::LanguageIdentifier>,
 pub fn check_language_valid(requested_language: &str) -> bool {
     let requested_lang_id: LanguageIdentifier = requested_language
         .parse()
-        .unwrap_or_else(|_| "en_US.UTF-8".parse().expect("failed to fallback"));
+        .unwrap_or_else(|_| "en_US".parse().expect("failed to fallback"));
 
     let available_languages = get_available_languages().unwrap();
     available_languages.iter().any(|x| *x == requested_lang_id)
