@@ -11,15 +11,15 @@ alpm-utils = { features = ["conf"], default-features = false, version = "2" }
 pacmanconf = "2"
 
 subprocess = "0.2"
-once_cell = { default-features = false, version = "1.18" }
+once_cell = { default-features = false, version = "1.19" }
 i18n-embed = { version = "0.14", features = ["fluent-system", "desktop-requester"] }
-i18n-embed-fl = "0.7"
+i18n-embed-fl = "0.8"
 rust-embed = { version = "8", features = ["debug-embed", "include-exclude"] }
 gtk = { version = "0.18", default-features = false }
-gio = { version = "0.18", default-features = false }
+gio = { version = "0.19", default-features = false }
 gdk = "0.18"
-gdk-pixbuf = "0.18"
-glib = { default-features = false, version = "0.18" }
+gdk-pixbuf = "0.19"
+glib = { default-features = false, version = "0.19" }
 serde = { version = "1", default-features = false }
 serde_json = "1"
 reqwest = { version = "0.11", features = ["blocking"] }

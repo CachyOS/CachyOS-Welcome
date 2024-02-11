@@ -1,7 +1,7 @@
 use crate::alpm_helper::*;
 use crate::{fl, utils};
 
-use gio::prelude::*;
+use gtk::gio::prelude::*;
 use gtk::prelude::{
     BoxExt, ButtonExt, CellRendererExt, CellRendererTextExt, CellRendererToggleExt, ComboBoxExt,
     ContainerExt, GridExt, GtkListStoreExt, GtkListStoreExtManual, ScrolledWindowExt,
@@ -106,7 +106,7 @@ impl ApplicationBrowser {
         app_browser_box.pack_start(&back_grid, false, false, 0);
         app_browser_box.pack_start(&button_box, false, false, 10);
 
-        let col_types: [glib::Type; 7] = [
+        let col_types: [gtk::glib::Type; 7] = [
             String::static_type(),
             String::static_type(),
             String::static_type(),
@@ -400,13 +400,13 @@ fn on_query_tooltip_tree_view(
 fn on_button_press_event_tree_view(
     treeview: &gtk::TreeView,
     event_btn: &gdk::EventButton,
-) -> glib::Propagation {
+) -> gtk::glib::Propagation {
     if event_btn.button() == 1 && event_btn.event_type() == gdk::EventType::DoubleButtonPress {
         if let Some(coords) = event_btn.coords() {
             let (x, y) = coords;
             let path_info = treeview.path_at_pos(x as i32, y as i32);
             if path_info.is_none() {
-                return glib::Propagation::Stop;
+                return gtk::glib::Propagation::Stop;
             }
 
             let (path, ..) = path_info.unwrap();
@@ -425,7 +425,7 @@ fn on_button_press_event_tree_view(
         }
     }
 
-    glib::Propagation::Proceed
+    gtk::glib::Propagation::Proceed
 }
 
 fn on_app_toggle(_cell: &gtk::CellRendererToggle, path: gtk::TreePath) {
@@ -477,14 +477,9 @@ fn load_groups_data(groups: &serde_json::Value) -> gtk::ListStore {
 
 fn create_column(
     title: &str,
-    cell: &impl IsA<gtk::CellRenderer>,
+    cell: &impl gtk::prelude::IsA<gtk::CellRenderer>,
     attr: &str,
     val: u32,
 ) -> gtk::TreeViewColumn {
-    let column = gtk::TreeViewColumn::new();
-    column.set_title(title);
-    column.pack_start(cell, true);
-    column.add_attribute(cell, attr, val as i32);
-
-    column
+    gtk::TreeViewColumn::with_attributes(title, cell, &[(attr, val as i32)])
 }

@@ -28,7 +28,7 @@ use utils::*;
 use gio::prelude::*;
 use gtk::prelude::*;
 
-use gdk_pixbuf::Pixbuf;
+use gtk::gdk_pixbuf::Pixbuf;
 
 use serde_json::json;
 use std::{fs, str};
