@@ -54,7 +54,7 @@ fn quick_message(message: &'static str) {
         .build();
 
     dialog.add_button("_Offline", gtk::ResponseType::No);
-    dialog.add_button("_Online", gtk::ResponseType::Yes);
+    dialog.add_button("_Online  (recommended)", gtk::ResponseType::Yes);
     let content_area = dialog.content_area();
     let label = gtk::Label::new(Some(message));
 
