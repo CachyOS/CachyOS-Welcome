@@ -8,5 +8,6 @@
     <file compressed="true">data/img/reddit.png</file>
     <file compressed="true">data/img/telegram.png</file>
     <file compressed="true">data/img/twitter.png</file>
+    <file compressed="true">data/img/cachyOS.png</file>
   </gresource>
 </gresources>

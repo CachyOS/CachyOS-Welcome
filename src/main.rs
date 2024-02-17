@@ -250,6 +250,17 @@ fn build_ui(application: &gtk::Application) {
         image.set_from_resource(Some(&icon_path));
     }
 
+    // Setup cachyOS Logo resource 
+    let cachyos_image: gtk::Image = builder.object("cachyOS").expect("Couldn't get cachyOS image");
+    let cachyos_icon_path = format!("{RESPREFIX}/data/img/cachyOS.png");
+
+    let pixbuf = Pixbuf::from_resource_at_scale(&cachyos_icon_path, 256, 256, true)
+    .expect("Could not load the image from resource");
+
+    // Set the Pixbuf to the GtkImage
+    cachyos_image.set_from_pixbuf(Some(&pixbuf));
+
+
     let homepage_grid: gtk::Grid = builder.object("homepage").unwrap();
     for widget in homepage_grid.children() {
         let casted_widget = widget.downcast::<gtk::Button>();
