@@ -1,27 +1,17 @@
-<big>CachyOS 23.11</big>
+<big>CachyOS 24.02</big>
 
-This is our 11th release in 2023.
-The release does bring some changes related to the nvidia module. We will stop using nvidia-dkms and will use precompiled modules.
-Equal as we do with the zfs module.
-This will improve the update times, when installing the kernel. We are providing the nvidia module for **all** of our kernel.
-Also we added the nvidia module for linux-zen and linux-hardened, to have the arch kernels also covered.
-
-The new "Cachybuilder" is running very well now and we are happy that we have finally more control over the packages. Also packages are getting now faster updated.
-The x86-64-v4 support is still planned for this year and we will start adding this ISA to the builder soon.
+This is our second release in 2024 and is mainly a maintenance release to bring kernel updates, the major glibc update and a cleanup of the Live ISO.
+This release is mainly done to have a new ISO before Plasma 6 will be released and its changes to QT6.
 
 Here's a summary of the changes:
 
 <big>Features:</big>
 
-- nvidia: Use nvidia module instead of dkms
-- Calamares synced with upstream
-- Package updates: linux-cachyos 6.6.1, nvidia-utils 545.29.02, mesa 23.2.1, zfs-utils 2.2.0, mkinitcpio 37
-
-<big>Bug-fixes:</big>
-
-- netinstall: Packages got renamed due the recent changes at the KF5 packaging
-- netinstall: xdg-desktop-portal-gnome got added to the GNOME Installation
-- nvidia-hook: Added nvidia-hook back to avoid issues at installation time with the new module
+- Live-ISO: Cleanup and Sync the Live-ISO
+- Launch Installer: Add recommendation for the online installation
+- shell-configs: Add option to disable fastfetch when starting the terminal and add an "update" alias
+- netinstall: Add phonon-qt5-vlc to kde
+- Package Updates: linux-cachyos 6.7.5, mesa 23.3.5, gcc 13.2.1-12, glibc 2.39, mesa 24.0.1
 
 You can find the download at our mirrors on sourceforge.
 
