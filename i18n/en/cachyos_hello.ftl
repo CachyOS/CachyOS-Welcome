@@ -65,6 +65,10 @@ section-installer = INSTALLATION
 section-support = SUPPORT
 section-project = PROJECT
 
+# Main Page (launch installer)
+recommended = recommended
+calamares-install-type = Calamares install type
+
 # Main Page (body)
 offline-error = Unable to start online installation! No internet connection
 tweaksbrowser-label = Apps/Tweaks

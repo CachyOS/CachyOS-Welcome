@@ -42,21 +42,21 @@ static G_SAVE_JSON: Lazy<Mutex<serde_json::Value>> = Lazy::new(|| {
 });
 static mut G_HELLO_WINDOW: Option<Arc<HelloWindow>> = None;
 
-fn quick_message(message: &'static str) {
+fn quick_message(message: String) {
     // Create the widgets
     let window_ref = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().window };
     let dialog = gtk::Dialog::builder()
         .transient_for(window_ref)
-        .title(message)
+        .title(&message)
         .modal(true)
         .expand(true)
         .destroy_with_parent(true)
         .build();
 
     dialog.add_button("_Offline", gtk::ResponseType::No);
-    dialog.add_button("_Online  (recommended)", gtk::ResponseType::Yes);
+    dialog.add_button(&format!("_Online ({})", fl!("recommended")), gtk::ResponseType::Yes);
     let content_area = dialog.content_area();
-    let label = gtk::Label::new(Some(message));
+    let label = gtk::Label::new(Some(&message));
 
     // Add the label, and show everything we’ve added
     content_area.add(&label);
@@ -503,7 +503,7 @@ fn on_action_clicked(param: &[glib::Value]) -> Option<glib::Value> {
     let widget = param[0].get::<gtk::Widget>().unwrap();
     return match widget.widget_name().as_str() {
         "install" => {
-            quick_message("Calamares install type");
+            quick_message(fl!("calamares-install-type"));
             None
         },
         "autostart" => {
