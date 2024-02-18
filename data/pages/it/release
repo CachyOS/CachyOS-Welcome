@@ -1,29 +1,18 @@
-<big>CachyOS 23.11</big>
+<big>CachyOS 24.02</big>
 
-Questo è il nostro 11° rilascio nel 2023.
-Questo rilascio apporta alcuni cambiamenti relativi al modulo nvidia. Smetteremo di usare nvidia-dkms e useremo moduli precompilati.
-Come facciamo con il modulo zfs.
-Questo migliorerà i tempi di aggiornamento durante l'installazione del kernel. Stiamo fornendo il modulo nvidia per **tutti** i nostri kernel.
-Abbiamo anche aggiunto il modulo nvidia per linux-zen e linux-hardened, per coprire anche i kernel arch.
-
-Il nuovo "Cachybuilder" funziona molto bene e siamo felici di avere finalmente un maggiore controllo sui pacchetti. Anche i pacchetti vengono aggiornati più velocemente.
-Il supporto x86-64-v4 è ancora previsto per quest'anno e inizieremo presto ad aggiungere questa ISA al builder.
+Questa è la nostra seconda versione del 2024 ed è principalmente una versione di manutenzione per portare gli aggiornamenti del kernel, l'importante aggiornamento di glibc e una pulizia della Live ISO. Questo rilascio è principalmente fatto per avere una nuova ISO prima che venga rilasciato Plasma 6 e i suoi cambiamenti a QT6.
 
 Ecco un riepilogo delle modifiche:
 
 <big>Caratteristiche:</big>
 
-- nvidia: usare il modulo nvidia invece di dkms
-- Calamares sincronizzato con upstream
-- Aggiornamenti dei pacchetti: linux-cachyos 6.6.1, nvidia-utils 545.29.02, mesa 23.2.1, zfs-utils 2.2.0, mkinitcpio 37
+- Live-ISO: Pulizia e sincronizzazione della Live-ISO
+- Avvio dell'installatore: Aggiunta di una raccomandazione per l'installazione online
+- Configurazioni della shell: Aggiunta dell'opzione per disabilitare fastfetch all'avvio del terminale e aggiunta di un alias "update"
+- Netinstall: Aggiunta di phonon-qt5-vlc a kde
+- Aggiornamenti dei pacchetti: linux-cachyos 6.7.5, mesa 23.3.5, gcc 13.2.1-12, glibc 2.39, mesa 24.0.1
 
-<big>Correzioni di bug:</big>
-
-- netinstall: I pacchetti sono stati rinominati a causa delle recenti modifiche apportate al pacchetto KF5.
-- netinstall: xdg-desktop-portal-gnome è stato aggiunto all'installazione di GNOME
-- nvidia-hook: Aggiunto nvidia-hook per evitare problemi al momento dell'installazione con il nuovo modulo.
-
-È possibile scaricare il software dai nostri mirror su sourceforge.
+È possibile trovare il download presso i nostri mirror su sourceforge 
 
 https://mirror.cachyos.org/ISO/
 https://sourceforge.net/projects/cachyos-arch/files/
