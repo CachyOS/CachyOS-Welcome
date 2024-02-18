@@ -1,6 +1,7 @@
 <big>CachyOS 24.02</big>
 
-Questa è la nostra seconda versione del 2024 ed è principalmente una versione di manutenzione per portare gli aggiornamenti del kernel, l'importante aggiornamento di glibc e una pulizia della Live ISO. Questo rilascio è principalmente fatto per avere una nuova ISO prima che venga rilasciato Plasma 6 e i suoi cambiamenti a QT6.
+Questa è la nostra seconda versione del 2024 ed è principalmente una versione di manutenzione per portare gli aggiornamenti del kernel, l'importante aggiornamento di glibc e una pulizia della Live ISO. 
+Questo rilascio è principalmente fatto per avere una nuova ISO prima che venga rilasciato Plasma 6 e i suoi cambiamenti a QT6.
 
 Ecco un riepilogo delle modifiche:
 
