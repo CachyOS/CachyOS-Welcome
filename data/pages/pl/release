@@ -1,29 +1,19 @@
-<big>CachyOS 23.11</big>
+<big>CachyOS 24.02</big>
 
-To nasze 11. wydanie w 2023 roku.
-To wydanie przynosi pewne zmiany związane z modułem nvidia. Przestaniemy używać nvidia-dkms i będziemy używać prekompilowanych modułów.
-Tak samo jak w przypadku modułu zfs.
-Poprawi to czas aktualizacji podczas instalacji jądra. Dostarczamy moduł nvidia dla **całego** naszego jądra.
-Dodaliśmy również moduł nvidia dla linux-zen i linux-hardened, aby objąć również jądra arch.
+Jest to nasze drugie wydanie w 2024 roku i jest to głównie wydanie poprawkowe, które wprowadza aktualizacje kernela, dużą aktualizację glibc i czyszczenie Live ISO.
+To wydanie ma głównie na celu wydanie nowego ISO przed pojawieniem się Plasma 6 i jego zmianami w QT6.
 
-Nowy "Cachybuilder" działa teraz bardzo dobrze i cieszymy się, że w końcu mamy większą kontrolę nad pakietami. Również pakiety są teraz szybciej aktualizowane.
-Obsługa x86-64-v4 jest wciąż planowana na ten rok i wkrótce zaczniemy dodawać ten ISA do buildera.
+Here's a summary of the changes:
 
-Oto podsumowanie zmian:
+<big>Features:</big>
 
-<big>Nowe funkcje:</big>
+- Live-ISO: Czyszczenie i aktualizacja ISO
+- Launch Installer: Dodano zalecenia dotyczące instalacji online
+- shell-configs: Dodanie opcji wyłączenia szybkiego pobierania podczas uruchamiania terminala i dodanie aliasu "update".
+- netinstall: Dodanie phonon-qt5-vlc do KDE
+- Zaktualizowano paczki: linux-cachyos 6.7.5, mesa 23.3.5, gcc 13.2.1-12, glibc 2.39, mesa 24.0.1
 
-- nvidia: Użyj modułu nvidia zamiast dkms
-- Calamares zsynchronizowany z upstream
-- Aktualizacje pakietów: linux-cachyos 6.6.1, nvidia-utils 545.29.02, mesa 23.2.1, zfs-utils 2.2.0, mkinitcpio 37
-
-<big>Naprawy błędów:</big>
-
-- netinstall: Zmieniono nazwy pakietów z powodu ostatnich zmian w pakowaniu KF5
-- netinstall: xdg-desktop-portal-gnome został dodany do instalacji GNOME.
-- nvidia-hook: Dodano z powrotem nvidia-hook, aby uniknąć problemów podczas instalacji z nowym modułem.
-
-Pliki do pobrania można znaleźć na naszych serwerach lustrzanych lub sourceforge.
+Plik do pobrania można znaleźć na naszych serwerach lustrzanych na sourceforge.
 
 https://mirror.cachyos.org/ISO/
 https://sourceforge.net/projects/cachyos-arch/files/
@@ -33,6 +23,6 @@ Jeśli chcesz nas wesprzeć, możesz przekazać darowiznę na pokrycie miesięcz
 https://paypal.me/pttrr
 https://www.patreon.com/CachyOS
 
-Dziękujemy za wsparcie!
+Dzięki za Wasze wspacie!
 
-**Zespół CachyOS**
+**The CachyOS Team**
