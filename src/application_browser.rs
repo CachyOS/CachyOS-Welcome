@@ -54,7 +54,7 @@ impl ApplicationBrowser {
         let app_browser_box = gtk::Box::new(gtk::Orientation::Vertical, 0);
         app_browser_box.set_expand(true);
 
-        let child_name = "appBrowserpage";
+        let child_name = "appBrowserpageimpl";
 
         let back_image = gtk::Image::from_icon_name(Some("go-previous"), gtk::IconSize::Button);
         let back_btn = gtk::Button::new();
