@@ -2,33 +2,33 @@
     {
         "name": "Browsers",
         "icon": "browser",
-        "description": "Web browsing and communication",
+        "description": "Web'de gezinti ve iletişim",
         "apps": [
             {
                 "name": "Brave",
                 "icon": "brave",
-                "description": "A web browser that stops ads and trackers by default.",
+                "description": "Aksi belirtilmediği takdirde reklamları ve kullanıcı takibini engelleyen bir web tarayıcısı",
                 "pkg": "brave-bin",
                 "extra": []
             },
             {
                 "name": "Ungoogled Chromium",
                 "icon": "chromium",
-                "description": "A lightweight approach to removing Google web service dependency",
+                "description": "Google web hizmetlerine bağımlılığı kaldırmaya yönelik hafif yüklü bir yaklaşım",
                 "pkg": "ungoogled-chromium",
                 "extra": []
             },
             {
                 "name": "Chromium",
                 "icon": "chromium",
-                "description": "Fast and popular open source browser",
+                "description": "Hızlı ve popüler, açık kaynak kodlu bir tarayıcı",
                 "pkg": "chromium",
                 "extra": []
             },
             {
                 "name": "Epiphany",
                 "icon": "epiphany",
-                "description": "Gnome Web Browser",
+                "description": "GNOME Masaüstü için bir Web Tarayıcısı",
                 "pkg": "epiphany",
                 "filter": [
                     "advanced"
@@ -38,21 +38,21 @@
             {
                 "name": "Firefox",
                 "icon": "mozilla-firefox",
-                "description": "Privacy oriented Web Browser",
+                "description": "Gizlilik odaklı bir Web tarayıcısı",
                 "pkg": "firefox",
                 "extra": []
             },
             {
                 "name": "Midori",
                 "icon": "midori",
-                "description": "Lightweight Web browser",
+                "description": "Hafif bir Web tarayıcısı",
                 "pkg": "midori",
                 "extra": []
             },
             {
                 "name": "Falkon",
                 "icon": "falkon",
-                "description": "KDE Web Browser",
+                "description": "KDE Web tarayıcısı",
                 "pkg": "falkon",
                 "filter": [
                     "advanced"
@@ -65,7 +65,7 @@
             {
                 "name": "Konqueror",
                 "icon": "konqueror",
-                "description": "Konqueror Web Browser",
+                "description": "Konqueror Web tarayıcısı",
                 "pkg": "konqueror",
                 "filter": [
                     "advanced"
@@ -78,7 +78,7 @@
             {
                 "name": "Opera",
                 "icon": "opera",
-                "description": "Fast and secure webbrowser",
+                "description": "Hızlı ve güvenilir bir Web tarayıcısı",
                 "pkg": "opera",
                 "extra": []
             }
@@ -87,12 +87,12 @@
     {
         "name": "E-mail",
         "icon": "mail-client",
-        "description": "E-mail, Calendar, Tasks",
+        "description": "Elektronik postalarınızı ve takvimi takip edebileceğiniz, yapılacakları atayabileceğiniz bir uygulama",
         "apps": [
             {
                 "name": "Claws Mail",
                 "icon": "claws-mail",
-                "description": "Lightweight and fast GTK+ based Mail Client",
+                "description": "GTK+ tabanlı, hafif ve hızlı bir e-posta istemcisi",
                 "pkg": "claws-mail",
                 "filter": [
                     "advanced"
@@ -102,21 +102,21 @@
             {
                 "name": "Evolution",
                 "icon": "evolution",
-                "description": "Manage your email, contacts and schedule",
+                "description": "E-postalarınızı, kişi bağlantılarınızı ve planlamalarınızı tek bir uygulamayla yönetin",
                 "pkg": "evolution",
                 "extra": []
             },
             {
                 "name": "Geary",
                 "icon": "geary",
-                "description": "Send and receive mail",
+                "description": "E-posta alın ve gönderin.",
                 "pkg": "geary",
                 "extra": []
             },
             {
                 "name": "KMail",
                 "icon": "kmail",
-                "description": "KDE E-mail client",
+                "description": "KDE e-posta istemcisi",
                 "pkg": "kmail",
                 "desktop": [
                     "!gnome"
@@ -126,7 +126,7 @@
             {
                 "name": "Thunderbird",
                 "icon": "thunderbird",
-                "description": "Send and receive mail, contacts and schedule",
+                "description": "E-posta alın ve gönderin, takvim ve kişilerinizi yönetin. Mozilla tarafından geliştirilen, popüler açık kaynaklı e-posta istemcisi.",
                 "pkg": "thunderbird",
                 "extra": []
             }
@@ -135,40 +135,40 @@
     {
         "name": "Office Suites",
         "icon": "applications-office",
-        "description": "Office suites like MS Office",
+        "description": "Microsoft Ofis'e benzeyen ofis ve döküman araç-gereçleri",
         "apps": [
             {
                 "name": "Libre Office (Fresh)",
                 "icon": "libreoffice-main",
-                "description": "Open Source Office Application (Latest)",
+                "description": "Açık kaynak kodlu bir ofis uygulaması (güncel)",
                 "pkg": "libreoffice-fresh",
                 "extra": []
             },
             {
                 "name": "Libre Office (Still)",
                 "icon": "libreoffice-main",
-                "description": "Open Source Office Application (Stable)",
+                "description": "Açık kaynak kodlu bir ofis uygulaması (stabil)",
                 "pkg": "libreoffice-still",
                 "extra": []
             },
             {
                 "name": "WPS Office",
                 "icon": "ms-word",
-                "description": "An office productivity suite.",
+                "description": "Verimliliğinizi artıracak ofis uygulamaları ve benzeri araç-gereçler içeren kapsamlı uygulama",
                 "pkg": "wps-office",
                 "extra": []
             },
             {
                 "name": "OnlyOffice Desktop Editors",
                 "icon": "ms-word",
-                "description": "Light and free MS Office clone.",
+                "description": "Parasız ve hafif bir Microsoft Ofis klonu; Microsoft tescilli dökümanlarla son derece uyumluluk gösteren bir uygulama",
                 "pkg": "onlyoffice-bin",
                 "extra": []
             },
             {
                 "name": "MS 365 Electron",
                 "icon": "ms-word",
-                "description": "Unofficial Microsoft 365 Web Desktop Wrapper made with Electron",
+                "description": "Web üzerinden Microsoft 365 Süiti'ne erişmenizi sağlayan, resmi olmayan bir Electron aracılı bir Masaüstü Modülü",
                 "pkg": "ms-365-electron-bin",
                 "extra": []
             }
@@ -177,19 +177,19 @@
     {
         "name": "E-Book",
         "icon": "calibre",
-        "description": "E-book library apps",
+        "description": "E-kitap kütüphanesi uygulamaları",
         "apps": [
             {
                 "name": "Calibre",
                 "icon": "calibre-viewer",
-                "description": "The one stop solution to your e-book needs",
+                "description": "Bütün e-kitap ihtiyaçlarınızı karşılamak için tek bir durak.",
                 "pkg": "calibre",
                 "extra": []
             },
             {
                 "name": "FBReader",
                 "icon": "fbreader",
-                "description": "FBReader E-Book Reader",
+                "description": "FBReader bir e-kitap okuyucusudur",
                 "pkg": "fbreader",
                 "extra": []
             }
@@ -198,12 +198,12 @@
     {
         "name": "Text Editors",
         "icon": "text-editor",
-        "description": "Various editors for text or code",
+        "description": "Metin veya kod düzenlemek için envai çeşit editörler",
         "apps": [
             {
                 "name": "Atom",
                 "icon": "atom",
-                "description": "A hackable text editor for the 21st Century",
+                "description": "21. yüzyıla uyarlanmış, heklenebilen bir metin düzenleyici",
                 "pkg": "atom",
                 "filter": [
                     "advanced"
@@ -213,21 +213,21 @@
             {
                 "name": "Gedit",
                 "icon": "gedit",
-                "description": "Gnome text editor.",
+                "description": "GNOME metin düzenleyicisi.",
                 "pkg": "gedit",
                 "extra": []
             },
             {
                 "name": "Micro",
                 "icon": "micro",
-                "description": "Inituitive Text Editor for terminal",
+                "description": "Terminal için, sezgisel olarak tasarlanmış bir metin düzenleyici.",
                 "pkg": "micro",
                 "extra": []
             },
             {
                 "name": "Vim",
                 "icon": "vim",
-                "description": "Keyboard controlled text-editor",
+                "description": "Klavye ile kullanılma odaklı tasarlanmış, popüler bir metin düzenleyici.",
                 "pkg": "vim",
                 "filter": [
                     "advanced"
@@ -237,7 +237,7 @@
             {
                 "name": "NeoVim",
                 "icon": "neovim",
-                "description": "Vim-fork focused on extensibility and usability",
+                "description": "Vim kökünden gelen, kullanışlılık ve genişletilebilirlik odaklı bir metin düzenleyici.",
                 "pkg": "neovim",
                 "filter": [
                     "advanced"
@@ -247,7 +247,7 @@
             {
                 "name": "Neovide",
                 "icon": "neovide",
-                "description": "No Nonsense Neovim Client in Rust",
+                "description": "RUST ile yazılmış, gereksiz şeyler içermeyen bir Neovim istemcisi",
                 "pkg": "neovide",
                 "filter": [
                     "advanced"
@@ -257,7 +257,7 @@
             {
                 "name": "Visual Studio Code OSS",
                 "icon": "visual-studio-code",
-                "description": "Microsoft Code Editor",
+                "description": "Microsoft kod düzenleyicisi",
                 "pkg": "code",
                 "filter": [
                     "advanced"
@@ -267,7 +267,7 @@
             {
                 "name": "Gnome builder",
                 "icon": "gnome-builder",
-                "description": "An IDE for writing GNOME-based software",
+                "description": "GNOME tabanlı yazılım geliştirmek için Tümleşik Geliştirme Ortamı(IDE).",
                 "pkg": "gnome-builder",
                 "filter": [
                     "advanced"
@@ -277,7 +277,7 @@
             {
                 "name": "Xed",
                 "icon": "xed",
-                "description": "A small and lightweight text editor. X Apps Project",
+                "description": "Ufak ve hafif bir metin düzenleyici. Python ile yazılmış bir XApps projesi.",
                 "pkg": "xed",
                 "extra": []
             }
@@ -286,12 +286,12 @@
     {
         "name": "Printing",
         "icon": "printer",
-        "description": "Support for printing CUPS",
+        "description": "CUPS için yazıcı destek gereçleri",
         "apps": [
             {
                 "name": "The CUPS Printing System",
                 "icon": "printer",
-                "description": "Printing support",
+                "description": "CUPS ile yazıcı desteği.",
                 "pkg": "cups",
                 "extra": ["cups-pdf", "cups-pk-helper"]
             }
@@ -300,19 +300,19 @@
     {
         "name": "PDF",
         "icon": "pdfeditor",
-        "description": "PDF applications applications",
+        "description": "PDF uygulamaları",
         "apps": [
             {
                 "name": "Evince",
                 "icon": "evince",
-                "description": "View multi page documents",
+                "description": "Çok sayfalı dökümanları görüntüleyebilirsiniz. PDF dışında desteklenen formatlar da mevcut.",
                 "pkg": "evince",
                 "extra": []
             },
             {
                 "name": "Okular",
                 "icon": "okular",
-                "description": "Document Viewer",
+                "description": "Döküman Görüntüleyici",
                 "pkg": "okular",
                 "desktop": [
                     "!gnome"
@@ -323,28 +323,28 @@
             {
                 "name": "PDFMod",
                 "icon": "pdfmod",
-                "description": "Remove, extract and rotate pages in PDF Documents",
+                "description": "PDF belgelerinizin sayfalarını kolayca silin, içindekileri çıkarın, döndürün veya dışarı aktarın.",
                 "pkg": "pdfmod",
                 "extra": []
             },
             {
                 "name": "Xournalpp",
                 "icon": "xournalpp",
-                "description": "Easy pdf editing tool",
+                "description": "Kullanımı kolay bir PDF düzenleme aracı.",
                 "pkg": "xournalpp",
                 "extra": []
             },
             {
                 "name": "Xreader",
                 "icon": "xreader",
-                "description": "Xreader is based on Atril and acts as document and PDF reader",
+                "description": "Xreader Atril tabanlı, PDF ve benzeri diğer belgeleri bir görüntüleme aracıdır.",
                 "pkg": "xreader",
                 "extra": []
             },
             {
                 "name": "Paperwork",
                 "icon": "paperwork",
-                "description": "Document manager for GNOME to manage scanned documents and PDFs",
+                "description": "Taranan belgeleri ve PDF dosyalarını denetleme ve yönetmeye yarayan, bir GNOME belge yöneticisi.",
                 "pkg": "paperwork",
                 "extra": []
             }
@@ -353,47 +353,47 @@
     {
         "name": "Graphics Creating",
         "icon": "applications-accessories",
-        "description": "Creating and editing graphics",
+        "description": "Grafik çizimi ve düzenleme araç-gereçleri",
         "apps": [
             {
                 "name": "Blender",
                 "icon": "blender",
-                "description": "3D modeling and animation",
+                "description": "Üç boyutlu modelleme ve animasyon uygulaması",
                 "pkg": "blender",
                 "extra": []
             },
             {
                 "name": "GIMP",
                 "icon": "gimp",
-                "description": "Create images and edit photographs",
+                "description": "Photoshop'a benzer, kapsamlı bir görüntü oluşturucu ve düzenleyicisi",
                 "pkg": "gimp",
                 "extra": []
             },
             {
                 "name": "Inkscape",
                 "icon": "inkscape",
-                "description": "Vector Graphics Editor",
+                "description": "Vektörel Grafik düzenleyici",
                 "pkg": "inkscape",
                 "extra": []
             },
             {
                 "name": "Krita",
                 "icon": "krita",
-                "description": "Digital Painting Creative Freedom",
+                "description": "Açık kaynak kodlu ve ücretsiz dijital çizim uygulaması. Yaratıcılıkta Özgürlük.",
                 "pkg": "krita",
                 "extra": []
             },
             {
                 "name": "Pinta",
                 "icon": "pinta",
-                "description": "Easy create and edit images",
+                "description": "Kolayca görüntü oluşturun veya düzenleyin.",
                 "pkg": "pinta",
                 "extra": []
             },
             {
                 "name": "Tux Paint",
                 "icon": "tuxpaint",
-                "description": "Drawing program for children",
+                "description": "Çocuklara yönelik bir çizim uygulaması.",
                 "pkg": "tuxpaint",
                 "extra": []
             }
@@ -402,54 +402,54 @@
     {
         "name": "Photos",
         "icon": "applications-graphics",
-        "description": "Viewers and organizers",
+        "description": "Görüntüleyiciler ve organize ediciler",
         "apps": [
             {
                 "name": "Gpicview",
                 "icon": "gpicview",
-                "description": "Lightweight Image Viewer",
+                "description": "Hafif bir resim görüntüleyicisi",
                 "pkg": "gpicview",
                 "extra": []
             },
             {
                 "name": "gThumb",
                 "icon": "gthumb",
-                "description": "View and organize your images",
+                "description": "Resimlerinizi görüntüleyin ve kolayca derleyin",
                 "pkg": "gthumb",
                 "extra": []
             },
             {
                 "name": "Gnome-photos",
                 "icon": "gthumb",
-                "description": "Access, organize, and share your photos on GNOME",
+                "description": "GNOME üzerinden resim ve fotoğraflarınızı kolayca derleyin, açın ve başkalarıyla paylaşın",
                 "pkg": "gnome-photos",
                 "extra": []
             },
             {
                 "name": "Ristretto",
                 "icon": "ristretto",
-                "description": "Free and lightweight image viewer",
+                "description": "Ücretsiz ve hafif bir resim görüntüleyici.",
                 "pkg": "ristretto",
                 "extra": []
             },
             {
                 "name": "Shotwell",
                 "icon": "shotwell",
-                "description": "Popular Photo Manager",
+                "description": "Popüler bir görüntü düzenleyici",
                 "pkg": "shotwell",
                 "extra": []
             },
             {
                 "name": "Viewnior",
                 "icon": "viewnior",
-                "description": "GTK based Elegant Image Viewer",
+                "description": "GTK tabanlı, şık görünümlü bir resim görüntüleyici.",
                 "pkg": "viewnior",
                 "extra": []
             },
             {
                 "name": "Eye of Gnome",
                 "icon": "eog",
-                "description": "An image viewing and cataloging program",
+                "description": "Bir resim görüntüleme ve sınıflandırma aracı.",
                 "pkg": "eog",
                 "extra": []
             }
@@ -458,47 +458,47 @@
     {
         "name": "Video/Movie",
         "icon": "video-player",
-        "description": "Organize and play videos and movies",
+        "description": "Film ve videolarınızı oynatın ve organize edin",
         "apps": [
             {
                 "name": "Kodi",
                 "icon": "kodi",
-                "description": "Manage and view your media",
+                "description": "Medya dosyalarınızı sınıflandırmaya, derlemeye ve oynatmaya yarayan, kapsamlı bir medya yönetim ortamı",
                 "pkg": "kodi",
                 "extra": []
             },
             {
                 "name": "Parole",
                 "icon": "parole",
-                "description": "Modern and simple media player",
+                "description": "Modern ve basit bir medya yöneticisi",
                 "pkg": "parole",
                 "extra": []
             },
             {
                 "name": "SM Player",
                 "icon": "smplayer",
-                "description": "A great MPlayer front end",
+                "description": "MPlayer uygulaması için harika bir ön yüz",
                 "pkg": "smplayer",
                 "extra": []
             },
             {
                 "name": "Totem",
                 "icon": "totem",
-                "description": "Play movies",
+                "description": "GNOME için tasarlandı. Video ve filmlerinizi seyretmek için bir araç.",
                 "pkg": "totem",
                 "extra": []
             },
             {
                 "name": "VLC",
                 "icon": "vlc",
-                "description": "VLC media player, the openxource multimedia player",
+                "description": "Kapsamlı, son derece popüler, açık kaynak kodlu bir medya görüntüleme aracı.",
                 "pkg": "vlc",
                 "extra": []
             },
             {
                 "name": "Xplayer",
                 "icon": "xplayer",
-                "description": "Xplayer is based on Totem and plays both music an video",
+                "description": "Xplayer Totem oynatıcı tabanlı, hem müzik hem de video oynatabilen bir medya ortamıdır",
                 "pkg": "xplayer",
                 "extra": []
             }
@@ -507,40 +507,40 @@
     {
         "name": "Audio",
         "icon": "musicbrainz",
-        "description": "Audio players",
+        "description": "Ses oynatıcıları",
         "apps": [
             {
                 "name": "Audacious",
                 "icon": "audacious",
-                "description": "Listen to music",
+                "description": "Az sistem kaynağı kullanan, kadim bir müzik ve ses oynatıcı.",
                 "pkg": "audacious",
                 "extra": []
             },
             {
                 "name": "Clementine",
                 "icon": "clementine",
-                "description": "Play music files and internet radio",
+                "description": "İnternetten radyo dinleme özelliği de bulunan, sade tasarımlı bir ses oynatıcı",
                 "pkg": "clementine",
                 "extra": []
             },
             {
                 "name": "DeadBeeF",
                 "icon": "deadbeef",
-                "description": "Listen to music",
+                "description": "Müziklerinizi dinleyin.",
                 "pkg": "deadbeef",
                 "extra": ["ffmpeg", "libmad", "mpg123"]
             },
             {
                 "name": "Lollypop",
                 "icon": "lollypop",
-                "description": "Play and organize your music collection",
+                "description": "Müzik koleksiyonunuzu organize edin ve oynatın. GNOME için tasarlandı.",
                 "pkg": "lollypop",
                 "extra": []
             },
             {
                 "name": "Rhythmbox",
                 "icon": "rhythmbox",
-                "description": "Gnome music playing application",
+                "description": "GNOME ses ve müzik çalma uygulaması",
                 "pkg": "rhythmbox",
                 "extra": []
             }
@@ -549,61 +549,61 @@
     {
         "name": "Media recording/editing",
         "icon": "kdenlive",
-        "description": "Audio and Video editing",
+        "description": "Ses ve görüntü düzenleme araç-gereçleri",
         "apps": [
             {
                 "name": "Audacity",
                 "icon": "audacity",
-                "description": "Record and Edit Audio files",
+                "description": "Açık kaynak kodlu, popüler bir ses kaydetme ve düzenleme uygulaması",
                 "pkg": "audacity",
                 "extra": []
             },
             {
                 "name": "Kdenlive",
                 "icon": "kdenlive",
-                "description": "Video Editor",
+                "description": "KDE video düzenleyici",
                 "pkg": "kdenlive",
                 "extra": []
             },
             {
                 "name": "OBS Studio",
                 "icon": "obs",
-                "description": "Open Source Streaming/Recording Application",
+                "description": "Açık kaynak kodlu, popüler görüntü yakalama ve yayın yapma aracı",
                 "pkg": "obs-studio",
                 "extra": []
             },
             {
                 "name": "Shotcut",
                 "icon": "shotcut",
-                "description": "Cross-platform Qt based Video Editor",
+                "description": "Qt tabanlı, çapraz platform destekli bir video düzenleyici",
                 "pkg": "shotcut",
                 "extra": []
             },
             {
                 "name": "Openshot",
                 "icon": "openshot",
-                "description": "Award-winning free and open-source video editor",
+                "description": "Ödüllü, açık kaynak kodlu, ücretsiz ve çapraz platformlu bir video düzenleyici",
                 "pkg": "obs-studio",
                 "extra": []
             },
             {
                 "name": "Pitivi",
                 "icon": "pitivi",
-                "description": "Editor for audio/video projects",
+                "description": "Ses ve video projelerinizi düzenlemek için bir araç.",
                 "pkg": "pitivi",
                 "extra": []
             },
             {
                 "name": "Simple Screen Recorder",
                 "icon": "simple-ccsm",
-                "description": "Screen Capturing Application",
+                "description": "Ekran yakalama ve kaydetme uygulaması",
                 "pkg": "simplescreenrecorder",
                 "extra": []
             },
             {
                 "name": "Flowblade",
                 "icon": "flowblade",
-                "description": "Multitrack non-linear video editor",
+                "description": "Birden fazla kanala erişmenizi sağlayan, doğrusal olmayan bir video düzenleyici",
                 "pkg": "flowblade",
                 "extra": []
             }
@@ -612,47 +612,47 @@
     {
         "name": "Chat",
         "icon": "internet-chat",
-        "description": "Online messaging and chat",
+        "description": "Çevrimiçi mesajlaşma ve sohbet",
         "apps": [
             {
                 "name": "HexChat",
                 "icon": "hexchat",
-                "description": "Graphic IRC Client",
+                "description": "Grafik arayüzlü bir IRC istemcisi.",
                 "pkg": "hexchat",
                 "extra": []
             },
             {
                 "name": "Element",
                 "icon": "element-desktop",
-                "description": "Glossy Matrix collaboration client - desktop version",
+                "description": "Glossy Matrix işbirliği ürünü bir Matrix web istemcisi - masaüstü sürümü",
                 "pkg": "element-desktop",
                 "extra": []
             },
             {
                 "name": "Telegram",
                 "icon": "telegram-desktop",
-                "description": "Official Telegram Desktop client",
+                "description": "Resmi Telegram masaüstü istemcisi",
                 "pkg": "telegram-desktop",
                 "extra": []
             },
             {
                 "name": "Whatsapp web",
                 "icon": "whatsapp-web-jak",
-                "description": "Wrapper for whatsapp online",
+                "description": "WhatsApp Web'i kullanmanız için bir fonksiyon çevirici",
                 "pkg": "whatsapp-web-jak",
                 "extra": []
             },
             {
                 "name": "Slack web",
                 "icon": "slack-web-jak",
-                "description": "Wrapper for slack online",
+                "description": "Slack'e erişmeniz için bir fonksiyon çevirici",
                 "pkg": "slack-web-jak",
                 "extra": []
             },
             {
                 "name": "Pidgin Messenger",
                 "icon": "pidgin",
-                "description": "Instant messaging Client",
+                "description": "Pidgin, bir anlık mesajlaşma istemcisidir.",
                 "pkg": "pidgin",
                 "extra": []
             }
@@ -661,7 +661,7 @@
     {
         "name": "File Sharing",
         "icon": "transmission",
-        "description": "FTP and Torrent apps",
+        "description": "FTP ve Torrent uygulamaları",
         "filter": [
             "advanced"
         ],
@@ -669,28 +669,28 @@
             {
                 "name": "Deluge",
                 "icon": "deluge",
-                "description": "Python based Bittorrent Client",
+                "description": "Python tabanlı bir Bittorrent istemcisi",
                 "pkg": "deluge",
                 "extra": []
             },
             {
                 "name": "Filezilla",
                 "icon": "filezilla",
-                "description": "Graphical FTP/FTPS/SFTP browser",
+                "description": "Grafik arayüzlü FTP/FTPS/SFTP tarayıcısı",
                 "pkg": "filezilla",
                 "extra": []
             },
             {
                 "name": "Transmission GTK",
                 "icon": "transmission",
-                "description": "GTK based Bittorrent Client",
+                "description": "GTK tabanlı Bittorrent istemcisi",
                 "pkg": "transmission-gtk",
                 "extra": []
             },
             {
                 "name": "QTransmission",
                 "icon": "transmission",
-                "description": "QT based Bittorrent Client",
+                "description": "QT tabanlı Bittorrent istemcisi",
                 "pkg": "transmission-qt",
                 "desktop": [
                     "!gnome"
@@ -700,7 +700,7 @@
             {
                 "name": "Syncthing",
                 "icon": "syncthing-gtk",
-                "description": "Cross Platform file synchronization tool",
+                "description": "Çapraz platformlu, P2P aracılığıyla dosya eşleştirme aracı.",
                 "pkg": "syncthing-gtk",
                 "extra": []
             }
@@ -709,19 +709,19 @@
     {
         "name": "Backup",
         "icon": "deja-dup",
-        "description": "Backup utilites",
+        "description": "Yedekleme uygulamaları",
         "apps": [
             {
                 "name": "Deja Dup",
                 "icon": "deja-dup",
-                "description": "Keep your important documents safe from disater",
+                "description": "Mühim belge ve dosyalarınızı felaketlerden koruyun.",
                 "pkg": "deja-dup",
                 "extra": []
             },
             {
                 "name": "Grsync",
                 "icon": "grsync",
-                "description": "Synchronize files and folders",
+                "description": "Dosya ve klasörleri eşleştirme aracı.",
                 "pkg": "grsync",
                 "filter": [
                     "advanced"
@@ -731,21 +731,21 @@
             {
                 "name": "Timeshift",
                 "icon": "timeshift",
-                "description": "A system restore utility for Linux",
+                "description": "Linux için bir sistem geri yükleme aracı.",
                 "pkg": "timeshift",
                 "extra": []
             },
             {
                 "name": "Backintime",
                 "icon": "deja-dup",
-                "description": "Simple backup system",
+                "description": "Kullanımı basit bir yedekleme aracı.",
                 "pkg": "backintime",
                 "extra": []
             },
             {
                 "name": "Borg",
                 "icon": "deja-dup",
-                "description": "Deduplicating backup program with compression and authenticated encryption",
+                "description": "Birden çok kopyası olan verileri tekilleştirme, dosya sıkıştırma ve doğrulama gerektiren şifreleme özellikleri olan, kapsamlı bir yedekleme programı.",
                 "pkg": "borg",
                 "filter": [
                     "advanced"
@@ -757,26 +757,26 @@
     {
         "name": "Password Manager",
         "icon": "security-high",
-        "description": "Password Managers",
+        "description": "Şifre yöneticileri",
         "apps": [
             {
                 "name": "KeePassXC",
                 "icon": "keepassxc",
-                "description": "Cross Platform Password Manager",
+                "description": "Hemen her platformda bulunan, çok tercih edilen ve kapsamlı bir şifre yöneticisi",
                 "pkg": "keepassxc",
                 "extra": []
             },
             {
                 "name": "Bitwarden",
                 "icon": "bitwarden",
-                "description": "Secure and free cloud based password manager.",
+                "description": "Güvenli, bulut tabanlı, paralı sürümünde OTP ve çift faktörlü doğrulama özellikleri barındıran freemium şifre yöneticisi.",
                 "pkg": "bitwarden",
                 "extra": []
             },
             {
                 "name": "Unix Pass",
                 "icon": "pass",
-                "description": "The standard unix password manager.",
+                "description": "Standart UNIX şifre yöneticisi",
                 "pkg": "pass",
                 "filter": [
                     "advanced"
@@ -788,7 +788,7 @@
     {
         "name": "System Tools",
         "icon": "disk-utility",
-        "description": "System utilities",
+        "description": "Sistem araçları",
         "filter": [
             "advanced"
         ],
@@ -796,21 +796,21 @@
             {
                 "name": "balenaEtcher",
                 "icon": "mintstick",
-                "description": "Flash OS images to SD cards & USB drives, safely and easily",
+                "description": "İmaj dosyalarınızı (ISO) güvenle ve kolayca flaş belleğe veya hafıza kartına yazma ve başlatılabilir hale getirme aracı.",
                 "pkg": "balena-etcher",
                 "extra": []
             },
             {
                 "name": "Popsicle",
                 "icon": "mintstick",
-                "description": "Linux utility for flashing multiple USB devices in parallel",
+                "description": "Birden fazla USB belleğe aynı anda flaş atmaya yarayan bir Linux aracı.",
                 "pkg": "popsicle",
                 "extra": []
             },
             {
                 "name": "Gnome Disks",
                 "icon": "gnome-disks",
-                "description": "Disk management system for Gnome",
+                "description": "GNOME için disk bölüm yöneticisi",
                 "pkg": "gnome-disk-utility",
                 "desktop": [
                     "!kde"
@@ -820,14 +820,14 @@
             {
                 "name": "Gparted",
                 "icon": "gparted",
-                "description": "Create, reorganize, and delete partitions",
+                "description": "Popüler ve ücretsiz bir disk bölümü oluşturma, organize etme, düzenleme ve silme aracı.",
                 "pkg": "gparted",
                 "extra": []
             },
             {
                 "name": "Ventoy",
                 "icon": "mintstick",
-                "description": "Tool for creating multiboot isos",
+                "description": "Birden fazla imaj dosyasını aynı bellekte barındırmanızı ve tek bir yerden başlatabilmenizi sağlayan bu araçla ayrı ayrı USB flaşlamanıza gerek kalmayacak.",
                 "pkg": "ventoy-bin",
                 "extra": []
             }
@@ -836,7 +836,7 @@
     {
         "name": "Virtual Computing",
         "icon": "virt-manager",
-        "description": "Virtual Machine applications",
+        "description": "Sanal makine uygulamaları",
         "filter": [
             "advanced"
         ],
@@ -844,7 +844,7 @@
             {
                 "name": "VirtualBox",
                 "icon": "virtualbox",
-                "description": "Run several virtual systems on a single host computer",
+                "description": "Tek bir sağlayıcı üstünde birden fazla sanal ortam çalıştırmanızı sağlar.",
                 "pkg": "virtualbox",
                 "extra": [
                     "virtualbox-guest-iso"
@@ -853,14 +853,14 @@
             {
                 "name": "Gnome Boxes",
                 "icon": "gnome-boxes",
-                "description": "Simple remote and virtual machines",
+                "description": "GNOME için tasarlanan, uzaktaki veya yerel sanal makinelere ve masaüstlerine erişim sağlayan bir araç.",
                 "pkg": "gnome-boxes",
                 "extra": []
             },
             {
                 "name": "Virt-manager",
                 "icon": "virt-manager",
-                "description": "Desktop user interface for managing virtual machines",
+                "description": "Aktif sanal makineleri yönetmenizi sağlayan masaüstü kullanıcı arayüzü",
                 "pkg": "virt-manager",
                 "extra": []
             }
