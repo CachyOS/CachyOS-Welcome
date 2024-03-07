@@ -6,7 +6,7 @@ license = "GPLv3"
 edition = "2021"
 
 [dependencies]
-alpm = { default-features = false, version = "2" }
+alpm = { default-features = false, features = ["git"], version = "2" }
 alpm-utils = { features = ["conf"], default-features = false, version = "2" }
 pacmanconf = "2"
 
