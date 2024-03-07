@@ -6,7 +6,7 @@ use glib::translate::FromGlib;
 use gtk::{glib, Builder};
 use once_cell::sync::Lazy;
 use phf::phf_ordered_map;
-use std::fmt::Write as _;
+use std::fmt::Write;
 use std::path::Path;
 use std::sync::Mutex;
 
@@ -944,12 +944,12 @@ fn on_refreshkeyring_btn_clicked(_: &gtk::Button) {
         .unwrap()
         .into_iter()
         .filter(|pkg| pkg.name() != "gnome-keyring" && pkg.name() != "python-keyring")
-        .map(|pkg| {
+        .fold(String::new(), |mut output, pkg| {
             let mut pkgname = String::from(pkg.name());
             pkgname.remove_matches("-keyring");
-            format!("{pkgname} ")
-        })
-        .collect::<String>();
+            let _ = write!(output, "{pkgname} ");
+            output
+        });
 
     // Spawn child process in separate thread.
     std::thread::spawn(move || {

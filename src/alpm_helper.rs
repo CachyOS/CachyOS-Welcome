@@ -76,7 +76,7 @@ impl AlpmHelper {
         self.pkg_list_removal.contains(pkg_name)
     }
 
-    fn install_apps(&self, pkg_list: &Vec<String>, install: bool) -> bool {
+    fn install_apps(&self, pkg_list: &[String], install: bool) -> bool {
         if pkg_list.is_empty() {
             return false;
         }
