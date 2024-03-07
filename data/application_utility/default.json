@@ -203,7 +203,7 @@
             {
                 "name": "Atom",
                 "icon": "atom",
-                "description": "21. yüzyıla uyarlanmış, heklenebilen bir metin düzenleyici",
+                "description": "21. yüzyıla uyarlı, heklenebilen bir metin düzenleyici",
                 "pkg": "atom",
                 "filter": [
                     "advanced"
