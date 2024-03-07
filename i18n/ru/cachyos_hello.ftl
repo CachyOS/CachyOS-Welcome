@@ -44,6 +44,7 @@ remove-orphans-title = Удалить orphans
 clear-pkgcache-title = Очистить кэш пакетов
 rankmirrors-title = Ранжировать зеркала
 dnsserver-title = Сменить DNS-сервер
+show-kwinw-debug-title = Показать окно отладки kwin(Wayland)
 
 # Main Page (buttons)
 button-about-tooltip = О программе

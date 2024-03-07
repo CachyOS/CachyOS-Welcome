@@ -45,6 +45,7 @@ remove-orphans-title = Remove orphans
 clear-pkgcache-title = Clear package cache
 rankmirrors-title = Rank mirrors
 dnsserver-title = Change DNS server
+show-kwinw-debug-title = Show kwin(Wayland) debug window
 
 # Main Page (buttons)
 button-about-tooltip = About
