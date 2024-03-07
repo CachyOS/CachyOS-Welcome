@@ -282,6 +282,12 @@ impl ApplicationBrowser {
             Some(Box::new(treeview_cell_check_data_function)),
         );
 
+        unsafe {
+            app_column.set_data("name", "application-column");
+            desc_column.set_data("name", "description-column");
+            install_column.set_data("name", "install-remove-column");
+        }
+
         install_column.set_resizable(false);
         install_column.set_max_width(40);
         install_column.set_fixed_width(40);

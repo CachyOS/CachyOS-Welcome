@@ -55,11 +55,11 @@ fn update_translation_fixes_section(section_box: &gtk::Box) {
         if let Ok(button_box) = section_box_element.clone().downcast::<gtk::Box>() {
             for button_box_widget in button_box.children() {
                 let box_element_btn = button_box_widget.downcast::<gtk::Button>().unwrap();
-                let widget_name = box_element_btn.widget_name().to_string();
+                let widget_name = box_element_btn.widget_name();
                 let translated_text = crate::localization::get_locale_text(&widget_name);
                 box_element_btn.set_label(&translated_text);
             }
-        } else if let Ok(section_label) = section_box_element.clone().downcast::<gtk::Label>() {
+        } else if let Ok(section_label) = section_box_element.downcast::<gtk::Label>() {
             section_label.set_text(&fl!("fixes"));
         }
     }
@@ -69,18 +69,16 @@ fn update_translation_connections_section(section_box: &gtk::Box) {
     for section_box_element in section_box.children() {
         if let Ok(object_box) = section_box_element.clone().downcast::<gtk::Box>() {
             for object_box_widget in object_box.children() {
-                let widget_name = object_box_widget.widget_name().to_string();
+                let widget_name = object_box_widget.widget_name();
                 if let Ok(box_element_btn) = object_box_widget.clone().downcast::<gtk::Button>() {
                     let translated_text = crate::localization::get_locale_text(&widget_name);
                     box_element_btn.set_label(&translated_text);
-                } else if let Ok(box_element_label) =
-                    object_box_widget.clone().downcast::<gtk::Label>()
-                {
+                } else if let Ok(box_element_label) = object_box_widget.downcast::<gtk::Label>() {
                     let translated_text = crate::localization::get_locale_text(&widget_name);
                     box_element_label.set_text(&translated_text);
                 }
             }
-        } else if let Ok(section_label) = section_box_element.clone().downcast::<gtk::Label>() {
+        } else if let Ok(section_label) = section_box_element.downcast::<gtk::Label>() {
             section_label.set_text(&fl!("dns-settings"));
         }
     }
@@ -95,7 +93,7 @@ fn update_translation_options_section(section_box: &gtk::Box) {
                 let translated_text = fl!("tweak-enabled-title", tweak = widget_name);
                 box_element_btn.set_label(&translated_text);
             }
-        } else if let Ok(section_label) = section_box_element.clone().downcast::<gtk::Label>() {
+        } else if let Ok(section_label) = section_box_element.downcast::<gtk::Label>() {
             section_label.set_text(&fl!("tweaks"));
         }
     }
@@ -113,15 +111,17 @@ pub fn update_translations(builder: &Builder) {
     {
         if let Some(widget) = stack.child_by_name("tweaksBrowserpage") {
             if let Ok(viewport) = widget.downcast::<gtk::Viewport>() {
-                let first_child = &viewport.children()[0].clone().downcast::<gtk::Box>().unwrap();
                 let second_child =
-                    &first_child.children()[1].clone().downcast::<gtk::Box>().unwrap();
+                    &viewport.children()[0].clone().downcast::<gtk::Box>().unwrap().children()[1]
+                        .clone()
+                        .downcast::<gtk::Box>()
+                        .unwrap();
 
                 for second_child_child_widget in second_child.children() {
                     let second_child_child_box =
                         second_child_child_widget.downcast::<gtk::Box>().unwrap();
 
-                    match second_child_child_box.widget_name().to_string().as_str() {
+                    match second_child_child_box.widget_name().as_str() {
                         "tweaksBrowserpage_options" => {
                             update_translation_options_section(&second_child_child_box)
                         },
@@ -138,9 +138,11 @@ pub fn update_translations(builder: &Builder) {
         }
         if let Some(widget) = stack.child_by_name("dnsConnectionsBrowserpage") {
             if let Ok(viewport) = widget.downcast::<gtk::Viewport>() {
-                let first_child = &viewport.children()[0].clone().downcast::<gtk::Box>().unwrap();
                 let second_child =
-                    &first_child.children()[1].clone().downcast::<gtk::Box>().unwrap();
+                    &viewport.children()[0].clone().downcast::<gtk::Box>().unwrap().children()[1]
+                        .clone()
+                        .downcast::<gtk::Box>()
+                        .unwrap();
 
                 for second_child_child_widget in second_child.children() {
                     let second_child_child_box =
@@ -154,12 +156,36 @@ pub fn update_translations(builder: &Builder) {
                 let first_child = &viewport.children()[0].clone().downcast::<gtk::Box>().unwrap();
                 for first_child_box in first_child.children() {
                     if first_child_box.widget_name() != "appBrowserpageimpl" {
+                        if let Ok(child_scrolledwindow) =
+                            &first_child_box.downcast::<gtk::Grid>().unwrap().children()[0]
+                                .clone()
+                                .downcast::<gtk::ScrolledWindow>()
+                        {
+                            let tree_view = &child_scrolledwindow.children()[0]
+                                .clone()
+                                .downcast::<gtk::TreeView>()
+                                .unwrap();
+                            for tree_column in &tree_view.columns() {
+                                if tree_column.title().unwrap().is_empty() {
+                                    continue;
+                                }
+                                let column_name =
+                                    unsafe { *tree_column.data::<&str>("name").unwrap().as_ptr() };
+                                if column_name.is_empty() {
+                                    continue;
+                                }
+
+                                let translated_text =
+                                    crate::localization::get_locale_text(column_name);
+                                tree_column.set_title(&translated_text);
+                            }
+                        }
                         continue;
                     }
                     let appbrowserimpl = &first_child_box.clone().downcast::<gtk::Box>().unwrap();
                     for box_element in appbrowserimpl.children() {
                         if let Ok(box_element_btn) = box_element.clone().downcast::<gtk::Button>() {
-                            let widget_name = box_element_btn.widget_name().to_string();
+                            let widget_name = box_element_btn.widget_name();
                             let translated_text =
                                 crate::localization::get_locale_text(&widget_name);
                             box_element_btn.set_label(&translated_text);
