@@ -1,0 +1,37 @@
+<big>Donanımların İdaresi</big>
+
+CachyOS yalnızca birden fazla çekirdeği kullanma seçeneğini sağlamakla kalmaz (başlangıç ekranındaki gelişmiş seçeneklerden tercih yapılabilir), aynı zamanda en yeni, en uçtaki çekirdeklere de erişim olanağı sağlar. Bu işlem, CachyOS işletim sisteminin grafiksel arayüzlü Ayarlar Yöneticisinde bulunan çekirdek modülü kullanılarak, yahut komut satırı üzerinden MHWD-kernel (CachyOS Donanım Tespiti) komutu kullanılarak gerçekleştirilebilir.
+
+Bu CachyOS araç-gereçleri, mevcut sistem çekirdeğinizi, halihazırda kullanılmakta olan tüm modüllerle birlikte otomatik olarak yenisiyle güncelleyecektir. Örneğin, çekirdek 3.18'den 4.1'e güncelleme yapacaksanız diyelim; MHWD-kernel komutu otomatikman çekirdek 4.1 yapımını alıp, mevcut 3.18 çekirdeği ile kullandığınız tüm modülleri de içeren güncel bir çekirdeği sizin için inşa edecektir. Buna ne dersiniz!
+
+Donanımınızı, Ayarlar Yöneticisindeki Donanım Tespit modülü aracılığıyla ya da alternatif olarak MHWD cli-application kullanarak istediğiniz gibi yapılandırabilirsiniz. Bu araçlarla, örneğin ister ücretsiz ve açık kaynaklı (ör: Nouveau), isterseniz firma tarafından tedarik edilen tescilli (resmi) grafik sürücülerini ve benzerlerini yükleyebilirsiniz.
+
+<big>Yardım alın</big>
+
+CachyOS mümkün olduğunca "ilk kurulduğu haliyle" çalışmak için tasarlanmış olsa da, mükemmel olduğunu iddia etmiyoruz. Zaman zaman işler ters gidebilir, kafanızda sorular oluşabilir ve daha net bilgi almak isteyebilirsiniz; ya da yalnızca zevklerinize uygun şekilde sisteminizi kişiselleştirme arzunuz olabilir. Bu sayfa size yardımcı olacak bazı kaynaklar hakkında ayrıntılar sunmaktadır!
+
+<big>İnternette arama yapın</big>
+
+Belki tipik bir Linux sorunu hakkında yardım almak için ilk başvurmanız gereken yer, favori internet arama motorunuzdur. Arama sorgunuza 'Linux', 'CachyOS' ya da 'Arch' gibi sözcükleri eklemeyi ihmal etmeyin.
+
+CachyOS Arch tabanlı bir Linux dağıtımı olduğundan, Arch için tasarlanmış kılavuzlar, kaynaklar ve ipuçları ekseriyetle CachyOS için de geçerlidir denilebilir.
+
+<big>Foruma bir göz atın</big>
+
+CachyOS ile alakalı özel yardım almak için konuları aratabileceğiniz, ya da kendinizin konu oluşturabileceği özel bir çevrimiçi forumumuz da var! Burası muhtemelen diğer kullanıcılarla işbirliği, tartışma ve yardım alma için gidilecek bir sonraki en iyi durak olacaktır. Yardım isteyebilir, düşüncelerinizi paylaşabilir ya da yapıcı önerilerde bulunabilirsiniz. Çekinmenize gerek yok.
+
+CachyOS forumu farklı konular ve alanlar için alt forumlara ayrılmıştır, lütfen karmaşıklığı önlemek ve daha seri yardım alabilmek adına, soracaklarınızı uygun kategoride sormaya dikkat edin!
+
+<big>Ek kaynaklar</big>
+
+    - <a href="https://aur.archlinux.org">AUR Repository</a> - Doğrudan kaynak kodla oluşturulan, sıradan veri havuzunda (repo) bulunmayan ilave yazılımlar 
+    - <a href="https://wiki.cachyos.org">CachyOS Wiki</a> - CachyOS Resmi vikipedisi.
+    - <a href="https://wiki.archlinux.org">Arch Wiki</a> - Arch Linux Resmi vikipedisi.
+
+<big>Öneriler</big>
+
+CachyOS'i nasıl daha iyi hale getirebileceğimize dair öneriniz mi var? Eklenmesini istediğiniz bir özellik varsa veya bizlere yardım etmek istiyorsanız, lütfen önerinizi foruma yazın veya bizlere IRC aracılığıyla bildirin.
+
+Teşekkür ederiz!
+
+Umarız CachyOS'i kullanmaktan keyif alırsınız!

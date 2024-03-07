@@ -1,0 +1,37 @@
+<big>Desteğiniz için teşekkürler</big>
+
+CachyOS Linux siz değerli kullanıcı topluluğundan oldukça büyük bir destek alıyor, bizler de katılımlarından ve katkılarından dolayı her birinize teşekkürlerimizi sunuyoruz. Emin adımlarla, istikrarlı bir şekilde büyüyoruz ve sizler sayesinde dağıtımımız her geçen gün daha da iyileşiyor.
+
+Değişim yaratmak çok kolaydır. Yetileriniz, kabiliyetleriniz ve müsaitlik durumunuza bağlı olarak CachyOS'e birden fazla yolla yardım edebilirsiniz:
+
+<big>Destek ve Tanıtım</big>
+
+<b>Bizi duymayan kalmasın</b>
+
+Eğer CachyOS'i beğendiyseniz, başkalarının da beğendiğinizi bilmesini sağlayın. Hakkında bir inceleme yazıp, distrowatch.com sitesinde yayınlayın. Arkadaşlarınızla ve çevrenizdekilerle tecrübeniz hakkında konuşun.
+
+<b>Topluluğumuza katılın</b>
+
+CachyOS sadece bir işletim sistemi değil, aynı zamanda ücretsiz ve açık kaynaklı bir projeyle haşır neşir olan, bunun için bir araya gelen ve kullanmaktan zevk alan dinamik bir topluluğa da sahiptir. Size topluluğumuza, dolayısıyla CachyOS'i daha iyi hale getirme çabalarımıza katılmanızı öneriyoruz; bu başkalarına yardım aracılığıyla, onları hoş karşılamayla veya en basit haliyle diğer kullanıcılarla tanışma ve kaynaşmayla da olabilir.
+
+<b>Başkalarına yardım</b>
+
+Eğer ayırabilecek zamanınız ve diğer kullanıcılara teknik sorunlarında yardımcı olma hevesiniz varsa, foruma göz gezdirmenizi ve/ya IRC kanalımıza katılıp çözümünü bildiğiniz sorunların yardımında katkıda bulunmanızı kesinlikle öneririz.
+
+<big>Projeye katkılar</big>
+
+<b>Hata raporları</b>
+
+Eğer CachyOS kullanırken düzgün çalışmayan bir şeyle karşılaşırsanız, bizleri haberdar edin. Keşfettiğiniz sorun muhtemelen başkalarını da etkileyecektir; sorunu ne kadar önce bilirsek, çözümünü de o kadar çabuk sunabiliriz.
+
+<b>Yeni fikirler</b>
+
+Her yeni sürümde bulunan iyileştirmenin büyük çoğunluğu topluluğumuz tarafından dile getirilenlerdir. Eğer bir eksiklik veya daha iyi yapılabilecek bir şey olduğunu düşünüyorsanız, lütfen bize söyleyin. Bu eksik bir donanım sürücüsü de olsa, mevcut kurulumda halihazırda bulunması gerektiğini düşündüğünüz bir uygulama da olsa; ya da CachyOS'i daha iyi noktaya taşıyacağını düşündüğünüz başka fikirleriniz de dahil; bizler hepsini dinlemeye meraklıyız.
+
+<b>Sanatsal çalışmalar</b>
+
+Eğer yetenekli bir grafik tasarımcısıysanız ve projeye katkıda bulunma hevesiniz varsa, lütfen bizlere eserlerinizi gönderin. Bu basit bir duvar kağıdı, simge paketi, açılış ekran resmi yahut yeni logo dizaynı da olsa, sizlerden gelecek tüm sanat işleri için her zaman merak içindeyiz.
+
+<b>Kod</b>
+
+Geliştirmelerimizin çoğu QT, C++, Python, HTML5/CSS ve BASH ile gerçekleşmektedir. Aynı zamanda sürüm kontrolü için git ve paketlemek için PKGBUILDS kullanmaktayız. Eğer bu teknolojileri kullanmakta rahatsanız, kod tabanımıza göz gezdirmekten çekinmeyin. Eğer uygulamalarımızı iyileştirebileceğinizi veya yenilerini yazabileceğinizi düşünüyorsanız, yama önerisi sunmaktan veya git repolarındaki kod tabanımızı fork etmekten çekinmeyin.
