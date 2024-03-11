@@ -132,8 +132,9 @@ impl ApplicationBrowser {
         }
     }
 
-    pub fn default_impl() -> &'static Mutex<Self> {
-        unsafe { &G_APP_BROWSER }
+    pub fn back_btn_impl() -> Option<gtk::Button> {
+        let app_browser = unsafe { G_APP_BROWSER.lock().ok() }?;
+        Some(app_browser.back_btn.clone())
     }
 
     fn load_app_data(&mut self) -> usize {
@@ -296,8 +297,9 @@ impl ApplicationBrowser {
         app_store_size
     }
 
-    pub fn get_page(&self) -> &gtk::Box {
-        &self.app_browser_box
+    pub fn page_impl() -> Option<gtk::Box> {
+        let app_browser = unsafe { G_APP_BROWSER.lock().ok() }?;
+        Some(app_browser.app_browser_box.clone())
     }
 
     fn create_page(&mut self) {

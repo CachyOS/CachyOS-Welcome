@@ -837,17 +837,19 @@ pub fn create_appbrowser_page(builder: &Builder) {
     install.set_label(&fl!("appbrowser-label"));
 
     let viewport = gtk::Viewport::new(gtk::Adjustment::NONE, gtk::Adjustment::NONE);
-    let app_browser_ref = ApplicationBrowser::default_impl().lock().unwrap();
-    app_browser_ref.back_btn.connect_clicked(glib::clone!(@weak builder => move |button| {
+    let back_btn = ApplicationBrowser::back_btn_impl()
+        .expect("Failed to get back btn from application browser");
+    back_btn.connect_clicked(glib::clone!(@weak builder => move |button| {
         let name = button.widget_name();
         let stack: gtk::Stack = builder.object("stack").unwrap();
         stack.set_visible_child_name(&format!("{name}page"));
     }));
-    let app_browser_box = app_browser_ref.get_page();
+    let app_browser_box =
+        ApplicationBrowser::page_impl().expect("Failed to get page of application browser");
 
     // Add grid to the viewport
     // NOTE: we might eliminate that?
-    viewport.add(app_browser_box);
+    viewport.add(&app_browser_box);
     viewport.show_all();
 
     let stack: gtk::Stack = builder.object("stack").unwrap();
