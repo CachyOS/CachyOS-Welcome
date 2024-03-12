@@ -1,6 +1,6 @@
 <big>CachyOS 24.02</big>
 
-Bu 2024'teki ikinci dağıtımımız ve esasen çekirdek güncellemelerini, büyük glibc güncellemesini ve arındırılmış gerçek zamanlı imaj ortamını (Live ISO) içeren bir bakım sürümüdür. Bu sürüm esasen Plasma 6 yayınlanmadan ve Qt6'ya getirdiği değişikliklerden önce oluşturulmuş bir imaj dosyası bulunması maksadıyla yayınlandı.
+2024'te çıkardığımız bu ikinci sürümümüz, temelde çekirdek güncellemelerini, büyük glibc güncellemesini ve arındırılmış gerçek zamanlı imaj ortamını (Live ISO) içeren bir bakım sürümüdür. Bu sürümün asıl yayınlanma maksadı, Plasma 6 yayınlanmadan ve Qt6'ya getirdiği değişikliklerden önce oluşturulmuş bir imaj dosyasının bulunmasıdır.
 
 Değişikliklerin özeti:
 
