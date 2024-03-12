@@ -1,6 +1,6 @@
-<big>Donanımların İdaresi</big>
+<big>Donanım Yönetimi</big>
 
-CachyOS yalnızca birden fazla çekirdeği kullanma seçeneğini sağlamakla kalmaz (başlangıç ekranındaki gelişmiş seçeneklerden tercih yapılabilir), aynı zamanda en yeni, en uçtaki çekirdeklere de erişim olanağı sağlar. Bu işlem, CachyOS işletim sisteminin grafiksel arayüzlü Ayarlar Yöneticisinde bulunan çekirdek modülü kullanılarak, yahut komut satırı üzerinden MHWD-kernel (CachyOS Donanım Tespiti) komutu kullanılarak gerçekleştirilebilir.
+CachyOS yalnızca birden fazla çekirdeği kullanma seçeneğini sağlamakla kalmaz (başlangıç ekranındaki gelişmiş seçeneklerden tercih yapılabilir), aynı zamanda en yeni ve en uçtaki çekirdeklere de erişim olanağı sağlar. Bu işlem, CachyOS işletim sisteminin grafiksel arayüzlü Ayarlar Yöneticisinde bulunan çekirdek modülü kullanılarak, yahut komut satırı üzerinden MHWD-kernel (CachyOS Donanım Tespiti) komutu kullanılarak gerçekleştirilebilir.
 
 Bu CachyOS araç-gereçleri, mevcut sistem çekirdeğinizi, halihazırda kullanılmakta olan tüm modüllerle birlikte otomatik olarak yenisiyle güncelleyecektir. Örneğin, çekirdek 3.18'den 4.1'e güncelleme yapacaksanız diyelim; MHWD-kernel komutu otomatikman çekirdek 4.1 yapımını alıp, mevcut 3.18 çekirdeği ile kullandığınız tüm modülleri de içeren güncel bir çekirdeği sizin için inşa edecektir. Buna ne dersiniz!
 
@@ -10,17 +10,17 @@ Donanımınızı, Ayarlar Yöneticisindeki Donanım Tespit modülü aracılığ�
 
 CachyOS mümkün olduğunca "ilk kurulduğu haliyle" çalışmak için tasarlanmış olsa da, mükemmel olduğunu iddia etmiyoruz. Zaman zaman işler ters gidebilir, kafanızda sorular oluşabilir ve daha net bilgi almak isteyebilirsiniz; ya da yalnızca zevklerinize uygun şekilde sisteminizi kişiselleştirme arzunuz olabilir. Bu sayfa size yardımcı olacak bazı kaynaklar hakkında ayrıntılar sunmaktadır!
 
-<big>İnternette arama yapın</big>
+<b>İnternette arama yapın</b>
 
 Belki tipik bir Linux sorunu hakkında yardım almak için ilk başvurmanız gereken yer, favori internet arama motorunuzdur. Arama sorgunuza 'Linux', 'CachyOS' ya da 'Arch' gibi sözcükleri eklemeyi ihmal etmeyin.
 
-CachyOS Arch tabanlı bir Linux dağıtımı olduğundan, Arch için tasarlanmış kılavuzlar, kaynaklar ve ipuçları ekseriyetle CachyOS için de geçerlidir denilebilir.
+CachyOS Arch tabanlı bir Linux dağıtımı olduğundan, Arch için tasarlanmış kılavuzlar, kaynaklar ve ipuçları genellikle CachyOS için de geçerlidir denilebilir.
 
-<big>Foruma bir göz atın</big>
+<b>Foruma bir göz atın</b>
 
-CachyOS ile alakalı özel yardım almak için konuları aratabileceğiniz, ya da kendinizin konu oluşturabileceği özel bir çevrimiçi forumumuz da var! Burası muhtemelen diğer kullanıcılarla işbirliği, tartışma ve yardım alma için gidilecek bir sonraki en iyi durak olacaktır. Yardım isteyebilir, düşüncelerinizi paylaşabilir ya da yapıcı önerilerde bulunabilirsiniz. Çekinmenize gerek yok.
+CachyOS ile alakalı özel yardım almak için konuları aratabileceğiniz veya kendinizin konu oluşturabileceği özel bir çevrimiçi forumumuz da var! Burası muhtemelen diğer kullanıcılarla işbirliği, tartışma ve yardım alma için gidilecek bir sonraki en iyi durak olacaktır. Bu vesileyle yardım isteyebilir, düşüncelerinizi paylaşabilir ya da yapıcı önerilerde bulunabilirsiniz. Çekinmenize gerek yok.
 
-CachyOS forumu farklı konular ve alanlar için alt forumlara ayrılmıştır, lütfen karmaşıklığı önlemek ve daha seri yardım alabilmek adına, soracaklarınızı uygun kategoride sormaya dikkat edin!
+CachyOS forumu farklı konular ve alanlar için alt forumlara ayrılmıştır. Lütfen, konu karmaşası olmaması ve daha seri yardım alabilmek adına, soracaklarınızı ilgili ve uygun kategori altında sormaya dikkat ediniz!
 
 <big>Ek kaynaklar</big>
 
