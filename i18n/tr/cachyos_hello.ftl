@@ -3,7 +3,7 @@ about-dialog-title = CachyOS Hello
 about-dialog-comments = CachyOS Hoşgeldin Ekranı
 
 # Tweaks page
-tweaks = İyileştirmeler
+tweaks = İnce ayarlar
 fixes = Hata düzeltmeler
 applications = Uygulamalar
 removed-db-lock = Pacman veri tabanı kilidi kaldırıldı!
@@ -34,7 +34,7 @@ dns-server-reset = DNS sunucusu eski haline getirildi!
 dns-server-reset-failed = DNS sunucusu sıfırlama işlemi başarısız oldu!
 
 # Tweaks page (tweaks)
-tweak-enabled-title = {$tweak} izin verildi
+tweak-enabled-title = {$tweak} etkinleştirildi.
 
 # Tweaks page (fixes)
 remove-lock-title = Veri tabanı kilidini kaldır
@@ -43,9 +43,9 @@ refresh-keyrings-title = Veri anahtarlıklarını yenile
 update-system-title = Sistem güncellemesi
 remove-orphans-title = Öksüzleri kaldır
 clear-pkgcache-title = Önbellekteki paketleri temizle 
-rankmirrors-title = Yansıma bağlantılarını sırala 
+rankmirrors-title = Yansıtılan bağlantılarını sırala 
 dnsserver-title = DNS sunucusunu değiştir
-show-kwinw-debug-title = Wayland oturumunda KWin hata ayıklama penceresini göster
+show-kwinw-debug-title = KWin (Wayland) hata ayıklama penceresini göster
 
 # Main Page (buttons)
 button-about-tooltip = Hakkında
