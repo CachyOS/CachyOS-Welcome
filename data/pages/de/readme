@@ -1,10 +1,10 @@
 <big>Handhabung der Hardware</big>
 
-CachyOS unterstützt nicht nur die Verwendung mehrerer Kernel (wählbar in den erweiterten Optionen auf dem Boot-Bildschirm), sondern bietet auch Zugriff auf die allerneuesten Bleeding-Edge-Kernel. Dies kann durch die Verwendung des Kernelmoduls im grafischen Einstellungsmanager von CachyOS oder über die Kommandozeile mit dem MHWD-kernel (CachyOS Hardware Detection) Befehl erfolgen.
+CachyOS unterstützt nicht nur die Verwendung mehrerer Kernel (wählbar in den erweiterten Optionen auf dem Boot-Bildschirm), sondern bietet auch Zugriff auf die allerneuesten Bleeding-Edge-Kernel. Dies kann durch die Verwendung des Kernelmoduls im grafischen Einstellungsmanager von CachyOS oder über die Kommandozeile mit dem chwd-kernel (CachyOS Hardware Detection) Befehl erfolgen.
 
-Diese CachyOS-Tools aktualisieren automatisch einen neu installierten Kernel zusammen mit allen Modulen, die derzeit mit Ihrem bestehenden Kernel verwendet werden. Wenn Sie zum Beispiel von Kernel 3.18 auf 4.1 aktualisieren würden, würde mhwd-kernel automatisch die Kernel 4.1-Builds und alle Module, die mit Kernel 3.18 verwendet wurden, mit einbeziehen. Was sagt man dazu!
+Diese CachyOS-Tools aktualisieren automatisch einen neu installierten Kernel zusammen mit allen Modulen, die derzeit mit Ihrem bestehenden Kernel verwendet werden. Wenn Sie zum Beispiel von Kernel 3.18 auf 4.1 aktualisieren würden, würde chwd-kernel automatisch die Kernel 4.1-Builds und alle Module, die mit Kernel 3.18 verwendet wurden, mit einbeziehen. Was sagt man dazu!
 
-Sie können Ihre Hardware über das Hardware-Erkennungsmodul im Einstellungsmanager oder alternativ mit der MHWD-Kommandozeilen-Applikation konfigurieren. Mit diesen Tools können Sie z.B. grafische Treiber installieren, freie und proprietäre.
+Sie können Ihre Hardware über das Hardware-Erkennungsmodul im Einstellungsmanager oder alternativ mit der chwd-Kommandozeilen-Applikation konfigurieren. Mit diesen Tools können Sie z.B. grafische Treiber installieren, freie und proprietäre.
 
 <big>Hilfe holen</big>
 

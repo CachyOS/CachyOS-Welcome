@@ -1,10 +1,10 @@
 <big>Handling hardware</big>
 
-CachyOS not only supports the use of multiple kernels (selectable from the advanced options at the boot screen), but also provides access to the very latest bleeding-edge kernels as well. This can be done through the use of the Kernel module in CachyOS's graphical Settings Manager, or via the command line using the MHWD-kernel (CachyOS Hardware Detection) command.
+CachyOS not only supports the use of multiple kernels (selectable from the advanced options at the boot screen), but also provides access to the very latest bleeding-edge kernels as well. This can be done through the use of the Kernel module in CachyOS's graphical Settings Manager, or via the command line using the chwd-kernel (CachyOS Hardware Detection) command.
 
-These CachyOS tools will automatically update a newly installed kernel along with any modules currently in use with your existing kernel. For example, if you were to update from kernel 3.18 to 4.1, MHWD-kernel would automatically include the kernel 4.1 builds and all modules used with kernel 3.18. How about that!
+These CachyOS tools will automatically update a newly installed kernel along with any modules currently in use with your existing kernel. For example, if you were to update from kernel 3.18 to 4.1, chwd-kernel would automatically include the kernel 4.1 builds and all modules used with kernel 3.18. How about that!
 
-You can configure your hardware through the Hardware Detection module in the Settings Manager or alternatively with the MHWD cli-application. With these tools, you can install for example graphical drivers, free and proprietary.
+You can configure your hardware through the Hardware Detection module in the Settings Manager or alternatively with the chwd cli-application. With these tools, you can install for example graphical drivers, free and proprietary.
 
 <big>Getting help</big>
 

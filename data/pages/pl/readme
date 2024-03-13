@@ -1,10 +1,10 @@
 <big> Obsługa sprzętu </big>
 
-CachyOS nie tylko obsługuje instalację wielu jąder (wybieranych z zaawansowanych opcji na ekranie startowym), ale także zapewnia dostęp do najnowszych jąder „bleeding edge”. Można to zrobić za pomocą modułu Jądro w graficznym menedżerze ustawień CachyOS lub za pomocą wiersza poleceń przy użyciu polecenia mhwd-kernel (CachyOS Hardware Detection).
+CachyOS nie tylko obsługuje instalację wielu jąder (wybieranych z zaawansowanych opcji na ekranie startowym), ale także zapewnia dostęp do najnowszych jąder „bleeding edge”. Można to zrobić za pomocą modułu Jądro w graficznym menedżerze ustawień CachyOS lub za pomocą wiersza poleceń przy użyciu polecenia chwd-kernel (CachyOS Hardware Detection).
 
-Te narzędzia CachyOS automatycznie zaktualizują nowo zainstalowane jądro wraz z wszystkimi modułami aktualnie używanymi z istniejącym jądrem. Na przykład, gdybyś zaktualizował jądro z 3.18 do 4.1, mhwd-kernel automatycznie zainstaluje kompilacje jądra 4.1 i wszystkie moduły używane z jądrem 3.18. Co ty na to!
+Te narzędzia CachyOS automatycznie zaktualizują nowo zainstalowane jądro wraz z wszystkimi modułami aktualnie używanymi z istniejącym jądrem. Na przykład, gdybyś zaktualizował jądro z 3.18 do 4.1, chwd-kernel automatycznie zainstaluje kompilacje jądra 4.1 i wszystkie moduły używane z jądrem 3.18. Co ty na to!
 
-Możesz skonfigurować swój sprzęt za pomocą modułu wykrywania sprzętu w Menedżerze ustawień lub alternatywnie za pomocą aplikacji MHWD z linii komend. Za pomocą tych narzędzi możesz zainstalować na przykład sterowniki graficzne, bezpłatne i zastrzeżone.
+Możesz skonfigurować swój sprzęt za pomocą modułu wykrywania sprzętu w Menedżerze ustawień lub alternatywnie za pomocą aplikacji chwd z linii komend. Za pomocą tych narzędzi możesz zainstalować na przykład sterowniki graficzne, bezpłatne i zastrzeżone.
 
 <big> Uzyskiwanie pomocy </big>
 

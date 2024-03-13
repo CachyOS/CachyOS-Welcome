@@ -1,10 +1,10 @@
 <big>Donanım Yönetimi</big>
 
-CachyOS yalnızca birden fazla çekirdeği kullanma seçeneğini sağlamakla kalmaz (başlangıç ekranındaki gelişmiş seçeneklerden tercih yapılabilir), aynı zamanda en yeni ve en uçtaki çekirdeklere de erişim olanağı sağlar. Bu işlem, CachyOS işletim sisteminin grafiksel arayüzlü Ayarlar Yöneticisinde bulunan çekirdek modülü kullanılarak, yahut komut satırı üzerinden MHWD-kernel (CachyOS Donanım Tespiti) komutu kullanılarak gerçekleştirilebilir.
+CachyOS yalnızca birden fazla çekirdeği kullanma seçeneğini sağlamakla kalmaz (başlangıç ekranındaki gelişmiş seçeneklerden tercih yapılabilir), aynı zamanda en yeni ve en uçtaki çekirdeklere de erişim olanağı sağlar. Bu işlem, CachyOS işletim sisteminin grafiksel arayüzlü Ayarlar Yöneticisinde bulunan çekirdek modülü kullanılarak, yahut komut satırı üzerinden chwd-kernel (CachyOS Donanım Tespiti) komutu kullanılarak gerçekleştirilebilir.
 
-Bu CachyOS araç-gereçleri, mevcut sistem çekirdeğinizi, halihazırda kullanılmakta olan tüm modüllerle birlikte otomatik olarak yenisiyle güncelleyecektir. Örneğin, çekirdek 3.18'den 4.1'e güncelleme yapacaksanız diyelim; MHWD-kernel komutu otomatikman çekirdek 4.1 yapımını alıp, mevcut 3.18 çekirdeği ile kullandığınız tüm modülleri de içeren güncel bir çekirdeği sizin için inşa edecektir. Buna ne dersiniz!
+Bu CachyOS araç-gereçleri, mevcut sistem çekirdeğinizi, halihazırda kullanılmakta olan tüm modüllerle birlikte otomatik olarak yenisiyle güncelleyecektir. Örneğin, çekirdek 3.18'den 4.1'e güncelleme yapacaksanız diyelim; chwd-kernel komutu otomatikman çekirdek 4.1 yapımını alıp, mevcut 3.18 çekirdeği ile kullandığınız tüm modülleri de içeren güncel bir çekirdeği sizin için inşa edecektir. Buna ne dersiniz!
 
-Donanımınızı, Ayarlar Yöneticisindeki Donanım Tespit modülü aracılığıyla ya da alternatif olarak MHWD cli-application kullanarak istediğiniz gibi yapılandırabilirsiniz. Bu araçlarla, örneğin ister ücretsiz ve açık kaynaklı (ör: Nouveau), isterseniz firma tarafından tedarik edilen tescilli (resmi) grafik sürücülerini ve benzerlerini yükleyebilirsiniz.
+Donanımınızı, Ayarlar Yöneticisindeki Donanım Tespit modülü aracılığıyla ya da alternatif olarak chwd cli-application kullanarak istediğiniz gibi yapılandırabilirsiniz. Bu araçlarla, örneğin ister ücretsiz ve açık kaynaklı (ör: Nouveau), isterseniz firma tarafından tedarik edilen tescilli (resmi) grafik sürücülerini ve benzerlerini yükleyebilirsiniz.
 
 <big>Yardım alın</big>
 
