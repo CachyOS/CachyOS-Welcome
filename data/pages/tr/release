@@ -1,0 +1,27 @@
+<big>CachyOS 24.02</big>
+
+2024'te çıkardığımız bu ikinci sürümümüz, temelde çekirdek güncellemelerini, büyük glibc güncellemesini ve arındırılmış gerçek zamanlı imaj ortamını (Live ISO) içeren bir bakım sürümüdür. Bu sürümün asıl yayınlanma maksadı, Plasma 6 yayınlanmadan ve Qt6'ya getirdiği değişikliklerden önce oluşturulmuş bir imaj dosyasının bulunmasıdır.
+
+Değişikliklerin özeti:
+
+<big>Özellikler:</big>
+
+ - Live-ISO: Ortam temizliği ve Live-ISO ile senkronizasyon
+ - Başlangıç Kurucusu: Çevrimiçi kurulum önerisi eklendi
+ - shell-configs: Terminali başlatırken fastfetch'i devre dışı bırakma seçeneği ve "güncelleme" mahlası eklendi.
+ - netinstall: phonon-qt5-vlc KDE'ye eklendi.
+ - Paket Güncellemeleri: linux-cachyos 6.7.5, mesa 23.3.5, gcc 13.2.1-12, glibc 2.39, mesa 24.0.1
+
+İndirmeyi Sourceforge'daki yansıtılmış linklerimiz üzerinden temin edebilirsiniz.
+
+https://mirror.cachyos.org/ISO/
+https://sourceforge.net/projects/cachyos-arch/files/
+
+Bize katkıda bulunmak istiyorsanız, bağışta bulunarak aylık sunucu ücretlerimizi karşılamamıza yardımcı olabilirsiniz.
+
+https://paypal.me/pttrr
+https://www.patreon.com/CachyOS
+
+Destekleriniz için teşekkürler!
+
+**CachyOS Ekibi**
