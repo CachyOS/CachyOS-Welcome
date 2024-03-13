@@ -374,7 +374,7 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
             kwinw_debug_btn.connect_clicked(move |_| {
                 // Spawn child process in separate thread.
                 std::thread::spawn(move || {
-                    let _ = Exec::cmd("qdbus")
+                    let _ = Exec::cmd("qdbus6")
                         .args(&["org.kde.KWin", "/KWin", "org.kde.KWin.showDebugConsole"])
                         .join()
                         .unwrap();
