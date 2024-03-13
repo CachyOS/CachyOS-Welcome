@@ -1,17 +1,36 @@
-<big>CachyOS 24.02</big>
+<big>CachyOS 24.03</big>
 
-Dies ist unser zweites Release im Jahr 2024 und ist hauptsächlich ein Wartungsrelease, um Kernel-Updates, das große glibc-Update und eine Bereinigung der Live-ISO zu bringen.
-Dieses Release wird hauptsächlich gemacht, um eine neue ISO zu haben, bevor Plasma 6 und seine Änderungen an QT6 veröffentlicht werden.
+Grüße, CachyOS-Fans!
 
-Hier ist eine Zusammenfassung der Änderungen:
+Dies ist unser drittes Release im Jahr 2024 und bringt ziemlich große Änderungen.
+Wir lassen unser GNOME-ISO aufgrund mangelnder Wartung und doppelter Tests für jedes Release fallen. Dies soll auch Verwirrung unter den Benutzern über die Netzinstallation vermeiden,
+und unterstützte Desktop-Umgebungen vermeiden, da wir die meisten Desktop-Umgebungen direkt in der Netzinstallation bereitstellen.
+
+Dieses ISO basiert auf Plasma 6 und wird auch Wayland standardmäßig aktiviert haben. Dies sollte keine großen Auswirkungen auf NVIDIA-Benutzer haben, da X11 nach der Installation weiterhin verwendet werden kann.
+Plasma 6 scheint Wayland-mäßig in wirklich guter Verfassung zu sein, und sobald wayland-protocols und NVIDIA das explizite Sync-Protokoll bereitstellen, sollte dies auch für die meisten NVIDIA-Benutzer der Fall sein.
+
+Darüber hinaus bieten wir jetzt neue CDNs als Standard an, von denen eines von einem Community-Nutzer und eines von uns über Cloudflare R2 gehostet wird. Dies sollte die Netzinstallationszeit auf der ganzen Welt massiv verbessern.
+
+Calamares wurde auf 3.3.5 umgestellt und wird nun standardmäßig mit QT6 anstelle von QT5 gebaut, um mit Plasma 6 zu folgen.
+Arch hat kürzlich einige Änderungen an mkinitcpio vorgenommen und das frühe Laden von Microcode als Standard aktiviert. Diese Änderungen sind nun auch in unserer Installation für alle Bootloader enthalten.
+
+Refind hat einige weitere Dateisysteme aktiviert - f2fs und zfs sind nun verfügbar, wenn der Refind-Bootloader ausgewählt ist.
 
 <big>Features:</big>
 
-- Live-ISO: Bereinigung und Synchronisierung der Live-ISO
-- Installer starten: Empfehlung für die Online-Installation hinzufügen
-- shell-configs: Hinzufügen einer Option zum Deaktivieren von Fastfetch beim Starten des Terminals und Hinzufügen eines "Update"-Alias
-- netinstall: Hinzufügen von phonon-qt5-vlc zu kde
-- Paket Updates: linux-cachyos 6.7.5, mesa 23.3.5, gcc 13.2.1-12, glibc 2.39, mesa 24.0.1
+- ISO: Plasma 6 wird nun in der ISO ausgeliefert und verwendet Wayland als Standard, GNOME ISO wurde fallen gelassen, um Verwirrung über netinstall zu vermeiden
+- Calamares: Basierung nun auf QT6
+- refind: Hinzufügen von f2fs und zfs als Option einschließlich luks2-Verschlüsselung
+- Mirrors: Wir bieten jetzt 2 globale CDNs an. Eines gehostet von Cloudflare R2 und eines gehostet von Digital Ocean
+- Mirrorlist: Holen Sie das Online-Installationsprogramm direkt vom CDN, um eine schnellere Bereitstellung zu gewährleisten
+- initcpiocfg: Verwendet den neuen Microcode-Hook zum frühen Laden des Ucodes
+- bootloader: Lädt den Microcode nicht mehr mit dem Bootloader
+- Paket-Updates: linux-cachyos 6.7.9, mesa 24.0.2, zfs-utils 2.2.3
+
+<big>Bug-Fixes:</big>
+
+- pacstrap: Installiert keine Konfigurationspakete, um dem Benutzer eine sauberere Auswahl der Installation zu ermöglichen
+- shellprocess_pacman: Kopiert auch den Rang cachyos-v4-mirrorlists auf das Ziel
 
 Sie finden den Download auf unseren Spiegelservern auf Sourceforge.
 
@@ -23,6 +42,6 @@ Wenn Sie uns unterstützen möchten, können Sie spenden, um unsere monatlichen 
 https://paypal.me/pttrr
 https://www.patreon.com/CachyOS
 
-Vielen Dank für Ihre Unterstützung!
+Vielen Dank für Ihre anhaltende Unterstützung!
 
 **Das CachyOS-Team**
