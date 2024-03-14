@@ -54,6 +54,6 @@ fn gen_config() -> anyhow::Result<()> {
 }
 
 fn get_vcs_tag() -> anyhow::Result<String> {
-    let output = Command::new("git").args(&["rev-parse", "--short", "HEAD"]).output()?;
+    let output = Command::new("git").args(["rev-parse", "--short", "HEAD"]).output()?;
     Ok(String::from_utf8(output.stdout)?)
 }
