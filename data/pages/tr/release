@@ -1,23 +1,39 @@
-<big>CachyOS 24.02</big>
+<big>CachyOS 24.03</big>
 
-2024'te çıkardığımız bu ikinci sürümümüz, temelde çekirdek güncellemelerini, büyük glibc güncellemesini ve arındırılmış gerçek zamanlı imaj ortamını (Live ISO) içeren bir bakım sürümüdür. Bu sürümün asıl yayınlanma maksadı, Plasma 6 yayınlanmadan ve Qt6'ya getirdiği değişikliklerden önce oluşturulmuş bir imaj dosyasının bulunmasıdır.
+CachyOS hayranlarına selamlar!
 
-Değişikliklerin özeti:
+Bu bizim 2024'teki üçüncü sürümümüz ve epeyce büyük değişiklik içeriyor.
+Bakımsızlıktan ve her sürüm için iki ayrı test gerektirdiğinden, GNOME ISO imaj dosyamızı kaldırıyoruz. Zira bizler, çoğu masaüstü ortamını çevrimiçi kurulumda doğrudan sağladığımızdan, bu vesileyle bazı kullanıcılarımızın yaşadığı netinstall ve desteklenen masaüstü ortamlarıyla ilgili kafa karmaşası önlenecektir.
+
+Bu ISO Plasma 6 tabanlıdır ve Wayland varsayılan olarak seçilidir. Kurulum bittikten sonra X11 yine kullanılabilir olacağı için, bu karar NVIDIA kullanıcılarını aşırı etkilemeyecektir. Plasma 6 Wayland açısından bakıldığında gerçekten çok iyi durumda. Ayrıca Wayland protokolleri ve NVIDIA, explicit sync protokolünü sağlar sağlamaz, çoğu NVIDIA kullanıcısı için de aynı durum geçerli olacaktır.
+
+Bunlara ek olarak, biri Cloudflare R2 aracılığıyla bizler, diğeri ise topluluğumuzdaki bir kullanıcı tarafından sağlanan olacak şekilde yeni varsayılan CDN'ler yani içerik dağıtım ağlarını sunuyoruz. Ki bu, çevrimiçi kurulum zamanlarını dünya genelinde oldukça kısaltacaktır.
+
+Calamares kurucusu 3.3.5'te rebase yapılmış olup, Plasma 6 sürüm takibi maksadıyla, Qt5 yerine varsayılan olarak Qt6 ile derlenmektedir. Arch yakınlarda bazı mkinitcpio değişiklikleri yaparak, erken mikrokod yüklemeyi varsayılan olarak etkin hale getirdi. Kurulumumuzdaki bütün bootloader'lar için de bu değişiklikler yansıtıldı. 
+
+Birkaç dosya sisteminin daha rEFInd ile kullanımına izin verildi: f2f2 ve zfs artık rEFInd bootloader seçildiğinde kullanılabilecek.
 
 <big>Özellikler:</big>
 
- - Live-ISO: Ortam temizliği ve Live-ISO ile senkronizasyon
- - Başlangıç Kurucusu: Çevrimiçi kurulum önerisi eklendi
- - shell-configs: Terminali başlatırken fastfetch'i devre dışı bırakma seçeneği ve "güncelleme" mahlası eklendi.
- - netinstall: phonon-qt5-vlc KDE'ye eklendi.
- - Paket Güncellemeleri: linux-cachyos 6.7.5, mesa 23.3.5, gcc 13.2.1-12, glibc 2.39, mesa 24.0.1
+- ISO: Plasma 6 artık ISO dosyasıyla yayınlanacak ve Wayland'i varsayılan olarak kullanacak; GNOME ISO dosyası çevrimiçi kurulumla kafa karışıklığını önlemek için kaldırıldı
+- Calamares: Qt6 için rebase yapıldı
+- rEFInd: LUKS2 şifrelemesiyle beraber, f2fs ve zfs dosya sistemleri seçeneklere eklendi
+- Yansıtılmış linkler: Artık biri Cloudflare R2, diğeri Digital Ocean tarafından sağlanan 2 küresel CDN sağlamaktayız 
+- mirrorlist: Daha hızlı iletim sağlamak için çevrimiçi kurucuyu doğrudan CDN'den çekecek
+- initcpiocfg: Erken mikrokod yüklemesi yapmak için yeni mikrokod kancası kullanımı
+- bootloader: Artık bootloader ile mikrokod yüklememe
+- Paket Güncellemeleri: linux-cachyos 6.7.9, mesa 24.0.2, zfs-utils 2.2.3
 
-İndirmeyi Sourceforge'daki yansıtılmış linklerimiz üzerinden temin edebilirsiniz.
+<big>Hata Düzeltmeleri:</big>
+- pacstrap: Kullanıcıya daha temiz bir kurulum olanağı sağlamak için config paketlerini yüklemeyecek
+- shellprocess_pacman: Aynı zamanda derecelendirilen cachyos-v4-mirrorlist yansıtma listelerini de hedefe ekleyecek
+
+İndirmeyi Sourceforge'daki yansıtılmış linklerden temin edebilirsiniz.
 
 https://mirror.cachyos.org/ISO/
 https://sourceforge.net/projects/cachyos-arch/files/
 
-Bize katkıda bulunmak istiyorsanız, bağışta bulunarak aylık sunucu ücretlerimizi karşılamamıza yardımcı olabilirsiniz.
+İsterseniz, bize bağışta bulunarak aylık sunucu giderlerimizi karşılamamıza yardımcı olabilirsiniz.
 
 https://paypal.me/pttrr
 https://www.patreon.com/CachyOS
