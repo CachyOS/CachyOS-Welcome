@@ -4,12 +4,14 @@ about-dialog-comments = CachyOS Hoşgeldin Ekranı
 
 # Tweaks page
 tweaks = İnce ayarlar
-fixes = Hata düzeltmeler
+fixes = Çözümler
 applications = Uygulamalar
 removed-db-lock = Pacman veri tabanı kilidi kaldırıldı!
 lock-doesnt-exist = Pacman veri tabanı kilidi bulunmamaktadır!
 orphans-not-found = Hiçbir öksüz paket bulunamadı!
 package-not-installed = '{$package_name}' paketi kurulmamıştır!
+gaming-package-installed = Oyun paketleri halihazırda kurulu!
+snapper-package-installed = 'cachyos-snapper-support' paketi halihazırda kurulu!
 
 # Application Browser page
 advanced-btn = gelişmiş
@@ -37,7 +39,7 @@ dns-server-reset-failed = DNS sunucusu sıfırlama işlemi başarısız oldu!
 tweak-enabled-title = {$tweak} etkinleştirildi.
 
 # Tweaks page (fixes)
-remove-lock-title = Veri tabanı kilidini kaldır
+remove-lock-title = Pacman veri tabanı kilidini kaldır
 reinstall-title = Tüm paketleri yeniden kur
 refresh-keyrings-title = Veri anahtarlıklarını yenile
 update-system-title = Sistem güncellemesi
@@ -46,6 +48,8 @@ clear-pkgcache-title = Önbellekteki paketleri temizle
 rankmirrors-title = Yansıtılan bağlantılarını sırala 
 dnsserver-title = DNS sunucusunu değiştir
 show-kwinw-debug-title = KWin (Wayland) hata ayıklama penceresini göster
+install-gaming-title = Oyun pkaetlerini kur
+install-snapper-title = Snapper desteği kur
 
 # Main Page (buttons)
 button-about-tooltip = Hakkında
@@ -79,4 +83,4 @@ welcome-title = CachyOS'e Hoşgeldiniz!
 welcome-body =
     Aramıza katıldığınız için size çok teşekkür ederiz!
 
-    CachyOS Geliştirici Ekibi olarak, bizler yapımında ne kadar zevk aldıysak, sizlerin de CachyOS'in kullanımından o kadar memnun kalacağınızı umut ediyoruz. Aşağıdaki bağlantılar, yeni işletim sisteminizi işler konuma getirmede sizlere yardımcı olacaktır. Bu vesileyle tecrübenizin tadını çıkarın, fikir ve düşüncelerinizi bizlerle paylaşmaktan çekinmeyin.
+    CachyOS Geliştirici Ekibi olarak, bizler yapımında ne kadar zevk aldıysak, sizlerin de CachyOS'in kullanımından o kadar memnun kalacağınızı umut ediyoruz. Aşağıdaki bağlantılar, yeni işletim sisteminizi kullanma konusunda sizlere yardımcı olacaktır. Bu vesileyle tecrübenizin tadını çıkarın, fikir ve düşüncelerinizi bizlerle paylaşmaktan çekinmeyin.
