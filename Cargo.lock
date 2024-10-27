@@ -345,7 +345,7 @@ checksum = "613afe47fcd5fac7ccf1db93babcb082c5994d996f20b8b159f2ad1658eb5724"
 [[package]]
 name = "chwd"
 version = "1.10.0"
-source = "git+https://github.com/CachyOS/chwd?rev=2db316f9ace6967f19194275af24deabbd39ebde#2db316f9ace6967f19194275af24deabbd39ebde"
+source = "git+https://github.com/CachyOS/chwd?rev=d7e7e65c5c2c0ffe0434adad9a0016617d1f8bb7#d7e7e65c5c2c0ffe0434adad9a0016617d1f8bb7"
 dependencies = [
  "anyhow",
  "clap",
@@ -1424,7 +1424,7 @@ dependencies = [
 [[package]]
 name = "libpci"
 version = "0.1.0"
-source = "git+https://github.com/CachyOS/chwd?rev=2db316f9ace6967f19194275af24deabbd39ebde#2db316f9ace6967f19194275af24deabbd39ebde"
+source = "git+https://github.com/CachyOS/chwd?rev=d7e7e65c5c2c0ffe0434adad9a0016617d1f8bb7#d7e7e65c5c2c0ffe0434adad9a0016617d1f8bb7"
 dependencies = [
  "libc",
  "libpci-sys",
@@ -1433,7 +1433,7 @@ dependencies = [
 [[package]]
 name = "libpci-sys"
 version = "0.1.0"
-source = "git+https://github.com/CachyOS/chwd?rev=2db316f9ace6967f19194275af24deabbd39ebde#2db316f9ace6967f19194275af24deabbd39ebde"
+source = "git+https://github.com/CachyOS/chwd?rev=d7e7e65c5c2c0ffe0434adad9a0016617d1f8bb7#d7e7e65c5c2c0ffe0434adad9a0016617d1f8bb7"
 dependencies = [
  "bindgen",
  "cc",

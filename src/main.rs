@@ -30,7 +30,7 @@ use gtk::{gdk, glib, Builder, HeaderBar, Window};
 use i18n_embed::DesktopLanguageRequester;
 use once_cell::sync::Lazy;
 use serde_json::json;
-use subprocess::{Exec, Redirection};
+use subprocess::Exec;
 use unic_langid::LanguageIdentifier;
 
 const RESPREFIX: &str = "/org/cachyos/hello";
@@ -58,7 +58,7 @@ fn version_compat_check(message: String) {
         if available_profiles.iter().any(|profile| handheld_profile_names.contains(&&profile.name))
         {
             let window_ref = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().window };
-            utils::show_simple_dialog(
+            show_simple_dialog(
                 window_ref,
                 gtk::MessageType::Warning,
                 &fl!("unsupported-hw-warning"),
@@ -509,22 +509,22 @@ fn on_languages_changed(param: &[glib::Value]) -> Option<glib::Value> {
 
 fn on_action_clicked(param: &[glib::Value]) -> Option<glib::Value> {
     let widget = param[0].get::<gtk::Widget>().unwrap();
-    return match widget.widget_name().as_str() {
+    match widget.widget_name().as_str() {
         "install" => {
             version_compat_check(fl!("calamares-install-type"));
             quick_message(fl!("calamares-install-type"));
             None
-        },
+        }
         "autostart" => {
             let action = widget.downcast::<gtk::Switch>().unwrap();
             set_autostart(action.is_active());
             None
-        },
+        }
         _ => {
             show_about_dialog();
             None
-        },
-    };
+        }
+    }
 }
 
 fn on_btn_clicked(param: &[glib::Value]) -> Option<glib::Value> {
