@@ -56,6 +56,7 @@ section-project = PROJEKT
 
 # Main Page (body)
 offline-error = Die Online-Installation kann nicht gestartet werden! Keine Internetverbindung
+unsupported-hw-warning = Sie versuchen, die Installation auf einer Hardware durchzuführen, die von der aktuellen ISO nicht unterstützt wird, und können daher keinen Support in Anspruch nehmen
 tweaksbrowser-label = Apps/Tweaks
 appbrowser-label = Apps installieren
 launch-start-label = Beim Systemstart ausführen

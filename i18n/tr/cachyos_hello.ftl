@@ -72,6 +72,7 @@ calamares-install-type = Calamares kurulum tipi
 
 # Main Page (body)
 offline-error = Çevrimiçi kurulum başlatılamadı! Bir internet bağlantısı bulunmuyor.
+unsupported-hw-warning = Mevcut ISO tarafından desteklenmeyen bir donanıma kurulum yapmaya çalışıyorsunuz, kurulumunuz destek için uygun olmayacaktır
 tweaksbrowser-label = Uygulamalar/İyileştirmeler
 appbrowser-label = Uygulama kur
 launch-start-label = Başlangıçta aç

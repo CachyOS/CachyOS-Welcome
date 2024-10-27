@@ -76,6 +76,7 @@ calamares-install-type = Typ inštalácie Calamares
 
 # Hlavná stránka (telo)
 offline-error = Nedá sa spustiť online inštalácia! Žiadne internetové pripojenie
+unsupported-hw-warning = Pokúšate sa nainštalovať na hardvér, ktorý nie je podporovaný aktuálnou verziou ISO, vaša inštalácia nebude mať nárok na podporu
 tweaksbrowser-label = Aplikácie/Vylepšenia
 appbrowser-label = Inštalovať aplikácie
 launch-start-label = Spustiť pri štarte

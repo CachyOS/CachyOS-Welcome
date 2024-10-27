@@ -30,7 +30,7 @@ use gtk::{gdk, glib, Builder, HeaderBar, Window};
 use i18n_embed::DesktopLanguageRequester;
 use once_cell::sync::Lazy;
 use serde_json::json;
-use subprocess::Exec;
+use subprocess::{Exec, Redirection};
 use unic_langid::LanguageIdentifier;
 
 const RESPREFIX: &str = "/org/cachyos/hello";
@@ -40,6 +40,32 @@ static G_SAVE_JSON: Lazy<Mutex<serde_json::Value>> = Lazy::new(|| {
     Mutex::new(saved_json)
 });
 static mut G_HELLO_WINDOW: Option<Arc<HelloWindow>> = None;
+
+fn version_compat_check(message: String) {
+    let version_tag = fs::read_to_string("/etc/version-tag").unwrap_or_else(|_| "desktop".to_string());
+
+    if version_tag == "handheld" {
+        let handheld_profiles = chwd::profile::parse_profiles(&format!("{}/handhelds/profiles.toml", chwd::consts::CHWD_PCI_CONFIG_DIR)).unwrap();
+        let handheld_profile_names: Vec<_> = handheld_profiles.iter().map(|x| &x.name).collect();
+
+        let mut exec_out = Exec::shell("chwd --list -d | grep Name | awk '{print $4}'")
+            .stdout(Redirection::Pipe)
+            .capture()
+            .unwrap()
+            .stdout_str();
+        exec_out.pop();
+
+        if exec_out.split('\n').any(|profile| handheld_profile_names.contains(&&profile.to_owned())) {
+            let window_ref = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().window };
+            utils::show_simple_dialog(
+                window_ref,
+                gtk::MessageType::Warning,
+                &fl!("unsupported-hw-warning"),
+                message.clone(),
+            );
+        }
+    }
+}
 
 fn quick_message(message: String) {
     // Spawn child process in separate thread.
@@ -484,6 +510,7 @@ fn on_action_clicked(param: &[glib::Value]) -> Option<glib::Value> {
     let widget = param[0].get::<gtk::Widget>().unwrap();
     return match widget.widget_name().as_str() {
         "install" => {
+            version_compat_check(fl!("calamares-install-type"));
             quick_message(fl!("calamares-install-type"));
             None
         },

@@ -76,6 +76,7 @@ calamares-install-type = Calamares-installatietype
 
 # Main Page (body)
 offline-error = De installatie kan niet worden gestart: er is geen internetverbinding
+unsupported-hw-warning = U probeert te installeren op hardware die niet wordt ondersteund door de huidige ISO, uw installatie komt niet in aanmerking voor ondersteuning
 tweaksbrowser-label = Programma's/Aanpassingen
 appbrowser-label = Programma's installeren
 launch-start-label = Tonen na opstarten

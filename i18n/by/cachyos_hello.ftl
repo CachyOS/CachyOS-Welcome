@@ -76,6 +76,7 @@ calamares-install-type = тып усталёўкі Calamares
 
 # Main Page (body)
 offline-error = Не ўдаецца запусціць анлайн-усталёўку! Няма падлучэння да Інтэрнэту
+unsupported-hw-warning = Вы спрабуеце ўсталяваць на абсталяванне, якое не падтрымліваецца бягучым ISO, ваша ўстаноўка не будзе мець права на падтрымку
 tweaksbrowser-label = Праграммы/Налады
 appbrowser-label = Устанавіць Праграммы
 launch-start-label = Запуск пры старту

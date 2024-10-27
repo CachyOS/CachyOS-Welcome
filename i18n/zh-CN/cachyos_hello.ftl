@@ -67,6 +67,7 @@ section-project = 项目
 
 # Main Page (body)
 offline-error = 无法启动在线安装！无网络连接
+unsupported-hw-warning = 如果您试图在当前 ISO 不支持的硬件上进行安装，您的安装将无法获得支持
 tweaksbrowser-label = 应用/调整
 appbrowser-label = 安装应用
 launch-start-label = 启动时运行

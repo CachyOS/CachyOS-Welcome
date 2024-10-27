@@ -56,6 +56,7 @@ section-project = PROJEKT
 
 # Main Page (body)
 offline-error = Instalacja online niemożliwa! Brak połączenia internetowego
+unsupported-hw-warning = Próba instalacji na sprzęcie nieobsługiwanym przez aktualne ISO spowoduje, że instalacja nie będzie objęta pomocą techniczną
 tweaksbrowser-label = Programy/Usprawnienia
 appbrowser-label = Instalator Programów
 launch-start-label = Uruchamiaj przy starcie
