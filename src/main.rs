@@ -42,7 +42,7 @@ static G_SAVE_JSON: Lazy<Mutex<serde_json::Value>> = Lazy::new(|| {
 static mut G_HELLO_WINDOW: Option<Arc<HelloWindow>> = None;
 
 fn version_compat_check(message: String) {
-    let version_tag = fs::read_to_string("/etc/version-tag").unwrap_or_else(|_| "desktop".to_string());
+    let version_tag = fs::read_to_string("/etc/edition-tag").unwrap_or_else(|_| "desktop".to_string());
 
     if version_tag == "handheld" {
         let handheld_profiles = chwd::profile::parse_profiles(&format!("{}/handhelds/profiles.toml", chwd::consts::CHWD_PCI_CONFIG_DIR)).unwrap();
