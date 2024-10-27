@@ -345,7 +345,7 @@ checksum = "613afe47fcd5fac7ccf1db93babcb082c5994d996f20b8b159f2ad1658eb5724"
 [[package]]
 name = "chwd"
 version = "1.10.0"
-source = "git+https://github.com/CachyOS/chwd?rev=762d3739484749043f413e8bb0f23b5807bd7b99#762d3739484749043f413e8bb0f23b5807bd7b99"
+source = "git+https://github.com/CachyOS/chwd?rev=2db316f9ace6967f19194275af24deabbd39ebde#2db316f9ace6967f19194275af24deabbd39ebde"
 dependencies = [
  "anyhow",
  "clap",
@@ -1424,7 +1424,7 @@ dependencies = [
 [[package]]
 name = "libpci"
 version = "0.1.0"
-source = "git+https://github.com/CachyOS/chwd?rev=762d3739484749043f413e8bb0f23b5807bd7b99#762d3739484749043f413e8bb0f23b5807bd7b99"
+source = "git+https://github.com/CachyOS/chwd?rev=2db316f9ace6967f19194275af24deabbd39ebde#2db316f9ace6967f19194275af24deabbd39ebde"
 dependencies = [
  "libc",
  "libpci-sys",
@@ -1433,7 +1433,7 @@ dependencies = [
 [[package]]
 name = "libpci-sys"
 version = "0.1.0"
-source = "git+https://github.com/CachyOS/chwd?rev=762d3739484749043f413e8bb0f23b5807bd7b99#762d3739484749043f413e8bb0f23b5807bd7b99"
+source = "git+https://github.com/CachyOS/chwd?rev=2db316f9ace6967f19194275af24deabbd39ebde#2db316f9ace6967f19194275af24deabbd39ebde"
 dependencies = [
  "bindgen",
  "cc",
@@ -2044,9 +2044,9 @@ dependencies = [
 
 [[package]]
 name = "rustix"
-version = "0.38.37"
+version = "0.38.38"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8acb788b847c24f28525660c4d7758620a7210875711f79e7f663cc152726811"
+checksum = "aa260229e6538e52293eeb577aabd09945a09d6d9cc0fc550ed7529056c2e32a"
 dependencies = [
  "bitflags",
  "errno",

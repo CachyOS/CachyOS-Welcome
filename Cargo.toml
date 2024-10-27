@@ -24,7 +24,7 @@ serde_json = "1"
 reqwest = { version = "0.12", features = ["blocking"] }
 unic-langid = "0.9"
 phf = { version = "0.11", features = ["macros"], default-features = false }
-chwd = { git = "https://github.com/CachyOS/chwd", rev = "762d3739484749043f413e8bb0f23b5807bd7b99", version = "1.10.0" }
+chwd = { git = "https://github.com/CachyOS/chwd", rev = "2db316f9ace6967f19194275af24deabbd39ebde", version = "1.10.0" }
 
 [build-dependencies]
 anyhow = "1"

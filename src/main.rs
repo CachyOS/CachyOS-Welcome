@@ -42,20 +42,21 @@ static G_SAVE_JSON: Lazy<Mutex<serde_json::Value>> = Lazy::new(|| {
 static mut G_HELLO_WINDOW: Option<Arc<HelloWindow>> = None;
 
 fn version_compat_check(message: String) {
-    let version_tag = fs::read_to_string("/etc/edition-tag").unwrap_or_else(|_| "desktop".to_string());
+    let version_tag = fs::read_to_string("/etc/edition-tag").unwrap_or("desktop".to_string());
 
     if version_tag == "handheld" {
-        let handheld_profiles = chwd::profile::parse_profiles(&format!("{}/handhelds/profiles.toml", chwd::consts::CHWD_PCI_CONFIG_DIR)).unwrap();
-        let handheld_profile_names: Vec<_> = handheld_profiles.iter().map(|x| &x.name).collect();
+        let profiles_path =
+            format!("{}/handhelds/profiles.toml", chwd::consts::CHWD_PCI_CONFIG_DIR);
 
-        let mut exec_out = Exec::shell("chwd --list -d | grep Name | awk '{print $4}'")
-            .stdout(Redirection::Pipe)
-            .capture()
-            .unwrap()
-            .stdout_str();
-        exec_out.pop();
+        let handheld_profiles =
+            chwd::profile::parse_profiles(&profiles_path).expect("Failed to parse profiles");
+        let handheld_profile_names: Vec<_> =
+            handheld_profiles.iter().map(|profile| &profile.name).collect();
 
-        if exec_out.split('\n').any(|profile| handheld_profile_names.contains(&&profile.to_owned())) {
+        let available_profiles = chwd::profile::get_available_profiles(false);
+
+        if available_profiles.iter().any(|profile| handheld_profile_names.contains(&&profile.name))
+        {
             let window_ref = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().window };
             utils::show_simple_dialog(
                 window_ref,
