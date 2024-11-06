@@ -68,6 +68,8 @@ section-project = 项目
 # Main Page (body)
 offline-error = 无法启动在线安装！无网络连接
 unsupported-hw-warning = 如果您试图在当前 ISO 不支持的硬件上进行安装，您的安装将无法获得支持
+outdated-version-warning = 您正在使用旧版本的 CachyOS ISO，请考虑使用最新版本进行安装
+testing-iso-warning = 您正在使用测试版 ISO，测试版 ISO 不被认为是稳定且可供使用的
 tweaksbrowser-label = 应用/调整
 appbrowser-label = 安装应用
 launch-start-label = 启动时运行

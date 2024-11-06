@@ -73,6 +73,8 @@ calamares-install-type = Calamares kurulum tipi
 # Main Page (body)
 offline-error = Çevrimiçi kurulum başlatılamadı! Bir internet bağlantısı bulunmuyor.
 unsupported-hw-warning = Mevcut ISO tarafından desteklenmeyen bir donanıma kurulum yapmaya çalışıyorsunuz, kurulumunuz destek için uygun olmayacaktır
+outdated-version-warning = Daha eski bir CachyOS ISO sürümü kullanıyorsunuz, lütfen kurulumlar için en son sürümü kullanmayı düşünün
+testing-iso-warning = Test amaçlı bir ISO kullanıyorsunuz, test ISO'ları kararlı ve kullanıma hazır olarak kabul edilmez
 tweaksbrowser-label = Uygulamalar/İyileştirmeler
 appbrowser-label = Uygulama kur
 launch-start-label = Başlangıçta aç

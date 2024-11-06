@@ -57,6 +57,8 @@ section-project = PROJEKT
 # Main Page (body)
 offline-error = Die Online-Installation kann nicht gestartet werden! Keine Internetverbindung
 unsupported-hw-warning = Sie versuchen, die Installation auf einer Hardware durchzuführen, die von der aktuellen ISO nicht unterstützt wird, und können daher keinen Support in Anspruch nehmen
+outdated-version-warning = Sie verwenden eine ältere Version des CachyOS ISO, bitte verwenden Sie die neueste Version für Installationen
+testing-iso-warning = Sie verwenden ein Test-ISO, Test-ISOs gelten nicht als stabil und einsatzbereit
 tweaksbrowser-label = Apps/Tweaks
 appbrowser-label = Apps installieren
 launch-start-label = Beim Systemstart ausführen
