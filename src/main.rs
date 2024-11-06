@@ -53,6 +53,17 @@ fn outdated_version_check(message: String) {
     let edition_tag = fs::read_to_string("/etc/edition-tag").unwrap_or("desktop".to_string());
     let version_tag = fs::read_to_string("/etc/version-tag").unwrap_or_default();
 
+    let window_ref = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().window };
+
+    if version_tag.contains("testing") {
+        return show_simple_dialog(
+            window_ref,
+            gtk::MessageType::Warning,
+            &fl!("testing-iso-warning"),
+            message.clone(),
+        );
+    }
+
     let versions = reqwest::blocking::get("https://cachyos.org/versions.json")
         .unwrap()
         .json::<Versions>()
@@ -65,7 +76,6 @@ fn outdated_version_check(message: String) {
     };
 
     if version_tag != latest_version {
-        let window_ref = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().window };
         show_simple_dialog(
             window_ref,
             gtk::MessageType::Warning,
@@ -556,6 +566,7 @@ fn on_action_clicked(param: &[glib::Value]) -> Option<glib::Value> {
             None
         },
         _ => {
+            outdated_version_check(fl!("calamares-install-type"));
             show_about_dialog();
             None
         },
