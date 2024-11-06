@@ -112,25 +112,26 @@ fn edition_compat_check(message: String) {
     }
 }
 
+fn connectivity_check(message: String) {
+    let status = match reqwest::blocking::get("https://cachyos.org") {
+        Ok(resp) => resp.status().is_success() || resp.status().is_server_error(),
+        _ => false,
+    };
+
+    if !status {
+        let window_ref = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().window };
+        utils::show_simple_dialog(
+            window_ref,
+            gtk::MessageType::Error,
+            &fl!("offline-error"),
+            message,
+        );
+    }
+}
+
 fn quick_message(message: String) {
     // Spawn child process in separate thread.
     std::thread::spawn(move || {
-        let status = match reqwest::blocking::get("https://cachyos.org") {
-            Ok(resp) => resp.status().is_success() || resp.status().is_server_error(),
-            _ => false,
-        };
-
-        if !status {
-            let window_ref = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().window };
-            utils::show_simple_dialog(
-                window_ref,
-                gtk::MessageType::Error,
-                &fl!("offline-error"),
-                message,
-            );
-            return;
-        }
-
         let cmd = "/usr/local/bin/calamares-online.sh".to_owned();
         Exec::cmd(cmd).join().unwrap();
     });
@@ -555,6 +556,7 @@ fn on_action_clicked(param: &[glib::Value]) -> Option<glib::Value> {
     let widget = param[0].get::<gtk::Widget>().unwrap();
     match widget.widget_name().as_str() {
         "install" => {
+            connectivity_check(fl!("calamares-install-type"));
             edition_compat_check(fl!("calamares-install-type"));
             outdated_version_check(fl!("calamares-install-type"));
             quick_message(fl!("calamares-install-type"));
