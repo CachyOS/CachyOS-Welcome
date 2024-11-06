@@ -79,6 +79,7 @@ calamares-install-type = Calamares install type
 # Main Page (body)
 offline-error = Unable to start online installation! No internet connection
 unsupported-hw-warning = You are attempting to install on hardware not supported by the current ISO, your installation will not be eligible for support
+outdated-version-warning = You are using an older version of CachyOS ISO, please consider using latest version for installations
 tweaksbrowser-label = Apps/Tweaks
 appbrowser-label = Install Apps
 launch-start-label = Launch at start

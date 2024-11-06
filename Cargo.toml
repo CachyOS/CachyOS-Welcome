@@ -19,9 +19,9 @@ gtk = { version = "0.18", default-features = false }
 gio = { version = "0.20", default-features = false }
 gdk-pixbuf = "0.20"
 glib = { default-features = false, version = "0.20" }
-serde = { version = "1", default-features = false }
+serde = { version = "1", features = ["derive"] }
 serde_json = "1"
-reqwest = { version = "0.12", features = ["blocking"] }
+reqwest = { version = "0.12", features = ["blocking", "json"] }
 unic-langid = "0.9"
 phf = { version = "0.11", features = ["macros"], default-features = false }
 chwd = { git = "https://github.com/CachyOS/chwd", rev = "d7e7e65c5c2c0ffe0434adad9a0016617d1f8bb7", version = "1.10.0" }
