@@ -50,7 +50,7 @@ struct Versions {
 
 fn outdated_version_check(message: String) {
     let edition_tag = fs::read_to_string("/etc/edition-tag").unwrap_or("desktop".to_string());
-    let version_tag = fs::read_to_string("/etc/version-tag").unwrap_or_default();
+    let version_tag = fs::read_to_string("/etc/version-tag").unwrap_or_default().trim().to_string();
 
     let window_ref = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().window };
 
