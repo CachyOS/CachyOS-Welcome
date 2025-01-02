@@ -78,9 +78,9 @@ calamares-install-type = Calamares install type
 
 # Main Page (body)
 offline-error = Não foi possível iniciar a instalação! Sem conexão com a internet.
-unsupported-hw-warning = Você está tentando instalar o CachyOS em um hardware não compatível com a versão atual. Sua versão não é elegível para suporte.
-outdated-version-warning = Você está usando uma versão antiga do CachyOS, considere usar uma versão atual para a instalação.
-testing-iso-warning = Você está usando uma ISO de testes, que não são estáveis para uso.
+unsupported-hw-warning = Você está tentando instalar o CachyOS em um hardware incompatível com a versão atual. Sua versão não é elegível para suporte.
+outdated-version-warning = Você está usando uma versão antiga do CachyOS, considere instalar uma versão atualizada.
+testing-iso-warning = Você está usando uma ISO de testes que não é estável para uso.
 tweaksbrowser-label = Aplicativos / Ajustes
 appbrowser-label = Instalar Aplicativos
 launch-start-label = Abrir ao Iniciar
@@ -88,4 +88,4 @@ welcome-title = Bem-Vindo ao CachyOS!
 welcome-body =
     Obrigado por entrar na nossa comunidade!
 
-    Nós, os desenvolvedores do CachyOS, esperamos que você goste de usá-lo o tanto quanto gostamos de desenvolvê-lo! Os links abaixo ajudarão você dar os primeiros passos com seu novo sistema operacional. Aproveite a experiência, e não hesite em mandar feedback!
+    Nós, os desenvolvedores do CachyOS, esperamos que você goste de usá-lo o tanto quanto gostamos de desenvolvê-lo! Os links abaixo ajudarão você dar os primeiros passos com seu novo sistema operacional. Aproveite a experiência, e não hesite em dar seu feedback!
