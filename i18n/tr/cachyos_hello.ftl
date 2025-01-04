@@ -8,9 +8,10 @@ fixes = Çözümler
 applications = Uygulamalar
 removed-db-lock = Pacman veri tabanı kilidi kaldırıldı!
 lock-doesnt-exist = Pacman veri tabanı kilidi bulunmamaktadır!
-orphans-not-found = Hiçbir öksüz paket bulunamadı!
+orphans-not-found = Hiçbir artık(orphan) paket bulunamadı!
 package-not-installed = '{$package_name}' paketi kurulmamıştır!
 gaming-package-installed = Oyun paketleri halihazırda kurulu!
+spoof-dpi-package-installed = SpoofDPI halihazırda kurulu!
 snapper-package-installed = 'cachyos-snapper-support' paketi halihazırda kurulu!
 
 # Application Browser page
@@ -43,13 +44,14 @@ remove-lock-title = Pacman veri tabanı kilidini kaldır
 reinstall-title = Tüm paketleri yeniden kur
 refresh-keyrings-title = Veri anahtarlıklarını yenile
 update-system-title = Sistem güncellemesi
-remove-orphans-title = Öksüzleri kaldır
+remove-orphans-title = Artıkları(orphans) kaldır
 clear-pkgcache-title = Önbellekteki paketleri temizle 
 rankmirrors-title = Yansıtılan bağlantılarını sırala 
 dnsserver-title = DNS sunucusunu değiştir
 show-kwinw-debug-title = KWin (Wayland) hata ayıklama penceresini göster
-install-gaming-title = Oyun pkaetlerini kur
+install-gaming-title = Oyun paketlerini kur
 install-snapper-title = Snapper desteği kur
+install-spoof-dpi-title = SpoofDPI kur
 
 # Main Page (buttons)
 button-about-tooltip = Hakkında
