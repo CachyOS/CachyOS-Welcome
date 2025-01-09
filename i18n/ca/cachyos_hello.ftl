@@ -10,20 +10,20 @@ removed-db-lock = El blocatge de la base de dades del Pacman s'ha suprimit!
 lock-doesnt-exist = El blocatge de la base de dades del Pacman no existeix!
 orphans-not-found = No s'ha trobat cap paquet orfe!
 package-not-installed = El paquet {$package_name} no s'ha instal·lat!
-gaming-package-installed = Gaming packages already installed!
-spoof-dpi-package-installed = SpoofDPI is already installed!
-snapper-package-installed = 'cachyos-snapper-support' package already installed!
+gaming-package-installed = Els paquets de joc ja estan instal·lats!
+spoof-dpi-package-installed = L'SpoofDPI ja està instal·lat!
+snapper-package-installed = El paquet cachyos-snapper-support ja està instal·lat!
 
 # Application Browser page
-advanced-btn = advanced
-reset-btn = reset
-update-system-app-btn = UPDATE SYSTEM
-application-column = Application
-description-column = Description
-install-remove-column = Install/Remove
-advanced-btn-tooltip = Toggle an extended selection of packages
-reset-btn-tooltip = Reset your current selections...
-update-system-app-btn-tooltip = Apply your current selections to the system
+advanced-btn = Avançat
+reset-btn = Restabliment
+update-system-app-btn = ACTUALITZACIÓ DEL SISTEMA
+application-column = Aplicació
+description-column = Descripció
+install-remove-column = Instal·la / Suprimeix
+advanced-btn-tooltip = Commuta una selecció ampliada de paquets
+reset-btn-tooltip = Restabliu les seleccions actuals...
+update-system-app-btn-tooltip = Aplica les seleccions actuals al sistema
 
 # Dns Connections page
 dns-settings = DNS Settings
