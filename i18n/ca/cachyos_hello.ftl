@@ -1,15 +1,15 @@
 # About dialog
-about-dialog-title = CachyOS Hello
-about-dialog-comments = Welcome screen for CachyOS
+about-dialog-title = Benvinguda del CachyOS
+about-dialog-comments = Pantalla de benvinguda per al CachyOS
 
 # Tweaks page
-tweaks = Tweaks
-fixes = Fixes
-applications = Applications
-removed-db-lock = Pacman db lock was removed!
-lock-doesnt-exist = Pacman db lock does not exist!
-orphans-not-found = No orphan packages found!
-package-not-installed = Package '{$package_name}' has not been installed!
+tweaks = Retocs
+fixes = Correccions
+applications = Aplicacions
+removed-db-lock = El blocatge de la base de dades del Pacman s'ha suprimit!
+lock-doesnt-exist = El blocatge de la base de dades del Pacman no existeix!
+orphans-not-found = No s'ha trobat cap paquet orfe!
+package-not-installed = El paquet {$package_name} no s'ha instal·lat!
 gaming-package-installed = Gaming packages already installed!
 spoof-dpi-package-installed = SpoofDPI is already installed!
 snapper-package-installed = 'cachyos-snapper-support' package already installed!
