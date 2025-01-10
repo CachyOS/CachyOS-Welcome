@@ -54,16 +54,16 @@ install-snapper-title = Instal·leu suport per a instantànies
 install-spoof-dpi-title = Instal·leu l'SpoofDPI
 
 # Main Page (buttons)
-button-about-tooltip = About
-button-web-resource-tooltip = Web resource
-button-development-label = Development
-button-software-label = Software
-button-donate-label = Donate
-button-forum-label = Forum
-button-installer-label = Launch installer
-button-involved-label = Get involved
-button-readme-label = Read me
-button-release-info-label = Release info
+button-about-tooltip = Quant a
+button-web-resource-tooltip = Recurs web
+button-development-label = Desenvolupament
+button-software-label = Programari
+button-donate-label = Feu una donació
+button-forum-label = Fòrum
+button-installer-label = Inicia l'instal·lador
+button-involved-label = Col·laboreu-hi
+button-readme-label = Llegiu-me
+button-release-info-label = Informació de la versió
 button-wiki-label = Wiki
 
 # Main Page (sections)
