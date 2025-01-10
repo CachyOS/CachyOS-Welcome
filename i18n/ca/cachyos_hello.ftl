@@ -37,21 +37,21 @@ dns-server-reset = S'ha restablert el servidor de DNS!
 dns-server-reset-failed = Ha fallat restablir el servidor de DNS!
 
 # Tweaks page (tweaks)
-tweak-enabled-title = {$tweak} enabled
+tweak-enabled-title = {$tweak} habilitat
 
 # Tweaks page (fixes)
-remove-lock-title = Remove db lock
-reinstall-title = Reinstall all packages
-refresh-keyrings-title = Refresh keyrings
-update-system-title = System update
-remove-orphans-title = Remove orphans
-clear-pkgcache-title = Clear package cache
-rankmirrors-title = Rank mirrors
-dnsserver-title = Change DNS server
-show-kwinw-debug-title = Show kwin(Wayland) debug window
-install-gaming-title = Install Gaming packages
-install-snapper-title = Install Snapper support
-install-spoof-dpi-title = Install SpoofDPI
+remove-lock-title = Suprimeix el blocatge de la base de dades
+reinstall-title = Reinstal·la tots els paquets
+refresh-keyrings-title = Resfresca els clauers
+update-system-title = Actualització del sistema
+remove-orphans-title = Suprimeix els paquets orfes
+clear-pkgcache-title = Neteja la cau de paquets
+rankmirrors-title = Classifica les rèpliques
+dnsserver-title = Canvia el servidor de DNS
+show-kwinw-debug-title = Mostra la finestra de depuració del kwin (Wayland)
+install-gaming-title = Instal·leu paquets de jocs
+install-snapper-title = Instal·leu suport per a instantànies
+install-spoof-dpi-title = Instal·leu l'SpoofDPI
 
 # Main Page (buttons)
 button-about-tooltip = About
