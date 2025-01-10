@@ -60,32 +60,32 @@ button-development-label = Desenvolupament
 button-software-label = Programari
 button-donate-label = Feu una donació
 button-forum-label = Fòrum
-button-installer-label = Inicia l'instal·lador
+button-installer-label = Inicia'n l'instal·lador
 button-involved-label = Col·laboreu-hi
 button-readme-label = Llegiu-me
 button-release-info-label = Informació de la versió
 button-wiki-label = Wiki
 
 # Main Page (sections)
-section-docs = DOCUMENTATION
-section-installer = INSTALLATION
-section-support = SUPPORT
-section-project = PROJECT
+section-docs = DOCUMENTACIÓ
+section-installer = INSTAL·LACIÓ
+section-support = SUPORT
+section-project = PROJECTE
 
 # Main Page (launch installer)
-recommended = recommended
-calamares-install-type = Calamares install type
+recommended = recomanat
+calamares-install-type = Tipus d'instal·lació per al Calamares
 
 # Main Page (body)
-offline-error = Unable to start online installation! No internet connection
-unsupported-hw-warning = You are attempting to install on hardware not supported by the current ISO, your installation will not be eligible for support
-outdated-version-warning = You are using an older version of CachyOS ISO, please consider using latest version for installations
-testing-iso-warning = You are using a testing ISO, testing ISOs are not considered stable and ready for use
-tweaksbrowser-label = Apps/Tweaks
-appbrowser-label = Install Apps
-launch-start-label = Launch at start
-welcome-title = Welcome to CachyOS!
+offline-error = No es pot iniciar la instal·lació en línia! No hi ha connexió a Internet.
+unsupported-hw-warning = Esteu provant d'instal·lar-lo en un maquinari que no és compatible amb la imatge ISO actual. La vostra instal·lació no serà apta per a rebre suport.
+outdated-version-warning = Esteu usant una versió anterior del CachyOS. Considereu usar-ne la versió més recent per a les instal·lacions.
+testing-iso-warning = Esteu usant una imatge ISO de prova. Les ISO de prova no es consideren estables i llestes per a un ús productiu.
+tweaksbrowser-label = Aplicacions / Retocs
+appbrowser-label = Instal·leu apliacions
+launch-start-label = Obre-ho a l'inici
+welcome-title = Us donem la benvinguda al CachyOS!
 welcome-body =
-    Thank you for joining our community!
+    Moltes mercès per unir-vos a la nostra comunitat!
 
-    We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we enjoy building it. The links below will help you get started with your new operating system. So enjoy the experience, and don't hesitate to send us your feedback.
+    Nosaltres, els desenvolupadors del CachyOS, esperem que gaudiu d'usar el CachyOS tant com a nosaltres ens agrada fer-lo. Els enllaços següents us ajudaran a començar. Gaudiu de l'experiència i no dubteu a enviar-nos-en comentaris.
