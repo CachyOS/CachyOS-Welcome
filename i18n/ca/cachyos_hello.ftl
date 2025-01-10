@@ -26,15 +26,15 @@ reset-btn-tooltip = Restabliu les seleccions actuals...
 update-system-app-btn-tooltip = Aplica les seleccions actuals al sistema
 
 # Dns Connections page
-dns-settings = DNS Settings
-select-connection = Select Connection:
-select-dns-server = Select DNS server:
-apply = Apply
-reset = Reset
-dns-server-changed = DNS server was successfully changed!
-dns-server-failed = Failed to set DNS server!
-dns-server-reset = DNS server has been reset!
-dns-server-reset-failed = Failed to reset DNS server!
+dns-settings = Paràmetres del DNS
+select-connection = Seleccioneu la connexió:
+select-dns-server = Seleccioneu el servidor de DNS:
+apply = Apica-ho
+reset = Restableix-ho
+dns-server-changed = S'ha canviat correctament el servidor de DNS!
+dns-server-failed = Ha fallat establir el servidor de DNS!
+dns-server-reset = S'ha restablert el servidor de DNS!
+dns-server-reset-failed = Ha fallat restablir el servidor de DNS!
 
 # Tweaks page (tweaks)
 tweak-enabled-title = {$tweak} enabled
