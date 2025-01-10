@@ -21,8 +21,8 @@ update-system-app-btn = ACTUALITZACIÓ DEL SISTEMA
 application-column = Aplicació
 description-column = Descripció
 install-remove-column = Instal·la / Suprimeix
-advanced-btn-tooltip = Commuta una selecció ampliada de paquets
-reset-btn-tooltip = Restabliu les seleccions actuals...
+advanced-btn-tooltip = Commuta a una selecció ampliada de paquets
+reset-btn-tooltip = Restableix les seleccions actuals...
 update-system-app-btn-tooltip = Aplica les seleccions actuals al sistema
 
 # Dns Connections page
@@ -37,7 +37,7 @@ dns-server-reset = S'ha restablert el servidor de DNS!
 dns-server-reset-failed = Ha fallat restablir el servidor de DNS!
 
 # Tweaks page (tweaks)
-tweak-enabled-title = {$tweak} habilitat
+tweak-enabled-title = {$tweak} s'ha habilitat
 
 # Tweaks page (fixes)
 remove-lock-title = Suprimeix el blocatge de la base de dades
