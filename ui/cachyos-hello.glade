@@ -284,6 +284,7 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                     <property name="can-focus">False</property>
                     <items>
                       <item id="en">English</item>
+                      <item id="ca">Català</item>
 		      <item id="fr">French</item>
                       <item id="de">German</item>
                       <item id="nl">Dutch</item>
