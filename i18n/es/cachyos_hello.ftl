@@ -5,7 +5,7 @@ about-dialog-comments = Pantalla de bienvenida para CachyOS
 # Tweaks page
 tweaks = Ajustes
 fixes = Correcciones
-applications = Apliaciones
+applications = Aplicaciones
 removed-db-lock = El bloqueo de la base de datos de Pacman se ha removido!
 lock-doesnt-exist = La base de datos de Pacman no esta bloqueada!
 orphans-not-found = No se encontraron paquetes huérfanos!
@@ -27,13 +27,13 @@ update-system-app-btn-tooltip = Aplicar tus selecciones al sistema
 
 # Dns Connections page
 dns-settings = Ajustes de DNS
-select-connection = Seleccionar conección:
+select-connection = Seleccionar conexión:
 select-dns-server = Seleccionar servidor DNS:
 apply = Aplicar
 reset = Reiniciar
 dns-server-changed = El servidor DNS ha sido cambiado con exito!
 dns-server-failed = Fallo al cambiar el servidor DNS!
-dns-server-reset = El servidor DNS ha sido reinciado!
+dns-server-reset = El servidor DNS ha sido reiniciado!
 dns-server-reset-failed = No se ha podido reinciar el servidor DNS!
 
 # Tweaks page (tweaks)
