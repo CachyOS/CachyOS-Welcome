@@ -1,91 +1,91 @@
 # About dialog
 about-dialog-title = CachyOS Hello
-about-dialog-comments = Welcome screen for CachyOS
+about-dialog-comments = Pantalla de bienvenida para CachyOS
 
 # Tweaks page
-tweaks = Tweaks
-fixes = Fixes
-applications = Applications
-removed-db-lock = Pacman db lock was removed!
-lock-doesnt-exist = Pacman db lock does not exist!
-orphans-not-found = No orphan packages found!
-package-not-installed = Package '{$package_name}' has not been installed!
-gaming-package-installed = Gaming packages already installed!
-spoof-dpi-package-installed = SpoofDPI is already installed!
-snapper-package-installed = 'cachyos-snapper-support' package already installed!
+tweaks = Ajustes
+fixes = Correciones
+applications = Apliaciones
+removed-db-lock = El bloqueo de la base de datos de Pacman se ha removido!
+lock-doesnt-exist = La base de datos de Pacman no esta bloqueada!
+orphans-not-found = No se encontraron paquetes huerfanos!
+package-not-installed = El paquete '{$package_name}' no ha sido instalado!
+gaming-package-installed = Los paquetes de Gaming ya han sido instalados!
+spoof-dpi-package-installed = SpoofDPI ya ha sido instalado!
+snapper-package-installed = 'cachyos-snapper-support' ya ha sido instalado!
 
 # Application Browser page
-advanced-btn = advanced
-reset-btn = reset
-update-system-app-btn = UPDATE SYSTEM
-application-column = Application
-description-column = Description
-install-remove-column = Install/Remove
-advanced-btn-tooltip = Toggle an extended selection of packages
-reset-btn-tooltip = Reset your current selections...
-update-system-app-btn-tooltip = Apply your current selections to the system
+advanced-btn = avanzado
+reset-btn = reiniciar
+update-system-app-btn = ACTUALIZAR SISTEMA
+application-column = Aplicación
+description-column = Descripción
+install-remove-column = Instalar/Desinstalar
+advanced-btn-tooltip = Habilitar una extensa seleccion de paquetes
+reset-btn-tooltip = Reiniciar tus selecciones actuales...
+update-system-app-btn-tooltip = Aplicar tus selecciones al sistema
 
 # Dns Connections page
-dns-settings = DNS Settings
-select-connection = Select Connection:
-select-dns-server = Select DNS server:
-apply = Apply
-reset = Reset
-dns-server-changed = DNS server was successfully changed!
-dns-server-failed = Failed to set DNS server!
-dns-server-reset = DNS server has been reset!
-dns-server-reset-failed = Failed to reset DNS server!
+dns-settings = Ajustes de DNS
+select-connection = Seleccionar conección:
+select-dns-server = Seleccionar servidor DNS:
+apply = Aplicar
+reset = Reiniciar
+dns-server-changed = El servidor DNS ha sido cambiado con exito!
+dns-server-failed = Fallo al cambiar el servidor DNS!
+dns-server-reset = El servidor DNS ha sido reinciado!
+dns-server-reset-failed = No se ha podido reinciar el servidor DNS!
 
 # Tweaks page (tweaks)
-tweak-enabled-title = {$tweak} enabled
+tweak-enabled-title = {$tweak} habilitado
 
 # Tweaks page (fixes)
-remove-lock-title = Remove db lock
-reinstall-title = Reinstall all packages
-refresh-keyrings-title = Refresh keyrings
-update-system-title = System update
-remove-orphans-title = Remove orphans
-clear-pkgcache-title = Clear package cache
-rankmirrors-title = Rank mirrors
-dnsserver-title = Change DNS server
-show-kwinw-debug-title = Show kwin(Wayland) debug window
-install-gaming-title = Install Gaming packages
-install-snapper-title = Install Snapper support
-install-spoof-dpi-title = Install SpoofDPI
+remove-lock-title = Remover bloqueo de la base de datos
+reinstall-title = Reinstalar todos los paquetes
+refresh-keyrings-title = Actualizar keyrings
+update-system-title = Actualización del sistema
+remove-orphans-title = Eliminar paquetes huerfanos
+clear-pkgcache-title = Limpiar cache de los paquetes
+rankmirrors-title = Evaluar mirrors
+dnsserver-title = Cambiar servidor DNS
+show-kwinw-debug-title = Mostrar la ventana debug de kwin(Wayland)
+install-gaming-title = Instalar paquetes de Gaming
+install-snapper-title = Instalar soporte de Snapper
+install-spoof-dpi-title = Instalar SpoofDPI
 
 # Main Page (buttons)
-button-about-tooltip = About
-button-web-resource-tooltip = Web resource
-button-development-label = Development
+button-about-tooltip = Sobre
+button-web-resource-tooltip = Recurso web
+button-development-label = Desarrollo
 button-software-label = Software
-button-donate-label = Donate
-button-forum-label = Forum
-button-installer-label = Launch installer
-button-involved-label = Get involved
-button-readme-label = Read me
-button-release-info-label = Release info
+button-donate-label = Donar
+button-forum-label = Foro
+button-installer-label = Ejecutar instalador
+button-involved-label = Involucrate
+button-readme-label = Leeme
+button-release-info-label = Información de versión
 button-wiki-label = Wiki
 
 # Main Page (sections)
-section-docs = DOCUMENTATION
-section-installer = INSTALLATION
-section-support = SUPPORT
-section-project = PROJECT
+section-docs = DOCUMENTACIÓN
+section-installer = INSTALACIÓN
+section-support = SOPORTE
+section-project = PROYECTO
 
 # Main Page (launch installer)
-recommended = recommended
-calamares-install-type = Calamares install type
+recommended = recomendado
+calamares-install-type = Tipo de instalación Calamares
 
 # Main Page (body)
-offline-error = Unable to start online installation! No internet connection
-unsupported-hw-warning = You are attempting to install on hardware not supported by the current ISO, your installation will not be eligible for support
-outdated-version-warning = You are using an older version of CachyOS ISO, please consider using latest version for installations
-testing-iso-warning = You are using a testing ISO, testing ISOs are not considered stable and ready for use
-tweaksbrowser-label = Apps/Tweaks
-appbrowser-label = Install Apps
-launch-start-label = Launch at start
-welcome-title = Welcome to CachyOS!
+offline-error = No se pudo realizar la instalación online! No hay conexión a internet
+unsupported-hw-warning = Estas tratando de instalar en hardware no soportado por la ISO actual, tu instalación no tendrá soporte
+outdated-version-warning = Estas usando una vieja versión de la ISO de CachyOS, por favor, considerá usar la ultima versión
+testing-iso-warning = Estas usando una ISO de prueba, las ISO de prueba no se consideran estables y listas para usar
+tweaksbrowser-label = Aplicaciónes/Ajustes
+appbrowser-label = Instalar Aplicaciónes
+launch-start-label = Ejecutar en el arranque
+welcome-title = Bienvenido a CachyOS!
 welcome-body =
-    Thank you for joining our community!
+    Gracias por unirte a nuestra comunidad!
 
-    We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we enjoy building it. The links below will help you get started with your new operating system. So enjoy the experience, and don't hesitate to send us your feedback.
+    Nostros, los desarrolladores de CachyOS, esperamos que disfrutes usando CachyOS tanto como nosotros disfrutamos desarrollandolo. Los links abajo te ayudaran a familiarizarte con tu nuevo sistema operativo. Así que disfruta de la experiencia, y no dudes en enviarnos tu feedback!
