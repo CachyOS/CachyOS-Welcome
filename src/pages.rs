@@ -375,7 +375,7 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
         let dialog_tx_gaming = dialog_tx_gaming.clone();
         // Spawn child process in separate thread.
         std::thread::spawn(move || {
-            const alpm_package_name: &str = "cachyos-gaming-meta";
+            const alpm_package_name: &str = "cachyos-gaming-applications";
             if !utils::is_alpm_pkg_installed(alpm_package_name) {
                 let _ = utils::run_cmd_terminal(format!("pacman -S {alpm_package_name}"), true);
             } else {
