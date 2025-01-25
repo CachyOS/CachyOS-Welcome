@@ -376,19 +376,25 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
         // Spawn child process in separate thread.
         std::thread::spawn(move || {
             const ALPM_PACKAGE_NAMES: [&str; 2] = ["cachyos-gaming-meta", "cachyos-gaming-applications"];
+            let mut packages_to_install = Vec::new();
             for alpm_package_name in ALPM_PACKAGE_NAMES {
                 if !utils::is_alpm_pkg_installed(alpm_package_name) {
-                    let _ = utils::run_cmd_terminal(format!("pacman -S {}", alpm_package_name), true);
-                } else {
-                    dialog_tx_gaming
-                        .send(DialogMessage {
-                            msg: fl!("gaming-package-installed"),
-                            msg_type: gtk::MessageType::Info,
-                            action: Action::InstallGaming,
-                        })
-                        .expect("Couldn't send data to channel");
+                    packages_to_install.push(alpm_package_name);
                 }
             }
+            if packages_to_install.is_empty() {
+                dialog_tx_gaming
+                    .send(DialogMessage {
+                        msg: fl!("gaming-package-installed"),
+                        msg_type: gtk::MessageType::Info,
+                        action: Action::InstallGaming,
+                    })
+                    .expect("Couldn't send data to channel");
+            } else {
+                for package in packages_to_install {
+                    let _ = utils::run_cmd_terminal(format!("pacman -S {}", package), true);
+                }
+           }
         });
     });
     install_snapper_btn.connect_clicked(move |_| {
