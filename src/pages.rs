@@ -393,7 +393,6 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
             } else {
                 let packages = packages_to_install.join(" ");
                 let _ = utils::run_cmd_terminal(format!("pacman -S {packages}"), true);
-                    let _ = utils::run_cmd_terminal(format!("pacman -S {}", package), true);
            }
         });
     });
