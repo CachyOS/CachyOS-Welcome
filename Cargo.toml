@@ -1,6 +1,6 @@
 [package]
 name = "cachyos-hello"
-version = "0.16.1"
+version = "0.16.2"
 authors = ["Vladislav Nepogodin <nepogodin.vlad@gmail.com>"]
 license = "GPLv3"
 edition = "2021"
@@ -29,6 +29,11 @@ tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 tracing-appender = "0.2"
 which = { version = "7.0", features = ["tracing"] }
+
+anyhow = { version = "1", default-features = false, features = ["std"] }
+tokio = { version = "1.39", features = ["macros", "sync", "rt-multi-thread"] }
+zbus = { version = "5", features = ["tokio"], default-features = false }
+zbus_systemd = { version = "0.25701.0", features = ["systemd1"], default-features = false }
 
 [build-dependencies]
 anyhow = "1"

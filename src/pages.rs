@@ -1,7 +1,7 @@
 use crate::application_browser::ApplicationBrowser;
-use crate::data_types::*;
+use crate::systemd_units::SystemdUnits;
 use crate::utils::PacmanWrapper;
-use crate::{fl, utils};
+use crate::{fl, systemd_units, utils};
 
 use std::boxed::Box;
 use std::fmt::Write;
@@ -16,7 +16,8 @@ use gtk::{glib, Builder};
 use once_cell::sync::Lazy;
 use phf::phf_ordered_map;
 use subprocess::{Exec, Redirection};
-use tracing::debug;
+use tokio::runtime::Runtime;
+use tracing::{debug, error};
 use which::which;
 
 #[macro_export]
@@ -375,10 +376,15 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
         let dialog_tx_gaming = dialog_tx_gaming.clone();
         // Spawn child process in separate thread.
         std::thread::spawn(move || {
-            const alpm_package_name: &str = "cachyos-gaming-meta";
-            if !utils::is_alpm_pkg_installed(alpm_package_name) {
-                let _ = utils::run_cmd_terminal(format!("pacman -S {alpm_package_name}"), true);
-            } else {
+            const ALPM_PACKAGE_NAMES: [&str; 2] =
+                ["cachyos-gaming-meta", "cachyos-gaming-applications"];
+            let mut packages_to_install = Vec::new();
+            for alpm_package_name in ALPM_PACKAGE_NAMES {
+                if !utils::is_alpm_pkg_installed(alpm_package_name) {
+                    packages_to_install.push(alpm_package_name);
+                }
+            }
+            if packages_to_install.is_empty() {
                 dialog_tx_gaming
                     .send(DialogMessage {
                         msg: fl!("gaming-package-installed"),
@@ -386,6 +392,9 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
                         action: Action::InstallGaming,
                     })
                     .expect("Couldn't send data to channel");
+            } else {
+                let packages = packages_to_install.join(" ");
+                let _ = utils::run_cmd_terminal(format!("pacman -S {packages}"), true);
             }
         });
     });
@@ -744,45 +753,34 @@ fn create_connections_section() -> gtk::Box {
 }
 
 fn load_enabled_units() {
-    G_LOCAL_UNITS.lock().unwrap().loaded_units.clear();
     G_LOCAL_UNITS.lock().unwrap().enabled_units.clear();
 
-    let mut exec_out = Exec::shell("systemctl list-unit-files -q --no-pager | tr -s \" \"")
-        .stdout(Redirection::Pipe)
-        .capture()
-        .unwrap()
-        .stdout_str();
-    exec_out.pop();
+    let rt = Runtime::new().expect("Failed to initialize tokio runtime");
+    let res = rt.block_on(async move {
+        let units = systemd_units::get_enabled_global_units().await?;
+        G_LOCAL_UNITS.lock().unwrap().enabled_units = units;
 
-    let service_list = exec_out.split('\n');
+        anyhow::Ok(())
+    });
 
-    for service in service_list {
-        let out: Vec<&str> = service.split(' ').collect();
-        G_LOCAL_UNITS.lock().unwrap().loaded_units.push(String::from(out[0]));
-        if out[1] == "enabled" {
-            G_LOCAL_UNITS.lock().unwrap().enabled_units.push(String::from(out[0]));
-        }
+    if let Err(res_err) = res {
+        error!("Failed to load systemd units: {res_err}");
     }
 }
 
 fn load_global_enabled_units() {
-    G_GLOBAL_UNITS.lock().unwrap().loaded_units.clear();
     G_GLOBAL_UNITS.lock().unwrap().enabled_units.clear();
 
-    let mut exec_out = Exec::shell("systemctl --user list-unit-files -q --no-pager | tr -s \" \"")
-        .stdout(Redirection::Pipe)
-        .capture()
-        .unwrap()
-        .stdout_str();
-    exec_out.pop();
+    let rt = Runtime::new().expect("Failed to initialize tokio runtime");
+    let res = rt.block_on(async move {
+        let units = systemd_units::get_enabled_user_units().await?;
+        G_GLOBAL_UNITS.lock().unwrap().enabled_units = units;
 
-    let service_list = exec_out.split('\n');
-    for service in service_list {
-        let out: Vec<&str> = service.split(' ').collect();
-        G_GLOBAL_UNITS.lock().unwrap().loaded_units.push(String::from(out[0]));
-        if out[1] == "enabled" {
-            G_GLOBAL_UNITS.lock().unwrap().enabled_units.push(String::from(out[0]));
-        }
+        anyhow::Ok(())
+    });
+
+    if let Err(res_err) = res {
+        error!("Failed to load user systemd units: {res_err}");
     }
 }
 

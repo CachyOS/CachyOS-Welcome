@@ -4,13 +4,13 @@
 mod alpm_helper;
 mod application_browser;
 mod config;
-mod data_types;
 mod embed_data;
 mod gresource;
 mod installer;
 mod localization;
 mod logger;
 mod pages;
+mod systemd_units;
 mod utils;
 mod window;
 
