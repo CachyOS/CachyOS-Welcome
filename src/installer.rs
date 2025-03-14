@@ -56,7 +56,7 @@ fn outdated_version_check(window: &gtk::Window, message: String) -> bool {
     .trim()
     .to_owned();
 
-    if version_tag != latest_version {
+    if version_tag.parse::<i32>().unwrap() < latest_version.parse::<i32>().unwrap() {
         utils::show_simple_dialog(
             window,
             gtk::MessageType::Warning,
