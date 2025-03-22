@@ -18,17 +18,15 @@ struct Versions {
     handheld_iso_version: String,
 }
 
-fn outdated_version_check(message: String) -> bool {
+fn outdated_version_check(window: &gtk::Window, message: String) -> bool {
     let edition_tag: String =
         fs::read_to_string("/etc/edition-tag").unwrap_or("desktop".into()).trim().into();
     let version_tag: String =
         fs::read_to_string("/etc/version-tag").unwrap_or("testing".into()).trim().into();
 
-    let window_ref = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().window };
-
     if version_tag.contains("testing") {
         utils::show_simple_dialog(
-            window_ref,
+            window,
             gtk::MessageType::Warning,
             &fl!("testing-iso-warning"),
             message.clone(),
@@ -40,7 +38,7 @@ fn outdated_version_check(message: String) -> bool {
 
     if response.is_err() {
         utils::show_simple_dialog(
-            window_ref,
+            window,
             gtk::MessageType::Warning,
             &fl!("offline-error"),
             message.clone(),
@@ -60,7 +58,7 @@ fn outdated_version_check(message: String) -> bool {
 
     if version_tag != latest_version {
         utils::show_simple_dialog(
-            window_ref,
+            window,
             gtk::MessageType::Warning,
             &fl!("outdated-version-warning"),
             message.clone(),
@@ -69,7 +67,7 @@ fn outdated_version_check(message: String) -> bool {
     true
 }
 
-fn edition_compat_check(message: String) -> bool {
+fn edition_compat_check(window: &gtk::Window, message: String) -> bool {
     let edition_tag = fs::read_to_string("/etc/edition-tag").unwrap_or("desktop".to_string());
 
     if edition_tag == "handheld" {
@@ -85,9 +83,8 @@ fn edition_compat_check(message: String) -> bool {
 
         if available_profiles.iter().any(|profile| handheld_profile_names.contains(&&profile.name))
         {
-            let window_ref = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().window };
             utils::show_simple_dialog(
-                window_ref,
+                window,
                 gtk::MessageType::Warning,
                 &fl!("unsupported-hw-warning"),
                 message.clone(),
@@ -98,20 +95,14 @@ fn edition_compat_check(message: String) -> bool {
     true
 }
 
-fn connectivity_check(message: String) -> bool {
+fn connectivity_check(window: &gtk::Window, message: String) -> bool {
     let status = match reqwest::blocking::get("https://cachyos.org") {
         Ok(resp) => resp.status().is_success() || resp.status().is_server_error(),
         _ => false,
     };
 
     if !status {
-        let window_ref = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().window };
-        utils::show_simple_dialog(
-            window_ref,
-            gtk::MessageType::Error,
-            &fl!("offline-error"),
-            message,
-        );
+        utils::show_simple_dialog(window, gtk::MessageType::Error, &fl!("offline-error"), message);
         return false;
     }
     true
@@ -120,13 +111,14 @@ fn connectivity_check(message: String) -> bool {
 pub fn launch_installer(message: String) {
     // Spawn child process in separate thread.
     std::thread::spawn(move || {
+        let window_ref = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().window };
         let builder = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().builder };
 
         let install_btn: gtk::Button = builder.object("install").unwrap();
         install_btn.set_sensitive(false);
 
         let checks = [connectivity_check, edition_compat_check, outdated_version_check];
-        if !checks.iter().all(|x| x(message.clone())) {
+        if !checks.iter().all(|x| x(window_ref, message.clone())) {
             // if any check failed, return
             info!("Some ISO check failed!");
             install_btn.set_sensitive(true);

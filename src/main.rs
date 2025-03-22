@@ -4,30 +4,29 @@
 mod alpm_helper;
 mod application_browser;
 mod config;
-mod data_types;
 mod embed_data;
 mod gresource;
 mod installer;
+mod kwin_dbus;
 mod localization;
 mod logger;
 mod pages;
+mod systemd_units;
 mod utils;
+mod window;
 
-use config::{APP_ID, PROFILE, VERSION};
-use data_types::*;
+use config::{APP_ID, PROFILE};
 use utils::*;
+use window::HelloWindow;
 
-use std::collections::HashMap;
 use std::path::Path;
+use std::str;
 use std::sync::{Arc, Mutex};
-use std::{fs, str};
 
 use gtk::gio::prelude::*;
 use gtk::prelude::*;
 
-use gtk::gdk_pixbuf::Pixbuf;
-use gtk::glib::GString;
-use gtk::{gdk, glib, Builder, HeaderBar, Window};
+use gtk::glib;
 use i18n_embed::DesktopLanguageRequester;
 use once_cell::sync::Lazy;
 use serde_json::json;
@@ -37,57 +36,30 @@ use unic_langid::LanguageIdentifier;
 const RESPREFIX: &str = "/org/cachyos/hello";
 
 static G_SAVE_JSON: Lazy<Mutex<serde_json::Value>> = Lazy::new(|| {
-    let saved_json = get_saved_json();
+    let preferences = get_preferences();
+    let saved_json = get_saved_json(&preferences);
     Mutex::new(saved_json)
 });
 static mut G_HELLO_WINDOW: Option<Arc<HelloWindow>> = None;
-
-fn show_about_dialog() {
-    let main_window: &Window = unsafe { G_HELLO_WINDOW.as_ref().unwrap().window.as_ref() };
-    let logo_path = format!("/usr/share/icons/hicolor/scalable/apps/{APP_ID}.svg");
-    let logo = Pixbuf::from_file(logo_path).unwrap();
-
-    let dialog = gtk::AboutDialog::builder()
-        .transient_for(main_window)
-        .modal(true)
-        .program_name(GString::from_string_unchecked(crate::fl!("about-dialog-title")))
-        .comments(GString::from_string_unchecked(crate::fl!("about-dialog-comments")))
-        .version(VERSION)
-        .logo(&logo)
-        .authors(vec![
-            "Vladislav Nepogodin".to_owned(),
-        ])
-        // Translators: Replace "translator-credits" with your names. Put a comma between.
-        .translator_credits("translator-credits")
-        .copyright("2021-2024 CachyOS team")
-        .license_type(gtk::License::Gpl30)
-        .website("https://github.com/cachyos/cachyos-welcome")
-        .website_label("GitHub")
-        .build();
-
-    dialog.run();
-    dialog.hide();
-}
-
-fn get_preferences() -> serde_json::Value {
-    let page_file = crate::embed_data::get("preferences.json").unwrap();
-    let page = std::str::from_utf8(page_file.data.as_ref());
-    serde_json::from_str(page.unwrap()).expect("Unable to parse")
-}
 
 fn get_saved_locale() -> Option<String> {
     let saved_json = &*G_SAVE_JSON.lock().unwrap();
     Some(saved_json["locale"].as_str()?.to_owned())
 }
 
-fn get_saved_json() -> serde_json::Value {
-    let preferences = get_preferences();
+fn get_saved_json(preferences: &serde_json::Value) -> serde_json::Value {
     let save_path = fix_path(preferences["save_path"].as_str().unwrap());
     if !Path::new(&save_path).exists() {
         json!({"locale": ""})
     } else {
         read_json(save_path.as_str())
     }
+}
+
+fn get_preferences() -> serde_json::Value {
+    let pref_file = crate::embed_data::get("preferences.json").unwrap();
+    let pref = std::str::from_utf8(pref_file.data.as_ref()).unwrap();
+    serde_json::from_str(pref).expect("Unable to parse")
 }
 
 fn main() {
@@ -135,20 +107,16 @@ fn build_ui(application: &gtk::Application) {
 
     // Get saved infos
     let saved_locale = get_saved_locale().unwrap();
-    let best_locale = get_best_locale(&preferences, &saved_locale).unwrap();
 
-    // Import Css
-    let provider = gtk::CssProvider::new();
-    provider.load_from_resource(&format!("{RESPREFIX}/ui/style.css"));
-    gtk::StyleContext::add_provider_for_screen(
-        &gdk::Screen::default().expect("Error initializing gtk css provider."),
-        &provider,
-        gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
-    );
+    // Detect best locale
+    let best_locale =
+        get_best_locale(&preferences, &saved_locale).expect("Failed to get best locale");
 
     // Init window
-    let builder: Builder = Builder::from_resource(&format!("{RESPREFIX}/ui/cachyos-hello.glade"));
-    builder.connect_signals(|_builder, handler_name| {
+    let hello_window = HelloWindow::new(application, preferences, &best_locale);
+
+    let builder_ref = &hello_window.builder;
+    builder_ref.connect_signals(|_builder, handler_name| {
         match handler_name {
             // handler_name as defined in the glade file => handler function as defined above
             "on_languages_changed" => Box::new(on_languages_changed),
@@ -160,148 +128,15 @@ fn build_ui(application: &gtk::Application) {
             _ => Box::new(|_| None),
         }
     });
-
-    let main_window: Window = builder.object("window").expect("Could not get the object window");
-    main_window.set_application(Some(application));
+    G_SAVE_JSON.lock().unwrap()["locale"] = json!(best_locale);
 
     unsafe {
-        G_HELLO_WINDOW = Some(Arc::new(HelloWindow {
-            window: main_window.clone(),
-            builder: builder.clone(),
-            preferences: preferences.clone(),
-        }));
+        G_HELLO_WINDOW = Some(Arc::new(hello_window));
     };
-
-    // Subtitle of headerbar
-    let header: HeaderBar = builder.object("headerbar").expect("Could not get the headerbar");
-
-    header.set_subtitle(Some("CachyOS rolling"));
-
-    // Load images
-    let logo_path = format!("{}/{}.svg", preferences["logo_path"].as_str().unwrap(), APP_ID);
-    if Path::new(&logo_path).exists() {
-        let logo = Pixbuf::from_file(logo_path).unwrap();
-        main_window.set_icon(Some(&logo));
-    }
-
-    let social_box: gtk::Box = builder.object("social").unwrap();
-    for btn in social_box.children() {
-        let name = btn.widget_name();
-        let icon_path = format!("{RESPREFIX}/data/img/{name}.png");
-        let image: gtk::Image = builder.object(name.as_str()).unwrap();
-        image.set_from_resource(Some(&icon_path));
-    }
-
-    let homepage_grid: gtk::Grid = builder.object("homepage").unwrap();
-    for widget in homepage_grid.children() {
-        let casted_widget = widget.downcast::<gtk::Button>();
-        if casted_widget.is_err() {
-            continue;
-        }
-
-        let btn = casted_widget.unwrap();
-        if btn.image_position() != gtk::PositionType::Right {
-            continue;
-        }
-        let image_path = format!("{RESPREFIX}/data/img/external-link.png");
-        let image = gtk::Image::new();
-        image.set_from_resource(Some(&image_path));
-        image.set_margin_start(2);
-        btn.set_image(Some(&image));
-    }
-
-    // Create pages
-    let locale_pages_exist = crate::embed_data::HelloData::iter()
-        .any(|x| x.starts_with(&format!("pages/{}", &best_locale)));
-    let file_pages_path = if locale_pages_exist {
-        crate::embed_data::HelloData::iter()
-            .filter(|pkg| pkg.starts_with(&format!("pages/{}", &best_locale)))
-            .collect::<Vec<_>>()
-    } else {
-        crate::embed_data::HelloData::iter()
-            .filter(|pkg| pkg.starts_with("pages/en"))
-            .collect::<Vec<_>>()
-    };
-
-    for file_path in file_pages_path {
-        // let page_file = HelloData::get(&file_path).unwrap();
-        // let page = std::str::from_utf8(page_file.data.as_ref());
-        let scrolled_window =
-            gtk::ScrolledWindow::new(gtk::Adjustment::NONE, gtk::Adjustment::NONE);
-
-        let viewport = gtk::Viewport::new(gtk::Adjustment::NONE, gtk::Adjustment::NONE);
-        viewport.set_border_width(10);
-
-        let label = gtk::Label::new(None);
-        label.set_line_wrap(true);
-        let image = gtk::Image::from_icon_name(Some("go-previous"), gtk::IconSize::Button);
-        let back_btn = gtk::Button::new();
-        back_btn.set_image(Some(&image));
-        back_btn.set_widget_name("home");
-
-        back_btn.connect_clicked(glib::clone!(@weak builder => move |button| {
-            let name = button.widget_name();
-            let stack: gtk::Stack = builder.object("stack").unwrap();
-            stack.set_visible_child_name(&format!("{name}page"));
-        }));
-
-        let child_name = format!(
-            "{}page",
-            Path::new(&file_path.as_ref()).file_name().unwrap().to_str().unwrap()
-        );
-
-        let grid = gtk::Grid::new();
-        grid.set_widget_name(&child_name);
-        grid.attach(&back_btn, 0, 1, 1, 1);
-        grid.attach(&label, 1, 2, 1, 1);
-        viewport.add(&grid);
-        scrolled_window.add(&viewport);
-        scrolled_window.show_all();
-
-        let stack: gtk::Stack = builder.object("stack").unwrap();
-        stack.add_named(&scrolled_window, &child_name);
-    }
-
-    // Init translation
-    let languages: gtk::ComboBoxText = builder.object("languages").unwrap();
-    languages.set_active_id(Some(best_locale.as_str()));
-
-    // Set autostart switcher state
-    let autostart = Path::new(&fix_path(preferences["autostart_path"].as_str().unwrap())).exists();
-    let autostart_switch: gtk::Switch = builder.object("autostart").unwrap();
-    autostart_switch.set_active(autostart);
-
-    // Live systems
-    if installer::is_iso(&preferences) {
-        let installlabel: gtk::Label = builder.object("installlabel").unwrap();
-        installlabel.set_visible(true);
-
-        let install: gtk::Button = builder.object("install").unwrap();
-        install.set_visible(true);
-
-        // Show the UI
-        main_window.show();
-        return;
-    } else {
-        let installlabel: gtk::Label = builder.object("installlabel").unwrap();
-        installlabel.set_visible(false);
-
-        let install: gtk::Button = builder.object("install").unwrap();
-        install.set_visible(false);
-    }
-    pages::create_appbrowser_page(&builder);
-    pages::create_tweaks_page(&builder);
-
-    if Path::new("/usr/bin/nmcli").exists() {
-        pages::create_dnsconnections_page(&builder);
-    }
-
-    // Show the UI
-    main_window.show();
 }
 
 /// Returns the best locale, based on user's preferences.
-pub fn get_best_locale(
+fn get_best_locale(
     preferences: &serde_json::Value,
     saved_locale: &str,
 ) -> Result<String, str::Utf8Error> {
@@ -313,8 +148,8 @@ pub fn get_best_locale(
 
     let locale_name = crate::localization::get_default_lang();
     let sys_locale =
-        string_substr(locale_name.as_str(), 0, locale_name.find('.').unwrap_or(usize::MAX))?;
-    let two_letters = string_substr(sys_locale, 0, 2)?;
+        utils::string_substr(locale_name.as_str(), 0, locale_name.find('.').unwrap_or(usize::MAX))?;
+    let two_letters = utils::string_substr(sys_locale, 0, 2)?;
 
     // If user's locale is supported
     if crate::localization::check_language_valid(sys_locale) {
@@ -337,111 +172,11 @@ fn set_locale(use_locale: &str) {
         debug!("┌{0:─^40}┐\n│{1: ^40}│\n└{0:─^40}┘", "", format!("Locale changed to {use_locale}"));
     }
 
-    let localizer = crate::localization::localizer();
-    let req_locale: LanguageIdentifier = use_locale.parse().unwrap();
+    // change UI
+    let _ = unsafe { G_HELLO_WINDOW.as_ref().unwrap().switch_locale(use_locale) };
 
-    if let Err(error) = localizer.select(&[req_locale]) {
-        error!("Error while loading languages for library_fluent {error}");
-    }
-
+    // save changes
     G_SAVE_JSON.lock().unwrap()["locale"] = json!(use_locale);
-
-    // Run-time locale changing
-    let elts: HashMap<&str, Vec<_>> = HashMap::from([
-        ("label", vec![
-            "autostartlabel",
-            "development",
-            "software",
-            "donate",
-            "firstcategory",
-            "forum",
-            "install",
-            "installlabel",
-            "involved",
-            "readme",
-            "release",
-            "secondcategory",
-            "thirdcategory",
-            "welcomelabel",
-            "welcometitle",
-            "wiki",
-        ]),
-        ("tooltip_text", vec!["about", "development", "software", "donate", "forum", "wiki"]),
-    ]);
-
-    let builder_ref = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().builder };
-
-    for (method, objnames) in &elts {
-        for objname in objnames {
-            let item: &gtk::Widget = &builder_ref.object(objname).unwrap();
-            if method == &"label" {
-                let translated_text =
-                    crate::localization::get_locale_text(utils::get_translation_msgid(objname));
-                item.set_property(method, &translated_text);
-            } else if method == &"tooltip_text" {
-                let translated_text = if objname == &"about" {
-                    crate::fl!("button-about-tooltip")
-                } else {
-                    crate::fl!("button-web-resource-tooltip")
-                };
-                item.set_property(method, &translated_text);
-            }
-        }
-    }
-
-    // Change content of pages
-    let locale_pages_exist = crate::embed_data::HelloData::iter()
-        .any(|x| x.starts_with(&format!("pages/{}", &use_locale)));
-    let file_pages_path = if locale_pages_exist {
-        crate::embed_data::HelloData::iter()
-            .filter(|pkg| pkg.starts_with(&format!("pages/{}", &use_locale)))
-            .collect::<Vec<_>>()
-    } else {
-        crate::embed_data::HelloData::iter()
-            .filter(|pkg| pkg.starts_with("pages/en"))
-            .collect::<Vec<_>>()
-    };
-
-    for file_path in file_pages_path {
-        let page_file_name = Path::new(file_path.as_ref()).file_name().unwrap().to_str().unwrap();
-
-        let stack: &gtk::Stack = &builder_ref.object("stack").unwrap();
-        let child = stack.child_by_name(&format!("{}page", &page_file_name));
-        if child.is_none() {
-            debug!("child not found");
-            continue;
-        }
-        let first_child = &child.unwrap().downcast::<gtk::Container>().unwrap().children();
-        let second_child = &first_child[0].clone().downcast::<gtk::Container>().unwrap().children();
-        let third_child = &second_child[0].clone().downcast::<gtk::Container>().unwrap().children();
-
-        let label = &third_child[0].clone().downcast::<gtk::Label>().unwrap();
-        label.set_markup(get_page(file_path.as_ref()).as_str());
-    }
-
-    pages::update_translations(builder_ref);
-}
-
-fn set_autostart(autostart: bool) {
-    let preferences = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().preferences };
-    let autostart_path = fix_path(preferences["autostart_path"].as_str().unwrap());
-    let desktop_path = preferences["desktop_path"].as_str().unwrap().to_owned();
-    let config_dir = Path::new(&autostart_path).parent().unwrap();
-    if !config_dir.exists() {
-        fs::create_dir_all(config_dir).unwrap();
-    }
-    if autostart && !check_regular_file(&autostart_path) {
-        std::os::unix::fs::symlink(desktop_path, &autostart_path).unwrap();
-    } else if !autostart && check_regular_file(&autostart_path) {
-        std::fs::remove_file(&autostart_path).unwrap();
-    }
-}
-
-#[inline]
-fn get_page(file_path: &str) -> String {
-    let page_file = crate::embed_data::get(file_path).unwrap();
-    let page = std::str::from_utf8(page_file.data.as_ref());
-    page.unwrap().to_owned()
 }
 
 /// Handlers
@@ -463,11 +198,11 @@ fn on_action_clicked(param: &[glib::Value]) -> Option<glib::Value> {
         },
         "autostart" => {
             let action = widget.downcast::<gtk::Switch>().unwrap();
-            set_autostart(action.is_active());
+            unsafe { G_HELLO_WINDOW.as_ref().unwrap().set_autostart(action.is_active()) };
             None
         },
         _ => {
-            show_about_dialog();
+            unsafe { G_HELLO_WINDOW.as_ref().unwrap().show_about_dialog() };
             None
         },
     }
@@ -477,9 +212,8 @@ fn on_btn_clicked(param: &[glib::Value]) -> Option<glib::Value> {
     let widget = param[0].get::<gtk::Button>().unwrap();
     let name = widget.widget_name();
 
-    let builder_ref = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().builder };
-    let stack: &gtk::Stack = &builder_ref.object("stack").unwrap();
-    stack.set_visible_child_name(&format!("{name}page"));
+    let child_name = format!("{name}page");
+    unsafe { G_HELLO_WINDOW.as_ref().unwrap().set_stack_child_visible(&child_name) };
 
     None
 }
@@ -488,11 +222,10 @@ fn on_link_clicked(param: &[glib::Value]) -> Option<glib::Value> {
     let widget = param[0].get::<gtk::Widget>().unwrap();
     let name = widget.widget_name();
 
-    let window_ref = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().window };
-    let preferences = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().preferences["urls"] };
+    let preferences = unsafe { G_HELLO_WINDOW.as_ref().unwrap().get_preferences("urls") };
 
     let uri = preferences[name.as_str()].as_str().unwrap();
-    let _ = gtk::show_uri_on_window(Some(window_ref), uri, 0);
+    unsafe { G_HELLO_WINDOW.as_ref().unwrap().open_uri(uri) };
 
     None
 }
@@ -501,18 +234,17 @@ fn on_link1_clicked(param: &[glib::Value]) -> Option<glib::Value> {
     let widget = param[0].get::<gtk::Widget>().unwrap();
     let name = widget.widget_name();
 
-    let window_ref = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().window };
-    let preferences = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().preferences["urls"] };
+    let preferences = unsafe { G_HELLO_WINDOW.as_ref().unwrap().get_preferences("urls") };
 
     let uri = preferences[name.as_str()].as_str().unwrap();
-    let _ = gtk::show_uri_on_window(Some(window_ref), uri, 0);
+    unsafe { G_HELLO_WINDOW.as_ref().unwrap().open_uri(uri) };
 
     Some(false.to_value())
 }
 
 fn on_delete_window(_param: &[glib::Value]) -> Option<glib::Value> {
     let saved_json = &*G_SAVE_JSON.lock().unwrap();
-    let preferences = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().preferences["save_path"] };
+    let preferences = unsafe { G_HELLO_WINDOW.as_ref().unwrap().get_preferences("save_path") };
     write_json(preferences.as_str().unwrap(), saved_json);
 
     Some(false.to_value())
