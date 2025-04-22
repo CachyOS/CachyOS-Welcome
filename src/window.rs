@@ -132,7 +132,7 @@ impl HelloWindow {
 
         // Init translation
         let languages: gtk::ComboBoxText = builder.object("languages").unwrap();
-        languages.set_active_id(Some(&best_locale));
+        languages.set_active_id(Some(best_locale));
 
         // Set autostart switcher state
         let autostart =
@@ -167,7 +167,7 @@ impl HelloWindow {
 
         // setup pages content
         let hello_window = HelloWindow { window: main_window, builder, preferences };
-        hello_window.switch_locale(&best_locale);
+        hello_window.switch_locale(best_locale);
         hello_window
     }
 

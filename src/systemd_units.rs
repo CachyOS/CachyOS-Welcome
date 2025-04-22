@@ -1,5 +1,3 @@
-use tokio::runtime::Runtime;
-
 #[derive(Clone, Debug)]
 pub struct SystemdUnits {
     pub enabled_units: Vec<String>,
@@ -18,7 +16,7 @@ impl Default for SystemdUnits {
 }
 
 async fn get_enabled_units(conn: &zbus::Connection) -> anyhow::Result<Vec<String>> {
-    let manager = zbus_systemd::systemd1::ManagerProxy::new(&conn).await?;
+    let manager = zbus_systemd::systemd1::ManagerProxy::new(conn).await?;
     let services = manager
         .list_unit_files_by_patterns(vec!["enabled".into()], vec!["*.service".into()])
         .await?;

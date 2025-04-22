@@ -48,7 +48,7 @@ pub fn check_language_valid(requested_language: &str) -> bool {
         requested_language.parse().unwrap_or_else(|_| "en_US".parse().expect("failed to fallback"));
 
     let available_languages = get_available_languages().unwrap();
-    available_languages.iter().any(|x| *x == requested_lang_id)
+    available_languages.contains(&requested_lang_id)
 }
 
 /// Get system language or default language if system one is not supported

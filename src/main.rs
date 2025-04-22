@@ -173,7 +173,7 @@ fn set_locale(use_locale: &str) {
     }
 
     // change UI
-    let _ = unsafe { G_HELLO_WINDOW.as_ref().unwrap().switch_locale(use_locale) };
+    unsafe { G_HELLO_WINDOW.as_ref().unwrap().switch_locale(use_locale) };
 
     // save changes
     G_SAVE_JSON.lock().unwrap()["locale"] = json!(use_locale);
