@@ -299,6 +299,7 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                       <item id="es">Spanish</item>
                       <item id="tr">Turkish</item>
                       <item id="zh-CN">Simplified Chinese</item>
+                      <item id="af">Afrikaans</item>
                     </items>
                     <signal name="changed" handler="on_languages_changed" swapped="no"/>
                   </object>
