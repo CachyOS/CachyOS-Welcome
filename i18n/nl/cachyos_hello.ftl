@@ -11,6 +11,7 @@ lock-doesnt-exist = De Pacman db-vergrendeling is niet aanwezig!
 orphans-not-found = Er zijn geen onteigende pakketten aangetroffen.
 package-not-installed = ‘{$package_name}’ is niet geïnstalleerd!
 gaming-package-installed = De gamingpakketten zijn al geïnstalleerd.
+spoof-dpi-package-installed = SpoofDPI is al geïnstalleerd!
 snapper-package-installed = ‘cachyos-snapper-support’ is al geïnstalleerd.
 
 # Application Browser page
@@ -50,6 +51,7 @@ dnsserver-title = Dns-server wĳzigen
 show-kwinw-debug-title = Kwin(Wayland)-foutopsporingsvenster openen
 install-gaming-title = Gamingpakketten installeren
 install-snapper-title = Snapper-ondersteuning inschakelen
+install-spoof-dpi-title = SpoofDPI installeren
 
 # Main Page (buttons)
 button-about-tooltip = Over
