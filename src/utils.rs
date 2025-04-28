@@ -2,8 +2,6 @@ use std::fs::File;
 use std::path::Path;
 use std::{fs, slice, str};
 
-use gtk::prelude::*;
-
 use subprocess::{Exec, Redirection};
 
 #[derive(Debug)]
@@ -20,7 +18,7 @@ pub fn fix_path(path: &str) -> String {
     if !path.starts_with('~') {
         return String::from(path);
     }
-    path.replace('~', glib::home_dir().as_path().to_str().unwrap())
+    path.replace('~', "/home/vl/")
 }
 
 #[inline]
@@ -66,20 +64,6 @@ pub fn check_regular_file(path: &str) -> bool {
     } else {
         false
     }
-}
-
-pub fn create_combo_with_model(group_store: &gtk::ListStore) -> gtk::ComboBox {
-    let group_combo = gtk::ComboBox::with_model(group_store);
-    let combo_renderer = gtk::CellRendererText::new();
-    group_combo.pack_start(&combo_renderer, true);
-    group_combo.add_attribute(&combo_renderer, "text", 0);
-    group_combo.set_active(Some(0));
-
-    group_combo
-}
-
-pub fn get_window_from_widget(passed_widget: &impl IsA<gtk::Widget>) -> Option<gtk::Window> {
-    passed_widget.toplevel()?.downcast::<gtk::Window>().ok()
 }
 
 pub fn get_translation_msgid(objname: &str) -> &'static str {
@@ -150,29 +134,6 @@ pub fn is_root_on_btrfs() -> bool {
         .stdout_str();
 
     root_fs == "btrfs\n"
-}
-
-pub fn show_simple_dialog(
-    widget_window: &gtk::Window,
-    dialog_msg_type: gtk::MessageType,
-    dialog_text: &String,
-    dialog_title: String,
-) {
-    let dialog = gtk::MessageDialog::builder()
-        .transient_for(widget_window)
-        .message_type(dialog_msg_type)
-        .text(dialog_text)
-        .title(dialog_title)
-        .modal(true)
-        .buttons(gtk::ButtonsType::Ok)
-        .build();
-    dialog.connect_response(|dialog, _| dialog.close());
-
-    dialog.show();
-    // block until user responds
-    dialog.run();
-    // we are required to close/hide manually according to the docs
-    dialog.close();
 }
 
 #[cfg(test)]

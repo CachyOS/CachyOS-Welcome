@@ -10,19 +10,6 @@ fn main() {
         println!("cargo:rerun-if-changed={}", i.unwrap().path().display());
     }
 
-    let out_dir = env::var("OUT_DIR").unwrap();
-
-    let status = Command::new("glib-compile-resources")
-        .arg(format!("--target={out_dir}/cachyos-welcome.gresource"))
-        .arg("cachyos-welcome.gresource.xml")
-        .status()
-        .unwrap();
-
-    if !status.success() {
-        eprintln!("glib-compile-resources failed with exit status {status}");
-        process::exit(1);
-    }
-
     println!("cargo:rerun-if-changed=src/config.rs.in");
     println!("cargo:rerun-if-changed=src/config.rs");
     gen_config().expect("Failed to gen config.rs");

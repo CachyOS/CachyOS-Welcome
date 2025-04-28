@@ -15,10 +15,12 @@ once_cell = { default-features = false, version = "1.19" }
 i18n-embed = { version = "0.15", features = ["fluent-system", "desktop-requester"] }
 i18n-embed-fl = "0.9"
 rust-embed = { version = "8", features = ["debug-embed", "include-exclude"] }
-gtk = { version = "0.18", default-features = false }
-gio = { version = "0.20", default-features = false }
-gdk-pixbuf = "0.20"
-glib = { default-features = false, version = "0.20" }
+# Remove GTK deps
+# gtk = { version = "0.18", default-features = false }
+# gio = { version = "0.20", default-features = false }
+# gdk-pixbuf = "0.20"
+# glib = { default-features = false, version = "0.20" }
+qmetaobject = { version = "0.2", features = ["log"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 reqwest = { version = "0.12", features = ["blocking", "json"] }
@@ -37,6 +39,7 @@ zbus_systemd = { version = "0.25701.0", features = ["systemd1"], default-feature
 
 [build-dependencies]
 anyhow = "1"
+pkg-config = "0.3"
 
 [profile.release]
 strip = "symbols"
