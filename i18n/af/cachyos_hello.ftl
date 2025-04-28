@@ -12,7 +12,7 @@ orphans-not-found = Geen onteiende pakkette gevind nie!
 package-not-installed = Pakket '{$package_name}' is nie geïnstalleer nie!
 gaming-package-installed = Speletjiepakkette reeds geïnstalleer!
 spoof-dpi-package-installed = SpoofDPI is reeds geïnstalleer!
-snapper-package-installed = ‘cachyos-snapper-support’ reeds geïnstalleer!
+snapper-package-installed = 'cachyos-snapper-support' reeds geïnstalleer!
 
 # Application Browser page
 advanced-btn = Gevorderde
