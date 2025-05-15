@@ -7,10 +7,11 @@ tweaks = Настройки
 fixes = Исправления
 applications = Приложения
 removed-db-lock = Блокировка БД Pacman была снята!
-lock-doesnt-exist = Pacman БД не заблокирован!
+lock-doesnt-exist = БД pacman не заблокирована!
 package-not-installed = Пакет '{$package_name}' не был установлен!
 gaming-package-installed = Игровые пакеты уже установлены!
-snapper-package-installed = 'cachyos-snapper-support' пакет уже установлен!
+snapper-package-installed = Пакет 'cachyos-snapper-support' уже установлен!
+spoof-dpi-package-installed = SpoofDPI уже установлен!
 
 # Application Browser page
 advanced-btn = дополнительные
@@ -38,17 +39,18 @@ dns-server-reset-failed = Не удалось сбросить DNS-сервер!
 tweak-enabled-title = {$tweak} включен
 
 # Tweaks page (fixes)
-remove-lock-title = Удалить db lock
+remove-lock-title = Удалить файл блокировки БД pacman
 reinstall-title = Переустановить все пакеты
 reset-keyrings-title = Сбросить ключи
 update-system-title = Обновить систему
-remove-orphans-title = Удалить orphans
+remove-orphans-title = Удалить пакеты-сироты
 clear-pkgcache-title = Очистить кэш пакетов
 rankmirrors-title = Ранжировать зеркала
 dnsserver-title = Сменить DNS-сервер
 show-kwinw-debug-title = Показать окно отладки kwin(Wayland)
-install-gaming-title = Установить Игровые пакеты
+install-gaming-title = Установить пакеты для игр
 install-snapper-title = Установить поддержку Snapper
+install-spoof-dpi-title = Установить SpoofDPI
 
 # Main Page (buttons)
 button-about-tooltip = О программе
@@ -85,4 +87,4 @@ welcome-title = Добро пожаловать в CachyOS!
 welcome-body =
     Благодарим Вас за то, что Вы присоединились к нашему сообществу!
 
-    Мы, разработчики CachyOS, надеемся, что пользуясь этой системой, Вы будете испытывать такое же удовольствие, какое мы испытывали, создавая ее. Представленные ниже ссылки помогут Вам начать работу. Наслаждайтесь функционалом CachyOS и оставляйте свои отзывы.
+    Мы, разработчики CachyOS, надеемся, что пользуясь этой системой, Вы будете испытывать такое же удовольствие, какое испытывали мы, создавая ее. Представленные ниже ссылки помогут Вам начать работу. Наслаждайтесь функционалом CachyOS и оставляйте свои отзывы.
