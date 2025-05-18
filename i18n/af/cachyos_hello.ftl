@@ -62,7 +62,7 @@ button-forum-label = Forum
 button-installer-label = Lanseer installeerder
 button-involved-label = Raak betrokke
 button-readme-label = Lees my
-button-release-info-label = Stel inligting vry
+button-release-info-label = Vrylatingsnote
 button-wiki-label = Wiki
 
 # Main Page (sections)
