@@ -300,6 +300,7 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                       <item id="tr">Turkish</item>
                       <item id="zh-CN">Simplified Chinese</item>
                       <item id="af">Afrikaans</item>
+                      <item id="hu">Hungarian</item>
                     </items>
                     <signal name="changed" handler="on_languages_changed" swapped="no"/>
                   </object>
