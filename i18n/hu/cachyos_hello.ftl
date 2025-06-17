@@ -1,5 +1,5 @@
 # About dialog
-about-dialog-title = CachyOS Üdvözlő
+about-dialog-title = CachyOS Hello
 about-dialog-comments = Üdvözlőképernyő a CachyOS-hoz
 
 # Tweaks page
