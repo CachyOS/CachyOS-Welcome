@@ -44,6 +44,26 @@ impl HelloWindow {
             builder.object("window").expect("Could not get the object window");
         main_window.set_application(Some(application));
 
+        // GNOME dark mode check
+        use std::env;
+        use std::process::Command;
+
+        if let Ok(desktop) = env::var("XDG_CURRENT_DESKTOP") {
+            if desktop.contains("GNOME") {
+                if let Ok(output) = Command::new("gsettings")
+                    .args(["get", "org.gnome.desktop.interface", "color-scheme"])
+                    .output()
+                {
+                    let stdout = String::from_utf8_lossy(&output.stdout);
+                    if stdout.contains("dark") {
+                        gtk::Settings::default()
+                            .unwrap()
+                            .set_property("gtk-theme-name", "Adwaita-dark");
+                    }
+                }
+            }
+        }
+
         // Subtitle of headerbar
         let header: HeaderBar = builder.object("headerbar").expect("Could not get the headerbar");
         header.set_subtitle(Some("CachyOS rolling"));
