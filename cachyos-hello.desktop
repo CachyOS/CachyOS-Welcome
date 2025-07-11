@@ -7,6 +7,7 @@ Name=CachyOS Hello
 Exec=/usr/bin/cachyos-hello
 Icon=org.cachyos.hello
 Comment=A tool providing access to documentation and support for new CachyOS users.
+Comment[bg]=Инструмент, предоставящ достъп до документация и поддръжка за нови потребители на CachyOS.
 Comment[da]=En app med adgang til dokumentation og support for nye CachyOS brugere.
 Comment[cs]=nástroj poskytující přístup k dokumentaci a podpoře pro nové CachyOS uživatele
 Comment[sk]=Nástroj poskytujúci prístup k dokumentácii a podporu pre nových CachyOS používateľov 
