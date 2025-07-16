@@ -714,7 +714,7 @@
             {
                 "name": "Deja Dup",
                 "icon": "deja-dup",
-                "description": "Keep your important documents safe from disater",
+                "description": "Keep your important documents safe from disaster",
                 "pkg": "deja-dup",
                 "extra": []
             },
