@@ -96,16 +96,35 @@ fn edition_compat_check(window: &gtk::Window, message: String) -> bool {
 }
 
 fn connectivity_check(window: &gtk::Window, message: String) -> bool {
-    let status = match reqwest::blocking::get("https://cachyos.org") {
+    // First try HTTP check to cachyos.org
+    let http_status = match reqwest::blocking::get("https://cachyos.org") {
         Ok(resp) => resp.status().is_success() || resp.status().is_server_error(),
         _ => false,
     };
 
-    if !status {
-        utils::show_simple_dialog(window, gtk::MessageType::Error, &fl!("offline-error"), message);
-        return false;
+    if http_status {
+        return true;
     }
-    true
+
+    // If HTTP check fails, try ping fallback to reliable DNS servers
+    let ping_targets = ["8.8.8.8", "1.1.1.1", "9.9.9.9"];
+    
+    for target in &ping_targets {
+        let ping_result = Exec::cmd("ping")
+            .args(&["-c", "1", "-W", "3", target])
+            .capture();
+            
+        if let Ok(capture) = ping_result {
+            if capture.exit_status.success() {
+                info!("Connectivity confirmed via ping to {}", target);
+                return true;
+            }
+        }
+    }
+
+    // All connectivity checks failed
+    utils::show_simple_dialog(window, gtk::MessageType::Error, &fl!("offline-error"), message);
+    false
 }
 
 pub fn launch_installer(message: String) {
