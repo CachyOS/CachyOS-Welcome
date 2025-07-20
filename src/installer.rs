@@ -116,7 +116,7 @@ fn connectivity_check(window: &gtk::Window, message: String) -> bool {
             
         if let Ok(status) = ping_result {
             if status.success() {
-                info!("Connectivity confirmed via ping to {}", target);
+                info!("Connectivity confirmed via ping to {target}");
                 return true;
             }
         }
