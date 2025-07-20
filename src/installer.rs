@@ -112,7 +112,7 @@ fn connectivity_check(window: &gtk::Window, message: String) -> bool {
     for target in ["8.8.8.8", "1.1.1.1", "9.9.9.9"] {
         let ping_result = Exec::cmd("ping")
             .args(&["-c", "1", "-W", "3", target])
-            .capture();
+            .join();
             
         if let Ok(capture) = ping_result {
             if capture.exit_status.success() {
