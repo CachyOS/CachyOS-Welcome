@@ -109,7 +109,7 @@ fn connectivity_check(window: &gtk::Window, message: String) -> bool {
     // If HTTP check fails, try ping fallback to reliable DNS servers
     let ping_targets = ["8.8.8.8", "1.1.1.1", "9.9.9.9"];
     
-    for target in &ping_targets {
+    for target in ["8.8.8.8", "1.1.1.1", "9.9.9.9"] {
         let ping_result = Exec::cmd("ping")
             .args(&["-c", "1", "-W", "3", target])
             .capture();
