@@ -43,16 +43,16 @@ macro_rules! create_tweak_checkbox {
 static G_LOCAL_UNITS: Lazy<Mutex<SystemdUnits>> = Lazy::new(|| Mutex::new(SystemdUnits::new()));
 static G_GLOBAL_UNITS: Lazy<Mutex<SystemdUnits>> = Lazy::new(|| Mutex::new(SystemdUnits::new()));
 
-static G_DNS_SERVERS: phf::OrderedMap<&'static str, &'static str> = phf_ordered_map! {
-    "Adguard" => "94.140.14.14",
-    "Adguard Family Protection" => "94.140.14.15",
-    "Cloudflare" => "1.1.1.1",
-    "Cloudflare Malware and adult content blocking" => "1.1.1.3",
-    "DNS.Watch" => "84.200.69.80",
-    "Cisco Umbrella(OpenDNS)" => "208.67.222.222,208.67.220.220",
-    "Quad9" => "9.9.9.9",
-    "Google" => "8.8.8.8,8.8.4.4",
-    "Yandex" => "77.88.8.8,77.88.8.1",
+static G_DNS_SERVERS: phf::OrderedMap<&'static str, (&'static str, &'static str)> = phf_ordered_map! {
+    "AdGuard" => ("94.140.14.14,94.140.15.15", "2a10:50c0::ad1:ff,2a10:50c0::ad2:ff"),
+    "AdGuard Family Protection" => ("94.140.14.15,94.140.15.16", "2a10:50c0::bad1:ff,2a10:50c0::bad2:ff"),
+    "Cloudflare" => ("1.1.1.1,1.0.0.1", "2606:4700:4700::1111,2606:4700:4700::1001"),
+    "Cloudflare Malware and adult content blocking" => ("1.1.1.3,1.0.0.3", "2606:4700:4700::1113,2606:4700:4700::1003"),
+    "DNS.Watch" => ("84.200.69.80,84.200.70.40", "2001:1608:10:25::1c04:b12f,2001:1608:10:25::9249:d69b"),
+    "Cisco Umbrella(OpenDNS)" => ("208.67.222.222,208.67.220.220", "2620:119:35::35,2620:119:53::53"),
+    "Quad9" => ("9.9.9.9,149.112.112.112", "2620:fe::fe,2620:fe::9"),
+    "Google" => ("8.8.8.8,8.8.4.4", "2001:4860:4860::8888,2001:4860:4860::8844"),
+    "Yandex" => ("77.88.8.8,77.88.8.1", "2a02:6b8::feed:0ff,2a02:6b8:0:1::feed:0ff")
 };
 
 pub struct DialogMessage {
@@ -569,7 +569,7 @@ fn create_connections_section() -> gtk::Box {
         };
         let server_addr = G_DNS_SERVERS.get(&server_name).unwrap();
         std::thread::spawn(move || {
-            actions::change_dns_server(&conn_name, server_addr, dialog_tx_clone);
+            actions::change_dns_server(&conn_name, server_addr.0, server_addr.1, dialog_tx_clone);
         });
     });
     let dialog_tx_clone = dialog_tx.clone();

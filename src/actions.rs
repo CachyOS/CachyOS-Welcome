@@ -26,13 +26,14 @@ pub fn launch_kwin_debug_window() {
     }
 }
 
-pub fn change_dns_server(conn_name: &str, server_addr: &str, dialog_tx: Sender<DialogMessage>) {
+pub fn change_dns_server(conn_name: &str, server_addr_ipv4: &str, server_addr_ipv6: &str, dialog_tx: Sender<DialogMessage>) {
     let status_code = Exec::cmd("/sbin/pkexec")
         .arg("bash")
         .arg("-c")
         .arg(format!(
-            "nmcli con mod '{conn_name}' ipv4.dns '{server_addr}' && systemctl restart \
-             NetworkManager"
+            "nmcli con mod '{conn_name}' ipv4.dns '{server_addr_ipv4}' && \
+             nmcli con mod '{conn_name}' ipv6.dns '{server_addr_ipv6}' && \
+             systemctl restart NetworkManager"
         ))
         .join()
         .unwrap();
