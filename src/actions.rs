@@ -60,7 +60,11 @@ pub fn reset_dns_server(conn_name: &str, dialog_tx: Sender<DialogMessage>) {
     let status_code = Exec::cmd("/sbin/pkexec")
         .arg("bash")
         .arg("-c")
-        .arg(format!("nmcli con mod '{conn_name}' ipv4.dns '' && systemctl restart NetworkManager"))
+        .arg(format!(
+            "nmcli con mod '{conn_name}' ipv4.dns '' && \
+             nmcli con mod '{conn_name}' ipv6.dns '' && \
+             systemctl restart NetworkManager"
+        ))
         .join()
         .unwrap();
     if status_code.success() {
