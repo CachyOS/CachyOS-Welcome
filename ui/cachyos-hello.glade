@@ -302,6 +302,7 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                       <item id="af">Afrikaans</item>
                       <item id="hu">Hungarian</item>
                       <item id="bg">Bulgarian</item>
+                      <item id="et">Estonian</item>
                     </items>
                     <signal name="changed" handler="on_languages_changed" swapped="no"/>
                   </object>
