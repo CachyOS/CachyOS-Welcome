@@ -283,26 +283,26 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <items>
-                      <item id="en">English</item>
-                      <item id="ca">Català</item>
-                      <item id="fr">French</item>
-                      <item id="de">German</item>
-                      <item id="nl">Dutch</item>
-                      <item id="it">Italian</item>
-                      <item id="pl">Polish</item>
-                      <item id="pt-BR">Português Brasileiro</item>
-                      <item id="ru">Russian</item>
-                      <item id="by">Belarusian</item>
-                      <item id="sk">Slovak</item>
-                      <item id="sv">Swedish</item>
-                      <item id="cs">Czech</item>
-                      <item id="es">Spanish</item>
-                      <item id="tr">Turkish</item>
-                      <item id="zh-CN">Simplified Chinese</item>
                       <item id="af">Afrikaans</item>
-                      <item id="hu">Hungarian</item>
-                      <item id="bg">Bulgarian</item>
-                      <item id="et">Estonian</item>
+                      <item id="bg">Български</item>
+                      <item id="by">Беларуская</item>
+                      <item id="ca">Català</item>
+                      <item id="cs">Čeština</item>
+                      <item id="de">Deutsch</item>
+                      <item id="en">English</item>
+                      <item id="es">Español</item>
+                      <item id="et">Eesti</item>
+                      <item id="fr">Français</item>
+                      <item id="hu">Magyar</item>
+                      <item id="it">Italiano</item>
+                      <item id="nl">Nederlands</item>
+                      <item id="pl">Polski</item>
+                      <item id="pt-BR">Português Brasileiro</item>
+                      <item id="ru">Русский</item>
+                      <item id="sk">Slovenčina</item>
+                      <item id="sv">Svenska</item>
+                      <item id="tr">Türkçe</item>
+                      <item id="zh-CN">简体中文</item>
                     </items>
                     <signal name="changed" handler="on_languages_changed" swapped="no"/>
                   </object>
