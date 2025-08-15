@@ -283,13 +283,14 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <items>
+                      <item id="en">English</item>
+                      <!-- Keep en first -->
                       <item id="af">Afrikaans</item>
                       <item id="bg">Български</item>
                       <item id="by">Беларуская</item>
                       <item id="ca">Català</item>
                       <item id="cs">Čeština</item>
                       <item id="de">Deutsch</item>
-                      <item id="en">English</item>
                       <item id="es">Español</item>
                       <item id="et">Eesti</item>
                       <item id="fr">Français</item>
