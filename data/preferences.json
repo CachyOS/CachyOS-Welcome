@@ -9,7 +9,7 @@
     "save_path": "~/.config/cachyos-hello.json",
     "urls": {
         "development": "https://github.com/cachyos",
-        "software": "https://github.com/cachyos/cachyos-pkgbuilds",
+        "software": "https://packages.cachyos.org",
         "donate": "https://www.patreon.com/CachyOS",
         "forum": "https://discuss.cachyos.org",
         "telegram": "https://t.me/+oR-kWT47vRdmMDli",
