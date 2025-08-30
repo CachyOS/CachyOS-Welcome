@@ -1,4 +1,3 @@
-use crate::application_browser::ApplicationBrowser;
 use crate::systemd_units::SystemdUnits;
 use crate::{actions, fl, systemd_units, utils};
 
@@ -183,49 +182,6 @@ pub fn update_translations(builder: &Builder) {
                     let second_child_child_box =
                         second_child_child_widget.downcast::<gtk::Box>().unwrap();
                     update_translation_connections_section(&second_child_child_box);
-                }
-            }
-        }
-        if let Some(widget) = stack.child_by_name("appBrowserpage") {
-            if let Ok(viewport) = widget.downcast::<gtk::Viewport>() {
-                let first_child = &viewport.children()[0].clone().downcast::<gtk::Box>().unwrap();
-                for first_child_box in first_child.children() {
-                    if first_child_box.widget_name() != "appBrowserpageimpl" {
-                        if let Ok(child_scrolledwindow) =
-                            &first_child_box.downcast::<gtk::Grid>().unwrap().children()[0]
-                                .clone()
-                                .downcast::<gtk::ScrolledWindow>()
-                        {
-                            let tree_view = &child_scrolledwindow.children()[0]
-                                .clone()
-                                .downcast::<gtk::TreeView>()
-                                .unwrap();
-                            for tree_column in &tree_view.columns() {
-                                if tree_column.title().unwrap().is_empty() {
-                                    continue;
-                                }
-                                let column_name =
-                                    unsafe { *tree_column.data::<&str>("name").unwrap().as_ptr() };
-                                if column_name.is_empty() {
-                                    continue;
-                                }
-
-                                let translated_text =
-                                    crate::localization::get_locale_text(column_name);
-                                tree_column.set_title(&translated_text);
-                            }
-                        }
-                        continue;
-                    }
-                    let appbrowserimpl = &first_child_box.clone().downcast::<gtk::Box>().unwrap();
-                    for box_element in appbrowserimpl.children() {
-                        if let Ok(box_element_btn) = box_element.clone().downcast::<gtk::Button>() {
-                            let widget_name = box_element_btn.widget_name();
-                            let translated_text =
-                                crate::localization::get_locale_text(&widget_name);
-                            box_element_btn.set_label(&translated_text);
-                        }
-                    }
                 }
             }
         }
@@ -818,26 +774,16 @@ pub fn create_appbrowser_page(builder: &Builder) {
     let install: gtk::Button = builder.object("appBrowser").unwrap();
     install.set_visible(true);
     install.set_label(&fl!("appbrowser-label"));
+    install.connect_clicked(move |_| {
+        // Spawn child process in separate thread.
+        std::thread::spawn(move || {
+            // Get executable path.
+            let exec_path = "/usr/bin/cachyos-pi";
+            let exit_status = Exec::cmd(exec_path).detached().join().expect("Failed to spawn process");
 
-    let viewport = gtk::Viewport::new(gtk::Adjustment::NONE, gtk::Adjustment::NONE);
-    let back_btn = ApplicationBrowser::back_btn_impl()
-        .expect("Failed to get back btn from application browser");
-    back_btn.connect_clicked(glib::clone!(@weak builder => move |button| {
-        let name = button.widget_name();
-        let stack: gtk::Stack = builder.object("stack").unwrap();
-        stack.set_visible_child_name(&format!("{name}page"));
-    }));
-    let app_browser_box =
-        ApplicationBrowser::page_impl().expect("Failed to get page of application browser");
-
-    // Add grid to the viewport
-    // NOTE: we might eliminate that?
-    viewport.add(&app_browser_box);
-    viewport.show_all();
-
-    let stack: gtk::Stack = builder.object("stack").unwrap();
-    let child_name = "appBrowserpage";
-    stack.add_named(&viewport, child_name);
+            debug!("Exit status successfully? = {:?}", exit_status.success());
+        });
+    });
 }
 
 fn toggle_service(

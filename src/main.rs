@@ -2,8 +2,6 @@
 #![allow(clippy::arc_with_non_send_sync)]
 
 mod actions;
-mod alpm_helper;
-mod application_browser;
 mod config;
 mod embed_data;
 mod gresource;
