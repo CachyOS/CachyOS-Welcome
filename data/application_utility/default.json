@@ -583,7 +583,7 @@
                 "name": "Openshot",
                 "icon": "openshot",
                 "description": "Award-winning free and open-source video editor",
-                "pkg": "obs-studio",
+                "pkg": "openshot",
                 "extra": []
             },
             {
