@@ -27,6 +27,11 @@ impl HelloWindow {
         preferences: serde_json::Value,
         best_locale: &str,
     ) -> Self {
+        // Set dark theme preference
+        if let Some(settings) = gtk::Settings::default() {
+            settings.set_property("gtk-application-prefer-dark-theme", true);
+        }
+
         // Import Css
         let provider = gtk::CssProvider::new();
         provider.load_from_resource(&format!("{RESPREFIX}/ui/style.css"));

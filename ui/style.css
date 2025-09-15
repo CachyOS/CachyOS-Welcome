@@ -1,6 +1,8 @@
 window {
     border-bottom-left-radius: 7px;
     border-bottom-right-radius: 7px;
+    background-color: #1d1d1d;  /* Darker than default Adwaita dark */
+    color: #e0e0e0;
 }
 
 #tweaksBrowserpage button {
@@ -24,4 +26,6 @@ window {
 
 .aboutdialog {
     border-radius: 7px;
+    background-color: #1d1d1d;
+    color: #e0e0e0;
 }
