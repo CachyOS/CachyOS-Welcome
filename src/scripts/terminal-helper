@@ -57,6 +57,7 @@ declare -A terminals=(
     ["lxterminal"]="lxterminal -e $cmd"
     ["rio"]="rio -e $cmd"
     ["st"]="st $cmd"
+    ["terminator"]="terminator -x $cmd"
     ["xfce4-terminal"]="xfce4-terminal --disable-server --command '$cmd'"
     ["xterm"]="xterm -e $cmd"
 )
@@ -73,6 +74,7 @@ declare -a term_order=(
     "xterm"
     "st"
     "foot"
+    "terminator"
 )
 
 if [ -z "$terminal" ] || ! command -v "$terminal" &>/dev/null; then
