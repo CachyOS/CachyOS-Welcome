@@ -61,6 +61,12 @@ pub fn change_dns_server(
     server_addr_ipv6: &str,
     dialog_tx: Sender<DialogMessage>,
 ) {
+    // fallback to resetting dns config
+    if server_addr_ipv4.is_empty() || server_addr_ipv6.is_empty() {
+        reset_dns_server(conn_name, dialog_tx);
+        return;
+    }
+
     let status_code = utils::run_cmd(
         format!(
             "nmcli con mod '{conn_name}' ipv4.dns '{server_addr_ipv4}' && nmcli con mod \
