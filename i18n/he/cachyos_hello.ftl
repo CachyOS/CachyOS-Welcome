@@ -6,8 +6,8 @@ about-dialog-comments = תוכנית קבלת פנים עבור CachyOS
 tweaks = התאמות
 fixes = תיקונים
 applications = יישומים
-removed-db-lock = Pacman db lock was removed!
-lock-doesnt-exist = Pacman db lock does not exist!
+removed-db-lock = הוסרה הנעילה ממסד הנתונים של Pacman!
+lock-doesnt-exist = מסד הנתונים של Pacman אינו נעול!
 orphans-not-found = לא נמצאו חבילות שאינן משויכות!
 package-not-installed = החבילה ‚{$package_name}’ לא הותקנה!
 gaming-package-installed = החבילות למשחקים כבר מותקנות!
@@ -21,7 +21,7 @@ update-system-app-btn = עדכון המערכת
 application-column = יישום
 description-column = תיאור
 install-remove-column = התקנה/הסרה
-advanced-btn-tooltip = Toggle an extended selection of packages
+advanced-btn-tooltip = שינוי המצב של בחירת חבילות מורחבת
 reset-btn-tooltip = שחזור הבחירות הנוכחיות שלך...
 update-system-app-btn-tooltip = החלת הבחירות הנוכחיות שלך על המערכת
 
@@ -38,17 +38,18 @@ dns-server-reset-failed = איפוס שרת ה־DNS נכשל!
 
 # Tweaks page (tweaks)
 tweak-enabled-title = ‏{$tweak} הופעל
-tweak-psd-tooltip = Use RAM for browser profiles (faster, less disk wear)
-tweak-oomd-tooltip = Proactively kill processes during low memory to prevent freezes
-tweak-bpftune-tooltip = Automatically tune system network
+# (After translating the following strings, remove the hash:)
+# tweak-psd-tooltip = Use RAM for browser profiles (faster, less disk wear)
+tweak-oomd-tooltip = סיום תהליכים באופן פעיל בעת כמות זיכרון נמוכה לצורך מניאת קיפאון מסך
+tweak-bpftune-tooltip = כוונון אוטומטי של הרשת במערכת
 tweak-bluetooth-tooltip = הפעלת תמיכה בהתקני בלוטות׳ אלחוטיים (עכברים, התקני שמע וכו׳)
-tweak-ananicycpp-tooltip = Auto-adjust process priorities for better system responsiveness
+# tweak-ananicycpp-tooltip = Auto-adjust process priorities for better system responsiveness
 tweak-cachyupdate-tooltip = התראה על עדכונים במגש המערכת
 
 # Tweaks page (fixes)
-remove-lock-title = Remove db lock
+remove-lock-title = הסרת הנעילה ממסד הנתונים
 reinstall-title = התקנת כל החבילות מחדש
-reset-keyrings-title = Reset keyrings
+reset-keyrings-title = איפוס מפתחות
 update-system-title = עדכון מערכת
 remove-orphans-title = הסרת חבילות שאינן משויכות
 clear-pkgcache-title = ניקוי מטמון חבילות
@@ -83,8 +84,8 @@ recommended = מומלץ
 calamares-install-type = סוג ההתקנה של Calamares
 
 # Main Page (body)
-offline-error = Unable to start online installation! No internet connection
-unsupported-hw-warning = You are attempting to install on hardware not supported by the current ISO, your installation will not be eligible for support
+offline-error = אין אפשרות להתחיל בהורדה מקוונת! אין חיבור לאינטרנט
+unsupported-hw-warning = מתבצע ניסיון להתקנה על חומרה שאינה נתמכת על ידי ה־ISO הנוכחי, התקנה זו לא תהיה זכאית לקבלת תמיכה
 outdated-version-warning = מחשבך מריץ גרסה ישנה של ה־ISO של CachyOS, נא לשקול להשתמש בגרסה העדכנית לצורך התקנת המערכת
 testing-iso-warning = מחשבך מריץ ISO לבדיקה, דמויות ISO לבדיקה לא נחשבות יציבות ומוכנות לשימוש
 tweaksbrowser-label = יישומים/התאמות
