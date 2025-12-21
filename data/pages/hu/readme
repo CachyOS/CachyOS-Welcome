@@ -2,25 +2,25 @@
 
 A CachyOS nemcsak több kernel használatát támogatja (ezek az indítóképernyő speciális beállításaiban választhatók ki), hanem hozzáférést biztosít a legújabb, élvonalbeli kernelekhez is. Ez elérhető a CachyOS grafikus Beállításkezelőjében található Kernel modulon keresztül, vagy parancssorból a chwd-kernel (CachyOS Hardverfelismerés) paranccsal.
 
-Ezek a CachyOS-eszközök automatikusan frissítik az újonnan telepített kernelt, valamint az aktuális kernelben használt modulokat is. Például, ha a 3.18-as kernelről a 4.1-esre frissít, a chwd-kernel automatikusan telepíti a 4.1-es kernelhez tartozó fájlokat, valamint az összes olyan modult, amelyet korábban a 3.18-as kernel használt. Elég praktikus, nem igaz?
+Ezek a CachyOS-eszközök automatikusan frissítik az újonnan telepített kernelt, valamint az aktuálisan használt kernelben használt modulokat is. Például, ha a 3.18-as kernelről a 4.1-esre frissítesz, a chwd-kernel automatikusan telepíti a 4.1-es kernelhez tartozó fájlokat, valamint az összes olyan modult, amelyet korábban a 3.18-as kernel használt. Elég praktikus, nem?
 
-A hardverek beállítása történhet a Beállításkezelő Hardverfelismerés modulján keresztül, vagy alternatívaként a chwd parancssori alkalmazással is. Ezen eszközök segítségével például grafikus illesztőprogramok (szabad vagy zárt forráskódú) is telepíthetők.
+A hardverek beállítása történhet a Beállításkezelő Hardverfelismerés modulján keresztül, vagy alternatívaként a chwd parancssori alkalmazással is. Ezekkel az eszközökkel például grafikus illesztőprogramokat is telepíthetsz, legyenek azok szabad vagy zárt forráskódúak.
 
 <big>Segítségkérés</big>
 
-Bár a CachyOS célja, hogy a lehető legjobban „dobozból kivéve” működjön, nem állítjuk, hogy tökéletes. Előfordulhatnak problémák, kérdések merülhetnek fel, szeretne többet megtudni a rendszerről, vagy csak személyre szabná azt az ízlésének megfelelően. Ez az oldal néhány hasznos forrást sorol fel, amelyek segítséget nyújthatnak.
+Bár a CachyOS célja, hogy a lehető legjobban „dobozból kivéve” működjön, nem állítjuk, hogy tökéletes. Előfordulhatnak problémák, kérdésid lehetnek, szeretnél többet megtudni a rendszerről, vagy csak személyre szabnád az ízlésednek megfelelően. Ez az oldal néhány hasznos forrást sorol fel, amelyek segítenek.
 
 <b>Internetes keresés</b>
 
-Általános Linux-témájú segítség kereséséhez első lépésként érdemes lehet az internetes keresőjét használni. A keresőkifejezések között szerepeljen például a 'Linux', 'CachyOS' vagy 'Arch'.
+Általános Linux-témájú segítség kereséséhez első lépésként érdemes lehet az internetes keresőt használnod. A keresőkifejezések között szerepeljen például a „Linux”, „CachyOS” vagy „Arch”.
 
-Mivel a CachyOS az Arch Linuxra épül, az Arch számára készült útmutatók és tippek a legtöbb esetben a CachyOS-re is alkalmazhatók.
+Mivel a CachyOS az Arch Linuxra épül, az Arch számára készült útmutatók és tippek a legtöbb esetben CachyOS-en is alkalmazhatók.
 
 <b>Fórum átböngészése</b>
 
-Konkrét CachyOS-sel kapcsolatos kérdésekkel kapcsolatban érdemes ellátogatni a hivatalos online fórumunkra, ahol meglévő témák között kereshet, vagy sajátot is létrehozhat. Ez talán a legjobb hely az együttműködésre, eszmecserére és segítségkérésre. Tegye fel kérdését, ossza meg véleményét, vagy írja le javaslatait. Ne habozzon!
+Konkrét CachyOS-szel kapcsolatos kérdések esetén érdemes ellátogatnod a hivatalos online fórumunkra, ahol meglévő témák között kereshetsz, vagy sajátot is létrehozhatsz. Ez talán a legjobb hely az együttműködésre, eszmecserére és segítségkérésre. Kérdezz, oszd meg a véleményedet, vagy írd le a javaslataidat. Ne légy félénk!
 
-A CachyOS fórum különböző témakörökre és környezetekre van bontva — kérjük, hogy a megfelelő részbe írja be bejegyzését!
+A CachyOS fórum különböző témakörökre és környezetekre van bontva — kérjük, hogy a megfelelő részbe írj!
 
 <big>További források</big>
 
@@ -30,9 +30,9 @@ A CachyOS fórum különböző témakörökre és környezetekre van bontva — 
 
 <big>Javaslatok</big>
 
-Van egy ötlete, hogyan tehetnénk jobbá a CachyOS-t? Talált valamit, amit szívesen látna a rendszerben, vagy szeretne segíteni a fejlesztésben? Kérjük, ossza meg velünk javaslatait a fórumon, vagy látogasson el hozzánk IRC-n.
+Van egy ötleted, hogyan tehetnénk jobbá a CachyOS-t? Találtál valamit, amit szívesen látnál a rendszerben, vagy szeretnél segíteni a fejlesztésben? Kérjük, oszd meg velünk a javaslataidat a fórumon, vagy ugorj be hozzánk IRC-re.
 
-Köszönjük szépen!
+Köszönjük!
 
-Reméljük, örömét leli a CachyOS használatában!
+Reméljük, örömöd leled a CachyOS használatában!
 

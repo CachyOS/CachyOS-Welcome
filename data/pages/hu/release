@@ -1,0 +1,85 @@
+<big>CachyOS 24.12</big>
+
+
+Ez az év 13. kiadása, és nagy eséllyel az utolsó is, tele kerneloptimalizálásokkal, RustiCL változtatásokkal és sok egyéb fejlesztéssel.
+
+Az egyik legfontosabb újdonság, hogy az alapértelmezett kernel most már AutoFDO-val van optimalizálva. A profilozás különböző terhelésekkel történik, többek között sysbench, CachyOS Benchmarker, Git műveletek, kernel fordítás és egyéb vegyes benchmarkok segítségével. Jelenleg a profilozás egy Zen5 gépen történik, de a jövőben több profil összevonását is tervezzük a még jobb optimalizálás érdekében.
+
+A RustiCL lett az alapértelmezett OpenCL illesztőprogram a Mesa-ban, ami jobb teljesítményt és kompatibilitást hoz. Emellett mostantól az scx_loader-t használjuk a sched-ext ütemezők kezelésére a kernel-managerben. Ez lehetővé teszi az ütemezők zökkenőmentes váltását, és biztosítja, hogy minden megfelelően legyen konfigurálva egy dedikált konfigurációs fájl segítségével.
+
+Bekapcsoltuk a Bluetooth támogatást is, ami a legtöbb felhasználó számára jobb felhasználói élményt jelent. Ezen felül a wireless-regdb mostantól alapértelmezetten telepítve van, ami javítja a Wi-Fi teljesítményt, miközben betartja a régiós szabályozásokat. A régiódat az /etc/conf.d/wireless-regdom fájlban állíthatod be, így elérhetővé válhatnak a területeden engedélyezett további Wi-Fi frekvenciák.
+
+Végül, de nem utolsósorban, ez a kiadás több fontos hibajavítást is tartalmaz:
+- Javítottuk a /boot könyvtár umask beállítását, hogy elkerüljük a nem kívánt hozzáféréseket
+- A telepítő többé nem nyit meg külön terminálablakot a naplókkal
+- Javítva lett az internetkapcsolat ellenőrzése a gördülékenyebb telepítés érdekében
+
+<big>Funkciók:</big>
+
+- Kernel:
+  - Az AutoFDO mostantól az alapértelmezett linux-cachyos kernelre van alkalmazva minden támogatott architektúrán
+    - **Megjegyzés**: A teljesítménynövekedés egyelőre visszafogott. A profilok összevonásához LLVM 19 szükséges, a Propeller optimalizáció pedig erre épül. Az LLVM 19 várhatóan az év végére érkezik meg az Arch Linuxszal együtt, fejlettebb profilokkal
+- chwd: a RustiCL most már megfelelően van konfigurálva
+- chwd: javított hibalogolás a horgok futtatása közben
+- chwd: javítva a VAAPI driverek kiválasztása
+- cachyos-settings: új script került be, amely megkönnyíti az alkalmazások Zinken keresztüli futtatását
+- Sysctl konfiguráció: több beállítás újra lett gondolva és optimalizálva
+- Kernelkezelő: támogatás hozzáadva az scx_loader-hez, natív ütemezőváltással
+- Telepítő: a Bluetooth szolgáltatás mostantól alapértelmezetten engedélyezett
+- Netinstall:
+  - Bekerült a wireless-regdb az alapból telepített csomagok közé
+    - Ez biztosítja a megfelelő csatornák használatát, és további csatornákat is feloldhat, ami jobb internetsebességet eredményezhet
+    - **Megjegyzés**: Alapból egy általános régió van beállítva; az optimális teljesítményhez érdemes a saját régiódra állítani
+
+<big>Hibajavítások:</big>
+
+- Telepítő: a telepítési naplók többé nem nyitnak meg hibakereső terminálablakokat
+- Partíciókezelés:
+  - A megfelelő umask beállítások biztosítják, hogy a /boot ne legyen elérhető jogosultság nélkül
+- Telepítő indítása: javítva lett az internetkapcsolat ellenőrzése
+
+<big>Változások a Handheld kiadáshoz képest:</big>
+
+- Frissítettük a handheldhez kapcsolódó csomagokat
+- Javítottuk az energiagazdálkodási profil kezelését
+- Hozzáadtuk a Wi-Fi 6 támogatást
+
+<big>Kézi teendők meglévő felhasználóknak:</big>
+
+Ha Wi-Fi-t használsz, érdemes telepítened a wireless-regdb csomagot, és beállítani a régiódat az /etc/conf.d/wireless-regdom fájlban:
+```sh
+sudo pacman -S wireless-regdb
+sudo micro /etc/conf.d/wireless-regdom
+```
+
+Ezen kívül nincs más dolgod, mint naprakészen tartani a rendszeredet az alábbi paranccsal:
+```
+sudo pacman -Syu
+```
+
+<big>Letöltés:</big>
+
+A legfrissebb ISO elérhető a tükreinken és a SourceForge-on:
+
+* CDN: https://iso.cachyos.org/desktop/241224/cachyos-desktop-linux-241224.iso
+* CDN2: https://cdn77.cachyos.org/ISO/desktop/241224/cachyos-desktop-linux-241224.iso
+* Németország: https://mirror.cachyos.org/ISO/desktop/241224/cachyos-desktop-linux-241224.iso
+* USA: https://us.cachyos.org/ISO/241224/desktop/cachyos-desktop-linux-241224.iso
+* Kína: https://mirrors.tuna.tsinghua.edu.cn/cachyos/desktop/241224/cachyos-desktop-linux-241224.iso
+* https://sourceforge.net/projects/cachyos-arch/files
+
+Handheld kiadás:
+
+* CDN: https://iso.cachyos.org/handheld/241224/cachyos-handheld-linux-241224.iso
+* CDN2: https://cdn77.cachyos.org/ISO/handheld/241224/cachyos-handheld-linux-241224.iso
+
+<big>Támogass minket:</big>
+
+Hozzájárulásod segít a szervereink fenntartásában. Ha szeretnél támogatni minket, itt megteheted:
+
+* PayPal: https://paypal.me/pttrr
+* Patreon: https://www.patreon.com/CachyOS
+
+Köszönjük a folyamatos támogatásodat!
+
+<b>A CachyOS csapata</b>
