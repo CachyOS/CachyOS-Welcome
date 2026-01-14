@@ -1,4 +1,5 @@
 use crate::ui::{MessageType, UI};
+use crate::utils;
 use gtk::prelude::*;
 
 pub struct GUI {
@@ -38,6 +39,20 @@ impl UI for GUI {
 }
 
 pub fn run_command(command: &str, escalate: bool) -> bool {
+    // For simple operations that don't need user interaction, run directly without terminal
+    // This prevents unnecessary terminal windows for operations like systemctl enable/disable
+    // Check if command is a simple systemctl enable/disable operation
+    let is_simple_command = command.trim_start().starts_with("systemctl") 
+        && (command.contains(" enable ") || command.contains(" disable "))
+        && !command.contains("status")  // status commands might need output
+        && !command.contains("log");     // log commands need output
+    
+    if is_simple_command {
+        // Run directly without spawning a terminal window
+        return utils::run_cmd(command.to_string(), escalate).map(|s| s.success()).unwrap_or(false);
+    }
+    
+    // For operations that may need user interaction or output viewing, use terminal
     let cmd_formated = format!("{command}; read -p 'Press enter to exit'");
     let mut args: Vec<&str> = vec![];
     if escalate {

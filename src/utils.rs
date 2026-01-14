@@ -132,6 +132,7 @@ pub fn run_cmd_terminal(callback: RunCmdCallback, cmd: String, escalate: bool) -
 
 pub fn run_cmd(cmd: String, escalate: bool) -> anyhow::Result<ExitStatus> {
     if escalate {
+        // pkexec bash -c doesn't spawn a terminal, just shows auth dialog
         Ok(Exec::cmd("/sbin/pkexec").arg("bash").arg("-c").arg(cmd).join()?)
     } else {
         Ok(Exec::cmd("/sbin/bash").arg("-c").arg(cmd).join()?)
