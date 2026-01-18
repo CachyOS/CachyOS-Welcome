@@ -71,12 +71,18 @@ fn set_tweak_check_data(check_btn: &gtk::CheckButton, tweak_name: TweakName) {
 }
 
 fn connect_tweak(check_btn: &gtk::CheckButton, action_data: &'static str) {
-    let action_data_str = action_data.to_owned();
-    if G_LOCAL_UNITS.lock().unwrap().enabled_units.contains(&action_data_str)
-        || G_GLOBAL_UNITS.lock().unwrap().enabled_units.contains(&action_data_str)
-    {
+    let local_guard = G_LOCAL_UNITS.lock().unwrap();
+    let global_guard = G_GLOBAL_UNITS.lock().unwrap();
+
+    let is_enabled = action_data.split_whitespace().all(|unit| {
+        local_guard.enabled_units.contains(&unit.to_string()) || 
+        global_guard.enabled_units.contains(&unit.to_string())
+    });
+
+    if is_enabled {
         check_btn.set_active(true);
     }
+    
     connect_clicked_and_save(check_btn, on_servbtn_clicked);
 }
 
