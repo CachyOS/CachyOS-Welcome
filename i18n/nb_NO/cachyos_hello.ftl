@@ -1,86 +1,86 @@
 # About dialog
 about-dialog-title = CachyOS Hello
-about-dialog-comments = Welcome screen for CachyOS
+about-dialog-comments = Velkomstskjermen til CachyOS
 
 # Tweaks page
-tweaks = Tweaks
-fixes = Fixes
+tweaks = Justeringer
+fixes = Rettelser
 applications = Applications
-removed-db-lock = Pacman db lock was removed!
-lock-doesnt-exist = Pacman db lock does not exist!
-orphans-not-found = No orphan packages found!
-package-not-installed = Package '{$package_name}' has not been installed!
-gaming-package-installed = Gaming packages already installed!
-spoof-dpi-package-installed = SpoofDPI is already installed!
-snapper-package-installed = 'cachyos-snapper-support' package already installed!
+removed-db-lock = Pacman db lås ble fjernet!
+lock-doesnt-exist = Pacman db lås finnes ikke!
+orphans-not-found = Ingen foreldreløse pakker finnes!
+package-not-installed = '{$package_name}' pakken ble ikke installert!
+gaming-package-installed = Spillpakkene er allerede installert!
+spoof-dpi-package-installed = SpoofDPI er allerede installert!
+snapper-package-installed = 'cachyos-snapper-support' pakken er allerede installert!
 
 # Application Browser page
-advanced-btn = advanced
-reset-btn = reset
-update-system-app-btn = UPDATE SYSTEM
-application-column = Application
-description-column = Description
-install-remove-column = Install/Remove
-advanced-btn-tooltip = Toggle an extended selection of packages
-reset-btn-tooltip = Reset your current selections...
-update-system-app-btn-tooltip = Apply your current selections to the system
+advanced-btn = avansert
+reset-btn = tilbakestill
+update-system-app-btn = OPPDATER SYSTEMET
+application-column = Pakker
+description-column = Beskrivelse
+install-remove-column = Installer/Fjern
+advanced-btn-tooltip = Merk flere pakker
+reset-btn-tooltip = Nullstill ditt pakkevalg...
+update-system-app-btn-tooltip = Aktiver dine valg
 
 # Dns Connections page
-dns-settings = DNS Settings
-select-connection = Select Connection:
-select-dns-server = Select DNS server:
-apply = Apply
-reset = Reset
-dns-server-changed = DNS server was successfully changed!
-dns-server-failed = Failed to set DNS server!
-dns-server-reset = DNS server has been reset!
-dns-server-reset-failed = Failed to reset DNS server!
+dns-settings = DNS Innstillinger
+select-connection = Velg Tilkobling:
+select-dns-server = Velg DNS server:
+apply = Bruk
+reset = Nullstill
+dns-server-changed = DNS serveren ble endret!
+dns-server-failed = Kunne ikke sette ny DNS server!
+dns-server-reset = DNS serveren har blitt tilbakestillt!
+dns-server-reset-failed = Kunne ikke tilbakestille DNS serveren!
 
 # Tweaks page (tweaks)
-tweak-enabled-title = {$tweak} enabled
-tweak-psd-tooltip = Use RAM for browser profiles (faster, less disk wear)
-tweak-oomd-tooltip = Proactively kill processes during low memory to prevent freezes
-tweak-bpftune-tooltip = Automatically tune system network
-tweak-bluetooth-tooltip = Enable support for Bluetooth wireless devices (mice, audio, etc.)
-tweak-ananicycpp-tooltip = Auto-adjust process priorities for better system responsiveness
-tweak-cachyupdate-tooltip = Update notifier in tray
+tweak-enabled-title = {$tweak} aktivert
+tweak-psd-tooltip = Bruk RAM for nettleser profiler (raskere, mindre slitasje på harddisken)
+tweak-oomd-tooltip = Avslutt prosesser proaktivt ved lavt minne, for å forhindre frysing
+tweak-bpftune-tooltip = Finjuster system nettverket automatisk
+tweak-bluetooth-tooltip = Aktiver støtte for trådløse Bluetooth enheter (mus, lyd, etc.)
+tweak-ananicycpp-tooltip = Autojuster prosessprioriteringer for bedre systemytelse
+tweak-cachyupdate-tooltip = Vis oppdateringsvarsler i oppgavebehandleren
 
 # Tweaks page (fixes)
-remove-lock-title = Remove db lock
-reinstall-title = Reinstall all packages
-reset-keyrings-title = Reset keyrings
-update-system-title = System update
-remove-orphans-title = Remove orphans
-clear-pkgcache-title = Clear package cache
-rankmirrors-title = Rank mirrors
-dnsserver-title = Change DNS server
-show-kwinw-debug-title = Show kwin(Wayland) debug window
-install-gaming-title = Install Gaming packages
-install-snapper-title = Install Snapper support
-install-spoof-dpi-title = Install SpoofDPI
+remove-lock-title = Fjern db låsen
+reinstall-title = Reinnstaller alle pakkene
+reset-keyrings-title = Nullstill nøkkelring
+update-system-title = Oppdater systemet
+remove-orphans-title = Fjern ubrukte pakker
+clear-pkgcache-title = Slett pakkebuffer
+rankmirrors-title = Ranger pakketjenere
+dnsserver-title = Endre DNS server
+show-kwinw-debug-title = Vis kwin(Wayland) feilsøkings vindu
+install-gaming-title = Installer Spill pakker
+install-snapper-title = Installer Snapper støtte
+install-spoof-dpi-title = Installer SpoofDPI
 
 # Main Page (buttons)
-button-about-tooltip = About
-button-web-resource-tooltip = Web resource
-button-development-label = Development
-button-software-label = Software
-button-donate-label = Donate
+button-about-tooltip = Om
+button-web-resource-tooltip = Lenke til nettside
+button-development-label = Utvikling
+button-software-label = Programmvare
+button-donate-label = Doner
 button-forum-label = Forum
-button-installer-label = Launch installer
-button-involved-label = Get involved
-button-readme-label = Read me
-button-release-info-label = Release info
+button-installer-label = Start installasjonsprogrammet
+button-involved-label = Bli bidragsyter
+button-readme-label = Les meg
+button-release-info-label = Utgivelse informasjon
 button-wiki-label = Wiki
 
 # Main Page (sections)
-section-docs = DOCUMENTATION
-section-installer = INSTALLATION
-section-support = SUPPORT
-section-project = PROJECT
+section-docs = DOKUMENTASJON
+section-installer = INSTALLASJON
+section-support = BRUKERSTØTTE
+section-project = PROSJEKT
 
 # Main Page (launch installer)
-recommended = recommended
-calamares-install-type = Calamares install type
+recommended = anbefalt
+calamares-install-type = Calamares installasjonstype
 
 # Main Page (body)
 offline-error = Unable to start online installation! No internet connection
