@@ -83,15 +83,15 @@ recommended = anbefalt
 calamares-install-type = Calamares installasjonstype
 
 # Main Page (body)
-offline-error = Unable to start online installation! No internet connection
-unsupported-hw-warning = You are attempting to install on hardware not supported by the current ISO, your installation will not be eligible for support
-outdated-version-warning = You are using an older version of CachyOS ISO, please consider using latest version for installations
-testing-iso-warning = You are using a testing ISO, testing ISOs are not considered stable and ready for use
-tweaksbrowser-label = Apps/Tweaks
-appbrowser-label = Install Apps
-launch-start-label = Launch at start
-welcome-title = Welcome to CachyOS!
+offline-error = Kan ikke starte installasjonen fra internett! Ingen internettforbindelse
+unsupported-hw-warning = Du prøver å installere på maskinvare som ikke støttes av gjeldende ISO. Installasjonen din vil ikke være kvalifisert for støtte.
+outdated-version-warning = Du bruker en eldre versjon av CachyOS ISO. Vurder å bruke den nyeste versjonen for installasjoner.
+testing-iso-warning = Du bruker en test-ISO. Test-ISO-er anses ikke som stabile og klare til bruk.
+tweaksbrowser-label = Applikasjoner/Justeringer
+appbrowser-label = Installer Applikasjoner
+launch-start-label = Vis dette ved oppstart
+welcome-title = Velkommen til CachyOS!
 welcome-body =
-    Thank you for joining our community!
+   Takk for at du blir med i fellesskapet vårt!
 
-    We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we enjoy building it. The links below will help you get started with your new operating system. So enjoy the experience, and don't hesitate to send us your feedback.
+    Vi, CachyOS-utviklerne, håper at du vil like å bruke CachyOS like mye som vi liker å bygge det. Lenkene nedenfor vil hjelpe deg med å komme i gang med ditt nye operativsystem. Så nyt opplevelsen, og ikke nøl med å sende oss tilbakemeldingen din.
