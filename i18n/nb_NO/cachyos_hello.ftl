@@ -89,7 +89,7 @@ outdated-version-warning = Du bruker en eldre versjon av CachyOS ISO. Vurder å 
 testing-iso-warning = Du bruker en test-ISO. Test-ISO-er anses ikke som stabile og klare til bruk.
 tweaksbrowser-label = Applikasjoner/Justeringer
 appbrowser-label = Installer Applikasjoner
-launch-start-label = Vis dette ved oppstart
+launch-start-label = Kjør ved oppstart
 welcome-title = Velkommen til CachyOS!
 welcome-body =
    Takk for at du blir med i fellesskapet vårt!
