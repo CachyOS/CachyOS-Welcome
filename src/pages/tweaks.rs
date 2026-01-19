@@ -75,7 +75,7 @@ fn connect_tweak(check_btn: &gtk::CheckButton, action_data: &'static str) {
     let global_guard = G_GLOBAL_UNITS.lock().unwrap();
 
     let is_enabled = action_data.split_whitespace().all(|unit| {
-        local_guard.enabled_units.contains(&unit.to_string()) || 
+        local_guard.enabled_units.contains(&unit.to_string()) ||
         global_guard.enabled_units.contains(&unit.to_string())
     });
 
