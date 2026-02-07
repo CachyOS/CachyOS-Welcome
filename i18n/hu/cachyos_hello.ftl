@@ -4,7 +4,7 @@ about-dialog-comments = Üdvözlőképernyő a CachyOS-hoz
 
 # Tweaks page
 tweaks = Finomhangolások
-fixes = Javítások
+fixes = Segédprogramok
 applications = Alkalmazások
 removed-db-lock = A Pacman adatbázis zárolása eltávolítva!
 lock-doesnt-exist = A Pacman adatbázis zárolása nem létezik!

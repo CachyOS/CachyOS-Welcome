@@ -4,7 +4,7 @@ about-dialog-comments = Ekrani i mirëseardhjes së CachyOS
 
 # Tweaks page
 tweaks = Rregullime
-fixes = Ndreqje
+fixes = Shërbime
 applications = Aplikacione
 removed-db-lock = Bllokimi i databazës së Pacman u hoq!
 lock-doesnt-exist = Bllokimi i databazës së Pacman nuk ekziston!

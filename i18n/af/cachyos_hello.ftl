@@ -4,7 +4,7 @@ about-dialog-comments = Welkomskerm vir CachyOS
 
 # Tweaks page
 tweaks = Aanpassings
-fixes = Oplossings
+fixes = Nutsprogramme
 applications = Toepassings
 removed-db-lock = Pacman db-slot is verwyder!
 lock-doesnt-exist = Pacman db-slot bestaan nie!

@@ -4,7 +4,7 @@ about-dialog-comments = CachyOS의 시작 화면
 
 # Tweaks page
 tweaks = 트윅
-fixes = 수정사항
+fixes = 유틸리티
 applications = 애플리케이션
 removed-db-lock = Pacman DB 잠금 파일이 제거되었습니다!
 lock-doesnt-exist = Pacman DB 잠금 파일이 존재하지 않습니다!

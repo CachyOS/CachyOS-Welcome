@@ -4,7 +4,7 @@ about-dialog-comments = תוכנית קבלת פנים עבור CachyOS
 
 # Tweaks page
 tweaks = התאמות
-fixes = תיקונים
+fixes = כלי שירות
 applications = יישומים
 removed-db-lock = הוסרה הנעילה ממסד הנתונים של Pacman!
 lock-doesnt-exist = מסד הנתונים של Pacman אינו נעול!

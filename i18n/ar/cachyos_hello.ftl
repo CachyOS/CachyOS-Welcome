@@ -4,7 +4,7 @@ about-dialog-comments = شاشة الترحيب لـِكاشي أو إس
 
 # Tweaks page
 tweaks = التطويعات
-fixes = الإصلاحات
+fixes = أدوات مساعدة
 applications = التطبيقات
 removed-db-lock = أُزيل قفل قاعدة بيانات pacman!
 lock-doesnt-exist = قفل قاعدة بيانات pacman غير موجود!

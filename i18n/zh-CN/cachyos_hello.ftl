@@ -4,7 +4,7 @@ about-dialog-comments = CachyOS 的欢迎界面
 
 # Tweaks page
 tweaks = 调整
-fixes = 修复
+fixes = 实用工具
 applications = 应用程序
 removed-db-lock = 已解除 Pacman 数据库锁！
 lock-doesnt-exist = Pacman 数据库锁不存在！

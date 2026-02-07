@@ -4,7 +4,7 @@ about-dialog-comments = Pantalla de benvinguda per al CachyOS
 
 # Tweaks page
 tweaks = Retocs
-fixes = Correccions
+fixes = Utilitats
 applications = Aplicacions
 removed-db-lock = El blocatge de la base de dades del Pacman s'ha suprimit!
 lock-doesnt-exist = El blocatge de la base de dades del Pacman no existeix!

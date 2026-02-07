@@ -3,7 +3,7 @@ about-dialog-comments = CachyOS-i tervituskuva
 
 # Tweaks page
 tweaks = Kohandused
-fixes = Parandused
+fixes = Utiliidid
 applications = Rakendused
 removed-db-lock = Pacmani andmebaasi lukk on eemaldatud!
 lock-doesnt-exist = Pacmani andmebaasi lukku ei eksisteeri!

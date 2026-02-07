@@ -4,7 +4,7 @@ about-dialog-comments = Экран прывітання для CachyOS
 
 # Tweaks page
 tweaks = Твікі
-fixes = Выпраўленні
+fixes = Утыліты
 applications = Праграмы
 removed-db-lock = Блакаванне БД Pacman было выдалена!
 lock-doesnt-exist = Pacman БД не заблакаваны!

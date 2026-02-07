@@ -4,7 +4,7 @@ about-dialog-comments = Schermata di benvenuto per CachyOS
 
 # Tweaks page
 tweaks = Personalizzazioni
-fixes = Correzioni
+fixes = Utilità
 applications = Applicazioni
 removed-db-lock = Il blocco della base di dati di pacman è stato rimosso!
 lock-doesnt-exist = Il blocco della base di dati di pacman non esiste!

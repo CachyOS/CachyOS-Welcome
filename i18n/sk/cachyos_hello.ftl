@@ -4,7 +4,7 @@ about-dialog-comments = Úvodná obrazovka pre CachyOS
 
 # Stránka s vylepšeniami
 tweaks = Vylepšenia
-fixes = Opravy
+fixes = Nástroje
 applications = Aplikácie
 removed-db-lock = Zámok Pacman db bol odstránený!
 lock-doesnt-exist = Zámok Pacman db neexistuje!

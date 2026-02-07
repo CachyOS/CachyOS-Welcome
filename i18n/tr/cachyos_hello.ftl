@@ -4,7 +4,7 @@ about-dialog-comments = CachyOS Hoş Geldin Ekranı
 
 # Tweaks page
 tweaks = İnce ayarlar
-fixes = Çözümler
+fixes = Araçlar
 applications = Uygulamalar
 removed-db-lock = Pacman veritabanı kilidi kaldırıldı!
 lock-doesnt-exist = Pacman veritabanı kilidi bulunmamaktadır!

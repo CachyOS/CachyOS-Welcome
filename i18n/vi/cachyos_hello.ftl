@@ -4,7 +4,7 @@ about-dialog-comments = Màn hình chào mừng của CachyOS
 
 # Tweaks page
 tweaks = chỉnh sửa
-fixes = Các bản vá
+fixes = Tiện ích
 applications = Các ứng dụng
 removed-db-lock = Pacman db lock đã được xóa!
 lock-doesnt-exist = Pacman db lock không tồn tại!

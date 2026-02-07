@@ -4,7 +4,7 @@ about-dialog-comments = Velkomstskjermen til CachyOS
 
 # Tweaks page
 tweaks = Justeringer
-fixes = Rettelser
+fixes = Verktøy
 applications = Applications
 removed-db-lock = Pacman db lås ble fjernet!
 lock-doesnt-exist = Pacman db lås finnes ikke!
