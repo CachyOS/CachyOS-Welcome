@@ -251,3 +251,19 @@ pub fn install_snapper(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage
         dialog_tx,
     );
 }
+
+pub fn install_winboat(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage>) {
+    const ALPM_PACKAGE_NAMES: [&str; 3] = ["winboat", "docker", "docker-compose"];
+    install_needed_packages(
+        callback,
+        &ALPM_PACKAGE_NAMES,
+        fl!("winboat-package-installed"),
+        Action::InstallWinboat,
+        dialog_tx,
+    );
+
+    // Enable docker.service after installation
+    if utils::is_alpm_pkg_installed("docker") {
+        let _ = utils::run_cmd("systemctl enable --now --force docker.service".into(), true);
+    }
+}
