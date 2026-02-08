@@ -1,0 +1,12 @@
+[Unit]
+Description=Refresh Rate Switcher - Auto-switch display refresh rate based on power source
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/refresh-switch
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
