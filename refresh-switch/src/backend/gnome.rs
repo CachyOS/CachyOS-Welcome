@@ -160,14 +160,28 @@ impl DisplayBackend for GnomeBackend {
     }
 
     fn set_rate(&self, monitor: &Monitor, rate: f64) -> Result<(), BackendError> {
+        // Find the exact rate from the monitor's mode list to avoid floating-point
+        // formatting mismatches. GNOME tools do exact string matching on mode specs,
+        // so "165.002" won't match a mode reported as "165.00195312".
+        let exact_rate = monitor
+            .modes
+            .iter()
+            .filter(|m| m.width == monitor.width && m.height == monitor.height)
+            .min_by(|a, b| {
+                let da = (a.rate - rate).abs();
+                let db = (b.rate - rate).abs();
+                da.partial_cmp(&db).unwrap()
+            })
+            .map(|m| m.rate)
+            .unwrap_or(rate);
+
+        // Format as integer Hz — both gnome-randr and gnome-monitor-config accept
+        // integer rates and match to the closest available mode, same as Hyprland/KDE.
+        let mode_str = format!("{}x{}@{:.0}", monitor.width, monitor.height, exact_rate);
+
         // Try gnome-randr first
         if let Ok(out) = std::process::Command::new("gnome-randr")
-            .args([
-                "modify",
-                &monitor.name,
-                "-m",
-                &format!("{}x{}@{:.3}", monitor.width, monitor.height, rate),
-            ])
+            .args(["modify", &monitor.name, "-m", &mode_str])
             .output()
         {
             if out.status.success() {
@@ -176,14 +190,9 @@ impl DisplayBackend for GnomeBackend {
         }
 
         // Fall back to gnome-monitor-config
+        // Use -LM flags only (-p is not supported on all versions)
         let output = std::process::Command::new("gnome-monitor-config")
-            .args([
-                "set",
-                "-LpM",
-                &monitor.name,
-                "-m",
-                &format!("{}x{}@{:.3}", monitor.width, monitor.height, rate),
-            ])
+            .args(["set", "-LM", &monitor.name, "-m", &mode_str])
             .output()
             .map_err(|e| {
                 BackendError::NotAvailable(format!(
