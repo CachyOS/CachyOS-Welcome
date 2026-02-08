@@ -187,6 +187,7 @@ fn list_tweaks() -> Result<()> {
         TweakName::Bluetooth,
         TweakName::Ananicy,
         TweakName::CachyUpdate,
+        TweakName::RefreshSwitch,
     ] {
         let (_, service_names, _) = tweak::get_details(*tweak);
         let is_enabled = systemd_units::check_any_units(service_names);

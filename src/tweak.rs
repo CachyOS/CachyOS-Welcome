@@ -15,6 +15,9 @@ pub enum TweakName {
     /// `CachyOS` update notifier
     #[clap(name = "cachy-update")]
     CachyUpdate,
+    /// Auto-switch display refresh rate based on power source (AC/battery)
+    #[clap(name = "refresh-switch")]
+    RefreshSwitch,
 }
 
 pub fn get_details(tweak: TweakName) -> (&'static str, &'static str, &'static str) {
@@ -27,5 +30,6 @@ pub fn get_details(tweak: TweakName) -> (&'static str, &'static str, &'static st
         TweakName::CachyUpdate => {
             ("user_service", "arch-update.timer arch-update-tray.service", "cachy-update")
         },
+        TweakName::RefreshSwitch => ("user_service", "refresh-switch.service", "refresh-switch"),
     }
 }

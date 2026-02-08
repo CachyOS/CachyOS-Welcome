@@ -43,6 +43,7 @@ tweak-bpftune-tooltip = Automatically tune system network
 tweak-bluetooth-tooltip = Enable support for Bluetooth wireless devices (mice, audio, etc.)
 tweak-ananicycpp-tooltip = Auto-adjust process priorities for better system responsiveness
 tweak-cachyupdate-tooltip = Update notifier in tray
+tweak-refreshswitch-tooltip = Auto-switch display refresh rate on battery (low Hz) and AC (high Hz) for laptops
 
 # Tweaks page (fixes)
 remove-lock-title = Remove db lock
