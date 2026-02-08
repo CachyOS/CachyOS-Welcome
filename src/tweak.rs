@@ -30,6 +30,6 @@ pub fn get_details(tweak: TweakName) -> (&'static str, &'static str, &'static st
         TweakName::CachyUpdate => {
             ("user_service", "arch-update.timer arch-update-tray.service", "cachy-update")
         },
-        TweakName::RefreshSwitch => ("user_service", "refresh-switch.service", "refresh-switch"),
+        TweakName::RefreshSwitch => ("user_service", "refresh-switch.service", ""),
     }
 }
