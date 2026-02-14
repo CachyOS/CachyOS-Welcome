@@ -266,6 +266,10 @@ pub fn install_winboat(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage
     const DOCKER_SERVICE: &str = "docker.service";
     let docker_enabled = systemd_units::check_system_units(DOCKER_SERVICE);
     if utils::is_alpm_pkg_installed("docker") && !docker_enabled {
-        let _ = utils::run_cmd("systemctl enable --now --force docker.service".into(), true);
+        let (cmd, run_as_root) = utils::get_tweak_toggle_cmd("service", DOCKER_SERVICE, docker_enabled);
+        utils::run_cmd(cmd, run_as_root);
+        
+        // refresh units cache
+        systemd_units::refresh_system_cache();
     }
 }
