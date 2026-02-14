@@ -17,6 +17,7 @@ pub static G_DNS_SERVERS: phf::OrderedMap<&'static str, (&'static str, &'static 
     "Yandex Malware and adult content blocking" => ("77.88.8.7,77.88.8.3", "2a02:6b8::feed:a11,2a02:6b8:0:1::feed:a11"),
     "阿里云公共DNS (AliDNS)" => ("223.5.5.5,223.6.6.6", "2400:3200::1,2400:3200:baba::1"),
     "腾讯云 DNSPod (Tencent)" => ("119.29.29.29,119.28.28.28", "2402:4e00::,2402:4e00:1::")
+    "FFMUC DNS" => ("5.1.66.255,185.150.99.255", "2001:678:e68:f000::,2001:678:ed0:f000::")
 };
 
 #[derive(Subcommand, Debug)]
