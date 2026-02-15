@@ -76,6 +76,7 @@ calamares-install-type = Calamares install type
 # Main Page (body)
 offline-error = Não foi possível iniciar a instalação! Sem conexão com a internet.
 unsupported-hw-warning = Você está tentando instalar o CachyOS em um hardware incompatível com a versão atual. Sua versão não é elegível para suporte.
+desktop-on-handheld-warning = Você está tentando instalar a edição Desktop em um dispositivo portátil. Por favor, use a edição Handheld para suporte adequado neste hardware
 outdated-version-warning = Você está usando uma versão antiga do CachyOS, considere instalar uma versão atualizada.
 testing-iso-warning = Você está usando uma ISO de testes que não é estável para uso.
 tweaksbrowser-label = Aplicativos / Ajustes

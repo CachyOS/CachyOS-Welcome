@@ -81,6 +81,7 @@ calamares-install-type = Calamares'i paigalduse tüüp
 # Main Page (body)
 offline-error = Võrgupaigaldust ei saa alustada! Internetiühendus puudub
 unsupported-hw-warning = Proovite paigaldada riistvarale, mida praegune ISO ei toeta, teie paigaldus ei kuulu toe alla
+desktop-on-handheld-warning = Proovite paigaldada töölaua väljaannet pihuseadmele. Palun kasutage selle riistvara nõuetekohaseks toeks väljaannet Handheld
 outdated-version-warning = Kasutate CachyOS ISO vanemat versiooni, palun kaaluge paigaldamiseks uusima versiooni kasutamist
 testing-iso-warning = Kasutate testimiseks mõeldud ISO-d, testimis-ISO-sid ei peeta stabiilseteks ja kasutusvalmiteks
 tweaksbrowser-label = Rakendused/Kohandused
