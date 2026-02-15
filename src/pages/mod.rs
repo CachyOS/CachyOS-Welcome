@@ -208,10 +208,10 @@ fn create_apps_section() -> Option<gtk::Box> {
     topbox.pack_end(&box_collection, true, true, 0);
 
     topbox.set_hexpand(true);
-    if !box_collection.children().is_empty() {
-        Some(topbox)
-    } else {
+    if box_collection.children().is_empty() {
         None
+    } else {
+        Some(topbox)
     }
 }
 
