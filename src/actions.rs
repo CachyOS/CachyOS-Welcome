@@ -1,5 +1,5 @@
 use crate::ui::{Action, DialogMessage, MessageType, RunCmdCallback};
-use crate::{fl, kwin_dbus, utils, systemd_units, PacmanWrapper};
+use crate::{fl, kwin_dbus, systemd_units, utils, PacmanWrapper};
 
 use std::path::Path;
 
@@ -266,7 +266,8 @@ pub fn install_winboat(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage
     const DOCKER_SERVICE: &str = "docker.service";
     let docker_enabled = systemd_units::check_system_units(DOCKER_SERVICE);
     if utils::is_alpm_pkg_installed("docker") && !docker_enabled {
-        let (cmd, run_as_root) = utils::get_tweak_toggle_cmd("service", DOCKER_SERVICE, docker_enabled);
+        let (cmd, run_as_root) =
+            utils::get_tweak_toggle_cmd("service", DOCKER_SERVICE, docker_enabled);
         let status_code = utils::run_cmd(cmd, run_as_root).unwrap();
         if !status_code.success() {
             dialog_tx
