@@ -76,6 +76,8 @@ pub enum FixAction {
     InstallSnapper,
     /// Show the `KWin` Wayland debug console (if running)
     ShowKwinDebug,
+    /// Install Winboat for Windows applications
+    InstallWinboat,
 }
 
 #[derive(Args, Debug)]

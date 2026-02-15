@@ -59,6 +59,10 @@ pub fn handle_fix_command(action: FixAction) -> Result<()> {
             println!("{}", "Attempting to launch KWin debug console...".bold());
             actions::launch_kwin_debug_window();
         },
+        FixAction::InstallWinboat => {
+            println!("{}", "Installing Winboat...".bold());
+            actions::install_winboat(crate::cli::run_command, tx);
+        },
     }
 
     rx.attach(None, move |msg| {
