@@ -35,6 +35,7 @@ dns-server-changed = DNS server was successfully changed!
 dns-server-failed = Failed to set DNS server!
 dns-server-reset = DNS server has been reset!
 dns-server-reset-failed = Failed to reset DNS server!
+winboat-install-failed = Failed to install Winboat!
 
 # Tweaks page (tweaks)
 tweak-enabled-title = {$tweak} enabled

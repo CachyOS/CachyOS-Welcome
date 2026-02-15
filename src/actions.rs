@@ -259,7 +259,7 @@ pub fn install_winboat(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage
         &ALPM_PACKAGE_NAMES,
         fl!("winboat-package-installed"),
         Action::InstallWinboat,
-        dialog_tx,
+        dialog_tx.clone(),
     );
 
     // Enable docker.service after installation
@@ -267,8 +267,17 @@ pub fn install_winboat(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage
     let docker_enabled = systemd_units::check_system_units(DOCKER_SERVICE);
     if utils::is_alpm_pkg_installed("docker") && !docker_enabled {
         let (cmd, run_as_root) = utils::get_tweak_toggle_cmd("service", DOCKER_SERVICE, docker_enabled);
-        utils::run_cmd(cmd, run_as_root);
-        
+        let status_code = utils::run_cmd(cmd, run_as_root).unwrap();
+        if !status_code.success() {
+            dialog_tx
+                .send(DialogMessage {
+                    msg: fl!("winboat-install-failed"),
+                    msg_type: MessageType::Error,
+                    action: Action::InstallWinboat,
+                })
+                .expect("Couldn't send data to channel");
+        }
+
         // refresh units cache
         systemd_units::refresh_system_cache();
     }
