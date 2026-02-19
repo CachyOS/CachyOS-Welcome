@@ -83,7 +83,7 @@ impl DnsServer {
             DnsServer::YandexMalwareAdult => "Yandex Malware and adult content blocking",
             DnsServer::AliDns => "阿里云公共DNS (AliDNS)",
             DnsServer::Tencent => "腾讯云 DNSPod (Tencent)",
-            DnsServer::FFMUC => "FFMUC DNS"
+            DnsServer::FFMUC => "FFMUC DNS",
         }
     }
 }
