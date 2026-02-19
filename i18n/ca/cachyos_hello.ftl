@@ -76,7 +76,7 @@ calamares-install-type = Tipus d'instal·lació per al Calamares
 # Main Page (body)
 offline-error = No es pot iniciar la instal·lació en línia! No hi ha connexió a Internet.
 unsupported-hw-warning = Esteu provant d'instal·lar-lo en un maquinari que no és compatible amb la imatge ISO actual. La vostra instal·lació no serà apta per a rebre suport.
-desktop-on-handheld-warning = Esteu provant d'instal·lar l'edició d'escriptori en un dispositiu portàtil. Si us plau, utilitzeu l'edició Handheld per a un suport adequat en aquest maquinari
+desktop-on-handheld-error = Esteu provant d'instal·lar l'edició d'escriptori en un dispositiu portàtil. Si us plau, utilitzeu l'edició Handheld per a un suport adequat en aquest maquinari
 outdated-version-warning = Esteu usant una versió anterior del CachyOS. Considereu usar-ne la versió més recent per a les instal·lacions.
 testing-iso-warning = Esteu usant una imatge ISO de prova. Les ISO de prova no es consideren estables i llestes per a un ús productiu.
 tweaksbrowser-label = Aplicacions / Retocs
