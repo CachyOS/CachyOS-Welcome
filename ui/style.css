@@ -22,6 +22,32 @@ window {
     border-radius: 5px 5px 5px 5px;
 }
 
+/* Focus indicators for keyboard navigation */
+button:focus {
+    outline: 2px solid @theme_selected_bg_color;
+    outline-offset: 2px;
+}
+
+combobox button:focus {
+    outline: 2px solid @theme_selected_bg_color;
+    outline-offset: 2px;
+}
+
+switch:focus {
+    outline: 2px solid @theme_selected_bg_color;
+    outline-offset: 2px;
+}
+
+checkbutton:focus {
+    outline: 2px solid @theme_selected_bg_color;
+    outline-offset: 2px;
+}
+
+eventbox:focus {
+    outline: 2px solid @theme_selected_bg_color;
+    outline-offset: 2px;
+}
+
 .aboutdialog {
     border-radius: 7px;
 }

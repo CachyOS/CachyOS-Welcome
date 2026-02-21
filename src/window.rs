@@ -9,7 +9,7 @@ use gtk::prelude::*;
 
 use gtk::gdk_pixbuf::Pixbuf;
 use gtk::glib::GString;
-use gtk::{glib, Builder, HeaderBar, Window};
+use gtk::{gdk, glib, Builder, HeaderBar, Window};
 use tracing::{debug, error};
 use unic_langid::LanguageIdentifier;
 
@@ -61,6 +61,26 @@ impl HelloWindow {
             let icon_path = format!("{RESPREFIX}/data/img/{name}.png");
             let image: gtk::Image = builder.object(name.as_str()).unwrap();
             image.set_from_resource(Some(&icon_path));
+
+            // Enable keyboard activation (Enter/Space) for social EventBoxes
+            btn.connect_key_press_event(|widget, event| {
+                let keyval = event.keyval();
+                if keyval == gdk::keys::constants::Return
+                    || keyval == gdk::keys::constants::KP_Enter
+                    || keyval == gdk::keys::constants::space
+                {
+                    let name = widget.widget_name();
+                    let hello_window =
+                        unsafe { crate::G_HELLO_WINDOW.as_ref().unwrap() };
+                    let preferences = hello_window.get_preferences("urls");
+                    if let Some(uri) = preferences[name.as_str()].as_str() {
+                        hello_window.open_uri(uri);
+                    }
+                    glib::Propagation::Stop
+                } else {
+                    glib::Propagation::Proceed
+                }
+            });
         }
 
         let homepage_grid: gtk::Grid = builder.object("homepage").unwrap();
@@ -164,6 +184,15 @@ impl HelloWindow {
 
         // Show the UI
         main_window.show();
+
+        // Set initial focus on a meaningful interactive widget
+        if installer::is_iso(&preferences) {
+            let install: gtk::Button = builder.object("install").unwrap();
+            install.grab_focus();
+        } else {
+            let readme: gtk::Button = builder.object("readme").unwrap();
+            readme.grab_focus();
+        }
 
         // setup pages content
         let hello_window = HelloWindow { window: main_window, builder, preferences };
