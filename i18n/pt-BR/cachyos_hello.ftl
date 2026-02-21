@@ -6,29 +6,30 @@ about-dialog-comments = Tela de Boas-Vindas do CachyOS
 tweaks = Ajustes
 fixes = Utilitários
 applications = Aplicações
-removed-db-lock = A trava do banco de dados do Pacman foi removida!
+removed-db-lock = O arquivo db.lock do Pacman foi removido!
 lock-doesnt-exist = O arquivo db.lock do Pacman não existe!
 orphans-not-found = Não foram encontrados pacotes órfãos!
 package-not-installed = O pacote '{$package_name}' não foi instalado!
 gaming-package-installed = Os pacotes de jogos já estão instalados!
+winboat-package-installed = Os pacotes do Winboat já estão instalados!
 
 # Application Browser page
 advanced-btn = Avançado
-reset-btn = Resetar
+reset-btn = Redefinir
 update-system-app-btn = Atualizar Sistema
 application-column = Aplicativo
 description-column = Descrição
 install-remove-column = Instalar / Remover
-advanced-btn-tooltip = Revela mais seleções de aplicações e pacotes
+advanced-btn-tooltip = Exibe opções adicionais de aplicativos e pacotes
 reset-btn-tooltip = Descarta suas mudanças atuais
-update-system-app-btn-tooltip = Aplicar as mudanças para o sistema
+update-system-app-btn-tooltip = Aplicar as mudanças ao sistema
 
 # Dns Connections page
 dns-settings = Configurações do DNS
 select-connection = Selecionar Conexão:
 select-dns-server = Selecionar servidor DNS:
 apply = Aplicar
-reset = Resetar
+reset = Redefinir
 enable-dot = Ativar DNS sobre TLS (DoT)
 dot-tooltip = Criptografar consultas DNS usando TLS para maior privacidade (requer suporte do servidor)
 test-latency = Testar latência do servidor selecionado
@@ -43,22 +44,31 @@ latency-no-result = nenhum servidor respondeu
 dns-check-hint = Após aplicar, verifique seu provedor DNS em
 dns-server-changed = O servidor DNS foi trocado com sucesso!
 dns-server-failed = Erro ao mudar o servidor DNS!
-dns-server-reset = O servidor DNS foi resetado!
-dns-server-reset-failed = Erro resetando o servidor DNS!
+dns-server-reset = O servidor DNS foi redefinido!
+dns-server-reset-failed = Erro ao redefinir o servidor DNS!
+winboat-install-failed = Erro ao instalar o Winboat!
 
 # Tweaks page (tweaks)
 tweak-enabled-title = {$tweak} ativado
+tweak-psd-tooltip = Usar RAM para perfis do navegador (mais rápido e com menor desgaste do disco)
+tweak-oomd-tooltip = Encerra processos automaticamente quando a memória está baixa para evitar travamentos
+tweak-bpftune-tooltip = Ajusta automaticamente os parâmetros da rede do sistema
+tweak-bluetooth-tooltip = Ativa suporte para dispositivos Bluetooth (mouses, áudio, etc.)
+tweak-ananicycpp-tooltip = Ajusta automaticamente as prioridades dos processos para melhorar a fluidez do sistema
+tweak-cachyupdate-tooltip = Notificador de atualizações na bandeja do sistema
 
 # Tweaks page (fixes)
-remove-lock-title = Remover Trava do Banco de Dados Pacman (db lock)
+remove-lock-title = Remover arquivo db.lock do Pacman
 reinstall-title = Reinstalar Todos os Pacotes
+reset-keyrings-title = Redefinir chaves de assinatura
 update-system-title = Atualizar Sistema
 remove-orphans-title = Remover Pacotes Órfãos
 clear-pkgcache-title = Limpar cache de pacotes
-rankmirrors-title = Atualizar Espelhos
+rankmirrors-title = Classificar Espelhos
 dnsserver-title = Trocar Servidor DNS
-show-kwinw-debug-title = Exibir a Janela de Debug do KWin(Wayland)
+show-kwinw-debug-title = Exibir a Janela de Depuração do KWin(Wayland)
 install-gaming-title = Instalar Pacotes de Jogos
+install-winboat-title = Instalar Winboat
 
 # Main Page (buttons)
 button-about-tooltip = Sobre
