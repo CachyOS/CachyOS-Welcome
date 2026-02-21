@@ -282,4 +282,21 @@ pub fn install_winboat(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage
         // refresh units cache
         systemd_units::refresh_system_cache();
     }
+
+    // Add the current user to the docker group
+    if utils::is_alpm_pkg_installed("docker") {
+        if let Ok(current_user) = std::env::var("USER") {
+            let status_code =
+                utils::run_cmd(format!("usermod -aG docker {current_user}"), true).unwrap();
+            if !status_code.success() {
+                dialog_tx
+                    .send(DialogMessage {
+                        msg: fl!("winboat-install-failed"),
+                        msg_type: MessageType::Error,
+                        action: Action::InstallWinboat,
+                    })
+                    .expect("Couldn't send data to channel");
+            }
+        }
+    }
 }
