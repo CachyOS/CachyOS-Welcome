@@ -44,7 +44,6 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
     let rankmirrors_btn = create_gtk_button!("rankmirrors-title");
 
     let install_gaming_btn = create_gtk_button!("install-gaming-title");
-    let install_snapper_btn = create_gtk_button!("install-snapper-title");
     let install_winboat_btn = create_gtk_button!("install-winboat-title");
 
     // Create context channel.
@@ -53,7 +52,6 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
     // Connect signals.
     let dialog_tx_clone = dialog_tx.clone();
     let dialog_tx_gaming = dialog_tx.clone();
-    let dialog_tx_snapper = dialog_tx.clone();
     let dialog_tx_winboat = dialog_tx.clone();
     removelock_btn.connect_clicked(move |_| {
         let dialog_tx_clone = dialog_tx_clone.clone();
@@ -90,13 +88,6 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
             actions::install_gaming(crate::gui::run_command, dialog_tx_gaming);
         });
     });
-    install_snapper_btn.connect_clicked(move |_| {
-        // Spawn child process in separate thread.
-        let dialog_tx_snapper = dialog_tx_snapper.clone();
-        std::thread::spawn(move || {
-            actions::install_snapper(crate::gui::run_command, dialog_tx_snapper);
-        });
-    });
     install_winboat_btn.connect_clicked(move |_| {
         // Spawn child process in separate thread.
         let dialog_tx_winboat = dialog_tx_winboat.clone();
@@ -109,14 +100,12 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
     let removelock_btn_clone = removelock_btn.clone();
     let remove_orphans_btn_clone = remove_orphans_btn.clone();
     let install_gaming_btn_clone = install_gaming_btn.clone();
-    let install_snapper_btn_clone = install_snapper_btn.clone();
     let install_winboat_btn_clone = install_winboat_btn.clone();
     dialog_rx.attach(None, move |msg| {
         let widget_obj = match msg.action {
             Action::RemoveLock => &removelock_btn_clone,
             Action::RemoveOrphans => &remove_orphans_btn_clone,
             Action::InstallGaming => &install_gaming_btn_clone,
-            Action::InstallSnapper => &install_snapper_btn_clone,
             Action::InstallWinboat => &install_winboat_btn_clone,
             _ => panic!("Unexpected action!!"),
         };
@@ -136,9 +125,6 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
     button_box_s.pack_start(&clear_pkgcache_btn, true, true, 2);
     button_box_s.pack_end(&remove_orphans_btn, true, true, 2);
     button_box_t.pack_end(&rankmirrors_btn, true, true, 2);
-    if utils::is_root_on_btrfs() {
-        button_box_t.pack_end(&install_snapper_btn, true, true, 2);
-    }
     button_box_t.pack_end(&install_gaming_btn, true, true, 2);
     button_box_t.pack_end(&install_winboat_btn, true, true, 2);
 

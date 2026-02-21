@@ -6,7 +6,7 @@ use std::{fs, slice, str};
 
 use gtk::prelude::*;
 
-use subprocess::{Exec, ExitStatus, Redirection};
+use subprocess::{Exec, ExitStatus};
 
 #[derive(Debug)]
 pub enum PacmanWrapper {
@@ -157,17 +157,6 @@ pub fn is_alpm_pkg_installed(package_name: &str) -> bool {
     let pacman = pacmanconf::Config::with_opts(None, Some("/etc/pacman.conf"), Some("/")).unwrap();
     let alpm = alpm_utils::alpm_with_conf(&pacman).unwrap();
     alpm.localdb().pkg(package_name.as_bytes()).is_ok()
-}
-
-pub fn is_root_on_btrfs() -> bool {
-    let root_fs = Exec::cmd("/sbin/findmnt")
-        .args(&["-ln", "-o", "FSTYPE", "/"])
-        .stdout(Redirection::Pipe)
-        .capture()
-        .unwrap()
-        .stdout_str();
-
-    root_fs == "btrfs\n"
 }
 
 pub fn get_tweak_toggle_cmd(

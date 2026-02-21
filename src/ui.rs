@@ -30,7 +30,6 @@ pub enum Action {
     RemoveOrphans,
     SetDnsServer,
     InstallGaming,
-    InstallSnapper,
     InstallWinboat,
 }
 

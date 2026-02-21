@@ -72,8 +72,6 @@ pub enum FixAction {
     RankMirrors,
     /// Install `CachyOS` gaming meta-packages
     InstallGaming,
-    /// Install Snapper support for BTRFS snapshots
-    InstallSnapper,
     /// Show the `KWin` Wayland debug console (if running)
     ShowKwinDebug,
     /// Install Winboat for Windows applications

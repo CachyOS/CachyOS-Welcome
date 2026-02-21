@@ -242,16 +242,6 @@ pub fn install_gaming(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage>
     );
 }
 
-pub fn install_snapper(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage>) {
-    install_needed_packages(
-        callback,
-        &["cachyos-snapper-support"],
-        fl!("snapper-package-installed"),
-        Action::InstallSnapper,
-        dialog_tx,
-    );
-}
-
 pub fn install_winboat(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage>) {
     const ALPM_PACKAGE_NAMES: [&str; 3] = ["winboat", "docker", "docker-compose"];
     install_needed_packages(

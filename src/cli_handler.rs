@@ -48,13 +48,6 @@ pub fn handle_fix_command(action: FixAction) -> Result<()> {
             println!("{}", "Installing CachyOS gaming packages...".bold());
             actions::install_gaming(crate::cli::run_command, tx);
         },
-        FixAction::InstallSnapper => {
-            if !utils::is_root_on_btrfs() {
-                anyhow::bail!("Snapper requires a BTRFS root filesystem.");
-            }
-            println!("{}", "Installing Snapper support...".bold());
-            actions::install_snapper(crate::cli::run_command, tx);
-        },
         FixAction::ShowKwinDebug => {
             println!("{}", "Attempting to launch KWin debug console...".bold());
             actions::launch_kwin_debug_window();
