@@ -11,7 +11,6 @@ lock-doesnt-exist = Zámek Pacman db neexistuje!
 orphans-not-found = Nenašli se žádní sirotci balíčků!
 package-not-installed = Balíček '{$package_name}' nebyl nainstalovaný!
 gaming-package-installed = Herní balíčky jsou už nainstalované!
-snapper-package-installed = Balíček 'cachyos-snapper-support' je už nainstalovaný!
 
 # Stránka s prohlížečem aplikací
 advanced-btn = pokročilé
@@ -48,7 +47,6 @@ rankmirrors-title = Přehodnotit zrcadla
 dnsserver-title = Změnit DNS server
 show-kwinw-debug-title = Zobrazit kwin(Wayland) debug okno
 install-gaming-title = Instalovat herní balíčky
-install-snapper-title = Instalovat podporu Snapper
 
 # Hlavní stránka (tlačítka)
 button-about-tooltip = O programu

@@ -11,7 +11,6 @@ lock-doesnt-exist = El blocatge de la base de dades del Pacman no existeix!
 orphans-not-found = No s'ha trobat cap paquet orfe!
 package-not-installed = El paquet {$package_name} no s'ha instal·lat!
 gaming-package-installed = Els paquets de joc ja estan instal·lats!
-snapper-package-installed = El paquet cachyos-snapper-support ja està instal·lat!
 
 # Application Browser page
 advanced-btn = Avançat
@@ -48,7 +47,6 @@ rankmirrors-title = Classifica les rèpliques
 dnsserver-title = Canvia el servidor de DNS
 show-kwinw-debug-title = Mostra la finestra de depuració del kwin (Wayland)
 install-gaming-title = Instal·la paquets de jocs
-install-snapper-title = Instal·la suport per a instantànies
 
 # Main Page (buttons)
 button-about-tooltip = Quant a

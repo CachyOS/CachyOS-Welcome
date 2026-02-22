@@ -11,7 +11,6 @@ lock-doesnt-exist = قفل قاعدة بيانات pacman غير موجود!
 orphans-not-found = لم يُعثر على حزم يتيمة!
 package-not-installed = لم يتم تثبيت الحزمة '{$package_name}'!
 gaming-package-installed = حزم الألعاب مثبتة بالفعل!
-snapper-package-installed = حزمة 'cachyos-snapper-support' مثبتة بالفعل!
 
 # Application Browser page
 advanced-btn = متقدم
@@ -54,7 +53,6 @@ rankmirrors-title = رتب المرايا
 dnsserver-title = غيّر خادم DNS
 show-kwinw-debug-title = أظهر نافذة تصحيح kwin(Wayland)
 install-gaming-title = ثبّت حزم الألعاب
-install-snapper-title = ثبّت دعم Snapper
 
 # Main Page (buttons)
 button-about-tooltip = عن

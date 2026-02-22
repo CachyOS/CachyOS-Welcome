@@ -11,7 +11,6 @@ lock-doesnt-exist = Pacman БД не заблакаваны!
 orphans-not-found = Пакеты-сіроты не знойдзены!
 package-not-installed = Пакет '{$package_name}' не быў усталяваны!
 gaming-package-installed = Гульнявыя пакеты ўжо ўстаноўлены!
-snapper-package-installed = 'cachyos-snapper-support' пакет ужо ўсталяваны!
 
 # Application Browser page
 advanced-btn = дадатковыя
@@ -48,7 +47,6 @@ rankmirrors-title = Ранг люстэркаў
 dnsserver-title = Змяніць DNS-сервер
 show-kwinw-debug-title = Паказаць акно адладкі kwin (Wayland).
 install-gaming-title = Усталюйце Гульнявыя пакеты
-install-snapper-title = Усталюйце падтрымку Snapper
 
 # Main Page (buttons)
 button-about-tooltip = Аб праграме

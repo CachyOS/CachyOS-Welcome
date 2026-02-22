@@ -11,7 +11,6 @@ lock-doesnt-exist = Pacman db lock không tồn tại!
 orphans-not-found = Không có các gói dư thừa!
 package-not-installed = Gói '{$package_name}' chưa được cài đặt!
 gaming-package-installed = Các gói thiết kế cho chơi game (Gaming) đã được cài đặt!
-snapper-package-installed = Gói 'cachyos-snapper-support' đã được cài đặt!
 
 # Application Browser page
 advanced-btn = Nâng cao
@@ -55,7 +54,6 @@ rankmirrors-title = xếp hạng các mirror
 dnsserver-title = đổi DNS server
 show-kwinw-debug-title = hiển thị kwin(Wayland) để xem lỗi
 install-gaming-title = Cài các gói chơi game
-install-snapper-title = Cài Snapper support
 
 # Main Page (buttons)
 button-about-tooltip = Giới thiệu

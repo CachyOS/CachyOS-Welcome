@@ -11,7 +11,6 @@ lock-doesnt-exist = Pacman db-slot bestaan nie!
 orphans-not-found = Geen onteiende pakkette gevind nie!
 package-not-installed = Pakket '{$package_name}' is nie geïnstalleer nie!
 gaming-package-installed = Speletjiepakkette reeds geïnstalleer!
-snapper-package-installed = 'cachyos-snapper-support' reeds geïnstalleer!
 
 # Application Browser page
 advanced-btn = Gevorderde
@@ -48,7 +47,6 @@ rankmirrors-title = Rangskik spieëls
 dnsserver-title = Verander DNS-bediener
 show-kwinw-debug-title = Wys kwin(Wayland) ontfoutvenster
 install-gaming-title = Installeer Speletjiepakkette
-install-snapper-title = Installeer Snapper-ondersteuning
 
 # Main Page (buttons)
 button-about-tooltip = Oor

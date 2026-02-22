@@ -11,7 +11,6 @@ lock-doesnt-exist = Blokada bazy Pacmana nie istnieje!
 orphans-not-found = Nie znaleziono osieroconych pakietów!
 package-not-installed = Pakiet '{$package_name}' nie został zainstalowany!
 gaming-package-installed = Pakiety do gier są już zainstalowane!
-snapper-package-installed = Pakiet 'cachyos-snapper-support' jest już zainstalowany!
 
 # Application Browser page
 advanced-btn = zaawansowane
@@ -55,7 +54,6 @@ rankmirrors-title = Uszereguj serwery
 dnsserver-title = Zmień serwer DNS
 show-kwinw-debug-title = Pokaż okno deubowania kwin(Wayland)
 install-gaming-title = Zainstaluj pakiety do gier
-install-snapper-title = Zainstaluj wsparcie dla Snappera
 
 # Main Page (buttons)
 button-about-tooltip = O programie

@@ -11,7 +11,6 @@ lock-doesnt-exist = Pacman db lock does not exist!
 orphans-not-found = No orphan packages found!
 package-not-installed = Package '{$package_name}' has not been installed!
 gaming-package-installed = Gaming packages already installed!
-snapper-package-installed = 'cachyos-snapper-support' package already installed!
 winboat-package-installed = Winboat packages already installed!
 
 # Application Browser page
@@ -57,7 +56,6 @@ rankmirrors-title = Rank mirrors
 dnsserver-title = Change DNS server
 show-kwinw-debug-title = Show kwin(Wayland) debug window
 install-gaming-title = Install Gaming packages
-install-snapper-title = Install Snapper support
 install-winboat-title = Install Winboat
 
 # Main Page (buttons)

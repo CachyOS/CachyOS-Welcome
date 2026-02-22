@@ -10,7 +10,6 @@ lock-doesnt-exist = Pacmani andmebaasi lukku ei eksisteeri!
 orphans-not-found = Ühtegi orbpaketti ei leitud!
 package-not-installed = Paketti '{$package_name}' pole paigaldatud!
 gaming-package-installed = Mängupaketid on juba paigaldatud!
-snapper-package-installed = Pakett 'cachyos-snapper-support' on juba paigaldatud!
 
 # Application Browser page
 advanced-btn = edasijõudnutele
@@ -53,7 +52,6 @@ rankmirrors-title = Järjesta peeglid
 dnsserver-title = Muuda DNS-serverit
 show-kwinw-debug-title = Näita kwin(Wayland) silumisakent
 install-gaming-title = Paigalda mängupaketid
-install-snapper-title = Paigalda Snapperi tugi
 
 # Main Page (buttons)
 button-about-tooltip = Teave

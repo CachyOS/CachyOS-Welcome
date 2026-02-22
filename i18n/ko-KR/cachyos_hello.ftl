@@ -11,7 +11,6 @@ lock-doesnt-exist = Pacman DB 잠금 파일이 존재하지 않습니다!
 orphans-not-found = 고아 패키지를 찾을 수 없습니다!
 package-not-installed = '{$package_name}' 패키지가 설치되지 않았습니다!
 gaming-package-installed = 게임 패키지가 이미 설치되어 있습니다!
-snapper-package-installed = 'cachyos-snapper-support' 패키지가 이미 설치되어 있습니다!
 
 # Application Browser page
 advanced-btn = 고급
@@ -54,7 +53,6 @@ rankmirrors-title = 미러 순위 지정
 dnsserver-title = DNS 서버 변경
 show-kwinw-debug-title = KWin(Wayland) 디버그 창 표시
 install-gaming-title = 게임 패키지 설치
-install-snapper-title = Snapper 지원 설치
 
 # Main Page (buttons)
 button-about-tooltip = 정보

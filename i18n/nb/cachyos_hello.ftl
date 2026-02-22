@@ -11,7 +11,6 @@ lock-doesnt-exist = Pacman db lås finnes ikke!
 orphans-not-found = Ingen foreldreløse pakker finnes!
 package-not-installed = '{$package_name}' pakken ble ikke installert!
 gaming-package-installed = Spillpakkene er allerede installert!
-snapper-package-installed = 'cachyos-snapper-support' pakken er allerede installert!
 
 # Application Browser page
 advanced-btn = avansert
@@ -55,7 +54,6 @@ rankmirrors-title = Ranger pakketjenere
 dnsserver-title = Endre DNS server
 show-kwinw-debug-title = Vis kwin(Wayland) feilsøkings vindu
 install-gaming-title = Installer Spill pakker
-install-snapper-title = Installer Snapper støtte
 
 # Main Page (buttons)
 button-about-tooltip = Om

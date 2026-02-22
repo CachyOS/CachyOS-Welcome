@@ -11,7 +11,6 @@ lock-doesnt-exist = Заключването на Pacman базата данни
 orphans-not-found = Не са намерени осиротели пакети!
 package-not-installed = Пакетът '{$package_name}' не е инсталиран!
 gaming-package-installed = Пакетите за игри вече са инсталирани!
-snapper-package-installed = Пакетът 'cachyos-snapper-support' вече е инсталиран!
 
 # Application Browser page
 advanced-btn = разширени
@@ -54,7 +53,6 @@ rankmirrors-title = Класиране на огледалните сървър�
 dnsserver-title = Промяна на DNS сървъра
 show-kwinw-debug-title = Показване на прозореца за отстраняване на грешки на kwin(Wayland)
 install-gaming-title = Инсталиране на пакети за игри
-install-snapper-title = Инсталиране на поддръжка за Snapper
 
 # Main Page (buttons)
 button-about-tooltip = Относно

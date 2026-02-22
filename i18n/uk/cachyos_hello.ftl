@@ -11,7 +11,6 @@ lock-doesnt-exist = Блокування бази даних Pacman відсут
 orphans-not-found = Осиротілих пакетів не знайдено!
 package-not-installed = Пакет '{$package_name}' не встановлено!
 gaming-package-installed = Ігрові пакети вже встановлені!
-snapper-package-installed = Пакет «cachyos-snapper-support» уже встановлено!
 winboat-package-installed = Пакети Winboat вже встановлені!
 
 # Application Browser page
@@ -57,7 +56,6 @@ rankmirrors-title = Оптимізувати дзеркала
 dnsserver-title = Змінити DNS-сервер
 show-kwinw-debug-title = Показати вікно налагодження KWin (Wayland)
 install-gaming-title = Встановити ігрові пакети
-install-snapper-title = Встановити підтримку Snapper
 install-winboat-title = Встановити Winboat
 
 # Main Page (buttons)

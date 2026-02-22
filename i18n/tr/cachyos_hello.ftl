@@ -11,7 +11,6 @@ lock-doesnt-exist = Pacman veritabanı kilidi bulunmamaktadır!
 orphans-not-found = Hiçbir artık (orphan) paket bulunamadı!
 package-not-installed = '{$package_name}' paketi kurulmamıştır!
 gaming-package-installed = Oyun paketleri halihazırda kurulu!
-snapper-package-installed = 'cachyos-snapper-support' paketi halihazırda kurulu!
 
 # Application Browser page
 advanced-btn = gelişmiş
@@ -55,7 +54,6 @@ rankmirrors-title = Yansıları hıza göre sırala
 dnsserver-title = DNS sunucusunu değiştir
 show-kwinw-debug-title = KWin (Wayland) hata ayıklama penceresini göster
 install-gaming-title = Oyun paketlerini kur
-install-snapper-title = Snapper desteği kur
 
 # Main Page (buttons)
 button-about-tooltip = Hakkında
