@@ -50,6 +50,12 @@ pub fn get_dns_for_connection(conn_name: &str) -> Option<(String, String)> {
     }
 }
 
+fn get_user_groups() -> Vec<String> {
+    let groups =
+        Exec::cmd("/sbin/groups").stdout(Redirection::Pipe).capture().unwrap().stdout_str();
+    groups.split('\n').filter(|x| !x.is_empty()).map(String::from).collect::<Vec<_>>()
+}
+
 pub fn launch_kwin_debug_window() {
     if let Err(kwin_err) = kwin_dbus::launch_kwin_debug_window() {
         error!("Failed to launch kwin debug window: {kwin_err}");
@@ -285,10 +291,11 @@ pub fn install_winboat(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage
     }
 
     // Add the current user to the docker group
-    if utils::is_alpm_pkg_installed("docker") {
+    let group_added = get_user_groups().iter().any(|x| x == "docker");
+    if utils::is_alpm_pkg_installed("docker") && !group_added {
         if let Ok(current_user) = env::var("USER") {
             let status_code =
-                utils::run_cmd(format!("usermod -aG docker {current_user}"), true).unwrap();
+                utils::run_cmd(format!("/sbin/usermod -aG docker {current_user}"), true).unwrap();
             if !status_code.success() {
                 dialog_tx
                     .send(DialogMessage {
