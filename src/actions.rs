@@ -1,6 +1,7 @@
 use crate::ui::{Action, DialogMessage, MessageType, RunCmdCallback};
 use crate::{fl, kwin_dbus, systemd_units, utils, PacmanWrapper};
 
+use std::env;
 use std::path::Path;
 
 use gtk::glib::Sender;
@@ -262,12 +263,12 @@ pub fn install_winboat(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage
         dialog_tx.clone(),
     );
 
-    // Enable docker.service after installation
-    const DOCKER_SERVICE: &str = "docker.service";
-    let docker_enabled = systemd_units::check_system_units(DOCKER_SERVICE);
+    // Enable docker.socket after installation
+    const DOCKER_TARGET: &str = "docker.socket";
+    let docker_enabled = systemd_units::check_system_units(DOCKER_TARGET);
     if utils::is_alpm_pkg_installed("docker") && !docker_enabled {
         let (cmd, run_as_root) =
-            utils::get_tweak_toggle_cmd("service", DOCKER_SERVICE, docker_enabled);
+            utils::get_tweak_toggle_cmd("service", DOCKER_TARGET, docker_enabled);
         let status_code = utils::run_cmd(cmd, run_as_root).unwrap();
         if !status_code.success() {
             dialog_tx
@@ -285,7 +286,7 @@ pub fn install_winboat(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage
 
     // Add the current user to the docker group
     if utils::is_alpm_pkg_installed("docker") {
-        if let Ok(current_user) = std::env::var("USER") {
+        if let Ok(current_user) = env::var("USER") {
             let status_code =
                 utils::run_cmd(format!("usermod -aG docker {current_user}"), true).unwrap();
             if !status_code.success() {
