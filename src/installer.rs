@@ -8,6 +8,7 @@ use std::path::Path;
 
 use gtk::prelude::{BuilderExtManual, WidgetExt};
 
+use gtk::traits::ButtonExt;
 use serde::Deserialize;
 use subprocess::{Exec, Redirection};
 use tracing::{error, info};
@@ -133,6 +134,7 @@ pub fn launch_installer(message: String) {
 
         let install_btn: gtk::Button = builder.object("install").unwrap();
         install_btn.set_sensitive(false);
+        install_btn.set_label("Checking...");
 
         let ui_comp = crate::gui::GUI::new(window_ref.clone());
         let checks = [connectivity_check, edition_compat_check, outdated_version_check];
@@ -140,11 +142,13 @@ pub fn launch_installer(message: String) {
             // if any check failed, return
             info!("Some ISO check failed!");
             install_btn.set_sensitive(true);
+            install_btn.set_label(&fl!("button-installer-label"));
             return;
         }
 
         // Spawning child process
         info!("ISO checks passed! Starting Installer..");
+        install_btn.set_label("Launching installer...");
         let mut child = Exec::cmd("/usr/local/bin/calamares-online.sh")
             .stdout(Redirection::Pipe)
             .stderr(Redirection::Merge)
@@ -166,6 +170,7 @@ pub fn launch_installer(message: String) {
         info!("Installer finished with status: {:?}", status);
 
         install_btn.set_sensitive(true);
+        install_btn.set_label(&fl!("button-installer-label"));
     });
 }
 
