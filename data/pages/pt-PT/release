@@ -1,0 +1,84 @@
+<big>CachyOS 24.12</big>
+
+Este lançamento marca a nossa 13.ª edição do ano e provavelmente a última, repleta de otimizações de kernel, alterações no RustiCL e inúmeras outras melhorias.
+
+Uma das alterações mais notáveis é que o kernel padrão está agora otimizado utilizando AutoFDO. As cargas de trabalho de perfil (profiling) são executadas através de um conjunto diversificado de testes, incluindo sysbench, CachyOS Benchmarker, operações Git, compilação de kernel e vários outros benchmarks. Atualmente, o profiling é realizado numa máquina Zen5, mas no futuro planeamos suportar a fusão de múltiplos perfis para uma otimização ainda mais abrangente.
+
+O RustiCL substituiu o driver OpenCL padrão na stack Mesa, trazendo melhorias de desempenho e compatibilidade. Adicionalmente, utilizamos agora o `scx_loader` para a gestão de escalonadores sched-ext no gestor de kernel. Isto permite uma alternância mais fluida entre escalonadores e assegura que estes são configurados corretamente através de um ficheiro de configuração dedicado.
+
+Também ativámos o suporte para Bluetooth, melhorando a experiência de utilização para a maioria dos utilizadores. Além disso, o **wireless-regdb** está agora instalado por omissão, melhorando o desempenho do Wi-Fi enquanto cumpre as regulamentações regionais. Os utilizadores podem personalizar a sua região no ficheiro `/etc/conf.d/wireless-regdom` para desbloquear frequências Wi-Fi adicionais permitidas na sua área.
+
+Por último, este lançamento inclui várias correções importantes:
+- A definição `umask` para `/boot` foi corrigida para evitar acessos não pretendidos.
+- O instalador já não abre uma janela de terminal com registos (logs).
+- A verificação da ligação à internet foi corrigida para garantir uma instalação sem problemas.
+
+<big>Funcionalidades:</big>
+
+- Kernel:
+  - O AutoFDO é agora aplicado ao kernel padrão `linux-cachyos` para todas as arquiteturas disponíveis.
+    - **Nota**: As melhorias de desempenho são mínimas por agora devido a limitações atuais. A fusão de perfis requer LLVM 19, e a Otimização Propeller depende disso. Antecipamos que o LLVM 19 e perfis mais otimizados estejam disponíveis até ao final do ano, seguindo a adoção do LLVM 19 pelo Arch Linux.
+- chwd: O Rusticl está agora configurado corretamente.
+- chwd: Registo de erros melhorado durante chamadas de hooks.
+- chwd: Seleção de drivers VAAPI corrigida.
+- cachyos-settings: Adicionado um script para facilitar a execução de aplicações via Zink.
+- Configuração Sysctl: Várias definições foram retrabalhadas e otimizadas.
+- Gestor de Kernel: Adicionado suporte para `scx_loader`, permitindo a mudança nativa de escalonadores.
+- Instalador: O serviço Bluetooth está agora ativado por omissão.
+- Netinstall:
+  - Adicionado o `wireless-regdb` aos pacotes instalados.
+    - Isto configura a ligação para utilizar os canais apropriados e desbloqueia canais adicionais, podendo melhorar a velocidade da internet.
+    - **Nota**: É definida uma região genérica por omissão; recomenda-se a personalização para a sua região para um desempenho ideal.
+
+<big>Correções de erros:</big>
+
+- Instalador: Os registos de instalação já não abrem janelas de terminal de depuração.
+- Gestão de Partições:
+  - Definições de `umask` adequadas asseguram que `/boot` é inacessível sem as permissões suficientes.
+- Iniciar Instalador: As verificações de conectividade à internet foram corrigidas.
+
+<big>Registo de alterações (Changelog) do Lançamento Handheld:</big>
+
+- Atualização de pacotes relacionados com dispositivos portáteis (handheld).
+- Correção de problemas com o tratamento do perfil de energia.
+- Adicionado suporte para Wi-Fi 6.
+
+<big>Alterações manuais para utilizadores existentes:</big>
+
+Os utilizadores que utilizam Wi-Fi devem instalar o pacote `wireless-regdb` e definir a sua região em `/etc/conf.d/wireless-regdom`.
+```sh
+sudo pacman -S wireless-regdb
+sudo micro /etc/conf.d/wireless-regdom
+```
+
+Para além disso, mantém apenas o teu sistema atualizado com o seguinte comando:
+```
+sudo pacman -Syu
+```
+
+<big>Download:</big>
+
+Obtém a tua cópia da ISO mais recente através dos nossos mirrors ou do SourceForge:
+
+* CDN: https://iso.cachyos.org/desktop/241224/cachyos-desktop-linux-241224.iso
+* CDN2: https://cdn77.cachyos.org/ISO/desktop/241224/cachyos-desktop-linux-241224.iso
+* Alemanha: https://mirror.cachyos.org/ISO/desktop/241224/cachyos-desktop-linux-241224.iso
+* EUA: https://us.cachyos.org/ISO/241224/desktop/cachyos-desktop-linux-241224.iso
+* China: https://mirrors.tuna.tsinghua.edu.cn/cachyos/desktop/241224/cachyos-desktop-linux-241224.iso
+* https://sourceforge.net/projects/cachyos-arch/files
+
+Edição Handheld:
+
+* CDN: https://iso.cachyos.org/handheld/241224/cachyos-handheld-linux-241224.iso
+* CDN2: https://cdn77.cachyos.org/ISO/handheld/241224/cachyos-handheld-linux-241224.iso
+
+<big>Apoia-nos:</big>
+
+As tuas contribuições ajudam-nos a manter os nossos servidores. Considera apoiar o CachyOS através de:
+
+* PayPal: https://paypal.me/pttrr
+* Patreon: https://www.patreon.com/CachyOS
+
+Obrigado pelo teu apoio contínuo!
+
+<b>A Equipa do CachyOS</b>

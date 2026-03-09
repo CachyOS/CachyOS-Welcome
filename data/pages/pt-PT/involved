@@ -1,0 +1,37 @@
+<big>Obrigado pelo teu apoio</big>
+
+O CachyOS Linux recebe um grande apoio da sua comunidade de utilizadores e gostaríamos de agradecer a cada um dos contribuidores pela sua participação. Estamos a crescer a um ritmo constante e a nossa distribuição está a tornar-se melhor a cada dia graças a ti.
+
+É muito fácil fazer a diferença. Dependendo das tuas competências e disponibilidade, podes ajudar o CachyOS de uma ou mais das seguintes formas:
+
+<big>Apoio e Promoção</big>
+
+<b>Espalha a palavra</b>
+
+Se gostas do CachyOS, dá-o a conhecer. Escreve uma análise e publica-a em distrowatch.com. Fala sobre ele com os teus amigos e as pessoas à tua volta.
+
+<b>Junta-te à Comunidade</b>
+
+O CachyOS não é apenas um sistema operativo, é também uma comunidade dinâmica de pessoas que desfrutam, se reúnem e interagem com um projeto livre e aberto. Seja ajudando outros a resolver problemas, fazendo com que se sintam bem-vindos, ou simplesmente conhecendo e falando com outros utilizadores do CachyOS, recomendamos que te juntes à comunidade e participes em tornar o CachyOS melhor.
+
+<b>Ajuda outros</b>
+
+Se tens algum tempo livre e estás disposto a ajudar outros utilizadores com problemas técnicos, deves considerar seriamente ler os fóruns e/ou juntar-te ao canal de IRC e ajudar outros utilizadores do CachyOS a resolver os problemas que sabes como corrigir.
+
+<big>Contribuições para o Projeto</big>
+
+<b>Relatórios de erros</b>
+
+Se notaste algo que não funciona corretamente enquanto usas o CachyOS, avisa-nos. É provável que o problema que descobriste afete outros também; quanto mais cedo soubermos, mais cedo seremos capazes de o corrigir.
+
+<b>Novas ideias</b>
+
+A grande maioria das melhorias incluídas em cada lançamento provém da comunidade. Se achas que falta algo ou que algo poderia ser feito de forma melhor, por favor diz-nos. Seja a inclusão de um driver de hardware em falta, ou uma aplicação que deveria fazer parte da instalação de base, ou se tens outras ideias sobre como tornar o CachyOS melhor, estamos sempre interessados em ouvi-las.
+
+<b>Design (Artwork)</b>
+
+Se tens talento para o design gráfico e queres contribuir para o projeto, por favor envia-nos as tuas criações e arte. Seja um simples papel de parede, um conjunto de ícones, um ecrã de início (splash screen), ou até um novo logótipo, estamos sempre interessados em ouvir as tuas propostas de nova arte.
+
+<b>Código</b>
+
+A maior parte do nosso desenvolvimento é feito em QT, C++, Python, HTML5/CSS e BASH. Também usamos Git para controlo de versões e PKGBUILDs para empacotamento. Se te sentes confortável com estas tecnologias, não hesites em dar uma vista de olhos no código. Se achas que podes melhorar as nossas aplicações ou escrever novas, não hesites em sugerir patches ou em fazer um fork dos nossos repositórios git.
