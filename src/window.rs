@@ -27,6 +27,11 @@ impl HelloWindow {
         preferences: serde_json::Value,
         best_locale: &str,
     ) -> Self {
+        // Register bundled icons with the icon theme
+        if let Some(icon_theme) = gtk::IconTheme::default() {
+            icon_theme.add_resource_path(&format!("{RESPREFIX}/icons"));
+        }
+
         // Import Css
         let provider = gtk::CssProvider::new();
         provider.load_from_resource(&format!("{RESPREFIX}/ui/style.css"));
@@ -74,9 +79,10 @@ impl HelloWindow {
             if btn.image_position() != gtk::PositionType::Right {
                 continue;
             }
-            let image_path = format!("{RESPREFIX}/data/img/external-link.png");
-            let image = gtk::Image::new();
-            image.set_from_resource(Some(&image_path));
+            let image = gtk::Image::from_icon_name(
+                Some("external-link-symbolic"),
+                gtk::IconSize::SmallToolbar,
+            );
             image.set_margin_start(2);
             btn.set_image(Some(&image));
         }
@@ -208,24 +214,27 @@ impl HelloWindow {
 
         // Run-time locale changing
         let elts: HashMap<&str, Vec<_>> = HashMap::from([
-            ("label", vec![
-                "autostartlabel",
-                "development",
-                "software",
-                "donate",
-                "firstcategory",
-                "forum",
-                "install",
-                "installlabel",
-                "involved",
-                "readme",
-                "release",
-                "secondcategory",
-                "thirdcategory",
-                "welcomelabel",
-                "welcometitle",
-                "wiki",
-            ]),
+            (
+                "label",
+                vec![
+                    "autostartlabel",
+                    "development",
+                    "software",
+                    "donate",
+                    "firstcategory",
+                    "forum",
+                    "install",
+                    "installlabel",
+                    "involved",
+                    "readme",
+                    "release",
+                    "secondcategory",
+                    "thirdcategory",
+                    "welcomelabel",
+                    "welcometitle",
+                    "wiki",
+                ],
+            ),
             ("tooltip_text", vec!["about", "development", "software", "donate", "forum", "wiki"]),
         ]);
 
