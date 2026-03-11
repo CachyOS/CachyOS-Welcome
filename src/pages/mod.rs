@@ -46,6 +46,17 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
     let install_gaming_btn = create_gtk_button!("install-gaming-title");
     let install_winboat_btn = create_gtk_button!("install-winboat-title");
 
+    // Set tooltips.
+    removelock_btn.set_tooltip_text(Some(&fl!("remove-lock-tooltip")));
+    reinstall_btn.set_tooltip_text(Some(&fl!("reinstall-tooltip")));
+    resetkeyring_btn.set_tooltip_text(Some(&fl!("reset-keyrings-tooltip")));
+    update_system_btn.set_tooltip_text(Some(&fl!("update-system-tooltip")));
+    remove_orphans_btn.set_tooltip_text(Some(&fl!("remove-orphans-tooltip")));
+    clear_pkgcache_btn.set_tooltip_text(Some(&fl!("clear-pkgcache-tooltip")));
+    rankmirrors_btn.set_tooltip_text(Some(&fl!("rankmirrors-tooltip")));
+    install_gaming_btn.set_tooltip_text(Some(&fl!("install-gaming-tooltip")));
+    install_winboat_btn.set_tooltip_text(Some(&fl!("install-winboat-tooltip")));
+
     // Create context channel.
     let (dialog_tx, dialog_rx) = glib::MainContext::channel(glib::Priority::default());
 
@@ -130,6 +141,7 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
 
     if Path::new("/usr/bin/nmcli").exists() {
         let dnsserver_btn = create_gtk_button!("dnsserver-title");
+        dnsserver_btn.set_tooltip_text(Some(&fl!("dnsserver-tooltip")));
         dnsserver_btn.connect_clicked(glib::clone!(@weak builder => move |_| {
             let name = "dnsConnectionsBrowser";
             let stack: gtk::Stack = builder.object("stack").unwrap();
@@ -152,6 +164,7 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
     {
         if pgrep_res.success() {
             let kwinw_debug_btn = create_gtk_button!("show-kwinw-debug-title");
+            kwinw_debug_btn.set_tooltip_text(Some(&fl!("show-kwinw-debug-tooltip")));
             kwinw_debug_btn.connect_clicked(move |_| {
                 // Spawn child process in separate thread.
                 std::thread::spawn(move || {
