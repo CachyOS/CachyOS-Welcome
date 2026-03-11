@@ -66,6 +66,18 @@ rankmirrors-title = Tükrök rangsorolása
 dnsserver-title = DNS szerver megváltoztatása
 show-kwinw-debug-title = KWin (Wayland) hibakereső ablak megjelenítése
 install-gaming-title = Játékcsomagok telepítése
+install-winboat-title = Winboat telepítése
+remove-lock-tooltip = A pacman adatbázis zárolási fájljának eltávolítása, ha egy korábbi művelet megszakadt
+reinstall-tooltip = Az összes telepített csomag újratelepítése a sérült fájlok javításához
+reset-keyrings-tooltip = A pacman/AUR kulcskarikák visszaállítása a csomagaláírási hibák javításához
+update-system-tooltip = Az összes telepített csomag frissítése a legújabb verzióra
+remove-orphans-tooltip = A függőségként telepített, de már nem szükséges csomagok eltávolítása
+clear-pkgcache-tooltip = A helyi csomaggyorsítótár törlése a lemezterület felszabadítása érdekében
+rankmirrors-tooltip = Tükrök tesztelése és rangsorolása a leggyorsabb letöltési szerverek megtalálásához
+dnsserver-tooltip = DNS-szerverek konfigurálása a hálózati kapcsolatokhoz
+show-kwinw-debug-tooltip = A KWin Wayland hibakereső konzol megnyitása a hibaelhárításhoz
+install-gaming-tooltip = Válogatott játékos csomagok telepítése (Steam, Proton stb.)
+install-winboat-tooltip = Winboat telepítése a Windows kompatibilitási eszközökhöz
 
 # Main Page (buttons)
 button-about-tooltip = Névjegy

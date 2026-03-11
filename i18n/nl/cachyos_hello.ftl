@@ -59,6 +59,18 @@ rankmirrors-title = Spiegelservers klassificeren
 dnsserver-title = Dns-server wĳzigen
 show-kwinw-debug-title = Kwin(Wayland)-foutopsporingsvenster openen
 install-gaming-title = Gamingpakketten installeren
+install-winboat-title = Winboat installeren
+remove-lock-tooltip = Verwijder het vergrendelingsbestand van de pacman-database wanneer een vorige bewerking werd onderbroken
+reinstall-tooltip = Alle geïnstalleerde pakketten opnieuw installeren om beschadigde bestanden te herstellen
+reset-keyrings-tooltip = pacman/AUR-sleutelringen opnieuw instellen om pakkethandtekeningsfouten op te lossen
+update-system-tooltip = Alle geïnstalleerde pakketten bijwerken naar hun nieuwste versies
+remove-orphans-tooltip = Pakketten verwijderen die als afhankelijkheden zijn geïnstalleerd maar niet langer nodig zijn
+clear-pkgcache-tooltip = De lokale pakketcache wissen om schijfruimte vrij te maken
+rankmirrors-tooltip = Mirrors testen en rangschikken om de snelste downloadservers te vinden
+dnsserver-tooltip = DNS-servers configureren voor uw netwerkverbindingen
+show-kwinw-debug-tooltip = KWin Wayland-foutopsporingsconsole openen voor probleemoplossing
+install-gaming-tooltip = Een samengestelde set gamingpakketten installeren (Steam, Proton, enz.)
+install-winboat-tooltip = Winboat installeren voor Windows-compatibiliteitshulpmiddelen
 
 # Main Page (buttons)
 button-about-tooltip = Over

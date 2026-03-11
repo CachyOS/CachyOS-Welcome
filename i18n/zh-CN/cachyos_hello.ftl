@@ -56,6 +56,18 @@ remove-orphans-title = 删除孤立软件包
 clear-pkgcache-title = 清理软件包缓存
 rankmirrors-title = 排序镜像
 dnsserver-title = 更改 DNS 服务器
+install-winboat-title = 安装 Winboat
+remove-lock-tooltip = 在上一个操作中断时删除pacman数据库锁定文件
+reinstall-tooltip = 重新安装所有已安装的软件包以修复损坏的文件
+reset-keyrings-tooltip = 重置pacman/AUR密钥环以修复软件包签名错误
+update-system-tooltip = 将所有已安装的软件包更新到最新版本
+remove-orphans-tooltip = 删除作为依赖项安装但不再需要的软件包
+clear-pkgcache-tooltip = 清除本地软件包缓存以释放磁盘空间
+rankmirrors-tooltip = 测试并排名镜像站以找到最快的下载服务器
+dnsserver-tooltip = 为您的网络连接配置DNS服务器
+show-kwinw-debug-tooltip = 打开KWin Wayland调试控制台以进行故障排除
+install-gaming-tooltip = 安装精选的游戏相关软件包（Steam、Proton等）
+install-winboat-tooltip = 安装Winboat以获取Windows兼容性工具
 
 # Main Page (buttons)
 button-about-tooltip = 关于

@@ -59,6 +59,18 @@ rankmirrors-title = Evaluar mirrors
 dnsserver-title = Cambiar servidor DNS
 show-kwinw-debug-title = Mostrar la ventana debug de kwin(Wayland)
 install-gaming-title = Instalar paquetes de Gaming
+install-winboat-title = Instalar Winboat
+remove-lock-tooltip = Elimina el archivo de bloqueo de la base de datos de pacman cuando una operación anterior fue interrumpida
+reinstall-tooltip = Reinstalar todos los paquetes instalados para reparar archivos dañados
+reset-keyrings-tooltip = Restablecer los llaveros de pacman/AUR para solucionar errores de firma de paquetes
+update-system-tooltip = Actualizar todos los paquetes instalados a sus últimas versiones
+remove-orphans-tooltip = Eliminar paquetes instalados como dependencias que ya no son necesarios
+clear-pkgcache-tooltip = Limpiar la caché local de paquetes para liberar espacio en disco
+rankmirrors-tooltip = Probar y clasificar los espejos para encontrar los servidores de descarga más rápidos
+dnsserver-tooltip = Configurar servidores DNS para sus conexiones de red
+show-kwinw-debug-tooltip = Abrir la consola de depuración de KWin Wayland para solucionar problemas
+install-gaming-tooltip = Instalar un conjunto seleccionado de paquetes relacionados con juegos (Steam, Proton, etc.)
+install-winboat-tooltip = Instalar Winboat para herramientas de compatibilidad con Windows
 
 # Main Page (buttons)
 button-about-tooltip = Sobre

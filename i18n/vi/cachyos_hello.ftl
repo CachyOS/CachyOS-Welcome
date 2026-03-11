@@ -66,6 +66,18 @@ rankmirrors-title = xếp hạng các mirror
 dnsserver-title = đổi DNS server
 show-kwinw-debug-title = hiển thị kwin(Wayland) để xem lỗi
 install-gaming-title = Cài các gói chơi game
+install-winboat-title = Cài đặt Winboat
+remove-lock-tooltip = Xóa tệp khóa cơ sở dữ liệu pacman khi một thao tác trước đó bị gián đoạn
+reinstall-tooltip = Cài đặt lại tất cả các gói hiện đang cài đặt để sửa các tệp bị hỏng
+reset-keyrings-tooltip = Đặt lại keyring của pacman/AUR để khắc phục lỗi chữ ký gói
+update-system-tooltip = Cập nhật tất cả các gói đã cài đặt lên phiên bản mới nhất
+remove-orphans-tooltip = Xóa các gói được cài đặt như là phụ thuộc nhưng không còn cần thiết nữa
+clear-pkgcache-tooltip = Xóa bộ nhớ đệm gói cục bộ để giải phóng dung lượng đĩa
+rankmirrors-tooltip = Kiểm tra và xếp hạng các gương để tìm máy chủ tải xuống nhanh nhất
+dnsserver-tooltip = Cấu hình máy chủ DNS cho các kết nối mạng của bạn
+show-kwinw-debug-tooltip = Mở bảng điều khiển gỡ lỗi KWin Wayland để khắc phục sự cố
+install-gaming-tooltip = Cài đặt bộ gói liên quan đến game được chọn lọc (Steam, Proton, v.v.)
+install-winboat-tooltip = Cài đặt Winboat để có các công cụ tương thích Windows
 
 # Main Page (buttons)
 button-about-tooltip = Giới thiệu

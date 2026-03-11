@@ -64,6 +64,18 @@ rankmirrors-title = Järjesta peeglid
 dnsserver-title = Muuda DNS-serverit
 show-kwinw-debug-title = Näita kwin(Wayland) silumisakent
 install-gaming-title = Paigalda mängupaketid
+install-winboat-title = Paigalda Winboat
+remove-lock-tooltip = Eemaldab pacmani andmebaasi lukustusfaili, kui eelmine toiming katkestati
+reinstall-tooltip = Parandab rikutud failid, installides kõik paigaldatud paketid uuesti
+reset-keyrings-tooltip = Lähtestab pacmani/AUR-i võtmehoidjad paketiallkirja vigade parandamiseks
+update-system-tooltip = Uuendab kõiki installitud pakette nende uusimatele versioonidele
+remove-orphans-tooltip = Eemaldab paketid, mis installiti sõltuvustena, kuid pole enam vajalikud
+clear-pkgcache-tooltip = Tühjendab kohaliku paketivahemälu kettaruumi vabastamiseks
+rankmirrors-tooltip = Testib ja reastab peegleid kiireimate allalaadimisserverite leidmiseks
+dnsserver-tooltip = Seadistab DNS-serverid võrguühenduste jaoks
+show-kwinw-debug-tooltip = Avab KWin Waylandʼi silumisakna tõrkeotsinguks
+install-gaming-tooltip = Installib valiku mängupakette (Steam, Proton jne)
+install-winboat-tooltip = Installib Winboati Windowsi ühilduvustööriistade jaoks
 
 # Main Page (buttons)
 button-about-tooltip = Teave

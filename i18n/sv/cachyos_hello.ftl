@@ -69,6 +69,17 @@ dnsserver-title = Byt DNS-server
 show-kwinw-debug-title = Visa kwin(Wayland) felsökningsfönster
 install-gaming-title = Installera spelpaket
 install-winboat-title = Installera Winboat
+remove-lock-tooltip = Ta bort pacmans databaslåsfil när en tidigare åtgärd avbröts
+reinstall-tooltip = Installera om alla installerade paket för att åtgärda skadade filer
+reset-keyrings-tooltip = Återställ pacman/AUR-nyckelringar för att åtgärda paketsignaturfel
+update-system-tooltip = Uppdatera alla installerade paket till deras senaste versioner
+remove-orphans-tooltip = Ta bort paket som installerats som beroenden men inte längre behövs
+clear-pkgcache-tooltip = Rensa den lokala paketcachen för att frigöra diskutrymme
+rankmirrors-tooltip = Testa och rangordna spegelservrar för att hitta de snabbaste nedladdningsservrarna
+dnsserver-tooltip = Konfigurera DNS-servrar för dina nätverksanslutningar
+show-kwinw-debug-tooltip = Öppna KWin Waylands felsökningskonsol för felsökning
+install-gaming-tooltip = Installera ett urval av spelrelaterade paket (Steam, Proton, osv.)
+install-winboat-tooltip = Installera Winboat för Windows-kompatibilitetsverktyg
 
 # Main Page (buttons)
 button-about-tooltip = Om

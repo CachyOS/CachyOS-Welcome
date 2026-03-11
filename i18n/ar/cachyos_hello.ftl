@@ -65,6 +65,18 @@ rankmirrors-title = رتب المرايا
 dnsserver-title = غيّر خادم DNS
 show-kwinw-debug-title = أظهر نافذة تصحيح kwin(Wayland)
 install-gaming-title = ثبّت حزم الألعاب
+install-winboat-title = تثبيت Winboat
+remove-lock-tooltip = إزالة ملف قفل قاعدة بيانات pacman عند انقطاع عملية سابقة
+reinstall-tooltip = إعادة تثبيت جميع الحزم المثبتة لإصلاح الملفات التالفة
+reset-keyrings-tooltip = إعادة تعيين حلقات مفاتيح pacman/AUR لإصلاح أخطاء توقيع الحزم
+update-system-tooltip = تحديث جميع الحزم المثبتة إلى أحدث إصداراتها
+remove-orphans-tooltip = إزالة الحزم التي تم تثبيتها كتبعيات ولم تعد مطلوبة
+clear-pkgcache-tooltip = مسح ذاكرة التخزين المؤقت للحزم المحلية لتحرير مساحة القرص
+rankmirrors-tooltip = اختبار المرايا وترتيبها للعثور على أسرع خوادم التنزيل
+dnsserver-tooltip = تهيئة خوادم DNS لاتصالات الشبكة
+show-kwinw-debug-tooltip = فتح وحدة تحكم تصحيح أخطاء KWin Wayland لاستكشاف الأخطاء وإصلاحها
+install-gaming-tooltip = تثبيت مجموعة مختارة من حزم الألعاب (Steam وProton وما إلى ذلك)
+install-winboat-tooltip = تثبيت Winboat لأدوات توافق Windows
 
 # Main Page (buttons)
 button-about-tooltip = عن
