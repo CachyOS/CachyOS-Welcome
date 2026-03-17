@@ -6,10 +6,10 @@ about-dialog-comments = Вітальний екран CachyOS
 tweaks = Налаштування
 fixes = Виправлення
 applications = Застосунки
-removed-db-lock = Блокування бази даних Pacman знято!
+removed-db-lock = Блокування бази даних Pacman знято.
 lock-doesnt-exist = Блокування бази даних Pacman відсутнє!
-orphans-not-found = Осиротілих пакетів не знайдено!
-package-not-installed = Пакет '{$package_name}' не встановлено!
+orphans-not-found = Осиротілих пакетів не знайдено.
+package-not-installed = Пакет '{$package_name}' не встановлено.
 gaming-package-installed = Ігрові пакети вже встановлені!
 winboat-package-installed = Пакети Winboat вже встановлені!
 
@@ -42,7 +42,7 @@ latency-testing = тестування...
 latency-timeout = тайм-аут
 latency-no-result = жоден сервер не відповів
 dns-check-hint = Після застосування перевірте вашого DNS-провайдера на
-dns-server-changed = DNS-сервер успішно змінено!
+dns-server-changed = DNS-сервер змінено.
 dns-server-failed = Не вдалося змінити DNS-сервер!
 dns-server-reset = Налаштування DNS скинуто!
 dns-server-reset-failed = Не вдалося скинути налаштування DNS!
@@ -72,7 +72,7 @@ install-winboat-title = Встановити Winboat
 
 # Main Page (buttons)
 button-about-tooltip = Про програму
-button-web-resource-tooltip = Веб-ресурс
+button-web-resource-tooltip = Вебресурс
 button-development-label = Розробка
 button-software-label = Програмне забезпечення
 button-donate-label = Підтримати
@@ -96,6 +96,7 @@ calamares-install-type = Тип встановлення Calamares
 # Main Page (body)
 offline-error = Неможливо запустити онлайн-встановлення — відсутнє інтернет-з’єднання
 unsupported-hw-warning = Ви намагаєтеся встановити систему на обладнання, яке не підтримується поточним ISO. Така інсталяція не підлягатиме підтримці
+desktop-on-handheld-error = Ви намагаєтеся встановити настільну версію на портативний пристрій. Використовуйте портативну версію для належної підтримки
 outdated-version-warning = Ви використовуєте застарілу версію ISO CachyOS. Рекомендуємо скористатися найновішою
 testing-iso-warning = Ви використовуєте тестове ISO. Тестові збірки не вважаються стабільними
 tweaksbrowser-label = Застосунки / Налаштування
