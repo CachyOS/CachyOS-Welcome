@@ -6,7 +6,7 @@ about-dialog-comments = Tela de Boas-Vindas do CachyOS
 tweaks = Ajustes
 fixes = Utilitários
 applications = Aplicações
-removed-db-lock = O arquivo db.lock do Pacman foi removido!
+removed-db-lock = O arquivo de bloqueio do banco de dados (db.lock) do Pacman foi removido!
 lock-doesnt-exist = O arquivo db.lock do Pacman não existe!
 orphans-not-found = Não foram encontrados pacotes órfãos!
 package-not-installed = O pacote '{$package_name}' não foi instalado!
@@ -50,21 +50,21 @@ winboat-install-failed = Erro ao instalar o Winboat!
 
 # Tweaks page (tweaks)
 tweak-enabled-title = {$tweak} ativado
-tweak-psd-tooltip = Usar RAM para perfis do navegador (mais rápido e com menor desgaste do disco)
-tweak-oomd-tooltip = Encerra processos automaticamente quando a memória está baixa para evitar travamentos
+tweak-psd-tooltip = Usa a memória RAM para os perfis do navegador (mais rápido e com menor desgaste do disco)
+tweak-oomd-tooltip = Encerra os processos automaticamente quando a memória está baixa para evitar travamentos
 tweak-bpftune-tooltip = Ajusta automaticamente os parâmetros da rede do sistema
-tweak-bluetooth-tooltip = Ativa suporte para dispositivos Bluetooth (mouses, áudio, etc.)
+tweak-bluetooth-tooltip = Ativa o suporte para dispositivos Bluetooth (mouses, áudio, etc.)
 tweak-ananicycpp-tooltip = Ajusta automaticamente as prioridades dos processos para melhorar a fluidez do sistema
-tweak-cachyupdate-tooltip = Notificador de atualizações na bandeja do sistema
+tweak-cachyupdate-tooltip = Ativa o serviço de notificações de atualizações na bandeja do sistema
 
 # Tweaks page (fixes)
-remove-lock-title = Remover arquivo db.lock do Pacman
+remove-lock-title = Remover bloqueio do banco de dados (db.lock) do Pacman
 reinstall-title = Reinstalar Todos os Pacotes
 reset-keyrings-title = Redefinir chaves de assinatura
 update-system-title = Atualizar Sistema
 remove-orphans-title = Remover Pacotes Órfãos
 clear-pkgcache-title = Limpar cache de pacotes
-rankmirrors-title = Classificar Espelhos
+rankmirrors-title = Ranquear Espelhos
 dnsserver-title = Trocar Servidor DNS
 show-kwinw-debug-title = Exibir a Janela de Depuração do KWin(Wayland)
 install-gaming-title = Instalar Pacotes de Jogos
