@@ -165,7 +165,7 @@ pub fn clear_pkgcache(callback: RunCmdCallback) {
 }
 
 pub fn reinstall_packages(callback: RunCmdCallback) {
-    let _ = utils::run_cmd_terminal(callback, String::from("pacman -S $(pacman -Qnq)"), true);
+    let _ = utils::run_cmd_terminal(callback, String::from("pacman -S --overwrite='/*' $(pacman -Qnq)"), true);
 }
 
 pub fn remove_orphans(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage>) {
