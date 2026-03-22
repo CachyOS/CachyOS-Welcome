@@ -1,9 +1,12 @@
 use crate::config::{APP_ID, VERSION};
 use crate::{check_regular_file, installer, pages, utils, RESPREFIX};
 
+use std::cell::RefCell;
 use std::collections::HashMap;
 use std::fs;
 use std::path::Path;
+use std::rc::Rc;
+use std::time::Duration;
 
 use gtk::prelude::*;
 
@@ -70,8 +73,7 @@ impl HelloWindow {
                     || keyval == gdk::keys::constants::space
                 {
                     let name = widget.widget_name();
-                    let hello_window =
-                        unsafe { crate::G_HELLO_WINDOW.as_ref().unwrap() };
+                    let hello_window = unsafe { crate::G_HELLO_WINDOW.as_ref().unwrap() };
                     let preferences = hello_window.get_preferences("urls");
                     if let Some(uri) = preferences[name.as_str()].as_str() {
                         hello_window.open_uri(uri);
@@ -193,6 +195,31 @@ impl HelloWindow {
             let readme: gtk::Button = builder.object("readme").unwrap();
             readme.grab_focus();
         }
+
+        // Briefly dim focused widget on keyboard Tab for navigation feedback
+        let prev_dimmed: Rc<RefCell<Option<gtk::Widget>>> = Rc::new(RefCell::new(None));
+        let prev = prev_dimmed.clone();
+        let window = main_window.clone();
+        main_window.connect_key_press_event(move |_, event| {
+            let keyval = event.keyval();
+            if keyval == gdk::keys::constants::Tab || keyval == gdk::keys::constants::ISO_Left_Tab {
+                let window = window.clone();
+                let prev = prev.clone();
+                glib::idle_add_local_once(move || {
+                    if let Some(widget) = prev.borrow_mut().take() {
+                        widget.set_opacity(1.0);
+                    }
+                    if let Some(focused) = window.focused_widget() {
+                        focused.set_opacity(0.5);
+                        *prev.borrow_mut() = Some(focused.clone());
+                        glib::timeout_add_local_once(Duration::from_millis(180), move || {
+                            focused.set_opacity(1.0);
+                        });
+                    }
+                });
+            }
+            glib::Propagation::Proceed
+        });
 
         // setup pages content
         let hello_window = HelloWindow { window: main_window, builder, preferences };
