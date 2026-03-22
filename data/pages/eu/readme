@@ -1,0 +1,37 @@
+<big>Hardwarea kudeatzen</big>
+
+CachyOSek kernel anitz erabiltzea onartzeaz gain (abiaratze-pantailako aukera aurreratuetan hauta daitezkeenak), azken-azkeneko kernelak (*bleeding-edge*) eskuratzeko bidea ere ematen du. Hau CachyOS-en Ezarpen Kudeatzaile grafikoko Kernel moduluaren bidez egin daiteke, edo komando-lerrotik `chwd-kernel` (CachyOS Hardware Detection) komandoa erabiliz.
+
+CachyOS-en tresna hauek automatikoki eguneratuko dute instalatu berri den kernela, lehendik duzun kernelean erabiltzen ari zaren edozein modulurekin batera. Adibidez, 3.18 kernetik 4.1 bertsiora eguneratuko bazenu, `chwd-kernel`-ek automatikoki sartuko lituzke 4.1 kernelaren eraikuntzak eta 3.18 kernelean erabilitako modulu guztiak. Demontre!
+
+Zure hardwarea konfiguratu dezakezu Ezarpen Kudeatzaileko Hardware Detekzio moduluaren bidez, edo bestela `chwd` komando-lerroko aplikazioarekin. Tresna hauekin, adibidez, kontrolatzaile grafikoak instalatu ditzakezu, libreekin zein jabedunekin (proprietary).
+
+<big>Laguntza lortzen</big>
+
+CachyOS instalatu eta berehala ("out of the box") ahalik eta hobekien funtzionatzeko diseinatuta dagoen arren, ez dugu esaten perfektua denik. Gauzak gaizki ateratzen diren uneak egon daitezke, galderak izan ditzakezu, gehiago ikasteko gogoa, edo zure gustura pertsonalizatu nahi izatea. Orrialde honek laguntzeko erabilgarri dauden baliabide batzuen xehetasunak eskaintzen dizkizu!
+
+<b>Bilatu webean</b>
+
+Laguntza orokorra bilatzeko lehen lekua zure bilatzaile gogokoena erabiltzea izan daiteke. Sartu 'Linux', 'CachyOS' edo 'Arch' bezalako hitzak zure bilaketan.
+
+CachyOS Arch Linuxen oinarrituta dagoenez, Archen diseinatutako gida eta aholkuak CachyOSen ere aplikatu ohi dira.
+
+<b>Begiratu foroetan</b>
+
+CachyOSi buruzko laguntza espezifikoa lortzeko sareko foro espezifiko bat dugu; bertan gaiak bilatu ditzakezu edo zeurea sortu! Hau da, seguruenik, elkarlanerako, eztabaidarako eta laguntzarako lekurik onena. Eskatu laguntza, argitaratu zure iritziak edo azaldu iradokizun batzuk. Ez izan beldurrik!
+
+CachyOS foroa gai eta ingurune desberdinetarako azpiforoetan banatuta dago, mesedez argitaratu zure galdera dagokion lekuan!
+
+<big>Beste baliabide batzuk</big>
+
+    - <a href="https://aur.archlinux.org">AUR Biltegia</a> - Biltegi arruntetan ez dagoen software gehigarria, iturburu-kodetik eraikia.
+    - <a href="https://wiki.cachyos.org">CachyOS Wiki</a> - CachyOS-en wiki ofiziala.
+    - <a href="https://wiki.archlinux.org">Arch Wiki</a> - Arch-en wiki ofiziala.
+
+<big>Iradokizunak</big>
+
+CachyOS nola hobetu dezakegun badakizu? Zerbait sartzea nahi duzu edo lagundu nahi duzu? Mesedez, jakinarazi iezaguzu zure iradokizuna foroan argitaratuz edo IRC bidez.
+
+Eskerrik asko!
+
+CachyOS erabiltzen gozatuko duzula espero dugu!

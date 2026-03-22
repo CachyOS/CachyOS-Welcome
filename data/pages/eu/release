@@ -1,0 +1,84 @@
+<big>CachyOS 24.12</big>
+
+Hau da urteko gure 13. argitalpena eta ziurrenik azkena; kernel optimizazioz, RustiCL aldaketez eta beste hainbat hobekuntzaz beteta dator.
+
+Aldaketa aipagarrienetako bat kernel lehenetsia orain AutoFDO bidez optimizatuta dagoela da. Lan-kargen profilatzea hainbat probaren bidez egiten da, besteak beste: sysbench, CachyOS Benchmarker, Git eragiketak, kernel konpilazioa eta beste hainbat erreferentzia-proba (benchmarks). Gaur egun, profilatzea Zen5 makina batean egiten da, baina etorkizunean profil anitz batzea aurreikusten dugu optimizazio zabalagoa lortzeko.
+
+RustiCLek Mesa pilako OpenCL kontrolatzaile lehenetsia ordezkatu du, errendimendu eta bateragarritasun hobea eskainiz. Gainera, orain `scx_loader` erabiltzen dugu kernel-managerrean sched-ext planifikatzaileak kudeatzeko. Honek planifikatzaileen arteko aldaketa errazten du eta konfigurazio-fitxategi dedikatu baten bidez behar bezala konfiguratuta daudela ziurtatzen du.
+
+Bluetooth euskarria ere gaitu dugu, erabiltzaile gehienentzako esperientzia hobetuz. Gainera, **wireless-regdb** lehenetsita instalatzen da orain, Wi-Fi errendimendua hobetuz eta eskualdeko araudiak betez. Erabiltzaileek beren eskualdea pertsonaliza dezakete `/etc/conf.d/wireless-regdom` fitxategian, beren eremuan baimendutako Wi-Fi maiztasun gehigarriak desblokeatzeko.
+
+Azkenik, argitalpen honek konponketa garrantzitsu batzuk ditu:
+- `/boot` partizioko `umask` ezarpena zuzendu da baimenik gabeko sarbideak saihesteko.
+- Instalatzaileak ez du jada erregistroen (logs) terminal-leihorik irekitzen.
+- Interneteko konexioaren egiaztapena konpondu da instalazio leuna ziurtatzeko.
+
+<big>Ezaugarriak:</big>
+
+- Kernela:
+  - AutoFDO aplikatu zaio `linux-cachyos` kernel lehenetsiari arkitektura guztietarako.
+    - **Oharra**: Errendimendu hobekuntzak txikiak dira oraindik egungo muga teknikoengatik. Profilak batzeko LLVM 19 behar da. LLVM 19 eta profil optimizatuagoak urte amaierarako prest egotea espero dugu, Arch Linuxek LLVM 19 hartzearrekin batera.
+- chwd: Rusticl ondo konfiguratuta dago orain.
+- chwd: erroreen erregistroa (logging) hobetu da hook-en deietan.
+- chwd: VAAPI kontrolatzaileen hautaketa konpondu da.
+- cachyos-settings: Zink bidez aplikazioak exekutatzea errazteko script bat gehitu da.
+- Sysctl konfigurazioa: hainbat ezarpen berrantolatu eta optimizatu dira.
+- Kernel Manager: `scx_loader` euskarria gehitu da, planifikatzaile aldaketa natiboa baimenduz.
+- Instalatzailea: Bluetooth zerbitzua lehenetsita gaituta dago orain.
+- Netinstall:
+  - `wireless-regdb` gehitu da instalatutako paketeetara.
+    - Honek konexioa kanal egokiak erabiltzeko konfiguratzen du, abiadura hobetu dezaketen kanal gehigarriak desblokeatuz.
+    - **Oharra**: Eskualde generiko bat ezartzen da lehenetsita; zure eskualdera pertsonalizatzea gomendatzen dugu errendimendu onena lortzeko.
+
+<big>Akats-konponketak:</big>
+
+- Instalatzailea: Instalazio-erregistroek ez dituzte jada arazte-terminalak (debug) irekitzen.
+- Partizioen kudeaketa:
+  - `umask` ezarpen egokiek `/boot` babesten dute baimenik gabeko sarbideen aurrean.
+- Instalatzailea abiarazi: Interneteko konexio egiaztapenak konpondu dira.
+
+<big>Handheld argitalpenaren aldaketa-log-a:</big>
+
+- Eskuko gailuekin (handheld) lotutako paketeak eguneratu dira.
+- Energia-profilen kudeaketarekin zegoen arazoa konpondu da.
+- WiFi 6 euskarria gehitu da.
+
+<big>Eskuzko aldaketak egungo erabiltzaileentzat:</big>
+
+Wi-Fi erabiltzen duten erabiltzaileek `wireless-regdb` paketea instalatu eta beren eskualdea ezarri beharko lukete `/etc/conf.d/wireless-regdom` fitxategian:
+```sh
+sudo pacman -S wireless-regdb
+sudo micro /etc/conf.d/wireless-regdom
+```
+
+Honetaz gain, mantendu sistema eguneratuta komando honekin:
+```
+sudo pacman -Syu
+```
+
+<big>Deskarga:</big>
+
+Lortu azken ISOaren kopia gure ispiluetan (mirrors) edo SourceForge-n:
+
+* CDN: https://iso.cachyos.org/desktop/241224/cachyos-desktop-linux-241224.iso
+* CDN2: https://cdn77.cachyos.org/ISO/desktop/241224/cachyos-desktop-linux-241224.iso
+* Alemania: https://mirror.cachyos.org/ISO/desktop/241224/cachyos-desktop-linux-241224.iso
+* AEB: https://us.cachyos.org/ISO/241224/desktop/cachyos-desktop-linux-241224.iso
+* Txina: https://mirrors.tuna.tsinghua.edu.cn/cachyos/desktop/241224/cachyos-desktop-linux-241224.iso
+* https://sourceforge.net/projects/cachyos-arch/files
+
+Handheld edizioa:
+
+* CDN: https://iso.cachyos.org/handheld/241224/cachyos-handheld-linux-241224.iso
+* CDN2: https://cdn77.cachyos.org/ISO/handheld/241224/cachyos-handheld-linux-241224.iso
+
+<big>Lagundu iezaguzu:</big>
+
+Zure ekarpenek gure zerbitzariak mantentzen laguntzen digute. Babestu CachyOS bide hauetatik:
+
+* PayPal: https://paypal.me/pttrr
+* Patreon: https://www.patreon.com/CachyOS
+
+Eskerrik asko zure etengabeko babesagatik!
+
+<b>CachyOS Taldea</b>
