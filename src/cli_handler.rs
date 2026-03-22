@@ -78,10 +78,28 @@ pub fn handle_dns_command(action: DnsAction) -> Result<()> {
     let (tx, rx) = glib::MainContext::channel(glib::Priority::default());
 
     match action {
-        DnsAction::Set { connection, server } => {
-            println!("Setting DNS for '{}' to '{}'...", connection.cyan(), server.as_str().cyan());
+        DnsAction::Set { connection, server, dot } => {
             let server_addr = dns::G_DNS_SERVERS.get(server.as_str()).unwrap();
-            actions::change_dns_server(&connection, server_addr.0, server_addr.1, tx);
+            let dot_supported = server_addr.2.is_some();
+
+            if dot && !dot_supported {
+                println!(
+                    "{}: DNS over TLS is not supported by '{}'.",
+                    "Warning".yellow(),
+                    server.as_str()
+                );
+                println!("Setting DNS without DoT...");
+            }
+
+            let enable_dot = dot && dot_supported;
+            let dot_label = if enable_dot { " (DoT enabled)" } else { "" };
+            println!(
+                "Setting DNS for '{}' to '{}'{}...",
+                connection.cyan(),
+                server.as_str().cyan(),
+                dot_label
+            );
+            actions::change_dns_server(&connection, server_addr.0, server_addr.1, enable_dot, tx);
         },
         DnsAction::Reset { connection } => {
             println!("Resetting DNS for '{}' to automatic...", connection.cyan());
@@ -100,8 +118,26 @@ pub fn handle_dns_command(action: DnsAction) -> Result<()> {
         },
         DnsAction::ListServers => {
             println!("{}", "Available DNS Servers:".bold());
-            for name in dns::G_DNS_SERVERS.keys() {
-                println!("- {name}");
+            for (name, (_, _, dot_hostname)) in dns::G_DNS_SERVERS.entries() {
+                let dot_info = match dot_hostname {
+                    Some(host) => format!(" [DoT: {host}]"),
+                    None => String::new(),
+                };
+                let region_info = match dns::G_DNS_SERVER_INFO.get(name) {
+                    Some(info) => format!(" ({} - {})", info.region, info.homepage),
+                    None => String::new(),
+                };
+                println!("- {name}{dot_info}{region_info}");
+            }
+        },
+        DnsAction::TestLatency => {
+            println!("{}", "Testing latency to all DNS servers...".bold());
+            let results = dns::measure_all_latencies();
+            for (name, latency) in &results {
+                match latency {
+                    Some(ms) => println!("  {ms:>4} ms  {name}"),
+                    None => println!("     --  {name} (timeout)"),
+                }
             }
         },
     }

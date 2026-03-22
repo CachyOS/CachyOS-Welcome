@@ -30,9 +30,17 @@ fn update_translation_fixes_section(section_box: &gtk::Box) {
 fn update_translation_connections_section(section_box: &gtk::Box) {
     for section_box_element in section_box.children() {
         if let Ok(object_box) = section_box_element.clone().downcast::<gtk::Box>() {
+            match object_box.widget_name().as_str() {
+                "dns-connection-box" | "dns-servers-box" | "dns-button-box"
+                | "dns-latency-box" | "dns-dot-box" => {},
+                _ => continue,
+            }
             for object_box_widget in object_box.children() {
                 let widget_name = object_box_widget.widget_name();
-                if let Ok(box_element_btn) = object_box_widget.clone().downcast::<gtk::Button>() {
+                if let Ok(box_element_check) = object_box_widget.clone().downcast::<gtk::CheckButton>() {
+                    let translated_text = crate::localization::get_locale_text(&widget_name);
+                    box_element_check.set_label(&translated_text);
+                } else if let Ok(box_element_btn) = object_box_widget.clone().downcast::<gtk::Button>() {
                     let translated_text = crate::localization::get_locale_text(&widget_name);
                     box_element_btn.set_label(&translated_text);
                 } else if let Ok(box_element_label) = object_box_widget.downcast::<gtk::Label>() {

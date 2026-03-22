@@ -66,12 +66,16 @@ pub fn change_dns_server(
     conn_name: &str,
     server_addr_ipv4: &str,
     server_addr_ipv6: &str,
+    enable_dot: bool,
     dialog_tx: Sender<DialogMessage>,
 ) {
+    // dns-over-tls: -1 = default, 0 = no, 1 = opportunistic, 2 = yes (strict)
+    let dot_value = if enable_dot { 2 } else { 0 };
     let status_code = utils::run_cmd(
         format!(
             "nmcli con mod '{conn_name}' ipv4.dns '{server_addr_ipv4}' && nmcli con mod \
-             '{conn_name}' ipv6.dns '{server_addr_ipv6}' && systemctl restart NetworkManager"
+             '{conn_name}' ipv6.dns '{server_addr_ipv6}' && nmcli con mod '{conn_name}' \
+             connection.dns-over-tls {dot_value} && systemctl restart NetworkManager"
         ),
         true,
     )
@@ -99,6 +103,7 @@ pub fn reset_dns_server(conn_name: &str, dialog_tx: Sender<DialogMessage>) {
     let status_code = utils::run_cmd(
         format!(
             "nmcli con mod '{conn_name}' ipv4.dns '' && nmcli con mod '{conn_name}' ipv6.dns '' \
+             && nmcli con mod '{conn_name}' connection.dns-over-tls -1 \
              && systemctl restart NetworkManager"
         ),
         true,
