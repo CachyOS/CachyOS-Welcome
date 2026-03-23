@@ -93,13 +93,34 @@ pub fn handle_dns_command(action: DnsAction) -> Result<()> {
 
             let enable_dot = dot && dot_supported;
             let dot_label = if enable_dot { " (DoT enabled)" } else { "" };
+            let dot_hostname = server_addr.2.unwrap_or("");
             println!(
                 "Setting DNS for '{}' to '{}'{}...",
                 connection.cyan(),
                 server.as_str().cyan(),
                 dot_label
             );
-            actions::change_dns_server(&connection, server_addr.0, server_addr.1, enable_dot, tx);
+            actions::change_dns_server(&connection, server_addr.0, server_addr.1, enable_dot, dot_hostname, tx);
+        },
+        DnsAction::SetCustom { connection, ipv4, ipv6, dot, dot_hostname } => {
+            if ipv4.is_empty() && ipv6.is_empty() {
+                eprintln!("{}: At least one of --ipv4 or --ipv6 must be provided.", "Error".red());
+                std::process::exit(1);
+            }
+            if !dot_hostname.is_empty() && !dns::is_valid_dot_hostname(&dot_hostname) {
+                eprintln!("{}: Invalid DoT hostname '{}'.", "Error".red(), dot_hostname);
+                std::process::exit(1);
+            }
+            let dot_label = if dot { " (DoT enabled)" } else { "" };
+            println!(
+                "Setting custom DNS for '{}': IPv4='{}' IPv6='{}'{}{}",
+                connection.cyan(),
+                if ipv4.is_empty() { "(none)" } else { &ipv4 },
+                if ipv6.is_empty() { "(none)" } else { &ipv6 },
+                if !dot_hostname.is_empty() { format!(" hostname={}", dot_hostname) } else { String::new() },
+                dot_label,
+            );
+            actions::change_dns_server(&connection, &ipv4, &ipv6, dot, &dot_hostname, tx);
         },
         DnsAction::Reset { connection } => {
             println!("Resetting DNS for '{}' to automatic...", connection.cyan());

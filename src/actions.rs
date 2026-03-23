@@ -1,5 +1,5 @@
 use crate::ui::{Action, DialogMessage, MessageType, RunCmdCallback};
-use crate::{fl, kwin_dbus, systemd_units, utils, PacmanWrapper};
+use crate::{dns, fl, kwin_dbus, systemd_units, utils, PacmanWrapper};
 
 use std::env;
 use std::path::Path;
@@ -31,7 +31,15 @@ pub fn get_active_connection_name() -> Option<String> {
     active_conns.lines().next().map(String::from)
 }
 
-pub fn get_dns_for_connection(conn_name: &str) -> Option<(String, String)> {
+/// DNS info returned from NetworkManager: (ipv4_addrs, ipv6_addrs, optional DoT hostname).
+/// The hostname is extracted from the NM `address#hostname` notation.
+pub struct DnsInfo {
+    pub ipv4: String,
+    pub ipv6: String,
+    pub dot_hostname: Option<String>,
+}
+
+pub fn get_dns_for_connection(conn_name: &str) -> Option<DnsInfo> {
     let ips = Exec::cmd("/sbin/nmcli")
         .args(&["-g", "ipv4.dns,ipv6.dns", "con", "show", conn_name])
         .stdout(Redirection::Pipe)
@@ -40,14 +48,48 @@ pub fn get_dns_for_connection(conn_name: &str) -> Option<(String, String)> {
         .stdout_str();
 
     let mut lines = ips.lines();
-    let ipv4_dns = lines.next().unwrap_or("").to_owned();
-    let ipv6_dns = lines.next().unwrap_or("").replace("\\:", ":");
+    let raw_ipv4 = lines.next().unwrap_or("").to_owned();
+    let raw_ipv6 = lines.next().unwrap_or("").replace("\\:", ":");
 
-    if ipv4_dns.is_empty() && ipv6_dns.is_empty() {
-        None
-    } else {
-        Some((ipv4_dns, ipv6_dns))
+    if raw_ipv4.is_empty() && raw_ipv6.is_empty() {
+        return None;
     }
+
+    // Extract DoT hostname from "addr#hostname" notation.
+    // All addresses in a connection share the same hostname, so take the first found.
+    let mut dot_hostname: Option<String> = None;
+    let strip_hostname = |s: &str, hostname: &mut Option<String>| -> String {
+        s.split(',')
+            .map(|addr| {
+                if let Some(pos) = addr.find('#') {
+                    if hostname.is_none() {
+                        *hostname = Some(addr[pos + 1..].to_string());
+                    }
+                    addr[..pos].to_string()
+                } else {
+                    addr.to_string()
+                }
+            })
+            .collect::<Vec<_>>()
+            .join(",")
+    };
+
+    let ipv4 = strip_hostname(&raw_ipv4, &mut dot_hostname);
+    let ipv6 = strip_hostname(&raw_ipv6, &mut dot_hostname);
+
+    Some(DnsInfo { ipv4, ipv6, dot_hostname })
+}
+
+/// Returns true if DNS-over-TLS is enabled (strict mode) for the given connection.
+pub fn get_dot_for_connection(conn_name: &str) -> bool {
+    let output = Exec::cmd("/sbin/nmcli")
+        .args(&["-g", "connection.dns-over-tls", "con", "show", conn_name])
+        .stdout(Redirection::Pipe)
+        .capture()
+        .unwrap()
+        .stdout_str();
+    // value 2 = strict DoT
+    output.trim() == "2"
 }
 
 fn get_user_groups() -> Vec<String> {
@@ -67,14 +109,28 @@ pub fn change_dns_server(
     server_addr_ipv4: &str,
     server_addr_ipv6: &str,
     enable_dot: bool,
+    dot_hostname: &str,
     dialog_tx: Sender<DialogMessage>,
 ) {
+    // When DoT is enabled and a hostname is provided, append #hostname to each address
+    // per NetworkManager's "address#servername" notation for SNI.
+    let ipv4_with_sni = if enable_dot && !dot_hostname.is_empty() {
+        dns::append_dot_hostname(server_addr_ipv4, dot_hostname)
+    } else {
+        server_addr_ipv4.to_string()
+    };
+    let ipv6_with_sni = if enable_dot && !dot_hostname.is_empty() {
+        dns::append_dot_hostname(server_addr_ipv6, dot_hostname)
+    } else {
+        server_addr_ipv6.to_string()
+    };
+
     // dns-over-tls: -1 = default, 0 = no, 1 = opportunistic, 2 = yes (strict)
     let dot_value = if enable_dot { 2 } else { 0 };
     let status_code = utils::run_cmd(
         format!(
-            "nmcli con mod '{conn_name}' ipv4.dns '{server_addr_ipv4}' && nmcli con mod \
-             '{conn_name}' ipv6.dns '{server_addr_ipv6}' && nmcli con mod '{conn_name}' \
+            "nmcli con mod '{conn_name}' ipv4.dns '{ipv4_with_sni}' && nmcli con mod \
+             '{conn_name}' ipv6.dns '{ipv6_with_sni}' && nmcli con mod '{conn_name}' \
              connection.dns-over-tls {dot_value} && systemctl restart NetworkManager"
         ),
         true,

@@ -45,6 +45,12 @@ dns-server-changed = Serveri DNS u ndryshua me sukses!
 dns-server-failed = Dështoi ndryshimi i serverit DNS!
 dns-server-reset = Serveri DNS u rivendos!
 dns-server-reset-failed = Dështoi rivendosja e serverit DNS!
+custom-dns = Custom
+custom-dns-ipv4 = IPv4 addresses (comma-separated):
+custom-dns-ipv6 = IPv6 addresses (comma-separated):
+custom-dns-dot-hostname = DoT hostname (optional):
+custom-dns-invalid = Please enter at least an IPv4 or IPv6 address
+custom-dns-invalid-hostname = Invalid DoT hostname
 
 # Tweaks page (tweaks)
 tweak-enabled-title = {$tweak} e aktivizuar

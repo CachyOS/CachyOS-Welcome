@@ -65,6 +65,28 @@ pub enum DnsAction {
         #[clap(long)]
         dot: bool,
     },
+    /// Set a custom DNS server for a network connection
+    SetCustom {
+        /// Network connection name (use 'list-connections' to see available)
+        #[clap(short, long, value_name = "NAME")]
+        connection: String,
+
+        /// IPv4 DNS addresses (comma-separated, e.g. "1.1.1.1,1.0.0.1")
+        #[clap(long, value_name = "ADDRS", default_value = "")]
+        ipv4: String,
+
+        /// IPv6 DNS addresses (comma-separated)
+        #[clap(long, value_name = "ADDRS", default_value = "")]
+        ipv6: String,
+
+        /// Enable DNS over TLS (DoT)
+        #[clap(long)]
+        dot: bool,
+
+        /// DoT hostname for SNI (e.g. "dns.example.com")
+        #[clap(long, value_name = "HOSTNAME", default_value = "")]
+        dot_hostname: String,
+    },
     /// Reset DNS settings for a network connection to automatic (DHCP)
     Reset {
         /// Network connection name to reset
@@ -88,7 +110,7 @@ pub enum DnsServer {
     CloudflareMalwareAdult,
     OpenDns,
     DnsWatch,
-    FFMUC,
+    FFmuc,
     GCore,
     Google,
     Quad9,
@@ -110,7 +132,7 @@ impl DnsServer {
             DnsServer::CloudflareMalwareAdult => "Cloudflare Malware and adult content blocking",
             DnsServer::OpenDns => "Cisco Umbrella(OpenDNS)",
             DnsServer::DnsWatch => "DNS.Watch",
-            DnsServer::FFMUC => "FFMUC DNS / Freie Netze Muenchen e.V.",
+            DnsServer::FFmuc => "FFMUC DNS / Freie Netze Muenchen e.V.",
             DnsServer::GCore => "GCore",
             DnsServer::Google => "Google",
             DnsServer::Quad9 => "Quad9",
@@ -130,10 +152,46 @@ pub fn measure_latency(server_ipv4: &str) -> Option<u128> {
     use std::time::{Duration, Instant};
 
     let first_ip = server_ipv4.split(',').next()?;
-    let addr: SocketAddr = format!("{first_ip}:53").parse().ok()?;
+    // Strip any #hostname suffix for latency testing
+    let ip_only = first_ip.split('#').next()?;
+    let addr: SocketAddr = format!("{ip_only}:53").parse().ok()?;
     let start = Instant::now();
     TcpStream::connect_timeout(&addr, Duration::from_secs(3)).ok()?;
     Some(start.elapsed().as_millis())
+}
+
+/// Append `#hostname` to each comma-separated address.
+pub fn append_dot_hostname(addrs: &str, hostname: &str) -> String {
+    if addrs.is_empty() {
+        return String::new();
+    }
+    addrs
+        .split(',')
+        .map(|addr| format!("{addr}#{hostname}"))
+        .collect::<Vec<_>>()
+        .join(",")
+}
+
+/// Returns true if `hostname` is a valid SNI/DoT hostname.
+/// Must be non-empty, contain only alphanumeric chars, hyphens, and dots,
+/// must not start/end with a dot or hyphen, and labels must be <= 63 chars.
+pub fn is_valid_dot_hostname(hostname: &str) -> bool {
+    if hostname.is_empty() || hostname.len() > 253 {
+        return false;
+    }
+    for label in hostname.split('.') {
+        if label.is_empty()
+            || label.len() > 63
+            || label.starts_with('-')
+            || label.ends_with('-')
+        {
+            return false;
+        }
+        if !label.chars().all(|c| c.is_ascii_alphanumeric() || c == '-') {
+            return false;
+        }
+    }
+    true
 }
 
 /// Returns true if the server is a filtering variant (malware/family blocking).

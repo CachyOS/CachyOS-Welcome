@@ -1,24 +1,31 @@
-use crate::ui::UI;
+use crate::ui::{Action, DialogMessage, MessageType, UI};
 use crate::{actions, create_gtk_button, dns, fl, utils};
 
 use gtk::prelude::*;
 
 use gtk::{glib, Builder};
 
+/// Returns true if `s` contains only valid DNS address characters (hex digits, dots, colons, commas).
+fn is_valid_dns_input(s: &str) -> bool {
+    !s.is_empty() && s.chars().all(|c| c.is_ascii_hexdigit() || matches!(c, '.' | ':' | ','))
+}
+
 fn selection_index_for_connection(conn_name: &str) -> usize {
-    if let Some((ipv4_dns, ipv6_dns)) = actions::get_dns_for_connection(conn_name) {
+    if let Some(dns_info) = actions::get_dns_for_connection(conn_name) {
         for (key_index, (_name, (ipv4_map, ipv6_map, _dot))) in
             dns::G_DNS_SERVERS.entries().enumerate()
         {
-            if (!ipv4_dns.is_empty() && &ipv4_dns == ipv4_map)
-                || (!ipv6_dns.is_empty() && &ipv6_dns == ipv6_map)
+            if (!dns_info.ipv4.is_empty() && &dns_info.ipv4 == ipv4_map)
+                || (!dns_info.ipv6.is_empty() && &dns_info.ipv6 == ipv6_map)
             {
                 return key_index;
             }
         }
+        // DNS is set but doesn't match any preset — custom server
+        return dns::G_DNS_SERVERS.len();
     }
 
-    // fallback to Cloudflare
+    // No DNS configured, fallback to Cloudflare
     dns::G_DNS_SERVERS.get_index("Cloudflare").unwrap()
 }
 
@@ -81,6 +88,8 @@ fn create_connections_section() -> gtk::Box {
         for dns_server in dns::G_DNS_SERVERS.keys() {
             store.set(&store.append(), &[(0, dns_server)]);
         }
+        let custom_label = fl!("custom-dns");
+        store.set(&store.append(), &[(0, &custom_label)]);
         utils::create_combo_with_model(&store)
     };
 
@@ -97,6 +106,44 @@ fn create_connections_section() -> gtk::Box {
     info_label.set_use_markup(true);
     info_label.set_xalign(0.5);
     info_label.set_widget_name("server-info");
+
+    // Custom DNS input fields (shown when "Custom" is selected)
+    let custom_box = gtk::Box::new(gtk::Orientation::Vertical, 4);
+    let custom_ipv4_box = gtk::Box::new(gtk::Orientation::Horizontal, 2);
+    let custom_ipv6_box = gtk::Box::new(gtk::Orientation::Horizontal, 2);
+    let custom_dot_box = gtk::Box::new(gtk::Orientation::Horizontal, 2);
+
+    let custom_ipv4_label = gtk::Label::new(None);
+    custom_ipv4_label.set_text(&fl!("custom-dns-ipv4"));
+    let custom_ipv4_entry = gtk::Entry::new();
+    custom_ipv4_entry.set_placeholder_text(Some("e.g. 1.1.1.1,1.0.0.1"));
+    custom_ipv4_entry.set_widget_name("custom-dns-ipv4");
+
+    let custom_ipv6_label = gtk::Label::new(None);
+    custom_ipv6_label.set_text(&fl!("custom-dns-ipv6"));
+    let custom_ipv6_entry = gtk::Entry::new();
+    custom_ipv6_entry.set_placeholder_text(Some("e.g. 2606:4700:4700::1111"));
+    custom_ipv6_entry.set_widget_name("custom-dns-ipv6");
+
+    let custom_dot_label = gtk::Label::new(None);
+    custom_dot_label.set_text(&fl!("custom-dns-dot-hostname"));
+    let custom_dot_entry = gtk::Entry::new();
+    custom_dot_entry.set_placeholder_text(Some("e.g. dns.example.com"));
+    custom_dot_entry.set_widget_name("custom-dns-dot-hostname");
+
+    custom_ipv4_box.pack_start(&custom_ipv4_label, true, true, 2);
+    custom_ipv4_box.pack_end(&custom_ipv4_entry, true, true, 2);
+    custom_ipv6_box.pack_start(&custom_ipv6_label, true, true, 2);
+    custom_ipv6_box.pack_end(&custom_ipv6_entry, true, true, 2);
+    custom_dot_box.pack_start(&custom_dot_label, true, true, 2);
+    custom_dot_box.pack_end(&custom_dot_entry, true, true, 2);
+
+    custom_box.pack_start(&custom_ipv4_box, false, false, 2);
+    custom_box.pack_start(&custom_ipv6_box, false, false, 2);
+    custom_box.pack_start(&custom_dot_box, false, false, 2);
+    custom_box.set_widget_name("dns-custom-box");
+    custom_box.set_no_show_all(true);
+    custom_box.set_visible(false);
 
     // Latency test button and result label
     let latency_btn = gtk::Button::with_label(&fl!("test-latency"));
@@ -119,28 +166,62 @@ fn create_connections_section() -> gtk::Box {
             let selected_dns_index = selection_index_for_connection(&active_conn_name);
             combo_servers.set_active(Some(selected_dns_index as u32));
 
-            let supports_dot = server_supports_dot(selected_dns_index);
-            dot_check.set_sensitive(supports_dot);
-            dot_check.set_active(supports_dot);
+            if selected_dns_index == dns::G_DNS_SERVERS.len() {
+                // Custom DNS — pre-fill entries with current values
+                if let Some(dns_info) = actions::get_dns_for_connection(&active_conn_name) {
+                    custom_ipv4_entry.set_text(&dns_info.ipv4);
+                    custom_ipv6_entry.set_text(&dns_info.ipv6);
+                    if let Some(ref hostname) = dns_info.dot_hostname {
+                        custom_dot_entry.set_text(hostname);
+                    }
+                }
+                let dot_enabled = actions::get_dot_for_connection(&active_conn_name);
+                dot_check.set_active(dot_enabled);
+                custom_box.foreach(|w| w.show_all());
+                custom_box.show();
+                dot_check.set_sensitive(true);
+            } else {
+                let supports_dot = server_supports_dot(selected_dns_index);
+                dot_check.set_sensitive(supports_dot);
+                dot_check.set_active(supports_dot);
+            }
             update_server_info_label(&info_label, selected_dns_index);
         }
     }
 
-    // Update DoT checkbox and info label when server selection changes
+    // Update DoT checkbox, info label, and custom fields when server selection changes
     let dot_check_clone = dot_check.clone();
     let info_label_clone = info_label.clone();
+    let custom_box_vis = custom_box.clone();
+    let best_btn_vis = best_btn.clone();
     combo_servers.connect_changed(move |combo| {
         if let Some(idx) = combo.active() {
-            let supports_dot = server_supports_dot(idx as usize);
-            dot_check_clone.set_sensitive(supports_dot);
-            dot_check_clone.set_active(supports_dot);
-            update_server_info_label(&info_label_clone, idx as usize);
+            let is_custom = idx as usize == dns::G_DNS_SERVERS.len();
+            if is_custom {
+                custom_box_vis.foreach(|w| w.show_all());
+                custom_box_vis.show();
+            } else {
+                custom_box_vis.hide();
+            }
+            best_btn_vis.set_visible(!is_custom);
+            if is_custom {
+                dot_check_clone.set_sensitive(true);
+                info_label_clone.set_visible(false);
+            } else {
+                let supports_dot = server_supports_dot(idx as usize);
+                dot_check_clone.set_sensitive(supports_dot);
+                dot_check_clone.set_active(supports_dot);
+                update_server_info_label(&info_label_clone, idx as usize);
+            }
         }
     });
 
     // select used dns option value on connection change
     let combo_servers_clone = combo_servers.clone();
     let dot_check_clone2 = dot_check.clone();
+    let custom_ipv4_entry_conn = custom_ipv4_entry.clone();
+    let custom_ipv6_entry_conn = custom_ipv6_entry.clone();
+    let custom_dot_entry_conn = custom_dot_entry.clone();
     combo_conn.connect_changed(move |combo| {
         // use empty string which will trigger fallback
         let conn_name: String = combo.active_text().map(Into::into).unwrap_or_default();
@@ -148,23 +229,47 @@ fn create_connections_section() -> gtk::Box {
         let selected_dns_index = selection_index_for_connection(&conn_name);
         combo_servers_clone.set_active(Some(selected_dns_index as u32));
 
-        let supports_dot = server_supports_dot(selected_dns_index);
-        dot_check_clone2.set_sensitive(supports_dot);
-        if !supports_dot {
-            dot_check_clone2.set_active(false);
+        if selected_dns_index == dns::G_DNS_SERVERS.len() {
+            // Custom DNS — pre-fill entries
+            if let Some(dns_info) = actions::get_dns_for_connection(&conn_name) {
+                custom_ipv4_entry_conn.set_text(&dns_info.ipv4);
+                custom_ipv6_entry_conn.set_text(&dns_info.ipv6);
+                if let Some(ref hostname) = dns_info.dot_hostname {
+                    custom_dot_entry_conn.set_text(hostname);
+                } else {
+                    custom_dot_entry_conn.set_text("");
+                }
+            }
+            dot_check_clone2.set_sensitive(true);
+        } else {
+            let supports_dot = server_supports_dot(selected_dns_index);
+            dot_check_clone2.set_sensitive(supports_dot);
+            if !supports_dot {
+                dot_check_clone2.set_active(false);
+            }
         }
     });
 
     // Latency test button handler
     let combo_serv_latency = combo_servers.clone();
+    let custom_ipv4_entry_latency = custom_ipv4_entry.clone();
     let latency_label_clone = latency_label.clone();
     let latency_btn_clone = latency_btn.clone();
     let (latency_tx, latency_rx) = glib::MainContext::channel(glib::Priority::default());
     latency_btn.connect_clicked(move |_| {
-        let server_name: String =
-            combo_serv_latency.active_text().map(Into::into).unwrap_or_default();
-        let Some(server_addr) = dns::G_DNS_SERVERS.get(&server_name) else { return };
-        let ipv4 = server_addr.0.to_string();
+        let is_custom = combo_serv_latency.active().is_some_and(|idx| {
+            idx as usize == dns::G_DNS_SERVERS.len()
+        });
+        let ipv4 = if is_custom {
+            let text = custom_ipv4_entry_latency.text().trim().to_string();
+            if text.is_empty() { return; }
+            text
+        } else {
+            let server_name: String =
+                combo_serv_latency.active_text().map(Into::into).unwrap_or_default();
+            let Some(server_addr) = dns::G_DNS_SERVERS.get(&server_name) else { return };
+            server_addr.0.to_string()
+        };
         let tx = latency_tx.clone();
         latency_btn_clone.set_sensitive(false);
         latency_label_clone.set_text(&fl!("latency-testing"));
@@ -228,20 +333,55 @@ fn create_connections_section() -> gtk::Box {
     let combo_conn_clone = combo_conn.clone();
     let combo_serv_clone = combo_servers.clone();
     let dot_check_clone3 = dot_check.clone();
+    let custom_ipv4_entry_apply = custom_ipv4_entry.clone();
+    let custom_ipv6_entry_apply = custom_ipv6_entry.clone();
+    let custom_dot_entry_apply = custom_dot_entry.clone();
     apply_btn.connect_clicked(move |_| {
         let conn_name: String = combo_conn_clone.active_text().map(Into::into).unwrap_or_default();
-        let server_name: String =
-            combo_serv_clone.active_text().map(Into::into).unwrap_or_default();
-        let server_addr = dns::G_DNS_SERVERS.get(&server_name).unwrap();
+        let is_custom = combo_serv_clone.active().is_some_and(|idx| {
+            idx as usize == dns::G_DNS_SERVERS.len()
+        });
         let enable_dot = dot_check_clone3.is_active();
+
+        let (ipv4, ipv6, dot_hostname) = if is_custom {
+            let ipv4: String = custom_ipv4_entry_apply.text().trim().to_string();
+            let ipv6: String = custom_ipv6_entry_apply.text().trim().to_string();
+            let hostname: String = custom_dot_entry_apply.text().trim().to_string();
+            let ipv4_valid = ipv4.is_empty() || is_valid_dns_input(&ipv4);
+            let ipv6_valid = ipv6.is_empty() || is_valid_dns_input(&ipv6);
+            if (ipv4.is_empty() && ipv6.is_empty()) || !ipv4_valid || !ipv6_valid {
+                let _ = dialog_tx_clone.send(DialogMessage {
+                    msg: fl!("custom-dns-invalid"),
+                    msg_type: MessageType::Error,
+                    action: Action::SetDnsServer,
+                });
+                return;
+            }
+            if !hostname.is_empty() && !dns::is_valid_dot_hostname(&hostname) {
+                let _ = dialog_tx_clone.send(DialogMessage {
+                    msg: fl!("custom-dns-invalid-hostname"),
+                    msg_type: MessageType::Error,
+                    action: Action::SetDnsServer,
+                });
+                return;
+            }
+            (ipv4, ipv6, hostname)
+        } else {
+            let server_name: String =
+                combo_serv_clone.active_text().map(Into::into).unwrap_or_default();
+            let server_addr = dns::G_DNS_SERVERS.get(&server_name).unwrap();
+            let hostname = server_addr.2.unwrap_or("").to_string();
+            (server_addr.0.to_string(), server_addr.1.to_string(), hostname)
+        };
 
         let dialog_tx_clone = dialog_tx_clone.clone();
         std::thread::spawn(move || {
             actions::change_dns_server(
                 &conn_name,
-                server_addr.0,
-                server_addr.1,
+                &ipv4,
+                &ipv6,
                 enable_dot,
+                &dot_hostname,
                 dialog_tx_clone,
             );
         });
@@ -296,6 +436,7 @@ fn create_connections_section() -> gtk::Box {
     info_box.set_halign(gtk::Align::Center);
     info_box.pack_start(&info_label, false, false, 0);
     topbox.pack_start(&info_box, false, false, 2);
+    topbox.pack_start(&custom_box, false, false, 2);
     topbox.pack_start(&latency_box, false, false, 2);
     topbox.pack_start(&dot_box, true, true, 5);
     topbox.pack_start(&button_box, true, true, 5);
