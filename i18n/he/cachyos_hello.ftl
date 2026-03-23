@@ -45,6 +45,12 @@ dns-server-changed = שרת ה־DNS שונה בהצלחה!
 dns-server-failed = שינוי שרת ה־DNS נכשל!
 dns-server-reset = שרת ה־DNS server אופַּס!
 dns-server-reset-failed = איפוס שרת ה־DNS נכשל!
+custom-dns = Custom
+custom-dns-ipv4 = IPv4 addresses (comma-separated):
+custom-dns-ipv6 = IPv6 addresses (comma-separated):
+custom-dns-dot-hostname = DoT hostname (optional):
+custom-dns-invalid = Please enter at least an IPv4 or IPv6 address
+custom-dns-invalid-hostname = Invalid DoT hostname
 
 # Tweaks page (tweaks)
 tweak-enabled-title = ‏{$tweak} הופעל

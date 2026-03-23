@@ -45,6 +45,12 @@ dns-server-changed = DNS sunucusu başarıyla değiştirildi!
 dns-server-failed = DNS sunucusu değiştirme işlemi başarısız oldu!
 dns-server-reset = DNS sunucusu eski haline getirildi!
 dns-server-reset-failed = DNS sunucusu sıfırlama işlemi başarısız oldu!
+custom-dns = Custom
+custom-dns-ipv4 = IPv4 addresses (comma-separated):
+custom-dns-ipv6 = IPv6 addresses (comma-separated):
+custom-dns-dot-hostname = DoT hostname (optional):
+custom-dns-invalid = Please enter at least an IPv4 or IPv6 address
+custom-dns-invalid-hostname = Invalid DoT hostname
 
 # Tweaks page (tweaks)
 tweak-enabled-title = {$tweak} etkinleştirildi.

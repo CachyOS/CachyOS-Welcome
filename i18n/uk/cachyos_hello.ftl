@@ -46,6 +46,12 @@ dns-server-changed = DNS-сервер змінено.
 dns-server-failed = Не вдалося змінити DNS-сервер!
 dns-server-reset = Налаштування DNS скинуто!
 dns-server-reset-failed = Не вдалося скинути налаштування DNS!
+custom-dns = Custom
+custom-dns-ipv4 = IPv4 addresses (comma-separated):
+custom-dns-ipv6 = IPv6 addresses (comma-separated):
+custom-dns-dot-hostname = DoT hostname (optional):
+custom-dns-invalid = Please enter at least an IPv4 or IPv6 address
+custom-dns-invalid-hostname = Invalid DoT hostname
 winboat-install-failed = Не вдалося встановити Winboat!
 
 # Tweaks page (tweaks)

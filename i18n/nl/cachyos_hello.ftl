@@ -45,6 +45,12 @@ dns-server-changed = De dns-server is gewijzigd.
 dns-server-failed = De dns-server kan niet worden ingesteld!
 dns-server-reset = De standaard dns-server is hersteld.
 dns-server-reset-failed = De dns-server kan niet worden hersteld!
+custom-dns = Custom
+custom-dns-ipv4 = IPv4 addresses (comma-separated):
+custom-dns-ipv6 = IPv6 addresses (comma-separated):
+custom-dns-dot-hostname = DoT hostname (optional):
+custom-dns-invalid = Please enter at least an IPv4 or IPv6 address
+custom-dns-invalid-hostname = Invalid DoT hostname
 
 # Tweaks page (tweaks)
 tweak-enabled-title = {$tweak} ingeschakeld
