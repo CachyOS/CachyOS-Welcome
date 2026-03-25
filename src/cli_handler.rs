@@ -78,31 +78,57 @@ pub fn handle_dns_command(action: DnsAction) -> Result<()> {
     let (tx, rx) = glib::MainContext::channel(glib::Priority::default());
 
     match action {
-        DnsAction::Set { connection, server, dot } => {
-            let server_addr = dns::G_DNS_SERVERS.get(server.as_str()).unwrap();
-            let dot_supported = server_addr.2.is_some();
+        DnsAction::Set { connection, server, dot, doh } => {
+            let server_name = server.as_str();
+            let server_addr = dns::G_DNS_SERVERS.get(server_name).unwrap();
 
-            if dot && !dot_supported {
+            if doh {
+                // DoH mode via blocky
+                let doh_url = dns::get_doh_url(server_name);
+                if doh_url.is_none() {
+                    println!(
+                        "{}: DNS over HTTPS is not supported by '{}'.",
+                        "Warning".yellow(),
+                        server_name
+                    );
+                    println!("Setting DNS without DoH...");
+                    let dot_hostname = server_addr.2.unwrap_or("");
+                    actions::change_dns_server(&connection, server_addr.0, server_addr.1, false, dot_hostname, tx);
+                } else {
+                    println!(
+                        "Setting DNS for '{}' to '{}' (DoH enabled via blocky)...",
+                        connection.cyan(),
+                        server_name.cyan(),
+                    );
+                    actions::change_dns_server_doh(&connection, doh_url.unwrap(), server_addr.0, server_addr.1, server_addr.2, tx);
+                }
+            } else {
+                // Stop blocky if switching away from DoH
+                actions::stop_blocky();
+                let dot_supported = server_addr.2.is_some();
+
+                if dot && !dot_supported {
+                    println!(
+                        "{}: DNS over TLS is not supported by '{}'.",
+                        "Warning".yellow(),
+                        server_name
+                    );
+                    println!("Setting DNS without DoT...");
+                }
+
+                let enable_dot = dot && dot_supported;
+                let dot_label = if enable_dot { " (DoT enabled)" } else { "" };
+                let dot_hostname = server_addr.2.unwrap_or("");
                 println!(
-                    "{}: DNS over TLS is not supported by '{}'.",
-                    "Warning".yellow(),
-                    server.as_str()
+                    "Setting DNS for '{}' to '{}'{}...",
+                    connection.cyan(),
+                    server_name.cyan(),
+                    dot_label
                 );
-                println!("Setting DNS without DoT...");
+                actions::change_dns_server(&connection, server_addr.0, server_addr.1, enable_dot, dot_hostname, tx);
             }
-
-            let enable_dot = dot && dot_supported;
-            let dot_label = if enable_dot { " (DoT enabled)" } else { "" };
-            let dot_hostname = server_addr.2.unwrap_or("");
-            println!(
-                "Setting DNS for '{}' to '{}'{}...",
-                connection.cyan(),
-                server.as_str().cyan(),
-                dot_label
-            );
-            actions::change_dns_server(&connection, server_addr.0, server_addr.1, enable_dot, dot_hostname, tx);
         },
-        DnsAction::SetCustom { connection, ipv4, ipv6, dot, dot_hostname } => {
+        DnsAction::SetCustom { connection, ipv4, ipv6, dot, dot_hostname, doh, doh_url } => {
             if ipv4.is_empty() && ipv6.is_empty() {
                 eprintln!("{}: At least one of --ipv4 or --ipv6 must be provided.", "Error".red());
                 std::process::exit(1);
@@ -111,16 +137,36 @@ pub fn handle_dns_command(action: DnsAction) -> Result<()> {
                 eprintln!("{}: Invalid DoT hostname '{}'.", "Error".red(), dot_hostname);
                 std::process::exit(1);
             }
-            let dot_label = if dot { " (DoT enabled)" } else { "" };
-            println!(
-                "Setting custom DNS for '{}': IPv4='{}' IPv6='{}'{}{}",
-                connection.cyan(),
-                if ipv4.is_empty() { "(none)" } else { &ipv4 },
-                if ipv6.is_empty() { "(none)" } else { &ipv6 },
-                if !dot_hostname.is_empty() { format!(" hostname={}", dot_hostname) } else { String::new() },
-                dot_label,
-            );
-            actions::change_dns_server(&connection, &ipv4, &ipv6, dot, &dot_hostname, tx);
+
+            if doh {
+                if doh_url.is_empty() || !doh_url.starts_with("https://") {
+                    eprintln!("{}: --doh-url must be a valid https:// URL.", "Error".red());
+                    std::process::exit(1);
+                }
+                println!(
+                    "Setting custom DoH DNS for '{}': URL='{}' (bootstrap: IPv4='{}' IPv6='{}'{})...",
+                    connection.cyan(),
+                    doh_url.cyan(),
+                    if ipv4.is_empty() { "(none)" } else { &ipv4 },
+                    if ipv6.is_empty() { "(none)" } else { &ipv6 },
+                    if !dot_hostname.is_empty() { format!(" DoT bootstrap={dot_hostname}") } else { String::new() },
+                );
+                let dot_host = if dot_hostname.is_empty() { None } else { Some(dot_hostname.as_str()) };
+                actions::change_dns_server_doh(&connection, &doh_url, &ipv4, &ipv6, dot_host, tx);
+            } else {
+                // Stop blocky if switching away from DoH
+                actions::stop_blocky();
+                let dot_label = if dot { " (DoT enabled)" } else { "" };
+                println!(
+                    "Setting custom DNS for '{}': IPv4='{}' IPv6='{}'{}{}",
+                    connection.cyan(),
+                    if ipv4.is_empty() { "(none)" } else { &ipv4 },
+                    if ipv6.is_empty() { "(none)" } else { &ipv6 },
+                    if !dot_hostname.is_empty() { format!(" hostname={}", dot_hostname) } else { String::new() },
+                    dot_label,
+                );
+                actions::change_dns_server(&connection, &ipv4, &ipv6, dot, &dot_hostname, tx);
+            }
         },
         DnsAction::Reset { connection } => {
             println!("Resetting DNS for '{}' to automatic...", connection.cyan());
@@ -144,11 +190,15 @@ pub fn handle_dns_command(action: DnsAction) -> Result<()> {
                     Some(host) => format!(" [DoT: {host}]"),
                     None => String::new(),
                 };
+                let doh_info = match dns::get_doh_url(name) {
+                    Some(url) => format!(" [DoH: {url}]"),
+                    None => String::new(),
+                };
                 let region_info = match dns::G_DNS_SERVER_INFO.get(name) {
                     Some(info) => format!(" ({} - {})", info.region, info.homepage),
                     None => String::new(),
                 };
-                println!("- {name}{dot_info}{region_info}");
+                println!("- {name}{dot_info}{doh_info}{region_info}");
             }
         },
         DnsAction::TestLatency => {

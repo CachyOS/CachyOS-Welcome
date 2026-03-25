@@ -11,6 +11,22 @@ fn is_valid_dns_input(s: &str) -> bool {
 }
 
 fn selection_index_for_connection(conn_name: &str) -> usize {
+    // If blocky is active (DoH mode) AND this connection points to blocky (127.0.0.1),
+    // read the blocky config to find which preset server is in use.
+    if actions::is_blocky_active() {
+        let points_to_blocky = actions::get_dns_for_connection(conn_name)
+            .is_some_and(|info| info.ipv4.contains("127.0.0.1") || info.ipv6.contains("::1"));
+        if points_to_blocky {
+            if let Some(doh_url) = dns::read_active_doh_url() {
+                if let Some(idx) = dns::find_server_by_doh_url(&doh_url) {
+                    return idx;
+                }
+                // Custom DoH URL — show as custom
+                return dns::G_DNS_SERVERS.len();
+            }
+        }
+    }
+
     if let Some(dns_info) = actions::get_dns_for_connection(conn_name) {
         for (key_index, (_name, (ipv4_map, ipv6_map, _dot))) in
             dns::G_DNS_SERVERS.entries().enumerate()
@@ -32,6 +48,14 @@ fn selection_index_for_connection(conn_name: &str) -> usize {
 /// Returns whether the server at `index` supports DoT.
 fn server_supports_dot(index: usize) -> bool {
     dns::G_DNS_SERVERS.entries().nth(index).is_some_and(|(_, (_, _, dot))| dot.is_some())
+}
+
+/// Returns whether the server at `index` supports DoH.
+fn server_supports_doh(index: usize) -> bool {
+    dns::G_DNS_SERVERS
+        .entries()
+        .nth(index)
+        .is_some_and(|(name, _)| dns::server_supports_doh(name))
 }
 
 /// Returns (region, homepage) for the server at `index`.
@@ -101,6 +125,25 @@ fn create_connections_section() -> gtk::Box {
     dot_check.set_tooltip_text(Some(&fl!("dot-tooltip")));
     dot_check.set_widget_name("enable-dot");
 
+    // DoH (DNS over HTTPS) toggle — uses blocky local proxy
+    let doh_check = gtk::CheckButton::with_label(&fl!("enable-doh"));
+    doh_check.set_tooltip_text(Some(&fl!("doh-tooltip")));
+    doh_check.set_widget_name("enable-doh");
+
+    // DoT and DoH are mutually exclusive
+    let dot_check_excl = dot_check.clone();
+    let doh_check_excl = doh_check.clone();
+    dot_check.connect_toggled(glib::clone!(@weak doh_check_excl => move |check| {
+        if check.is_active() {
+            doh_check_excl.set_active(false);
+        }
+    }));
+    doh_check.connect_toggled(glib::clone!(@weak dot_check_excl => move |check| {
+        if check.is_active() {
+            dot_check_excl.set_active(false);
+        }
+    }));
+
     // Server info label (region + homepage link)
     let info_label = gtk::Label::new(None);
     info_label.set_use_markup(true);
@@ -112,6 +155,7 @@ fn create_connections_section() -> gtk::Box {
     let custom_ipv4_box = gtk::Box::new(gtk::Orientation::Horizontal, 2);
     let custom_ipv6_box = gtk::Box::new(gtk::Orientation::Horizontal, 2);
     let custom_dot_box = gtk::Box::new(gtk::Orientation::Horizontal, 2);
+    let custom_doh_box = gtk::Box::new(gtk::Orientation::Horizontal, 2);
 
     let custom_ipv4_label = gtk::Label::new(None);
     custom_ipv4_label.set_text(&fl!("custom-dns-ipv4"));
@@ -131,16 +175,25 @@ fn create_connections_section() -> gtk::Box {
     custom_dot_entry.set_placeholder_text(Some("e.g. dns.example.com"));
     custom_dot_entry.set_widget_name("custom-dns-dot-hostname");
 
+    let custom_doh_label = gtk::Label::new(None);
+    custom_doh_label.set_text(&fl!("custom-dns-doh-url"));
+    let custom_doh_entry = gtk::Entry::new();
+    custom_doh_entry.set_placeholder_text(Some("e.g. https://dns.example.com/dns-query"));
+    custom_doh_entry.set_widget_name("custom-dns-doh-url");
+
     custom_ipv4_box.pack_start(&custom_ipv4_label, true, true, 2);
     custom_ipv4_box.pack_end(&custom_ipv4_entry, true, true, 2);
     custom_ipv6_box.pack_start(&custom_ipv6_label, true, true, 2);
     custom_ipv6_box.pack_end(&custom_ipv6_entry, true, true, 2);
     custom_dot_box.pack_start(&custom_dot_label, true, true, 2);
     custom_dot_box.pack_end(&custom_dot_entry, true, true, 2);
+    custom_doh_box.pack_start(&custom_doh_label, true, true, 2);
+    custom_doh_box.pack_end(&custom_doh_entry, true, true, 2);
 
     custom_box.pack_start(&custom_ipv4_box, false, false, 2);
     custom_box.pack_start(&custom_ipv6_box, false, false, 2);
     custom_box.pack_start(&custom_dot_box, false, false, 2);
+    custom_box.pack_start(&custom_doh_box, false, false, 2);
     custom_box.set_widget_name("dns-custom-box");
     custom_box.set_no_show_all(true);
     custom_box.set_visible(false);
@@ -168,29 +221,55 @@ fn create_connections_section() -> gtk::Box {
 
             if selected_dns_index == dns::G_DNS_SERVERS.len() {
                 // Custom DNS — pre-fill entries with current values
-                if let Some(dns_info) = actions::get_dns_for_connection(&active_conn_name) {
-                    custom_ipv4_entry.set_text(&dns_info.ipv4);
-                    custom_ipv6_entry.set_text(&dns_info.ipv6);
-                    if let Some(ref hostname) = dns_info.dot_hostname {
+                if actions::is_blocky_active() {
+                    // Custom DoH — fill from blocky config;
+                    // NM just has 127.0.0.1/::1, so read the real values from blocky
+                    if let Some(doh_url) = dns::read_active_doh_url() {
+                        custom_doh_entry.set_text(&doh_url);
+                    }
+                    let (ipv4, ipv6, dot_host) = dns::read_blocky_bootstrap();
+                    if !ipv4.is_empty() {
+                        custom_ipv4_entry.set_text(&ipv4);
+                    }
+                    if !ipv6.is_empty() {
+                        custom_ipv6_entry.set_text(&ipv6);
+                    }
+                    if let Some(ref hostname) = dot_host {
                         custom_dot_entry.set_text(hostname);
                     }
+                    doh_check.set_active(true);
+                    dot_check.set_active(false);
+                } else {
+                    if let Some(dns_info) = actions::get_dns_for_connection(&active_conn_name) {
+                        custom_ipv4_entry.set_text(&dns_info.ipv4);
+                        custom_ipv6_entry.set_text(&dns_info.ipv6);
+                        if let Some(ref hostname) = dns_info.dot_hostname {
+                            custom_dot_entry.set_text(hostname);
+                        }
+                    }
+                    let dot_enabled = actions::get_dot_for_connection(&active_conn_name);
+                    dot_check.set_active(dot_enabled);
                 }
-                let dot_enabled = actions::get_dot_for_connection(&active_conn_name);
-                dot_check.set_active(dot_enabled);
                 custom_box.foreach(|w| w.show_all());
                 custom_box.show();
                 dot_check.set_sensitive(true);
+                doh_check.set_sensitive(true);
             } else {
                 let supports_dot = server_supports_dot(selected_dns_index);
                 dot_check.set_sensitive(supports_dot);
-                dot_check.set_active(supports_dot);
+                dot_check.set_active(supports_dot && !actions::is_blocky_active());
+
+                let supports_doh = server_supports_doh(selected_dns_index);
+                doh_check.set_sensitive(supports_doh);
+                doh_check.set_active(actions::is_blocky_active() && supports_doh);
             }
             update_server_info_label(&info_label, selected_dns_index);
         }
     }
 
-    // Update DoT checkbox, info label, and custom fields when server selection changes
+    // Update DoT/DoH checkboxes, info label, and custom fields when server selection changes
     let dot_check_clone = dot_check.clone();
+    let doh_check_clone = doh_check.clone();
     let info_label_clone = info_label.clone();
     let custom_box_vis = custom_box.clone();
     let best_btn_vis = best_btn.clone();
@@ -206,11 +285,16 @@ fn create_connections_section() -> gtk::Box {
             best_btn_vis.set_visible(!is_custom);
             if is_custom {
                 dot_check_clone.set_sensitive(true);
+                doh_check_clone.set_sensitive(true);
+                doh_check_clone.set_active(false);
                 info_label_clone.set_visible(false);
             } else {
                 let supports_dot = server_supports_dot(idx as usize);
                 dot_check_clone.set_sensitive(supports_dot);
                 dot_check_clone.set_active(supports_dot);
+                let supports_doh = server_supports_doh(idx as usize);
+                doh_check_clone.set_sensitive(supports_doh);
+                doh_check_clone.set_active(false);
                 update_server_info_label(&info_label_clone, idx as usize);
             }
         }
@@ -222,6 +306,7 @@ fn create_connections_section() -> gtk::Box {
     let custom_ipv4_entry_conn = custom_ipv4_entry.clone();
     let custom_ipv6_entry_conn = custom_ipv6_entry.clone();
     let custom_dot_entry_conn = custom_dot_entry.clone();
+    let custom_doh_entry_conn = custom_doh_entry.clone();
     combo_conn.connect_changed(move |combo| {
         // use empty string which will trigger fallback
         let conn_name: String = combo.active_text().map(Into::into).unwrap_or_default();
@@ -230,8 +315,16 @@ fn create_connections_section() -> gtk::Box {
         combo_servers_clone.set_active(Some(selected_dns_index as u32));
 
         if selected_dns_index == dns::G_DNS_SERVERS.len() {
-            // Custom DNS — pre-fill entries
-            if let Some(dns_info) = actions::get_dns_for_connection(&conn_name) {
+            // Custom DNS — pre-fill entries from blocky config or NM
+            if actions::is_blocky_active() {
+                if let Some(doh_url) = dns::read_active_doh_url() {
+                    custom_doh_entry_conn.set_text(&doh_url);
+                }
+                let (ipv4, ipv6, dot_host) = dns::read_blocky_bootstrap();
+                custom_ipv4_entry_conn.set_text(&ipv4);
+                custom_ipv6_entry_conn.set_text(&ipv6);
+                custom_dot_entry_conn.set_text(dot_host.as_deref().unwrap_or(""));
+            } else if let Some(dns_info) = actions::get_dns_for_connection(&conn_name) {
                 custom_ipv4_entry_conn.set_text(&dns_info.ipv4);
                 custom_ipv6_entry_conn.set_text(&dns_info.ipv6);
                 if let Some(ref hostname) = dns_info.dot_hostname {
@@ -336,12 +429,15 @@ fn create_connections_section() -> gtk::Box {
     let custom_ipv4_entry_apply = custom_ipv4_entry.clone();
     let custom_ipv6_entry_apply = custom_ipv6_entry.clone();
     let custom_dot_entry_apply = custom_dot_entry.clone();
+    let custom_doh_entry_apply = custom_doh_entry.clone();
+    let doh_check_clone3 = doh_check.clone();
     apply_btn.connect_clicked(move |_| {
         let conn_name: String = combo_conn_clone.active_text().map(Into::into).unwrap_or_default();
         let is_custom = combo_serv_clone.active().is_some_and(|idx| {
             idx as usize == dns::G_DNS_SERVERS.len()
         });
         let enable_dot = dot_check_clone3.is_active();
+        let enable_doh = doh_check_clone3.is_active();
 
         let (ipv4, ipv6, dot_hostname) = if is_custom {
             let ipv4: String = custom_ipv4_entry_apply.text().trim().to_string();
@@ -375,16 +471,57 @@ fn create_connections_section() -> gtk::Box {
         };
 
         let dialog_tx_clone = dialog_tx_clone.clone();
-        std::thread::spawn(move || {
-            actions::change_dns_server(
-                &conn_name,
-                &ipv4,
-                &ipv6,
-                enable_dot,
-                &dot_hostname,
-                dialog_tx_clone,
-            );
-        });
+        if enable_doh {
+            // DoH mode: use blocky proxy. For custom servers, use the DoH URL
+            // field; for presets, look up the URL from our map. The IPv4/IPv6
+            // addresses and DoT hostname (if any) are used as bootstrap DNS.
+            let (doh_url, bootstrap_ipv4, bootstrap_ipv6, bootstrap_dot) = if is_custom {
+                let custom_doh_url: String = custom_doh_entry_apply.text().trim().to_string();
+                if custom_doh_url.is_empty() || !custom_doh_url.starts_with("https://") {
+                    let _ = dialog_tx_clone.send(DialogMessage {
+                        msg: fl!("custom-dns-doh-url-required"),
+                        msg_type: MessageType::Error,
+                        action: Action::SetDnsServer,
+                    });
+                    return;
+                }
+                let dot_host = if dot_hostname.is_empty() { None } else { Some(dot_hostname.clone()) };
+                (custom_doh_url, ipv4.clone(), ipv6.clone(), dot_host)
+            } else {
+                let server_name: String =
+                    combo_serv_clone.active_text().map(Into::into).unwrap_or_default();
+                let server_addr = dns::G_DNS_SERVERS.get(&server_name).unwrap();
+                (
+                    dns::get_doh_url(&server_name).unwrap_or("").to_string(),
+                    server_addr.0.to_string(),
+                    server_addr.1.to_string(),
+                    server_addr.2.map(String::from),
+                )
+            };
+            std::thread::spawn(move || {
+                actions::change_dns_server_doh(
+                    &conn_name,
+                    &doh_url,
+                    &bootstrap_ipv4,
+                    &bootstrap_ipv6,
+                    bootstrap_dot.as_deref(),
+                    dialog_tx_clone,
+                );
+            });
+        } else {
+            // Stop blocky if switching away from DoH (in background thread)
+            std::thread::spawn(move || {
+                actions::stop_blocky();
+                actions::change_dns_server(
+                    &conn_name,
+                    &ipv4,
+                    &ipv6,
+                    enable_dot,
+                    &dot_hostname,
+                    dialog_tx_clone,
+                );
+            });
+        }
     });
     let dialog_tx_clone = dialog_tx.clone();
     let combo_conn_clone = combo_conn.clone();
@@ -422,6 +559,7 @@ fn create_connections_section() -> gtk::Box {
     latency_box.pack_start(&best_btn, false, false, 2);
     latency_box.pack_start(&latency_label, false, false, 2);
     dot_box.pack_start(&dot_check, false, false, 2);
+    dot_box.pack_start(&doh_check, false, false, 2);
     dot_box.set_halign(gtk::Align::Center);
     dot_box.set_widget_name("dns-dot-box");
     button_box.pack_start(&reset_btn, true, true, 2);
