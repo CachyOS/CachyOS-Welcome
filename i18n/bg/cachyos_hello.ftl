@@ -1,25 +1,27 @@
 # About dialog
 about-dialog-title = CachyOS Hello
-about-dialog-comments = Екран за добре дошли в CachyOS
+about-dialog-comments = Начален екран за CachyOS
 
 # Tweaks page
 tweaks = Настройки
 fixes = Помощни програми
 applications = Приложения
-removed-db-lock = Заключването на Pacman базата данни беше премахнато!
-lock-doesnt-exist = Заключването на Pacman базата данни не съществува!
+removed-db-lock = Заключването на Pacman-базата данни беше премахнато!
+lock-doesnt-exist = Заключването на Pacman-базата данни не е намерено!
 orphans-not-found = Не са намерени осиротели пакети!
 package-not-installed = Пакетът '{$package_name}' не е инсталиран!
-gaming-package-installed = Пакетите за игри вече са инсталирани!
+gaming-package-installed = Пакетите за гейминг вече са инсталирани!
+winboat-package-installed = Winboat пакетите вече са инсталирани!
+
 
 # Application Browser page
-advanced-btn = разширени
-reset-btn = нулиране
+advanced-btn = Разширени
+reset-btn = Нулиране
 update-system-app-btn = АКТУАЛИЗИРАНЕ НА СИСТЕМАТА
 application-column = Приложение
 description-column = Описание
 install-remove-column = Инсталиране/Премахване
-advanced-btn-tooltip = Превключване на разширения избор от пакети
+advanced-btn-tooltip = Превключва към разширен списък с пакети
 reset-btn-tooltip = Нулиране на текущия ви избор...
 update-system-app-btn-tooltip = Прилагане на текущия ви избор към системата
 
@@ -29,54 +31,57 @@ select-connection = Изберете връзка:
 select-dns-server = Изберете DNS сървър:
 apply = Прилагане
 reset = Нулиране
-enable-dot = Активиране на DNS през TLS (DoT)
+enable-dot = Активиране на криптиране на DNS с TLS
 dot-tooltip = Криптиране на DNS заявките чрез TLS за подобрена поверителност (изисква поддръжка от сървъра)
-test-latency = Тест на забавяне на избрания сървър
+test-latency = Тест на забавяне към избрания сървър
 test-latency-tooltip = Измерване на мрежовото забавяне до избрания DNS сървър
-best-server = Избери най-добър сървър по забавяне
-best-server-tooltip = Тестване на основните DNS сървъри (без филтриращите) и избиране на най-бързия
+best-server = Изберете най-добър сървър според забавянето
+best-server-tooltip = Тестване на стандартните DNS сървъри (без тези с филтрация) и избор на най-бързия
 latency-result = {""}
 server-info = {""}
 latency-testing = тестване...
 latency-timeout = изтекло време
-latency-no-result = няма отговор от сървър
+latency-no-result = няма отговор от сървъра
 dns-check-hint = След прилагане, проверете вашия DNS доставчик на
 dns-server-changed = DNS сървърът беше успешно променен!
 dns-server-failed = Неуспешно задаване на DNS сървър!
 dns-server-reset = DNS сървърът е нулиран!
 dns-server-reset-failed = Неуспешно нулиране на DNS сървъра!
+winboat-install-failed = Неуспешно инсталиране на Winboat!
 
 # Tweaks page (tweaks)
-tweak-enabled-title = {$tweak} е активирано
-tweak-psd-tooltip = Използване на RAM за профилите на браузъра (по-бързо, по-малко износване на диска)
+tweak-enabled-title = {$tweak} активиран
+tweak-psd-tooltip = Съхраняване на профилите на браузъра в RAM (по-бързо, намалява износването на диска)
 tweak-oomd-tooltip = Проактивно прекратяване на процеси при ниска памет за предотвратяване на замръзвания
 tweak-bpftune-tooltip = Автоматична настройка на системната мрежа
-tweak-bluetooth-tooltip = Активиране на поддръжка за безжични Bluetooth устройства (мишки, аудио и др.)
-tweak-ananicycpp-tooltip = Автоматично регулиране на приоритетите на процесите за по-добра отзивчивост на системата
+tweak-bluetooth-tooltip = Активиране на поддръжка за Bluetooth устройства (мишки, аудио и др.)
+tweak-ananicycpp-tooltip = Автоматично регулира приоритетите на процесите за по-добра отзивчивост на системата
+tweak-cachyupdate-tooltip = Известие за обновления в системния трей
 
 # Tweaks page (fixes)
-remove-lock-title = Премахване на заключването на базата данни
+remove-lock-title = Премахване на заключването на Pacman-базата данни
 reinstall-title = Преинсталиране на всички пакети
-reset-keyrings-title = Нулиране на ключодържателите
+reset-keyrings-title = Нулиране на Pacman ключодържателите
 update-system-title = Актуализация на системата
 remove-orphans-title = Премахване на осиротели пакети
-clear-pkgcache-title = Изчистване на кеша на пакетите
-rankmirrors-title = Класиране на огледалните сървъри
+clear-pkgcache-title = Изчистване на пакетния кеш
+rankmirrors-title = Класиране на mirror сървъри
 dnsserver-title = Промяна на DNS сървъра
-show-kwinw-debug-title = Показване на прозореца за отстраняване на грешки на kwin(Wayland)
-install-gaming-title = Инсталиране на пакети за игри
+show-kwinw-debug-title = Отваряне на прозореца за отстраняване на грешки на kwin (Wayland)
+install-gaming-title = Инсталиране на пакети за гейминг
+install-winboat-title = Инсталиране на Winboat
 
 # Main Page (buttons)
 button-about-tooltip = Относно
 button-web-resource-tooltip = Уеб ресурс
 button-development-label = Разработка
 button-software-label = Софтуер
-button-donate-label = Дарение
+button-donate-label = Подкрепи ни
 button-forum-label = Форум
 button-installer-label = Стартиране на инсталатора
 button-involved-label = Включете се
-button-readme-label = За прочитане
-button-release-info-label = Информация за изданието
+button-readme-label = Прочети ме
+button-release-info-label = Списък на промените
 button-wiki-label = Уики
 
 # Main Page (sections)
@@ -90,11 +95,11 @@ recommended = препоръчително
 calamares-install-type = Тип инсталация Calamares
 
 # Main Page (body)
-offline-error = Не може да се стартира онлайн инсталацията! Няма интернет връзка
-unsupported-hw-warning = Опитвате се да инсталирате на хардуер, който не се поддържа от текущия ISO образ. Вашата инсталация няма да отговаря на условията за поддръжка
-desktop-on-handheld-error = Опитвате се да инсталирате настолната версия на преносимо устройство. Моля, използвайте версията Handheld за правилна поддръжка на този хардуер
-outdated-version-warning = Използвате по-стара версия на CachyOS ISO. Моля, обмислете използването на най-новата версия за инсталации
-testing-iso-warning = Използвате тестов ISO образ. Тестовите ISO образи не се считат за стабилни и готови за употреба
+offline-error = Не може да се стартира онлайн инсталацията! Няма интернет връзка.
+unsupported-hw-warning = Опитвате се да инсталирате на хардуер, който не се поддържа от текущия ISO образ. Вашата инсталация няма да бъде поддържана.
+desktop-on-handheld-error = Опитвате се да инсталирате Desktop версия на Handheld устройство. Този хардуер не се поддържа от текущия ISO образ. Моля, използвайте Handheld версията за пълна поддръжка.
+outdated-version-warning = Използвате по-стара версия на CachyOS ISO. Моля, обмислете използването на най-новата версия за инсталации.
+testing-iso-warning = Използвате тестов ISO образ. Тестовите ISO образи не се считат за стабилни и готови за употреба.
 tweaksbrowser-label = Приложения/Настройки
 appbrowser-label = Инсталиране на приложения
 launch-start-label = Стартиране при вход
@@ -102,4 +107,4 @@ welcome-title = Добре дошли в CachyOS!
 welcome-body =
     Благодарим ви, че се присъединихте към нашата общност!
 
-    Ние, разработчиците на CachyOS, се надяваме, че ще се насладите на използването на CachyOS толкова, колкото ние се наслаждаваме на създаването ѝ. Връзките по-долу ще ви помогнат да започнете работа с новата си операционна система. Насладете се на изживяването и не се колебайте да ни изпратите вашите отзиви.
+    Надяваме се, че ще използвате CachyOS с удоволствие – точно толкова, колкото на нас ни доставя удоволствие да я създаваме. Връзките по-долу ще ви помогнат да започнете работа с новата си операционна система. Насладете се на работата с нея и не се притеснявайте да споделите мнението си.
