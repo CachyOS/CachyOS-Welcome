@@ -500,6 +500,7 @@ fn create_connections_section() -> gtk::Box {
             };
             std::thread::spawn(move || {
                 actions::change_dns_server_doh(
+                    crate::gui::run_command,
                     &conn_name,
                     &doh_url,
                     &bootstrap_ipv4,

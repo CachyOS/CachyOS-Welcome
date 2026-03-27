@@ -198,6 +198,7 @@ pub fn reset_dns_server(conn_name: &str, dialog_tx: Sender<DialogMessage>) {
 /// Set DNS to use DoH via blocky local proxy.
 /// Installs blocky if needed, writes its config, starts the service, and points NM to 127.0.0.1.
 pub fn change_dns_server_doh(
+    callback: RunCmdCallback,
     conn_name: &str,
     doh_url: &str,
     bootstrap_ipv4: &str,
@@ -207,19 +208,15 @@ pub fn change_dns_server_doh(
 ) {
     // 1. Install blocky if not present
     if !utils::is_alpm_pkg_installed("blocky") {
-        let install_status = utils::run_cmd(
-            "pacman -S --needed --noconfirm blocky".into(),
-            true,
-        )
-        .unwrap();
-        if !install_status.success() || !utils::is_alpm_pkg_installed("blocky") {
-            dialog_tx
-                .send(DialogMessage {
-                    msg: fl!("doh-blocky-install-failed"),
-                    msg_type: MessageType::Error,
-                    action: Action::SetDnsServer,
-                })
-                .expect("Couldn't send data to channel");
+        const ALPM_PACKAGE_NAMES: [&str; 1] = ["blocky"];
+        install_needed_packages(
+            callback,
+            &ALPM_PACKAGE_NAMES,
+            fl!("doh-blocky-install-failed"),
+            Action::SetDnsServer,
+            dialog_tx.clone(),
+        );
+        if !utils::is_alpm_pkg_installed("blocky") {
             return;
         }
     }
@@ -290,10 +287,9 @@ pub fn change_dns_server_doh(
 
 /// Stop blocky if it's running (used during reset or when switching away from DoH).
 pub fn stop_blocky() {
-    let _ = utils::run_cmd(
-        format!("systemctl disable --now {}", dns::BLOCKY_SERVICE),
-        true,
-    );
+    let (cmd, run_as_root) =
+        utils::get_tweak_toggle_cmd("service", dns::BLOCKY_SERVICE, true);
+    let _ = utils::run_cmd(cmd, run_as_root);
 }
 
 /// Returns true if blocky is currently active.

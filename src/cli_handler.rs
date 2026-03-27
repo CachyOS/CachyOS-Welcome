@@ -100,7 +100,7 @@ pub fn handle_dns_command(action: DnsAction) -> Result<()> {
                         connection.cyan(),
                         server_name.cyan(),
                     );
-                    actions::change_dns_server_doh(&connection, doh_url.unwrap(), server_addr.0, server_addr.1, server_addr.2, tx);
+                    actions::change_dns_server_doh(crate::cli::run_command, &connection, doh_url.unwrap(), server_addr.0, server_addr.1, server_addr.2, tx);
                 }
             } else {
                 // Stop blocky if switching away from DoH
@@ -152,7 +152,7 @@ pub fn handle_dns_command(action: DnsAction) -> Result<()> {
                     if !dot_hostname.is_empty() { format!(" DoT bootstrap={dot_hostname}") } else { String::new() },
                 );
                 let dot_host = if dot_hostname.is_empty() { None } else { Some(dot_hostname.as_str()) };
-                actions::change_dns_server_doh(&connection, &doh_url, &ipv4, &ipv6, dot_host, tx);
+                actions::change_dns_server_doh(crate::cli::run_command, &connection, &doh_url, &ipv4, &ipv6, dot_host, tx);
             } else {
                 // Stop blocky if switching away from DoH
                 actions::stop_blocky();

@@ -336,7 +336,7 @@ pub fn read_active_doh_url() -> Option<String> {
         return None;
     }
     for line in config.lines() {
-        let trimmed = line.trim().trim_start_matches("- ");
+        let trimmed = line.trim().trim_start_matches("- ").trim_matches('"');
         if trimmed.starts_with("https://") {
             return Some(trimmed.to_string());
         }
