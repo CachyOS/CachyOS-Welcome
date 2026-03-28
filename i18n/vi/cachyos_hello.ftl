@@ -45,12 +45,6 @@ dns-server-changed = DNS server đã thay đổi thành công!
 dns-server-failed = Thay đổi DNS server thất bại!
 dns-server-reset = DNS server đã được khôi phục!
 dns-server-reset-failed = DNS server khôi phục thất bại!
-custom-dns = Custom
-custom-dns-ipv4 = IPv4 addresses (comma-separated):
-custom-dns-ipv6 = IPv6 addresses (comma-separated):
-custom-dns-dot-hostname = DoT hostname (optional):
-custom-dns-invalid = Please enter at least an IPv4 or IPv6 address
-custom-dns-invalid-hostname = Invalid DoT hostname
 
 # Tweaks page (tweaks)
 tweak-enabled-title = {$tweak} đã bật

@@ -33,12 +33,6 @@ dns-server-changed = DNS Server wurde erfolgreich geändert!
 dns-server-failed = DNS-Server konnte nicht eingestellt werden!
 dns-server-reset = DNS-Server wurde zurückgesetzt!
 dns-server-reset-failed = DNS-Server konnte nicht zurückgesetzt werden!
-custom-dns = Custom
-custom-dns-ipv4 = IPv4 addresses (comma-separated):
-custom-dns-ipv6 = IPv6 addresses (comma-separated):
-custom-dns-dot-hostname = DoT hostname (optional):
-custom-dns-invalid = Please enter at least an IPv4 or IPv6 address
-custom-dns-invalid-hostname = Invalid DoT hostname
 
 # Tweaks page (tweaks)
 tweak-enabled-title = {$tweak} aktiviert

@@ -97,9 +97,3 @@ welcome-body =
     Nós, os programadores do CachyOS, esperamos que desfrutes do uso do CachyOS tanto quanto nós desfrutamos a construí-lo. As ligações abaixo ajudar-te-ão a começar com o teu novo sistema operativo. Por isso, aproveita a experiência e não hesites em enviar-nos o teu feedback.
 
 # Custom DNS
-custom-dns = Custom
-custom-dns-ipv4 = IPv4 addresses (comma-separated):
-custom-dns-ipv6 = IPv6 addresses (comma-separated):
-custom-dns-dot-hostname = DoT hostname (optional):
-custom-dns-invalid = Please enter at least an IPv4 or IPv6 address
-custom-dns-invalid-hostname = Invalid DoT hostname

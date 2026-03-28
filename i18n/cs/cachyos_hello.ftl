@@ -45,12 +45,6 @@ dns-server-changed = DNS server byl úspěšně změněný!
 dns-server-failed = Nepodařilo se nastavit DNS server!
 dns-server-reset = DNS server byl resetovaný!
 dns-server-reset-failed = Nepodařilo se resetovat DNS server!
-custom-dns = Custom
-custom-dns-ipv4 = IPv4 addresses (comma-separated):
-custom-dns-ipv6 = IPv6 addresses (comma-separated):
-custom-dns-dot-hostname = DoT hostname (optional):
-custom-dns-invalid = Please enter at least an IPv4 or IPv6 address
-custom-dns-invalid-hostname = Invalid DoT hostname
 
 # Stránka s úpravami (úpravy)
 tweak-enabled-title = {$tweak} povolen
