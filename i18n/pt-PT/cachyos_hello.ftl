@@ -95,5 +95,3 @@ welcome-body =
     Obrigado por te juntares à nossa comunidade!
 
     Nós, os programadores do CachyOS, esperamos que desfrutes do uso do CachyOS tanto quanto nós desfrutamos a construí-lo. As ligações abaixo ajudar-te-ão a começar com o teu novo sistema operativo. Por isso, aproveita a experiência e não hesites em enviar-nos o teu feedback.
-
-# Custom DNS

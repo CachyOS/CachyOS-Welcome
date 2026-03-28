@@ -95,5 +95,3 @@ welcome-body =
     Eskerrik asko gure komunitatean sartzeagatik!
 
     Guk, CachyOS-eko garatzaileok, CachyOS erabiltzen guk sortzen gozatu dugun adina gozatzea espero dugu. Azpiko estekek zure sistema eragile berriarekin lehen urratsak ematen lagunduko dizute. Beraz, gozatu esperientziaz, eta ez izan zalantzarik zure iritziak guri bidaltzeko.
-
-# Custom DNS

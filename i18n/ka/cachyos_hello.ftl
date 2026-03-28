@@ -27,5 +27,3 @@ installed-pci-profiles = დაყენებული PCI-ის პროფ�
 pci-profiles-not-found = PCI-ის პროფილები დაყენებული არაა!
 no-installed-pci-profiles = დაყენებული PCI-ის პროფილების გარეშე!
 no-installed-profile-device = PCI მოწყობილობებისთვის დაყენებული პროფილი აღმოჩენილი არაა!
-
-# Custom DNS
