@@ -310,6 +310,7 @@ upstreams:
       - "{doh_url}"
   strategy: strict
   timeout: 5s
+  userAgent: "CachyOS/blocky"
 
 bootstrapDns:
 {bootstrap_section}
