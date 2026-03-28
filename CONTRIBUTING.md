@@ -48,6 +48,28 @@ To add a new language:
 3. Run `cargo fmt` and `cargo clippy`
 4. Open a pull request with a clear description of the change
 
+## Debugging
+
+Run with verbose output using the `RUST_LOG` environment variable:
+
+```sh
+RUST_LOG=debug ninja -C build && ./build/src/cachyos-hello
+```
+
+Logs are written to both stdout and `~/.config/cachyos/cachyos-hello/cachyos-hello.log`.
+
+To filter log output to a specific module:
+
+```sh
+RUST_LOG=cachyos_hello=debug ./build/src/cachyos-hello
+```
+
+To suppress noisy crates:
+
+```sh
+RUST_LOG=debug,i2n_embed=warn,which=warn ./build/src/cachyos-hello
+```
+
 ## Reporting Issues
 
 Use the [GitHub issue tracker](https://github.com/cachyos/cachyos-welcome/issues). Include your CachyOS version and steps to reproduce.
