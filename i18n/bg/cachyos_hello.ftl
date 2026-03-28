@@ -13,7 +13,6 @@ package-not-installed = Пакетът '{$package_name}' не е инстали�
 gaming-package-installed = Пакетите за гейминг вече са инсталирани!
 winboat-package-installed = Winboat пакетите вече са инсталирани!
 
-
 # Application Browser page
 advanced-btn = Разширени
 reset-btn = Нулиране
