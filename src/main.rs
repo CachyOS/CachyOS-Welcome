@@ -55,7 +55,11 @@ fn get_saved_locale() -> Option<String> {
 fn get_saved_json(preferences: &serde_json::Value) -> serde_json::Value {
     let save_path = fix_path(preferences["save_path"].as_str().unwrap());
     if Path::new(&save_path).exists() {
-        read_json(save_path.as_str())
+        let val = read_json(save_path.as_str());
+        if val.is_null() {
+            return json!({"locale": ""});
+        }
+        val
     } else {
         json!({"locale": ""})
     }
