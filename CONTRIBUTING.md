@@ -3,22 +3,26 @@
 ## Prerequisites
 
 - Rust (stable, via `rustup`)
-- `meson` and `ninja`
 - GTK 3.24.33+
 - `glib-2.0` and `gio-2.0` 2.66+
+
+Install all dependencies on CachyOS/Arch:
+
+```sh
+sudo pacman -S --needed rustup gtk3 glib2
+rustup toolchain install stable
+```
 
 ## Building
 
 ```sh
-meson setup build
-ninja -C build
+cargo build
 ```
 
 For a release build:
 
 ```sh
-meson setup build --buildtype=release
-ninja -C build
+cargo build --release
 ```
 
 ## Code Style
@@ -53,7 +57,7 @@ To add a new language:
 Run with verbose output using the `RUST_LOG` environment variable:
 
 ```sh
-RUST_LOG=debug ninja -C build && ./build/src/cachyos-hello
+RUST_LOG=debug cargo run
 ```
 
 Logs are written to both stdout and `~/.config/cachyos/cachyos-hello/cachyos-hello.log`.
@@ -61,13 +65,13 @@ Logs are written to both stdout and `~/.config/cachyos/cachyos-hello/cachyos-hel
 To filter log output to a specific module:
 
 ```sh
-RUST_LOG=cachyos_hello=debug ./build/src/cachyos-hello
+RUST_LOG=cachyos_hello=debug cargo run
 ```
 
 To suppress noisy crates:
 
 ```sh
-RUST_LOG=debug,i2n_embed=warn,which=warn ./build/src/cachyos-hello
+RUST_LOG=debug,i2n_embed=warn,which=warn cargo run
 ```
 
 ## Reporting Issues
