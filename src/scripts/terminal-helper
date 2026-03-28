@@ -101,3 +101,5 @@ eval "${terminals[${terminal}]}" 2>/dev/null || {
     fi
 }
 rm "$file"
+
+### to do : add ptyxis support ( i cant seem to do it)
