@@ -46,12 +46,6 @@ dns-server-changed = DNS-servern ändrades!
 dns-server-failed = Misslyckades med att ställa in DNS-server!
 dns-server-reset = DNS-servern har återställts!
 dns-server-reset-failed = Misslyckades med att återställa DNS-servern!
-custom-dns = Custom
-custom-dns-ipv4 = IPv4 addresses (comma-separated):
-custom-dns-ipv6 = IPv6 addresses (comma-separated):
-custom-dns-dot-hostname = DoT hostname (optional):
-custom-dns-invalid = Please enter at least an IPv4 or IPv6 address
-custom-dns-invalid-hostname = Invalid DoT hostname
 winboat-install-failed = Misslyckades med att installera Winboat!
 
 # Tweaks page (tweaks)

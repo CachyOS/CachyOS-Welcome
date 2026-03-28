@@ -44,12 +44,6 @@ dns-server-changed = DNS 服务器已成功更改！
 dns-server-failed = 设置 DNS 服务器失败！
 dns-server-reset = DNS 服务器已重置！
 dns-server-reset-failed = 重置 DNS 服务器失败！
-custom-dns = Custom
-custom-dns-ipv4 = IPv4 addresses (comma-separated):
-custom-dns-ipv6 = IPv6 addresses (comma-separated):
-custom-dns-dot-hostname = DoT hostname (optional):
-custom-dns-invalid = Please enter at least an IPv4 or IPv6 address
-custom-dns-invalid-hostname = Invalid DoT hostname
 
 # Tweaks page (tweaks)
 tweak-enabled-title = {$tweak} 已启用

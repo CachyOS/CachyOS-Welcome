@@ -46,12 +46,6 @@ dns-server-changed = O servidor DNS foi trocado com sucesso!
 dns-server-failed = Erro ao mudar o servidor DNS!
 dns-server-reset = O servidor DNS foi redefinido!
 dns-server-reset-failed = Erro ao redefinir o servidor DNS!
-custom-dns = Custom
-custom-dns-ipv4 = IPv4 addresses (comma-separated):
-custom-dns-ipv6 = IPv6 addresses (comma-separated):
-custom-dns-dot-hostname = DoT hostname (optional):
-custom-dns-invalid = Please enter at least an IPv4 or IPv6 address
-custom-dns-invalid-hostname = Invalid DoT hostname
 winboat-install-failed = Erro ao instalar o Winboat!
 
 # Tweaks page (tweaks)

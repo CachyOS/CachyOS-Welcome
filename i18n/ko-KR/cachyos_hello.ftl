@@ -45,12 +45,6 @@ dns-server-changed = DNS 서버가 성공적으로 변경되었습니다!
 dns-server-failed = DNS 서버 설정에 실패했습니다!
 dns-server-reset = DNS 서버가 재설정되었습니다!
 dns-server-reset-failed = DNS 서버 재설정에 실패했습니다!
-custom-dns = Custom
-custom-dns-ipv4 = IPv4 addresses (comma-separated):
-custom-dns-ipv6 = IPv6 addresses (comma-separated):
-custom-dns-dot-hostname = DoT hostname (optional):
-custom-dns-invalid = Please enter at least an IPv4 or IPv6 address
-custom-dns-invalid-hostname = Invalid DoT hostname
 
 # Tweaks page (tweaks)
 tweak-enabled-title = {$tweak} 활성화됨

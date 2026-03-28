@@ -45,12 +45,6 @@ dns-server-changed = A DNS szerver sikeresen megváltozott!
 dns-server-failed = A DNS szerver beállítása sikertelen!
 dns-server-reset = A DNS szerver visszaállítva!
 dns-server-reset-failed = A DNS szerver visszaállítása sikertelen!
-custom-dns = Custom
-custom-dns-ipv4 = IPv4 addresses (comma-separated):
-custom-dns-ipv6 = IPv6 addresses (comma-separated):
-custom-dns-dot-hostname = DoT hostname (optional):
-custom-dns-invalid = Please enter at least an IPv4 or IPv6 address
-custom-dns-invalid-hostname = Invalid DoT hostname
 
 # Tweaks page (tweaks)
 tweak-enabled-title = {$tweak} engedélyezve

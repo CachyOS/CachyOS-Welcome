@@ -97,9 +97,3 @@ welcome-body =
     CachyOS 開発チーム一同、情熱を持って開発した CachyOS を皆さまに楽しんでいただけることを願っています。 以下のリンクは、はじめてこの OS を利用する場合に役立ちます。これからの体験をぜひお楽しみください。フィードバックもお待ちしております。
 
 # Custom DNS
-custom-dns = Custom
-custom-dns-ipv4 = IPv4 addresses (comma-separated):
-custom-dns-ipv6 = IPv6 addresses (comma-separated):
-custom-dns-dot-hostname = DoT hostname (optional):
-custom-dns-invalid = Please enter at least an IPv4 or IPv6 address
-custom-dns-invalid-hostname = Invalid DoT hostname
