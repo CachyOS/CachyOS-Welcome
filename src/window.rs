@@ -29,7 +29,7 @@ impl HelloWindow {
     ) -> Self {
         // Register bundled icons with the icon theme
         if let Some(icon_theme) = gtk::IconTheme::default() {
-            icon_theme.add_resource_path(&format!("{RESPREFIX}/icons"));
+            icon_theme.add_resource_path(&format!("{RESPREFIX}/data/img"));
         }
 
         // Import Css
