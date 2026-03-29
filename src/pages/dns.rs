@@ -42,8 +42,8 @@ fn selection_index_for_connection(conn_name: &str) -> usize {
         return dns::G_DNS_SERVERS.len();
     }
 
-    // No DNS configured, fallback to Cloudflare
-    dns::G_DNS_SERVERS.get_index("Cloudflare").unwrap()
+    // No DNS configured — using DHCP (automatic)
+    usize::MAX
 }
 
 /// Returns whether the server at `index` supports `DoT`.
@@ -112,6 +112,8 @@ fn create_connections_section() -> gtk::Box {
         }
         let custom_label = fl!("custom-dns");
         store.set(&store.append(), &[(0, &custom_label)]);
+        let dhcp_label = fl!("dhcp-automatic");
+        store.set(&store.append(), &[(0, &dhcp_label)]);
         utils::create_combo_with_model(&store)
     };
 
@@ -215,9 +217,17 @@ fn create_connections_section() -> gtk::Box {
             combo_conn.set_active_iter(Some(&iter));
 
             let selected_dns_index = selection_index_for_connection(&active_conn_name);
-            combo_servers.set_active(Some(selected_dns_index as u32));
+            let dhcp_index = dns::G_DNS_SERVERS.len() + 1;
+            let combo_index = if selected_dns_index == usize::MAX { dhcp_index } else { selected_dns_index };
+            combo_servers.set_active(Some(combo_index as u32));
 
-            if selected_dns_index == dns::G_DNS_SERVERS.len() {
+            if selected_dns_index == usize::MAX {
+                // DHCP (automatic) — disable protocol checkboxes
+                dot_check.set_sensitive(false);
+                dot_check.set_active(false);
+                doh_check.set_sensitive(false);
+                doh_check.set_active(false);
+            } else if selected_dns_index == dns::G_DNS_SERVERS.len() {
                 // Custom DNS — pre-fill entries with current values
                 if actions::is_blocky_active() {
                     // Custom DoH — fill from blocky config;
@@ -274,14 +284,21 @@ fn create_connections_section() -> gtk::Box {
     combo_servers.connect_changed(move |combo| {
         if let Some(idx) = combo.active() {
             let is_custom = idx as usize == dns::G_DNS_SERVERS.len();
+            let is_dhcp = idx as usize == dns::G_DNS_SERVERS.len() + 1;
             if is_custom {
                 custom_box_vis.foreach(gtk::prelude::WidgetExt::show_all);
                 custom_box_vis.show();
             } else {
                 custom_box_vis.hide();
             }
-            best_btn_vis.set_visible(!is_custom);
-            if is_custom {
+            best_btn_vis.set_visible(!is_custom && !is_dhcp);
+            if is_dhcp {
+                dot_check_clone.set_sensitive(false);
+                dot_check_clone.set_active(false);
+                doh_check_clone.set_sensitive(false);
+                doh_check_clone.set_active(false);
+                info_label_clone.set_visible(false);
+            } else if is_custom {
                 dot_check_clone.set_sensitive(true);
                 doh_check_clone.set_sensitive(true);
                 doh_check_clone.set_active(false);
@@ -437,6 +454,19 @@ fn create_connections_section() -> gtk::Box {
         let conn_name: String = combo_conn_clone.active_text().map(Into::into).unwrap_or_default();
         let is_custom =
             combo_serv_clone.active().is_some_and(|idx| idx as usize == dns::G_DNS_SERVERS.len());
+        let is_dhcp = combo_serv_clone.active().is_some_and(|idx| {
+            idx as usize == dns::G_DNS_SERVERS.len() + 1
+        });
+
+        // DHCP (automatic) selected — reset to defaults
+        if is_dhcp {
+            let dialog_tx_clone = dialog_tx_clone.clone();
+            std::thread::spawn(move || {
+                actions::reset_dns_server(&conn_name, dialog_tx_clone);
+            });
+            return;
+        }
+
         let enable_dot = dot_check_clone3.is_active();
         let enable_doh = doh_check_clone3.is_active();
 
@@ -528,9 +558,17 @@ fn create_connections_section() -> gtk::Box {
     });
     let dialog_tx_clone = dialog_tx.clone();
     let combo_conn_clone = combo_conn.clone();
+    let combo_serv_reset = combo_servers.clone();
+    let dot_check_reset = dot_check.clone();
+    let doh_check_reset = doh_check.clone();
     reset_btn.connect_clicked(move |_| {
         let dialog_tx_clone = dialog_tx_clone.clone();
         let conn_name: String = combo_conn_clone.active_text().map(Into::into).unwrap_or_default();
+        // Set combo to DHCP (automatic)
+        let dhcp_index = (dns::G_DNS_SERVERS.len() + 1) as u32;
+        combo_serv_reset.set_active(Some(dhcp_index));
+        dot_check_reset.set_active(false);
+        doh_check_reset.set_active(false);
         std::thread::spawn(move || {
             actions::reset_dns_server(&conn_name, dialog_tx_clone);
         });

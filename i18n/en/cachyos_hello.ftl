@@ -45,6 +45,7 @@ latency-testing = testing...
 latency-timeout = timeout
 latency-no-result = no server responded
 custom-dns = Custom
+dhcp-automatic = DHCP (automatic)
 custom-dns-ipv4 = IPv4 addresses (comma-separated):
 custom-dns-ipv6 = IPv6 addresses (comma-separated):
 custom-dns-dot-hostname = DoT hostname (optional):
