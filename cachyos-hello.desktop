@@ -6,6 +6,7 @@ StartupNotify=false
 Name=CachyOS Hello
 Exec=/usr/bin/cachyos-hello
 Icon=org.cachyos.hello
+StartupWMClass=org.cachyos.hello
 Comment=A tool providing access to documentation and support for new CachyOS users.
 Comment[bg]=Инструмент, предоставящ достъп до документация и поддръжка за нови потребители на CachyOS.
 Comment[da]=En app med adgang til dokumentation og support for nye CachyOS brugere.
