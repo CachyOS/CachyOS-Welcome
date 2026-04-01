@@ -66,6 +66,18 @@ rankmirrors-title = Yansıları hıza göre sırala
 dnsserver-title = DNS sunucusunu değiştir
 show-kwinw-debug-title = KWin (Wayland) hata ayıklama penceresini göster
 install-gaming-title = Oyun paketlerini kur
+install-winboat-title = Winboat'ı kur
+remove-lock-tooltip = Önceki bir işlem kesildiğinde pacman veritabanı kilit dosyasını kaldır
+reinstall-tooltip = Bozuk dosyaları düzeltmek için şu anda yüklü olan tüm paketleri yeniden yükle
+reset-keyrings-tooltip = Paket imza hatalarını düzeltmek için pacman/AUR anahtar halkalarını sıfırla
+update-system-tooltip = Tüm yüklü paketleri en son sürümlerine güncelle
+remove-orphans-tooltip = Bağımlılık olarak yüklenmiş ancak artık gerekmeyen paketleri kaldır
+clear-pkgcache-tooltip = Disk alanı kazanmak için yerel paket önbelleğini temizle
+rankmirrors-tooltip = En hızlı indirme sunucularını bulmak için aynalarını test et ve sırala
+dnsserver-tooltip = Ağ bağlantıları için DNS sunucularını yapılandır
+show-kwinw-debug-tooltip = Sorun giderme için KWin Wayland hata ayıklama konsolunu aç
+install-gaming-tooltip = Seçilmiş oyun paketlerini yükle (Steam, Proton vb.)
+install-winboat-tooltip = Windows uyumluluk araçları için Winboat'ı yükle
 
 # Main Page (buttons)
 button-about-tooltip = Hakkında

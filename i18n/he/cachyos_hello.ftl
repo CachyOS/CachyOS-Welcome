@@ -67,6 +67,18 @@ rankmirrors-title = השוואת אתרי מראה
 dnsserver-title = שינוי שרת DNS
 show-kwinw-debug-title = הצגת חלון ניפוי השגיאות של kwin(Wayland)
 install-gaming-title = התקנת חבילות למשחקים
+install-winboat-title = התקנת Winboat
+remove-lock-tooltip = הסרת קובץ הנעילה של מסד הנתונים של pacman כאשר פעולה קודמת הופסקה
+reinstall-tooltip = התקנה מחדש של כל החבילות המותקנות לתיקון קבצים פגומים
+reset-keyrings-tooltip = איפוס מחזיקי המפתחות של pacman/AUR לתיקון שגיאות חתימת חבילות
+update-system-tooltip = עדכון כל החבילות המותקנות לגרסאות העדכניות ביותר
+remove-orphans-tooltip = הסרת חבילות שהותקנו כתלויות ואינן נחוצות עוד
+clear-pkgcache-tooltip = ניקוי מטמון החבילות המקומי לפינוי מקום בדיסק
+rankmirrors-tooltip = בדיקת המראות ודירוגן למציאת שרתי ההורדה המהירים ביותר
+dnsserver-tooltip = הגדרת שרתי DNS עבור חיבורי הרשת שלך
+show-kwinw-debug-tooltip = פתיחת מסוף ניפוי הבאגים של KWin Wayland לפתרון בעיות
+install-gaming-tooltip = התקנת מערכת נבחרת של חבילות הקשורות למשחקים (Steam, Proton וכו')
+install-winboat-tooltip = התקנת Winboat לכלי תאימות Windows
 
 # Main Page (buttons)
 button-about-tooltip = על אודות

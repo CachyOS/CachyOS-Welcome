@@ -20,6 +20,9 @@ fn update_translation_fixes_section(section_box: &gtk::Box) {
                 let widget_name = box_element_btn.widget_name();
                 let translated_text = crate::localization::get_locale_text(&widget_name);
                 box_element_btn.set_label(&translated_text);
+                let tooltip_key = widget_name.as_str().replace("-title", "-tooltip");
+                let tooltip_text = crate::localization::get_locale_text(&tooltip_key);
+                box_element_btn.set_tooltip_text(Some(&tooltip_text));
             }
         } else if let Ok(section_label) = section_box_element.downcast::<gtk::Label>() {
             section_label.set_text(&fl!("fixes"));

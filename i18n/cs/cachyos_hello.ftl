@@ -59,6 +59,18 @@ rankmirrors-title = Přehodnotit zrcadla
 dnsserver-title = Změnit DNS server
 show-kwinw-debug-title = Zobrazit kwin(Wayland) debug okno
 install-gaming-title = Instalovat herní balíčky
+install-winboat-title = Nainstalovat Winboat
+remove-lock-tooltip = Odstraní soubor zámku databáze pacmanu, když byla předchozí operace přerušena
+reinstall-tooltip = Přeinstalovat všechny nainstalované balíčky pro opravu poškozených souborů
+reset-keyrings-tooltip = Resetovat klíčenky pacman/AUR pro opravu chyb podpisu balíčků
+update-system-tooltip = Aktualizovat všechny nainstalované balíčky na nejnovější verze
+remove-orphans-tooltip = Odstranit balíčky nainstalované jako závislosti, které již nejsou potřeba
+clear-pkgcache-tooltip = Vyčistit místní mezipaměť balíčků pro uvolnění místa na disku
+rankmirrors-tooltip = Otestovat a seřadit zrcadla pro nalezení nejrychlejších stahovacích serverů
+dnsserver-tooltip = Nakonfigurovat DNS servery pro síťová připojení
+show-kwinw-debug-tooltip = Otevřít ladicí konzoli KWin Wayland pro řešení problémů
+install-gaming-tooltip = Nainstalovat vybranou sadu balíčků pro hraní her (Steam, Proton atd.)
+install-winboat-tooltip = Nainstalovat Winboat pro nástroje kompatibility s Windows
 
 # Hlavní stránka (tlačítka)
 button-about-tooltip = O programu

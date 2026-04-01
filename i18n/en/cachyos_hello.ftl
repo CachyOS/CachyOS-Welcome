@@ -80,6 +80,17 @@ dnsserver-title = Change DNS server
 show-kwinw-debug-title = Show kwin(Wayland) debug window
 install-gaming-title = Install Gaming packages
 install-winboat-title = Install Winboat
+remove-lock-tooltip = Remove the pacman database lock file when a previous operation was interrupted
+reinstall-tooltip = Reinstall all currently installed packages to fix corrupted files
+reset-keyrings-tooltip = Reset pacman/AUR keyrings to fix package signature errors
+update-system-tooltip = Update all installed packages to their latest versions
+remove-orphans-tooltip = Remove packages that were installed as dependencies but are no longer needed
+clear-pkgcache-tooltip = Clear the local package cache to free up disk space
+rankmirrors-tooltip = Test and rank mirrors to find the fastest download servers
+dnsserver-tooltip = Configure DNS servers for your network connections
+show-kwinw-debug-tooltip = Open the KWin Wayland debug console for troubleshooting
+install-gaming-tooltip = Install a curated set of gaming-related packages (Steam, Proton, etc.)
+install-winboat-tooltip = Install Winboat for Windows compatibility tools
 
 # Main Page (buttons)
 button-about-tooltip = About

@@ -45,6 +45,20 @@ remove-orphans-title = Nicht verwendete Pakete entfernen
 clear-pkgcache-title = Paket-Cache löschen
 rankmirrors-title = Rank Mirrors
 dnsserver-title = DNS-Server ändern
+show-kwinw-debug-title = KWin(Wayland)-Debugfenster anzeigen
+install-gaming-title = Gaming-Pakete installieren
+install-winboat-title = Winboat installieren
+remove-lock-tooltip = Entfernt die Pacman-Datenbanksperre, wenn ein vorheriger Vorgang unterbrochen wurde
+reinstall-tooltip = Alle installierten Pakete neu installieren, um beschädigte Dateien zu reparieren
+reset-keyrings-tooltip = Pacman/AUR-Schlüsselringe zurücksetzen, um Paketsignaturprobleme zu beheben
+update-system-tooltip = Alle installierten Pakete auf die neuesten Versionen aktualisieren
+remove-orphans-tooltip = Pakete entfernen, die als Abhängigkeiten installiert wurden, aber nicht mehr benötigt werden
+clear-pkgcache-tooltip = Den lokalen Paketcache leeren, um Speicherplatz freizugeben
+rankmirrors-tooltip = Spiegel testen und nach Geschwindigkeit sortieren, um die schnellsten Download-Server zu finden
+dnsserver-tooltip = DNS-Server für Netzwerkverbindungen konfigurieren
+show-kwinw-debug-tooltip = KWin-Wayland-Debugging-Konsole zur Fehlerbehebung öffnen
+install-gaming-tooltip = Eine ausgewählte Sammlung spielbezogener Pakete installieren (Steam, Proton usw.)
+install-winboat-tooltip = Winboat für Windows-Kompatibilitätswerkzeuge installieren
 
 # Main Page (buttons)
 button-about-tooltip = Über

@@ -65,6 +65,18 @@ rankmirrors-title = 미러 순위 지정
 dnsserver-title = DNS 서버 변경
 show-kwinw-debug-title = KWin(Wayland) 디버그 창 표시
 install-gaming-title = 게임 패키지 설치
+install-winboat-title = Winboat 설치
+remove-lock-tooltip = 이전 작업이 중단되었을 때 pacman 데이터베이스 잠금 파일 제거
+reinstall-tooltip = 손상된 파일을 수정하기 위해 현재 설치된 모든 패키지 재설치
+reset-keyrings-tooltip = 패키지 서명 오류를 수정하기 위해 pacman/AUR 키링 초기화
+update-system-tooltip = 설치된 모든 패키지를 최신 버전으로 업데이트
+remove-orphans-tooltip = 더 이상 필요하지 않은 의존성으로 설치된 패키지 제거
+clear-pkgcache-tooltip = 디스크 공간 확보를 위해 로컬 패키지 캐시 초기화
+rankmirrors-tooltip = 가장 빠른 다운로드 서버를 찾기 위해 미러 테스트 및 순위 지정
+dnsserver-tooltip = 네트워크 연결을 위한 DNS 서버 설정
+show-kwinw-debug-tooltip = 문제 해결을 위한 KWin Wayland 디버그 콘솔 열기
+install-gaming-tooltip = 게임 관련 패키지 모음 설치 (Steam, Proton 등)
+install-winboat-tooltip = Windows 호환성 도구를 위한 Winboat 설치
 
 # Main Page (buttons)
 button-about-tooltip = 정보

@@ -69,6 +69,17 @@ dnsserver-title = Змінити DNS-сервер
 show-kwinw-debug-title = Показати вікно налагодження KWin (Wayland)
 install-gaming-title = Встановити ігрові пакети
 install-winboat-title = Встановити Winboat
+remove-lock-tooltip = Видаляє файл блокування бази даних pacman, якщо попередня операція була перервана
+reinstall-tooltip = Перевстановити всі встановлені пакунки для виправлення пошкоджених файлів
+reset-keyrings-tooltip = Скинути зв'язки ключів pacman/AUR для усунення помилок підпису пакунків
+update-system-tooltip = Оновити всі встановлені пакунки до останніх версій
+remove-orphans-tooltip = Видалити пакунки, встановлені як залежності, які більше не потрібні
+clear-pkgcache-tooltip = Очистити локальний кеш пакунків для звільнення місця на диску
+rankmirrors-tooltip = Перевірити та впорядкувати дзеркала для знаходження найшвидших серверів завантаження
+dnsserver-tooltip = Налаштувати DNS-сервери для мережевих підключень
+show-kwinw-debug-tooltip = Відкрити консоль налагодження KWin Wayland для усунення неполадок
+install-gaming-tooltip = Встановити підбірку ігрових пакунків (Steam, Proton тощо)
+install-winboat-tooltip = Встановити Winboat для інструментів сумісності з Windows
 
 # Main Page (buttons)
 button-about-tooltip = Про програму

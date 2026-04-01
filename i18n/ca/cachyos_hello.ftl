@@ -59,6 +59,18 @@ rankmirrors-title = Classifica les rèpliques
 dnsserver-title = Canvia el servidor de DNS
 show-kwinw-debug-title = Mostra la finestra de depuració del kwin (Wayland)
 install-gaming-title = Instal·la paquets de jocs
+install-winboat-title = Instal·la el Winboat
+remove-lock-tooltip = Elimina el fitxer de bloqueig de la base de dades de pacman quan una operació anterior s'ha interromput
+reinstall-tooltip = Reinstal·lar tots els paquets instal·lats per reparar fitxers malmesos
+reset-keyrings-tooltip = Restableix els clauers de pacman/AUR per solucionar errors de signatura de paquets
+update-system-tooltip = Actualitzar tots els paquets instal·lats a les seves darreres versions
+remove-orphans-tooltip = Elimina els paquets instal·lats com a dependències que ja no calen
+clear-pkgcache-tooltip = Neteja la memòria cau local de paquets per alliberar espai al disc
+rankmirrors-tooltip = Prova i classifica els miralls per trobar els servidors de descàrrega més ràpids
+dnsserver-tooltip = Configura els servidors DNS per a les connexions de xarxa
+show-kwinw-debug-tooltip = Obre la consola de depuració de KWin Wayland per solucionar problemes
+install-gaming-tooltip = Instal·la un conjunt seleccionat de paquets relacionats amb els jocs (Steam, Proton, etc.)
+install-winboat-tooltip = Instal·la Winboat per a eines de compatibilitat amb Windows
 
 # Main Page (buttons)
 button-about-tooltip = Quant a
