@@ -1,0 +1,37 @@
+<big>Gracias por el apoyo</big>
+
+CachyOS Linux recibe un gran apoyo de su comunidad de usuarios y nos gustaría agradecer a cada colaborador por participar. El crecimiento es constante y nuestra distribución mejora cada día gracias a la comunidad.
+
+Es muy fácil marcar la diferencia. Dependiendo de las habilidades y la disponibilidad, se puede ayudar a CachyOS de una o varias de las siguientes maneras:
+
+<big>Soporte y Promoción</big>
+
+<b>Difusión del proyecto</b>
+
+Si CachyOS es de su agrado, informe a los demás. Escriba una reseña y publíquela en distrowatch.com. Hable al respecto con amistades y personas cercanas.
+
+<b>Unirse a la Comunidad</b>
+
+CachyOS no es solo un sistema operativo, también es una comunidad dinámica de personas que disfrutan, se reúnen e interactúan con un proyecto libre y abierto. Ya sea ayudando a resolver problemas, brindando una bienvenida o simplemente interactuando con otros usuarios de CachyOS, se recomienda unirse a la comunidad y participar para mejorar el proyecto.
+
+<b>Ayudar a los demás</b>
+
+Si se cuenta con tiempo libre y disposición para ayudar con problemas técnicos, se recomienda leer los foros y/o unirse al canal de IRC para ayudar a resolver los problemas conocidos.
+
+<big>Contribuciones al Proyecto</big>
+
+<b>Reporte de errores</b>
+
+Si se detecta algo que no funciona correctamente, favor de informarlo. Es probable que el problema descubierto afecte a otros; cuanto antes se reporte, antes podrá solucionarse.
+
+<b>Nuevas ideas</b>
+
+La gran mayoría de las mejoras incluidas en cada versión provienen de la comunidad. Si considera que algo falta o podría hacerse mejor, por favor infórmenos. Ya sea la inclusión de un controlador de hardware, una aplicación que debería formar parte de la instalación base o cualquier otra idea para mejorar CachyOS, siempre hay interés en escucharlas.
+
+<b>Arte y diseño</b>
+
+Si existe talento en diseño gráfico y disposición para colaborar en el proyecto, se pueden enviar creaciones y diseños. Ya sea un fondo de pantalla, un conjunto de iconos, una pantalla de carga o incluso un nuevo logotipo, siempre hay interés en recibir nuevas propuestas artísticas.
+
+<b>Código</b>
+
+La mayor parte del desarrollo se realiza en QT, C++, Python, HTML5/CSS y BASH. También se utiliza Git para el control de versiones y PKGBUILDs para el empaquetado. Si se dominan estas tecnologías, no dude en revisar el código. Si considera que puede mejorar las aplicaciones o crear otras nuevas, no dude en sugerir parches o realizar un "fork" de los repositorios en Git.

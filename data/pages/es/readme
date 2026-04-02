@@ -1,0 +1,37 @@
+<big>Gestión de hardware</big>
+
+CachyOS no solo permite el uso de múltiples kernels (seleccionables desde las opciones avanzadas en la pantalla de arranque), sino que también proporciona acceso a las versiones más recientes y de vanguardia. Esto se puede realizar mediante el módulo de Kernel en el Administrador de Configuración gráfico de CachyOS, o a través de la línea de comandos usando el comando chwd-kernel (CachyOS Hardware Detection).
+
+Estas herramientas de CachyOS actualizarán automáticamente un kernel recién instalado junto con todos los módulos en uso del kernel anterior. Por ejemplo, al actualizar del kernel 3.18 al 4.1, chwd-kernel incluirá automáticamente las compilaciones del kernel 4.1 y todos los módulos utilizados previamente. ¡Así de sencillo!
+
+El hardware se puede configurar mediante el módulo de Detección de Hardware en el Administrador de Configuración o, alternativamente, con la aplicación de línea de comandos chwd. Con estas herramientas, es posible instalar, por ejemplo, controladores gráficos, tanto libres como propietarios.
+
+<big>Obtener ayuda</big>
+
+Aunque CachyOS ha sido diseñado para funcionar de la mejor manera posible desde el primer momento, no pretendemos que sea perfecto. En ocasiones, pueden surgir inconvenientes, dudas o simplemente el deseo de personalizar el sistema a su medida. ¡Esta página detalla los recursos disponibles para brindar asistencia!
+
+<b>Buscar en la web</b>
+
+Probablemente, el primer paso para obtener ayuda general sobre Linux sea utilizar un motor de búsqueda. Solo es necesario incluir términos como 'Linux', 'CachyOS' o 'Arch' en la consulta.
+
+Dado que CachyOS se basa en Arch Linux, las guías y consejos diseñados para Arch suelen ser plenamente aplicables también en CachyOS.
+
+<b>Consultar los foros</b>
+
+Para obtener ayuda específica sobre CachyOS, existe un foro en línea dedicado donde se pueden buscar temas o crear uno nuevo. Este es probablemente el mejor recurso para la colaboración, discusión y asistencia técnica. Se puede solicitar ayuda, publicar opiniones o proponer sugerencias con total libertad.
+
+El foro de CachyOS está dividido en subforos según temas y entornos; se recomienda publicar cada consulta en el lugar correspondiente.
+
+<big>Otros recursos</big>
+
+    - <a href="https://aur.archlinux.org">Repositorio AUR</a> - Software adicional fuera de los repositorios regulares, compilado desde el código fuente.
+    - <a href="https://wiki.cachyos.org">Wiki de CachyOS</a> - Wiki oficial de CachyOS.
+    - <a href="https://wiki.archlinux.org">Wiki de Arch</a> - Wiki oficial de Arch Linux.
+
+<big>Sugerencias</big>
+
+¿Tiene alguna sugerencia para mejorar CachyOS? ¿Encontró algo que le gustaría incluir o desea colaborar? Por favor, háganoslo saber publicando su propuesta en el foro o visitándonos en el canal de IRC.
+
+¡Gracias!
+
+¡Esperamos que disfrute su experiencia con CachyOS!
