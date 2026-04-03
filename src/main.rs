@@ -107,6 +107,13 @@ fn main() {
         );
 
         application.connect_activate(|application| {
+            // If a window already exists, raise the window to the front and give it focus
+            unsafe {
+                if let Some(window) = G_HELLO_WINDOW.as_ref() {
+                    window.window.present();
+                    return;
+                }
+            }
             build_ui(application);
         });
 
