@@ -7,7 +7,6 @@ use crate::{actions, dns, systemd_units, utils};
 
 use anyhow::Result;
 use colored::Colorize;
-use async_channel;
 
 pub fn handle_fix_command(action: FixAction) -> Result<()> {
     let (tx, rx) = async_channel::unbounded();

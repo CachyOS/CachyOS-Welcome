@@ -8,7 +8,6 @@ use std::str;
 use gtk::prelude::*;
 use subprocess::Exec;
 
-use async_channel;
 use glib::translate::FromGlib;
 use gtk::glib;
 

@@ -11,7 +11,6 @@ use std::str;
 use gtk::prelude::*;
 
 use gtk::{glib, Builder};
-use async_channel;
 use subprocess::Exec;
 use tracing::debug;
 use which::which;
