@@ -8,6 +8,7 @@ use std::str;
 use gtk::prelude::*;
 use subprocess::Exec;
 
+use async_channel;
 use glib::translate::FromGlib;
 use gtk::glib;
 
@@ -92,7 +93,7 @@ fn toggle_service(
         systemd_units::check_system_units(action_data)
     };
     // Create context channel.
-    let (tx, rx) = glib::MainContext::channel(glib::Priority::default());
+    let (tx, rx) = async_channel::unbounded();
 
     let dialog_text = fl!("package-not-installed", package_name = alpm_package_name);
 
@@ -110,7 +111,7 @@ fn toggle_service(
                 );
             }
             if !utils::is_alpm_pkg_installed(&alpm_package_name) {
-                tx.send(false).expect("Couldn't send data to channel");
+                tx.send_blocking(false).expect("Couldn't send data to channel");
                 return;
             }
         }
@@ -138,14 +139,15 @@ fn toggle_service(
         }
     });
 
-    rx.attach(None, move |msg| {
-        if !msg {
-            callback(msg);
+    glib::MainContext::default().spawn_local(async move {
+        while let Ok(msg) = rx.recv().await {
+            if !msg {
+                callback(msg);
 
-            let ui_comp = crate::gui::GUI::new(widget_window.clone());
-            ui_comp.show_message(MessageType::Error, &dialog_text, "Error".to_string());
+                let ui_comp = crate::gui::GUI::new(widget_window.clone());
+                ui_comp.show_message(MessageType::Error, &dialog_text, "Error".to_string());
+            }
         }
-        glib::ControlFlow::Continue
     });
 }
 

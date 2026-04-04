@@ -6,7 +6,7 @@ use std::path::Path;
 use std::time::Duration;
 use std::{env, io, thread};
 
-use gtk::glib::Sender;
+use async_channel::Sender;
 use subprocess::Exec;
 use tracing::error;
 
@@ -134,7 +134,7 @@ pub fn change_dns_server(
     })();
     if result.is_ok() {
         dialog_tx
-            .send(DialogMessage {
+            .send_blocking(DialogMessage {
                 msg: fl!("dns-server-changed"),
                 msg_type: MessageType::Info,
                 action: Action::SetDnsServer,
@@ -142,7 +142,7 @@ pub fn change_dns_server(
             .expect("Couldn't send data to channel");
     } else {
         dialog_tx
-            .send(DialogMessage {
+            .send_blocking(DialogMessage {
                 msg: fl!("dns-server-failed"),
                 msg_type: MessageType::Error,
                 action: Action::SetDnsServer,
@@ -168,7 +168,7 @@ pub fn reset_dns_server(conn_name: &str, dialog_tx: Sender<DialogMessage>) {
     })();
     if result.is_ok() {
         dialog_tx
-            .send(DialogMessage {
+            .send_blocking(DialogMessage {
                 msg: fl!("dns-server-reset"),
                 msg_type: MessageType::Info,
                 action: Action::SetDnsServer,
@@ -176,7 +176,7 @@ pub fn reset_dns_server(conn_name: &str, dialog_tx: Sender<DialogMessage>) {
             .expect("Couldn't send data to channel");
     } else {
         dialog_tx
-            .send(DialogMessage {
+            .send_blocking(DialogMessage {
                 msg: fl!("dns-server-reset-failed"),
                 msg_type: MessageType::Error,
                 action: Action::SetDnsServer,
@@ -228,7 +228,7 @@ pub fn change_dns_server_doh(
     })();
     if write_result.is_err() {
         dialog_tx
-            .send(DialogMessage {
+            .send_blocking(DialogMessage {
                 msg: fl!("dns-server-failed"),
                 msg_type: MessageType::Error,
                 action: Action::SetDnsServer,
@@ -255,7 +255,7 @@ pub fn change_dns_server_doh(
 
     if result.is_ok() {
         dialog_tx
-            .send(DialogMessage {
+            .send_blocking(DialogMessage {
                 msg: fl!("dns-server-changed"),
                 msg_type: MessageType::Info,
                 action: Action::SetDnsServer,
@@ -263,7 +263,7 @@ pub fn change_dns_server_doh(
             .expect("Couldn't send data to channel");
     } else {
         dialog_tx
-            .send(DialogMessage {
+            .send_blocking(DialogMessage {
                 msg: fl!("dns-server-failed"),
                 msg_type: MessageType::Error,
                 action: Action::SetDnsServer,
@@ -288,7 +288,7 @@ pub fn remove_dblock(dialog_tx: Sender<DialogMessage>) {
         let _ = utils::pkexec_cmd(&["rm", "/var/lib/pacman/db.lck"]);
         if !Path::new("/var/lib/pacman/db.lck").exists() {
             dialog_tx
-                .send(DialogMessage {
+                .send_blocking(DialogMessage {
                     msg: fl!("removed-db-lock"),
                     msg_type: MessageType::Info,
                     action: Action::RemoveLock,
@@ -297,7 +297,7 @@ pub fn remove_dblock(dialog_tx: Sender<DialogMessage>) {
         }
     } else {
         dialog_tx
-            .send(DialogMessage {
+            .send_blocking(DialogMessage {
                 msg: fl!("lock-doesnt-exist"),
                 msg_type: MessageType::Info,
                 action: Action::RemoveLock,
@@ -337,7 +337,7 @@ pub fn remove_orphans(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage>
     orphan_pkgs = orphan_pkgs.replace('\n', " ");
     if orphan_pkgs.is_empty() {
         dialog_tx
-            .send(DialogMessage {
+            .send_blocking(DialogMessage {
                 msg: fl!("orphans-not-found"),
                 msg_type: MessageType::Info,
                 action: Action::RemoveOrphans,
@@ -375,7 +375,7 @@ pub fn install_needed_packages(
     // skip if installed already
     if packages_to_install.is_empty() {
         dialog_tx
-            .send(DialogMessage {
+            .send_blocking(DialogMessage {
                 msg: dialog_msg,
                 msg_type: MessageType::Info,
                 action: dialog_action,
@@ -421,7 +421,7 @@ pub fn install_winboat(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage
         let result = systemd_units::systemd_enable(&[DOCKER_TARGET], Scope::System, false);
         if result.is_err() {
             dialog_tx
-                .send(DialogMessage {
+                .send_blocking(DialogMessage {
                     msg: fl!("winboat-install-failed"),
                     msg_type: MessageType::Error,
                     action: Action::InstallWinboat,
@@ -441,7 +441,7 @@ pub fn install_winboat(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage
                 .map_or(true, |s| !s.success());
             if failed {
                 dialog_tx
-                    .send(DialogMessage {
+                    .send_blocking(DialogMessage {
                         msg: fl!("winboat-install-failed"),
                         msg_type: MessageType::Error,
                         action: Action::InstallWinboat,

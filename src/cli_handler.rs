@@ -7,10 +7,10 @@ use crate::{actions, dns, systemd_units, utils};
 
 use anyhow::Result;
 use colored::Colorize;
-use gtk::glib;
+use async_channel;
 
 pub fn handle_fix_command(action: FixAction) -> Result<()> {
-    let (tx, rx) = glib::MainContext::channel(glib::Priority::default());
+    let (tx, rx) = async_channel::unbounded();
 
     match action {
         FixAction::UpdateSystem => {
@@ -57,11 +57,10 @@ pub fn handle_fix_command(action: FixAction) -> Result<()> {
         },
     }
 
-    rx.attach(None, move |msg| {
+    while let Ok(msg) = rx.try_recv() {
         let ui_comp = crate::cli::CLI::new();
         ui_comp.show_message(msg.msg_type, &msg.msg, msg.msg_type.to_string());
-        glib::ControlFlow::Continue
-    });
+    }
     Ok(())
 }
 
@@ -74,7 +73,7 @@ pub fn handle_tweak_command(action: TweakAction) -> Result<()> {
 }
 
 pub fn handle_dns_command(action: DnsAction) -> Result<()> {
-    let (tx, rx) = glib::MainContext::channel(glib::Priority::default());
+    let (tx, rx) = async_channel::unbounded();
 
     match action {
         DnsAction::Set { connection, server, dot, doh } => {
@@ -251,11 +250,10 @@ pub fn handle_dns_command(action: DnsAction) -> Result<()> {
             }
         },
     }
-    rx.attach(None, move |msg| {
+    while let Ok(msg) = rx.try_recv() {
         let ui_comp = crate::cli::CLI::new();
         ui_comp.show_message(msg.msg_type, &msg.msg, msg.msg_type.to_string());
-        glib::ControlFlow::Continue
-    });
+    }
     Ok(())
 }
 

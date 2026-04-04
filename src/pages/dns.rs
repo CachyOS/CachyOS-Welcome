@@ -3,6 +3,7 @@ use crate::{actions, create_gtk_button, dns, fl, utils};
 
 use gtk::prelude::*;
 
+use async_channel;
 use gtk::{glib, Builder};
 
 /// Returns true if `s` contains only valid DNS address characters (hex digits, dots, colons,
@@ -346,7 +347,7 @@ fn create_connections_section() -> gtk::Box {
     let custom_ipv4_entry_latency = custom_ipv4_entry.clone();
     let latency_label_clone = latency_label.clone();
     let latency_btn_clone = latency_btn.clone();
-    let (latency_tx, latency_rx) = glib::MainContext::channel(glib::Priority::default());
+    let (latency_tx, latency_rx) = async_channel::unbounded();
     latency_btn.connect_clicked(move |_| {
         let is_custom =
             combo_serv_latency.active().is_some_and(|idx| idx as usize == dns::G_DNS_SERVERS.len());
@@ -367,26 +368,26 @@ fn create_connections_section() -> gtk::Box {
         latency_label_clone.set_text(&fl!("latency-testing"));
         std::thread::spawn(move || {
             let result = dns::measure_latency(&ipv4);
-            let _ = tx.send(result);
+            let _ = tx.send_blocking(result);
         });
     });
     let latency_label_rx = latency_label.clone();
     let latency_btn_rx = latency_btn.clone();
-    latency_rx.attach(None, move |result| {
-        match result {
-            Some(ms) => latency_label_rx.set_markup(&format!("<b>{ms} ms</b>")),
-            None => latency_label_rx.set_text(&fl!("latency-timeout")),
+    glib::MainContext::default().spawn_local(async move {
+        while let Ok(result) = latency_rx.recv().await {
+            match result {
+                Some(ms) => latency_label_rx.set_markup(&format!("<b>{ms} ms</b>")),
+                None => latency_label_rx.set_text(&fl!("latency-timeout")),
+            }
+            latency_btn_rx.set_sensitive(true);
         }
-        latency_btn_rx.set_sensitive(true);
-        glib::ControlFlow::Continue
     });
 
     // Best server button handler
     let combo_serv_best = combo_servers.clone();
     let best_btn_clone = best_btn.clone();
     let latency_label_best = latency_label.clone();
-    let (best_tx, best_rx) =
-        glib::MainContext::channel::<Option<(&'static str, u128)>>(glib::Priority::default());
+    let (best_tx, best_rx) = async_channel::unbounded::<Option<(&'static str, u128)>>();
     best_btn.connect_clicked(move |_| {
         let tx = best_tx.clone();
         best_btn_clone.set_sensitive(false);
@@ -397,31 +398,32 @@ fn create_connections_section() -> gtk::Box {
                 .iter()
                 .find(|(n, ms)| ms.is_some() && !dns::is_filtering_server(n))
                 .map(|&(name, ms)| (name, ms.unwrap()));
-            let _ = tx.send(best);
+            let _ = tx.send_blocking(best);
         });
     });
     let combo_serv_best_rx = combo_serv_best.clone();
     let best_btn_rx = best_btn.clone();
     let latency_label_best_rx = latency_label.clone();
-    best_rx.attach(None, move |result| {
-        match result {
-            Some((name, ms)) => {
-                let model = combo_serv_best_rx.model().unwrap();
-                if let Some(iter) = utils::find_iter_in_model(&model, name) {
-                    combo_serv_best_rx.set_active_iter(Some(&iter));
-                }
-                latency_label_best_rx.set_markup(&format!("<b>{ms} ms</b>"));
-            },
-            None => {
-                latency_label_best_rx.set_text(&fl!("latency-no-result"));
-            },
+    glib::MainContext::default().spawn_local(async move {
+        while let Ok(result) = best_rx.recv().await {
+            match result {
+                Some((name, ms)) => {
+                    let model = combo_serv_best_rx.model().unwrap();
+                    if let Some(iter) = utils::find_iter_in_model(&model, name) {
+                        combo_serv_best_rx.set_active_iter(Some(&iter));
+                    }
+                    latency_label_best_rx.set_markup(&format!("<b>{ms} ms</b>"));
+                },
+                None => {
+                    latency_label_best_rx.set_text(&fl!("latency-no-result"));
+                },
+            }
+            best_btn_rx.set_sensitive(true);
         }
-        best_btn_rx.set_sensitive(true);
-        glib::ControlFlow::Continue
     });
 
     // Create context channel.
-    let (dialog_tx, dialog_rx) = glib::MainContext::channel(glib::Priority::default());
+    let (dialog_tx, dialog_rx) = async_channel::unbounded();
 
     // Connect signals.
     let dialog_tx_clone = dialog_tx.clone();
@@ -447,7 +449,7 @@ fn create_connections_section() -> gtk::Box {
             let ipv4_valid = ipv4.is_empty() || is_valid_dns_input(&ipv4);
             let ipv6_valid = ipv6.is_empty() || is_valid_dns_input(&ipv6);
             if (ipv4.is_empty() && ipv6.is_empty()) || !ipv4_valid || !ipv6_valid {
-                let _ = dialog_tx_clone.send(DialogMessage {
+                let _ = dialog_tx_clone.try_send(DialogMessage {
                     msg: fl!("custom-dns-invalid"),
                     msg_type: MessageType::Error,
                     action: Action::SetDnsServer,
@@ -455,7 +457,7 @@ fn create_connections_section() -> gtk::Box {
                 return;
             }
             if !hostname.is_empty() && !dns::is_valid_dot_hostname(&hostname) {
-                let _ = dialog_tx_clone.send(DialogMessage {
+                let _ = dialog_tx_clone.try_send(DialogMessage {
                     msg: fl!("custom-dns-invalid-hostname"),
                     msg_type: MessageType::Error,
                     action: Action::SetDnsServer,
@@ -479,7 +481,7 @@ fn create_connections_section() -> gtk::Box {
             let (doh_url, bootstrap_ipv4, bootstrap_ipv6, bootstrap_dot) = if is_custom {
                 let custom_doh_url: String = custom_doh_entry_apply.text().trim().to_string();
                 if custom_doh_url.is_empty() || !custom_doh_url.starts_with("https://") {
-                    let _ = dialog_tx_clone.send(DialogMessage {
+                    let _ = dialog_tx_clone.try_send(DialogMessage {
                         msg: fl!("custom-dns-doh-url-required"),
                         msg_type: MessageType::Error,
                         action: Action::SetDnsServer,
@@ -538,14 +540,15 @@ fn create_connections_section() -> gtk::Box {
 
     // Setup receiver
     let apply_btn_clone = apply_btn.clone();
-    dialog_rx.attach(None, move |msg| {
-        let widget_obj = &apply_btn_clone;
-        let widget_window =
-            utils::get_window_from_widget(widget_obj).expect("Failed to retrieve window");
-        let ui_comp = crate::gui::GUI::new(widget_window);
+    glib::MainContext::default().spawn_local(async move {
+        while let Ok(msg) = dialog_rx.recv().await {
+            let widget_obj = &apply_btn_clone;
+            let widget_window =
+                utils::get_window_from_widget(widget_obj).expect("Failed to retrieve window");
+            let ui_comp = crate::gui::GUI::new(widget_window);
 
-        ui_comp.show_message(msg.msg_type, &msg.msg, msg.msg_type.to_string());
-        glib::ControlFlow::Continue
+            ui_comp.show_message(msg.msg_type, &msg.msg, msg.msg_type.to_string());
+        }
     });
 
     topbox.pack_start(&label, true, false, 1);
