@@ -61,7 +61,7 @@ pub fn handle_fix_command(action: FixAction) -> Result<()> {
     }
 
     while let Ok(msg) = rx.try_recv() {
-        let ui_comp = crate::cli::CLI::new();
+        let ui_comp = crate::cli::ConsoleUi::new();
         ui_comp.show_message(msg.msg_type, &msg.msg, msg.msg_type.to_string());
     }
     Ok(())
@@ -254,7 +254,7 @@ pub fn handle_dns_command(action: DnsAction) -> Result<()> {
         },
     }
     while let Ok(msg) = rx.try_recv() {
-        let ui_comp = crate::cli::CLI::new();
+        let ui_comp = crate::cli::ConsoleUi::new();
         ui_comp.show_message(msg.msg_type, &msg.msg, msg.msg_type.to_string());
     }
     Ok(())

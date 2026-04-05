@@ -3,23 +3,27 @@ use crate::{dns, tweak, utils};
 
 use clap::{Args, Parser, Subcommand};
 
-pub struct CLI;
+pub struct ConsoleUi;
 
-impl CLI {
+impl ConsoleUi {
     pub fn new() -> Self {
         Self {}
     }
 }
 
-impl UI for CLI {
+impl UI for ConsoleUi {
     fn show_message(&self, message_type: MessageType, message: &str, title: String) {
-        let type_str = match message_type {
-            MessageType::Info => "INFO",
-            MessageType::Warning => "WARNING",
-            MessageType::Error => "ERROR",
-        };
-        println!("[{type_str}] {title}: {message}");
+        println!("{}", format_message(message_type, message, &title));
     }
+}
+
+fn format_message(message_type: MessageType, message: &str, title: &str) -> String {
+    let type_str = match message_type {
+        MessageType::Info => "INFO",
+        MessageType::Warning => "WARNING",
+        MessageType::Error => "ERROR",
+    };
+    format!("[{type_str}] {title}: {message}")
 }
 
 pub fn run_command(command: &str, escalate: bool) -> bool {
@@ -122,4 +126,26 @@ pub enum AppToLaunch {
     PackageInstaller,
     /// Launch the `CachyOS` Kernel Manager
     KernelManager,
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use crate::ui::MessageType;
+
+    #[test]
+    fn show_message_formats_correctly() {
+        assert_eq!(
+            format_message(MessageType::Info, "test message", "Title"),
+            "[INFO] Title: test message"
+        );
+        assert_eq!(
+            format_message(MessageType::Warning, "test message", "Title"),
+            "[WARNING] Title: test message"
+        );
+        assert_eq!(
+            format_message(MessageType::Error, "test message", "Title"),
+            "[ERROR] Title: test message"
+        );
+    }
 }
