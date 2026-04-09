@@ -11,6 +11,7 @@ lock-doesnt-exist = El blocatge de la base de dades del Pacman no existeix!
 orphans-not-found = No s'ha trobat cap paquet orfe!
 package-not-installed = El paquet {$package_name} no s'ha instal·lat!
 gaming-package-installed = Els paquets de joc ja estan instal·lats!
+winboat-package-installed = Els paquets de Winboat ja estan instal·lats!
 
 # Application Browser page
 advanced-btn = Avançat
@@ -37,9 +38,10 @@ best-server = Selecciona el millor servidor per latència
 best-server-tooltip = Prova els servidors DNS bàsics (sense variants de filtratge) i selecciona el més ràpid
 latency-result = {""}
 server-info = {""}
-latency-testing = provant...
-latency-timeout = temps esgotat
-latency-no-result = cap servidor ha respost
+latency-testing = Provant...
+latency-timeout = Temps esgotat
+latency-no-result = No ha respost cap servidor.
+custom-dns = Personalitzat
 dns-check-hint = Després d'aplicar, verifica el teu proveïdor DNS a
 dns-server-changed = S'ha canviat correctament el servidor de DNS!
 dns-server-failed = Ha fallat establir el servidor de DNS!
