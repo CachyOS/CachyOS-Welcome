@@ -4,14 +4,13 @@ about-dialog-comments = Экран прывітання для CachyOS
 
 # Tweaks page
 tweaks = Твікі
-fixes = Выпраўленні
+fixes = Утыліты
 applications = Праграмы
 removed-db-lock = Блакаванне БД Pacman было выдалена!
 lock-doesnt-exist = Pacman БД не заблакаваны!
 orphans-not-found = Пакеты-сіроты не знойдзены!
 package-not-installed = Пакет '{$package_name}' не быў усталяваны!
 gaming-package-installed = Гульнявыя пакеты ўжо ўстаноўлены!
-snapper-package-installed = 'cachyos-snapper-support' пакет ужо ўсталяваны!
 
 # Application Browser page
 advanced-btn = дадатковыя
@@ -30,6 +29,18 @@ select-connection = Выберыце Падключэнне:
 select-dns-server = Выберыце DNS-сервер:
 apply = Ужыць
 reset = Скінуць
+enable-dot = Уключыць DNS праз TLS (DoT)
+dot-tooltip = Шыфраванне DNS-запытаў з дапамогай TLS для паляпшэння прыватнасці (патрабуецца падтрымка сервера)
+test-latency = Тэст затрымкі абранага сервера
+test-latency-tooltip = Вымярэнне сеткавай затрымкі да абранага DNS-сервера
+best-server = Абраць лепшы сервер па затрымцы
+best-server-tooltip = Праверыць асноўныя серверы (без фільтруючых) і абраць найхутчэйшы
+latency-result = {""}
+server-info = {""}
+latency-testing = тэставанне...
+latency-timeout = час выйшаў
+latency-no-result = ні адзін сервер не адказаў
+dns-check-hint = Пасля прымянення, праверце вашага DNS-правайдэра на
 dns-server-changed = Сервер DNS быў паспяхова зменены!
 dns-server-failed = Не ўдалося ўсталяваць сервер DNS!
 dns-server-reset = Сервер DNS быў скінуты!
@@ -41,7 +52,6 @@ tweak-enabled-title = {$tweak} уключаны
 # Tweaks page (fixes)
 remove-lock-title = Выдаліць db lock
 reinstall-title = Пераўсталяваць усе пакеты
-refresh-keyrings-title = Абнавіць ключы
 update-system-title = Абнаўленне сістэмы
 remove-orphans-title = Выдаліць orphans
 clear-pkgcache-title = Ачысціць кэш пакетаў
@@ -49,7 +59,6 @@ rankmirrors-title = Ранг люстэркаў
 dnsserver-title = Змяніць DNS-сервер
 show-kwinw-debug-title = Паказаць акно адладкі kwin (Wayland).
 install-gaming-title = Усталюйце Гульнявыя пакеты
-install-snapper-title = Усталюйце падтрымку Snapper
 
 # Main Page (buttons)
 button-about-tooltip = Аб праграме
@@ -77,6 +86,7 @@ calamares-install-type = тып усталёўкі Calamares
 # Main Page (body)
 offline-error = Не ўдаецца запусціць анлайн-усталёўку! Няма падлучэння да Інтэрнэту
 unsupported-hw-warning = Вы спрабуеце ўсталяваць на абсталяванне, якое не падтрымліваецца бягучым ISO, ваша ўстаноўка не будзе мець права на падтрымку
+desktop-on-handheld-error = Вы спрабуеце ўсталяваць настольную рэдакцыю на партатыўнай прыладзе. Калі ласка, выкарыстоўвайце рэдакцыю Handheld для належнай падтрымкі на гэтым абсталяванні
 outdated-version-warning = Вы выкарыстоўваеце старую версію CachyOS ISO, калі ласка, разгледзьце магчымасць выкарыстання апошняй версіі для ўстаноўкі
 testing-iso-warning = Вы выкарыстоўваеце тэставую версію ISO, тэставыя версіі ISO не лічацца стабільнымі і гатовымі да выкарыстання
 tweaksbrowser-label = Праграммы/Налады

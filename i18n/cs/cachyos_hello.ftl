@@ -4,14 +4,13 @@ about-dialog-comments = Úvodní obrazovka pro CachyOS
 
 # Stránka s vylepšenímy
 tweaks = Vylepšení
-fixes = Opravy
+fixes = Nástroje
 applications = Aplikace
 removed-db-lock = zámek Pacman db byl odstraněný!
 lock-doesnt-exist = Zámek Pacman db neexistuje!
 orphans-not-found = Nenašli se žádní sirotci balíčků!
 package-not-installed = Balíček '{$package_name}' nebyl nainstalovaný!
 gaming-package-installed = Herní balíčky jsou už nainstalované!
-snapper-package-installed = Balíček 'cachyos-snapper-support' je už nainstalovaný!
 
 # Stránka s prohlížečem aplikací
 advanced-btn = pokročilé
@@ -30,6 +29,18 @@ select-connection = Vyberte připojení:
 select-dns-server = Vyberte DNS server:
 apply = Použít
 reset = Resetovať
+enable-dot = Povolit DNS přes TLS (DoT)
+dot-tooltip = Šifrování DNS dotazů pomocí TLS pro lepší soukromí (vyžaduje podporu serveru)
+test-latency = Test latence vybraného serveru
+test-latency-tooltip = Změřit latenci sítě k vybranému DNS serveru
+best-server = Vybrat nejlepší server podle latence
+best-server-tooltip = Otestovat základní DNS servery (bez filtrovacích variant) a vybrat nejrychlejší
+latency-result = {""}
+server-info = {""}
+latency-testing = testování...
+latency-timeout = vypršel čas
+latency-no-result = žádný server neodpověděl
+dns-check-hint = Po použití ověřte svého poskytovatele DNS na
 dns-server-changed = DNS server byl úspěšně změněný!
 dns-server-failed = Nepodařilo se nastavit DNS server!
 dns-server-reset = DNS server byl resetovaný!
@@ -41,7 +52,6 @@ tweak-enabled-title = {$tweak} povolen
 # Stránka s úpravami (opravy)
 remove-lock-title = Odstranit zámek db
 reinstall-title = Přeinstalovat všechny balíčky
-refresh-keyrings-title = Obnovit klíčenky
 update-system-title = Aktualizace systému
 remove-orphans-title = Odstranit sirotky balíčků
 clear-pkgcache-title = Vyčistit cache balíčků
@@ -49,7 +59,6 @@ rankmirrors-title = Přehodnotit zrcadla
 dnsserver-title = Změnit DNS server
 show-kwinw-debug-title = Zobrazit kwin(Wayland) debug okno
 install-gaming-title = Instalovat herní balíčky
-install-snapper-title = Instalovat podporu Snapper
 
 # Hlavní stránka (tlačítka)
 button-about-tooltip = O programu
@@ -77,6 +86,7 @@ calamares-install-type = Typ Instalace Calamares
 # Hlavní stránka (tělo)
 offline-error = Nedá se spustit online instalace! Žádné internetové připojení
 unsupported-hw-warning = Pokoušíte se instalovat na hardware, který není podporován aktuální verzí ISO, vaše instalace nebude mít nárok na podporu
+desktop-on-handheld-error = Pokoušíte se nainstalovat desktopovou edici na přenosné zařízení. Pro správnou podporu na tomto hardwaru prosím použijte edici Handheld
 outdated-version-warning = Používáte starší verzi CachyOS ISO, zvažte prosím použití nejnovější verze pro instalace
 testing-iso-warning = Používáte testovací ISO, testovací ISO nejsou považovány za stabilní a připravené k použití
 tweaksbrowser-label = Aplikacie/Vylepšení

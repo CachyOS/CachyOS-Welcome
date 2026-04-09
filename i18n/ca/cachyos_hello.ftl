@@ -4,15 +4,13 @@ about-dialog-comments = Pantalla de benvinguda per al CachyOS
 
 # Tweaks page
 tweaks = Retocs
-fixes = Correccions
+fixes = Utilitats
 applications = Aplicacions
 removed-db-lock = El blocatge de la base de dades del Pacman s'ha suprimit!
 lock-doesnt-exist = El blocatge de la base de dades del Pacman no existeix!
 orphans-not-found = No s'ha trobat cap paquet orfe!
 package-not-installed = El paquet {$package_name} no s'ha instal·lat!
 gaming-package-installed = Els paquets de joc ja estan instal·lats!
-spoof-dpi-package-installed = L'SpoofDPI ja està instal·lat!
-snapper-package-installed = El paquet cachyos-snapper-support ja està instal·lat!
 
 # Application Browser page
 advanced-btn = Avançat
@@ -31,6 +29,18 @@ select-connection = Seleccioneu la connexió:
 select-dns-server = Seleccioneu el servidor de DNS:
 apply = Apica-ho
 reset = Restableix-ho
+enable-dot = Activa DNS sobre TLS (DoT)
+dot-tooltip = Xifra les consultes DNS amb TLS per millorar la privadesa (requereix suport del servidor)
+test-latency = Prova de latència del servidor seleccionat
+test-latency-tooltip = Mesura la latència de xarxa al servidor DNS seleccionat
+best-server = Selecciona el millor servidor per latència
+best-server-tooltip = Prova els servidors DNS bàsics (sense variants de filtratge) i selecciona el més ràpid
+latency-result = {""}
+server-info = {""}
+latency-testing = provant...
+latency-timeout = temps esgotat
+latency-no-result = cap servidor ha respost
+dns-check-hint = Després d'aplicar, verifica el teu proveïdor DNS a
 dns-server-changed = S'ha canviat correctament el servidor de DNS!
 dns-server-failed = Ha fallat establir el servidor de DNS!
 dns-server-reset = S'ha restablert el servidor de DNS!
@@ -42,7 +52,6 @@ tweak-enabled-title = {$tweak} habilitat
 # Tweaks page (fixes)
 remove-lock-title = Suprimeix el blocatge de la base de dades
 reinstall-title = Reinstal·la tots els paquets
-refresh-keyrings-title = Resfresca els clauers
 update-system-title = Actualització del sistema
 remove-orphans-title = Suprimeix els paquets orfes
 clear-pkgcache-title = Neteja la cau de paquets
@@ -50,8 +59,6 @@ rankmirrors-title = Classifica les rèpliques
 dnsserver-title = Canvia el servidor de DNS
 show-kwinw-debug-title = Mostra la finestra de depuració del kwin (Wayland)
 install-gaming-title = Instal·la paquets de jocs
-install-snapper-title = Instal·la suport per a instantànies
-install-spoof-dpi-title = Instal·la l'SpoofDPI
 
 # Main Page (buttons)
 button-about-tooltip = Quant a
@@ -79,6 +86,7 @@ calamares-install-type = Tipus d'instal·lació per al Calamares
 # Main Page (body)
 offline-error = No es pot iniciar la instal·lació en línia! No hi ha connexió a Internet.
 unsupported-hw-warning = Esteu provant d'instal·lar-lo en un maquinari que no és compatible amb la imatge ISO actual. La vostra instal·lació no serà apta per a rebre suport.
+desktop-on-handheld-error = Esteu provant d'instal·lar l'edició d'escriptori en un dispositiu portàtil. Si us plau, utilitzeu l'edició Handheld per a un suport adequat en aquest maquinari
 outdated-version-warning = Esteu usant una versió anterior del CachyOS. Considereu usar-ne la versió més recent per a les instal·lacions.
 testing-iso-warning = Esteu usant una imatge ISO de prova. Les ISO de prova no es consideren estables i llestes per a un ús productiu.
 tweaksbrowser-label = Aplicacions / Retocs

@@ -1,41 +1,46 @@
 #![allow(non_upper_case_globals)]
 #![allow(clippy::arc_with_non_send_sync)]
 
-mod alpm_helper;
-mod application_browser;
+mod actions;
+mod cli;
+mod cli_handler;
 mod config;
+mod dns;
 mod embed_data;
 mod gresource;
+mod gui;
 mod installer;
 mod kwin_dbus;
 mod localization;
 mod logger;
 mod pages;
 mod systemd_units;
+mod tweak;
+mod ui;
 mod utils;
 mod window;
 
 use config::{APP_ID, PROFILE};
-use utils::*;
+use utils::{check_regular_file, fix_path, read_json, write_json, PacmanWrapper};
 use window::HelloWindow;
 
 use std::path::Path;
 use std::str;
-use std::sync::{Arc, Mutex};
+use std::sync::{Arc, LazyLock, Mutex};
 
 use gtk::gio::prelude::*;
 use gtk::prelude::*;
 
+use clap::Parser;
 use gtk::glib;
 use i18n_embed::DesktopLanguageRequester;
-use once_cell::sync::Lazy;
 use serde_json::json;
 use tracing::{debug, error};
 use unic_langid::LanguageIdentifier;
 
 const RESPREFIX: &str = "/org/cachyos/hello";
 
-static G_SAVE_JSON: Lazy<Mutex<serde_json::Value>> = Lazy::new(|| {
+static G_SAVE_JSON: LazyLock<Mutex<serde_json::Value>> = LazyLock::new(|| {
     let preferences = get_preferences();
     let saved_json = get_saved_json(&preferences);
     Mutex::new(saved_json)
@@ -49,10 +54,10 @@ fn get_saved_locale() -> Option<String> {
 
 fn get_saved_json(preferences: &serde_json::Value) -> serde_json::Value {
     let save_path = fix_path(preferences["save_path"].as_str().unwrap());
-    if !Path::new(&save_path).exists() {
-        json!({"locale": ""})
-    } else {
+    if Path::new(&save_path).exists() {
         read_json(save_path.as_str())
+    } else {
+        json!({"locale": ""})
     }
 }
 
@@ -68,11 +73,11 @@ fn main() {
 
     // Setup localization.
     let saved_locale = get_saved_locale().unwrap();
-    let requested_languages = if !saved_locale.is_empty() {
+    let requested_languages = if saved_locale.is_empty() {
+        DesktopLanguageRequester::requested_languages()
+    } else {
         let lang_id: LanguageIdentifier = saved_locale.parse().unwrap();
         vec![lang_id]
-    } else {
-        DesktopLanguageRequester::requested_languages()
     };
 
     let localizer = crate::localization::localizer();
@@ -80,26 +85,34 @@ fn main() {
         error!("Error while loading languages for library_fluent {error}");
     }
 
-    // Register UI.
-    gtk::init().expect("Unable to start GTK3.");
+    if std::env::args().len() > 1 {
+        // Parse arguments and run CLI logic
+        let cli_args = cli::Cli::parse();
+        if let Err(e) = run_cli(cli_args) {
+            eprintln!("Error: {e}");
+        }
+    } else {
+        // Register UI.
+        gtk::init().expect("Unable to start GTK3.");
 
-    gresource::init().expect("Could not load gresource file.");
+        gresource::init().expect("Could not load gresource file.");
 
-    // Set program name.
-    glib::set_program_name("CachyOSHello".into());
-    glib::set_application_name("CachyOSHello");
+        // Set program name.
+        glib::set_program_name("org.cachyos.hello".into());
+        glib::set_application_name("org.cachyos.hello");
 
-    let application = gtk::Application::new(
-        Some(APP_ID),       // Application id
-        Default::default(), // Using default flags
-    );
+        let application = gtk::Application::new(
+            Some(APP_ID),       // Application id
+            Default::default(), // Using default flags
+        );
 
-    application.connect_activate(|application| {
-        build_ui(application);
-    });
+        application.connect_activate(|application| {
+            build_ui(application);
+        });
 
-    // Run the application and start the event loop
-    application.run();
+        // Run the application and start the event loop
+        application.run();
+    }
 }
 
 fn build_ui(application: &gtk::Application) {
@@ -248,4 +261,13 @@ fn on_delete_window(_param: &[glib::Value]) -> Option<glib::Value> {
     write_json(preferences.as_str().unwrap(), saved_json);
 
     Some(false.to_value())
+}
+
+fn run_cli(cli: cli::Cli) -> anyhow::Result<()> {
+    match cli.command {
+        cli::Commands::Fix(args) => cli_handler::handle_fix_command(args.action),
+        cli::Commands::Tweak(args) => cli_handler::handle_tweak_command(args.action),
+        cli::Commands::Dns(args) => cli_handler::handle_dns_command(args.action),
+        cli::Commands::Launch(args) => cli_handler::handle_launch_command(args.app),
+    }
 }

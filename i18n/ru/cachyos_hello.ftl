@@ -4,13 +4,12 @@ about-dialog-comments = Приветственный экран CachyOS
 
 # Tweaks page
 tweaks = Настройки
-fixes = Исправления
+fixes = Утилиты
 applications = Приложения
 removed-db-lock = Блокировка БД Pacman была снята!
-lock-doesnt-exist = Pacman БД не заблокирован!
+lock-doesnt-exist = БД pacman не заблокирована!
 package-not-installed = Пакет '{$package_name}' не был установлен!
 gaming-package-installed = Игровые пакеты уже установлены!
-snapper-package-installed = 'cachyos-snapper-support' пакет уже установлен!
 
 # Application Browser page
 advanced-btn = дополнительные
@@ -29,6 +28,18 @@ select-connection = Выберите подключение:
 select-dns-server = Выберите DNS сервер:
 apply = Применить
 reset = Сбросить
+enable-dot = Включить DNS через TLS (DoT)
+dot-tooltip = Шифрование DNS-запросов с помощью TLS для повышения конфиденциальности (требуется поддержка сервера)
+test-latency = Тест задержки выбранного сервера
+test-latency-tooltip = Измерить сетевую задержку до выбранного DNS-сервера
+best-server = Выбрать лучший сервер по задержке
+best-server-tooltip = Протестировать базовые DNS-серверы (без фильтрующих вариантов) и выбрать самый быстрый
+latency-result = {""}
+server-info = {""}
+latency-testing = тестирование...
+latency-timeout = тайм-аут
+latency-no-result = ни один сервер не ответил
+dns-check-hint = После применения проверьте вашего DNS-провайдера на
 dns-server-changed = DNS-сервер был успешно изменен!
 dns-server-failed = Не удалось настроить DNS-сервер!
 dns-server-reset = DNS-сервер был сброшен!
@@ -38,17 +49,16 @@ dns-server-reset-failed = Не удалось сбросить DNS-сервер!
 tweak-enabled-title = {$tweak} включен
 
 # Tweaks page (fixes)
-remove-lock-title = Удалить db lock
+remove-lock-title = Удалить файл блокировки БД pacman
 reinstall-title = Переустановить все пакеты
-refresh-keyrings-title = Обновить ключи
+reset-keyrings-title = Сбросить ключи
 update-system-title = Обновить систему
-remove-orphans-title = Удалить orphans
+remove-orphans-title = Удалить пакеты-сироты
 clear-pkgcache-title = Очистить кэш пакетов
 rankmirrors-title = Ранжировать зеркала
 dnsserver-title = Сменить DNS-сервер
 show-kwinw-debug-title = Показать окно отладки kwin(Wayland)
-install-gaming-title = Установить Игровые пакеты
-install-snapper-title = Установить поддержку Snapper
+install-gaming-title = Установить пакеты для игр
 
 # Main Page (buttons)
 button-about-tooltip = О программе
@@ -76,6 +86,7 @@ calamares-install-type = Calamares тип установки
 # Main Page (body)
 offline-error = Не удается запустить онлайн-установку! Нет подключения к Интернету
 unsupported-hw-warning = Вы пытаетесь установить систему на оборудовании, не поддерживаемом текущим ISO. Ваша установка не будет иметь поддержки
+desktop-on-handheld-error = Вы пытаетесь установить редакцию Desktop на портативном устройстве. Пожалуйста, используйте редакцию Handheld для надлежащей поддержки на этом оборудовании
 outdated-version-warning = Вы используете устаревшую версию CachyOS ISO, пожалуйста, рассмотрите возможность использования последней версии для установки
 testing-iso-warning = Вы используете тестовую версию ISO, тестовые версии ISO не считаются стабильными и готовыми к использованию
 tweaksbrowser-label = Приложения/Настройки
@@ -85,4 +96,4 @@ welcome-title = Добро пожаловать в CachyOS!
 welcome-body =
     Благодарим Вас за то, что Вы присоединились к нашему сообществу!
 
-    Мы, разработчики CachyOS, надеемся, что пользуясь этой системой, Вы будете испытывать такое же удовольствие, какое мы испытывали, создавая ее. Представленные ниже ссылки помогут Вам начать работу. Наслаждайтесь функционалом CachyOS и оставляйте свои отзывы.
+    Мы, разработчики CachyOS, надеемся, что пользуясь этой системой, Вы будете испытывать такое же удовольствие, какое испытывали мы, создавая ее. Представленные ниже ссылки помогут Вам начать работу. Наслаждайтесь функционалом CachyOS и оставляйте свои отзывы.

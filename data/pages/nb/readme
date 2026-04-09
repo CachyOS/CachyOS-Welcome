@@ -1,0 +1,30 @@
+<big>Håndtering av maskinvare</big>
+
+CachyOS støtter ikke bare bruk av flere kjerner (velgbare fra avanserte alternativer ved oppstart), men gir også tilgang til de aller nyeste «bleeding-edge» kjernene. Dette kan gjøres ved å bruke Kjerne-modulen i CachyOS' grafiske Innstillingsbehandler, eller via kommandolinjen ved å bruke chwd-kernel (CachyOS Hardware Detection)-kommandoen. Disse verktøyene vil automatisk oppdatere en nyinstallert kjerne sammen med alle moduler som er i bruk med din eksisterende kjerne. For eksempel, hvis du skulle oppgradere fra kjerne 3.18 til 4.1, ville chwd-kernel automatisk inkludere 4.1-kjernene og alle moduler som brukes med kjerne 3.18. Hva sier du til det! 
+
+Du kan konfigurere maskinvaren din gjennom Maskinvare-deteksjonsmodulen i Innstillingsbehandleren eller alternativt med chwd cli-applikasjonen. Med disse verktøyene kan du installere for eksempel gratis og proprietære drivere. 
+
+<big>Få hjelp</big>
+Selv om CachyOS er designet for å fungere så mye "ut av boksen" som mulig, hevder vi ikke at den er perfekt. Det kan være tider da ting går galt, du har kanskje spørsmål og et ønske om å lære mer, eller bare vil tilpasse den for å passe din smak. Denne siden gir detaljer om noen tilgjengelige ressurser for å hjelpe deg!
+
+<b>Søk på nettet:</b>
+
+Kanskje det første stedet å se etter generell Linux-hjelp er å bruke din favoritt søkemotor. Bare inkluder ord som 'Linux', 'CachyOS' eller 'Arch' i søket ditt. 
+Siden CachyOS er basert på Arch Linux, gjelder guider og tips designet for Arch vanligvis også for CachyOS.
+    
+<b>Se i forumene:</b>
+
+For spesifikk hjelp med CachyOS har vi et dedikert nettforum hvor du kan søke etter emner, eller opprette et selv! Dette er sannsynligvis det neste beste stedet å gå til for samarbeid, diskusjon og assistanse. Be om hjelp, legg ut dine tanker, eller skisser noen forslag. Ikke vær sjenert! CachyOS-forumet er delt inn i underforum for ulike emner og miljøer, vennligst legg spørsmålet ditt i riktig kategori!
+
+<big>Andre ressurser</big>
+
+    - <a href="https://aur.archlinux.org">AUR Repository</a> - Ekstra programvare som ikke er i de vanlige repositoriene, bygget fra kilde.
+    - <a href="https://wiki.cachyos.org">CachyOS Wiki</a> - Offisiell wiki for CachyOS.
+    - <a href="https://wiki.archlinux.org">Arch Wiki</a> - Offisiell wiki for Arch.
+
+<big>Forslag</big>
+Har du et forslag til hvordan vi kan gjøre CachyOS bedre? Fant noe du vil skal inkluderes, eller vil hjelpe til? Vennligst gi oss beskjed, ved å legge inn forslaget ditt på forumet eller stikke innom på IRC. 
+
+Takk!
+
+Vi håper du liker å bruke CachyOS!

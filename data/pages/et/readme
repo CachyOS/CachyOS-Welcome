@@ -1,0 +1,37 @@
+<big>Riistvara haldamine</big>
+
+CachyOS ei toeta mitte ainult mitme kerneli kasutamist (valitav käivituskuva täpsematest valikutest), vaid pakub ka ligipääsu kõige uuematele ja tipptasemel kernelitele. Seda saab teha CachyOS-i graafilise seadete halduri kernelimooduli kaudu või käsurealt, kasutades käsku chwd-kernel (CachyOS Hardware Detection).
+
+Need CachyOS-i tööriistad uuendavad automaatselt äsja installitud kerneli koos kõigi moodulitega, mis on praegu kasutusel teie olemasoleva kerneliga. Näiteks kui uuendaksite kernelilt 3.18 versioonile 4.1, lisaks chwd-kernel automaatselt kerneli 4.1 versioonid ja kõik moodulid, mida kasutati kerneliga 3.18. Kuidas tundub!
+
+Oma riistvara saate seadistada seadete halduri riistvaratuvastuse mooduli kaudu või alternatiivselt chwd käsurearakendusega. Nende tööriistadega saate installida näiteks nii vabasid kui ka kommertslikke graafikadraivereid.
+
+<big>Abi saamine</big>
+
+Kuigi CachyOS on loodud nii, et see töötaks võimalikult sujuvalt kohe pärast paigaldamist, ei väida me, et see on täiuslik. Mõnikord võib midagi valesti minna, teil võib tekkida küsimusi ja soov rohkem teada saada või tahate lihtsalt süsteemi oma maitse järgi kohandada. See leht pakub teavet mõningate ressursside kohta, mis teid aitavad!
+
+<b>Otsige veebist</b>
+
+Võib-olla esimene koht, kust üldist Linuxi-abi otsida, on teie lemmikotsingumootor. Lisage lihtsalt oma otsingupäringusse sõnad nagu „Linux“, „CachyOS“ või „Arch“.
+
+Kuna CachyOS põhineb Arch Linuxil, kehtivad Archile mõeldud juhendid ja näpunäited tavaliselt ka CachyOS-i puhul.
+
+<b>Otsige foorumitest</b>
+
+CachyOS-i spetsiifilise abi jaoks on meil eraldi veebifoorum, kust saate teemasid otsida või ise uue luua! See on ilmselt järgmine parim koht koostööks, aruteludeks ja abisaamiseks. Küsige abi, postitage oma mõtteid või tehke ettepanekuid. Ärge olge tagasihoidlik!
+
+CachyOS-i foorum on jaotatud alamfoorumiteks erinevate teemade ja keskkondade jaoks, palun postitage oma küsimus sobivasse kohta!
+
+<big>Muud ressursid</big>
+
+    - <a href="https://aur.archlinux.org">AUR-i repositoorium</a> – Lisatarkvara, mida tavalistes repositooriumides pole ja mis kompileeritakse lähtekoodist.
+    - <a href="https://wiki.cachyos.org">CachyOS-i viki</a> – CachyOS-i ametlik viki.
+    - <a href="https://wiki.archlinux.org">Archi viki</a> – Archi ametlik viki.
+
+<big>Ettepanekud</big>
+
+On teil ettepanekuid, kuidas saaksime CachyOS-i paremaks muuta? Leidsite midagi, mida soovite lisada, või tahate kaasa aidata? Palun andke meile teada, postitades oma ettepaneku foorumisse või astuge läbi IRC-st.
+
+Aitäh!
+
+Loodame, et teile meeldib CachyOS-i kasutada!

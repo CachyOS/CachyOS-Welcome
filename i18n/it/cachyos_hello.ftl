@@ -4,7 +4,7 @@ about-dialog-comments = Schermata di benvenuto per CachyOS
 
 # Tweaks page
 tweaks = Personalizzazioni
-fixes = Correzioni
+fixes = Utilità
 applications = Applicazioni
 removed-db-lock = Il blocco della base di dati di pacman è stato rimosso!
 lock-doesnt-exist = Il blocco della base di dati di pacman non esiste!
@@ -17,6 +17,18 @@ select-connection = Seleziona Connessione:
 select-dns-server = Seleziona server DNS:
 apply = Applica
 reset = Reimposta
+enable-dot = Abilita DNS su TLS (DoT)
+dot-tooltip = Crittografa le query DNS tramite TLS per una maggiore privacy (richiede supporto del server)
+test-latency = Test latenza del server selezionato
+test-latency-tooltip = Misura la latenza di rete verso il server DNS selezionato
+best-server = Seleziona miglior server per latenza
+best-server-tooltip = Testa i server DNS base (escludendo le varianti di filtraggio) e seleziona il più veloce
+latency-result = {""}
+server-info = {""}
+latency-testing = test in corso...
+latency-timeout = timeout
+latency-no-result = nessun server ha risposto
+dns-check-hint = Dopo l'applicazione, verifica il tuo provider DNS su
 dns-server-changed = Il server DNS è stato cambiato con successo!
 dns-server-failed = Impostazione del server DNS non riuscita!
 dns-server-reset = Il server DNS è stato reimpostato!
@@ -28,7 +40,6 @@ tweak-enabled-title = {$tweak} abilitato
 # Tweaks page (fixes)
 remove-lock-title = Rimuovi il blocco della base di dati
 reinstall-title = Reinstalla tutti i pacchetti
-refresh-keyrings-title = Ricarica i keyring
 update-system-title = Aggiorna il sistema
 remove-orphans-title = Rimuovi gli orfani
 clear-pkgcache-title = Pulisci la cache dei pacchetti
@@ -57,6 +68,7 @@ section-project = PROGETTO
 # Main Page (body)
 offline-error = Impossibile avviare l'installazione online! Connessione a internet assente
 unsupported-hw-warning = Si sta tentando di effettuare l'installazione su un hardware non supportato dall'ISO corrente; l'installazione non potrà beneficiare dell'assistenza
+desktop-on-handheld-error = Si sta tentando di installare l'edizione Desktop su un dispositivo portatile. Si prega di utilizzare l'edizione Handheld per un supporto adeguato su questo hardware
 outdated-version-warning = Stai usando una versione obsoleta dell'ISO di CachyOS, considera di utilizzare l'ultima versione per le installazioni
 testing-iso-warning = Stai usando una ISO di test, le ISO di test non sono considerate stabili e pronte per l'uso
 tweaksbrowser-label = Applicazioni/Personalizzazioni

@@ -4,6 +4,7 @@
 build
 target
 src/config.rs
+data/pages/en/release
 
 # Prerequisites
 *.d

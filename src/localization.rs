@@ -1,6 +1,7 @@
+use std::sync::LazyLock;
+
 use i18n_embed::fluent::{fluent_language_loader, FluentLanguageLoader};
 use i18n_embed::{DefaultLocalizer, I18nEmbedError, LanguageLoader, Localizer};
-use once_cell::sync::Lazy;
 use rust_embed::RustEmbed;
 use unic_langid::LanguageIdentifier;
 
@@ -8,7 +9,7 @@ use unic_langid::LanguageIdentifier;
 #[folder = "i18n"] // path to the compiled localization resources
 struct Localizations;
 
-pub static LANGUAGE_LOADER: Lazy<FluentLanguageLoader> = Lazy::new(|| {
+pub static LANGUAGE_LOADER: LazyLock<FluentLanguageLoader> = LazyLock::new(|| {
     let loader: FluentLanguageLoader = fluent_language_loader!();
 
     loader.load_fallback_language(&Localizations).expect("Error while loading fallback language");

@@ -1,0 +1,37 @@
+<big>Hantering van hardeware</big>
+
+CachyOS ondersteun nie net die gebruik van veelvuldige kernels nie (kiesbaar uit die gevorderde opsies op die opstartskerm), maar bied ook toegang tot die nuutste kernels. Dit kan gedoen word deur die gebruik van die Kernel-module in CachyOS se grafiese instellingsbestuurder, of via die opdragreël met behulp van die chwd-kernel (CachyOS Hardware Detection) opdrag.
+
+Hierdie CachyOS-instrumente sal outomaties 'n nuut geïnstalleerde kernel opdateer saam met enige modules wat tans met jou bestaande kernel gebruik word. As jy byvoorbeeld van kernel 3.18 na 4.1 sou opdateer, sou chwd-kernel outomaties die kernel 4.1-bouwerk en alle modules wat met kernel 3.18 gebruik word, insluit. Hoe lyk dit!
+
+Jy kan jou hardeware instel deur die hardeware-opsporingsmodule in die Instellingsbestuurder of alternatiewelik met die chwd cli-toepassing. Met hierdie instrumente kan jy byvoorbeeld grafiese drywers installeer, gratis en eie.
+
+<big>Kry hulp</big>
+
+Alhoewel CachyOS ontwerp is om soveel as moontlik "buite die boks" te werk, beweer ons nie dat dit perfek is nie. Daar kan tye wees wanneer dinge verkeerd loop, jy het dalk vrae en 'n begeerte om meer te leer, of wil dit net verpersoonlik om by jou smaak te pas. Hierdie bladsy verskaf besonderhede van 'n paar beskikbare hulpbronne om jou te help!
+
+<b>Soek op die web</b>
+
+Miskien is die eerste plek om generiese Linux-hulp te soek deur jou gunsteling soekenjin te gebruik. Sluit net woorde soos 'Linux', 'CachyOS' of 'Arch' in jou soektog in.
+
+Aangesien CachyOS op Arch Linux gebaseer is, is gidse en wenke wat vir Arch ontwerp is, gewoonlik ook van toepassing op CachyOS.
+
+<b>Kyk in die forums</b>
+
+Vir spesifieke hulp met CachyOS het ons 'n toegewyde aanlynforum waar jy na onderwerpe kan soek, of self een kan skep! Dit is waarskynlik die volgende beste plek om te gaan vir samewerking, bespreking en bystand. Vra vir hulp, plaas jou gedagtes of skets 'n paar voorstelle. Moenie skaam wees nie!
+
+Die CachyOS-forum is verdeel in subforums vir verskillende onderwerpe en omgewings, plaas asseblief jou navraag op die toepaslike plek!
+
+<big>Ander hulpbronne</big>
+
+    - <a href="https://aur.archlinux.org">AUR-bewaarplek</a> - Ekstra sagteware nie in die gewone bewaarplekke nie, gebou vanaf die bron.
+    - <a href="https://wiki.cachyos.org">CachyOS Wiki</a> - Amptelike wiki vir CachyOS.
+    - <a href="https://wiki.archlinux.org">Arch Wiki</a> - Amptelike wiki vir Arch.
+
+<big>Voorstelle</big>
+
+Het jy 'n voorstel oor hoe ons CachyOS beter kan maak? Het jy iets gevind wat jy ingesluit wil hê, of wil help? Laat weet ons asseblief deur jou voorstel op die forum te plaas of loer in op IRC.
+
+Dankie!
+
+Ons hoop jy geniet dit om CachyOS te gebruik!

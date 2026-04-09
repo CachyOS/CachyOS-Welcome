@@ -4,7 +4,7 @@ about-dialog-comments = CachyOS 的欢迎界面
 
 # Tweaks page
 tweaks = 调整
-fixes = 修复
+fixes = 实用工具
 applications = 应用程序
 removed-db-lock = 已解除 Pacman 数据库锁！
 lock-doesnt-exist = Pacman 数据库锁不存在！
@@ -28,6 +28,18 @@ select-connection = 选择连接：
 select-dns-server = 选择 DNS 服务器：
 apply = 应用
 reset = 重置
+enable-dot = 启用 DNS over TLS (DoT)
+dot-tooltip = 使用 TLS 加密 DNS 查询以提高隐私保护（需要服务器支持）
+test-latency = 测试所选服务器延迟
+test-latency-tooltip = 测量到所选 DNS 服务器的网络延迟
+best-server = 按延迟选择最佳服务器
+best-server-tooltip = 测试基础 DNS 服务器（不含过滤变体）并选择最快的
+latency-result = {""}
+server-info = {""}
+latency-testing = 测试中...
+latency-timeout = 超时
+latency-no-result = 没有服务器响应
+dns-check-hint = 应用后，请在以下网站验证您的 DNS 提供商
 dns-server-changed = DNS 服务器已成功更改！
 dns-server-failed = 设置 DNS 服务器失败！
 dns-server-reset = DNS 服务器已重置！
@@ -39,7 +51,6 @@ tweak-enabled-title = {$tweak} 已启用
 # Tweaks page (fixes)
 remove-lock-title = 移除数据库锁
 reinstall-title = 重新安装所有软件包
-refresh-keyrings-title = 刷新密钥环
 update-system-title = 更新系统
 remove-orphans-title = 删除孤立软件包
 clear-pkgcache-title = 清理软件包缓存
@@ -68,6 +79,7 @@ section-project = 项目
 # Main Page (body)
 offline-error = 无法启动在线安装！无网络连接
 unsupported-hw-warning = 如果您试图在当前 ISO 不支持的硬件上进行安装，您的安装将无法获得支持
+desktop-on-handheld-error = 您正在尝试在掌上设备上安装桌面版。请使用掌机版以获得对此硬件的正确支持
 outdated-version-warning = 您正在使用旧版本的 CachyOS ISO，请考虑使用最新版本进行安装
 testing-iso-warning = 您正在使用测试版 ISO，测试版 ISO 不被认为是稳定且可供使用的
 tweaksbrowser-label = 应用/调整

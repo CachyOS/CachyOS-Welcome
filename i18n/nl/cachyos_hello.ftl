@@ -4,14 +4,13 @@ about-dialog-comments = Welkomstscherm van CachyOS
 
 # Tweaks page
 tweaks = Aanpassingen
-fixes = Oplossingen
+fixes = Hulpprogramma's
 applications = Programma's
 removed-db-lock = De Pacman db-vergrendeling is verwijderd!
 lock-doesnt-exist = De Pacman db-vergrendeling is niet aanwezig!
 orphans-not-found = Er zijn geen onteigende pakketten aangetroffen.
 package-not-installed = ‘{$package_name}’ is niet geïnstalleerd!
 gaming-package-installed = De gamingpakketten zijn al geïnstalleerd.
-snapper-package-installed = ‘cachyos-snapper-support’ is al geïnstalleerd.
 
 # Application Browser page
 advanced-btn = Geavanceerd
@@ -30,6 +29,18 @@ select-connection = Kies een verbinding:
 select-dns-server = Kies een dns-server:
 apply = Toepassen
 reset = Standaardwaarden
+enable-dot = DNS via TLS (DoT) inschakelen
+dot-tooltip = Versleutel DNS-verzoeken met TLS voor betere privacy (vereist serverondersteuning)
+test-latency = Test latentie van geselecteerde server
+test-latency-tooltip = Meet netwerklatentie naar de geselecteerde DNS-server
+best-server = Selecteer beste server op basis van latentie
+best-server-tooltip = Test basis DNS-servers (zonder filtervarianten) en selecteer de snelste
+latency-result = {""}
+server-info = {""}
+latency-testing = testen...
+latency-timeout = time-out
+latency-no-result = geen server heeft gereageerd
+dns-check-hint = Controleer na het toepassen je DNS-provider op
 dns-server-changed = De dns-server is gewijzigd.
 dns-server-failed = De dns-server kan niet worden ingesteld!
 dns-server-reset = De standaard dns-server is hersteld.
@@ -41,7 +52,6 @@ tweak-enabled-title = {$tweak} ingeschakeld
 # Tweaks page (fixes)
 remove-lock-title = Db-vergrendeling opheffen
 reinstall-title = Alle pakketten herinstalleren
-refresh-keyrings-title = Sleutelbossen vernieuwen
 update-system-title = Systeem bijwerken
 remove-orphans-title = Onteigende pakketten verwijderen
 clear-pkgcache-title = Pakketcache wissen
@@ -49,7 +59,6 @@ rankmirrors-title = Spiegelservers klassificeren
 dnsserver-title = Dns-server wĳzigen
 show-kwinw-debug-title = Kwin(Wayland)-foutopsporingsvenster openen
 install-gaming-title = Gamingpakketten installeren
-install-snapper-title = Snapper-ondersteuning inschakelen
 
 # Main Page (buttons)
 button-about-tooltip = Over
@@ -77,6 +86,7 @@ calamares-install-type = Calamares-installatietype
 # Main Page (body)
 offline-error = De installatie kan niet worden gestart: er is geen internetverbinding
 unsupported-hw-warning = U probeert te installeren op hardware die niet wordt ondersteund door de huidige ISO, uw installatie komt niet in aanmerking voor ondersteuning
+desktop-on-handheld-error = U probeert de Desktop-editie te installeren op een draagbaar apparaat. Gebruik alstublieft de Handheld-editie voor goede ondersteuning op deze hardware
 outdated-version-warning = U gebruikt een oudere versie van CachyOS ISO, overweeg alstublieft de nieuwste versie te gebruiken voor installaties
 testing-iso-warning = U gebruikt een test-ISO, test-ISO's worden niet als stabiel en gebruiksklaar beschouwd
 tweaksbrowser-label = Programma's/Aanpassingen

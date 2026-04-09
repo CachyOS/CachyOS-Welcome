@@ -1,0 +1,37 @@
+<big>Täname teid toetuse eest</big>
+
+CachyOS Linux saab oma kasutajaskonnalt palju tuge ja me soovime tänada igaüht, kes on oma panuse andnud. Tänu teile kasvame stabiilses tempos ja meie distributsioon muutub iga päevaga paremaks.
+
+Midagi ära teha on väga lihtne. Sõltuvalt teie oskustest ja ajalistest võimalustest saate CachyOS-i aidata ühel või mitmel järgneval viisil:
+
+<big>Toetus ja reklaam</big>
+
+<b>Sõna levitamine</b>
+
+Kui teile meeldib CachyOS, andke sellest ka teistele teada. Kirjutage arvustus ja avaldage see saidil distrowatch.com. Rääkige sellest oma sõpradele ja tuttavatele.
+
+<b>Kogukonnaga liitumine</b>
+
+CachyOS ei ole lihtsalt operatsioonisüsteem, see on ka dünaamiline kogukond inimestest, kes naudivad vaba ja avatud projekti, kogunevad ja suhtlevad selle raames. Soovitame teil kogukonnaga liituda ja aidata CachyOS-i paremaks muuta, olgu selleks siis teiste abistamine probleemide lahendamisel, nende tervitamine või lihtsalt teiste CachyOS-i kasutajatega kohtumine ja vestlemine.
+
+<b>Teiste aitamine</b>
+
+Kui teil on vaba aega ja olete valmis teisi kasutajaid tehniliste probleemidega aitama, peaksite tõsiselt kaaluma foorumite lugemist ja/või IRC-kanaliga liitumist ning aitama teistel CachyOS-i kasutajatel lahendada probleeme, millega te ise hakkama saate.
+
+<big>Projektile kaasaaitamine</big>
+
+<b>Veateated</b>
+
+Kui olete CachyOS-i kasutades märganud midagi, mis ei tööta korralikult, andke meile sellest teada. Teie avastatud probleem mõjutab tõenäoliselt ka teisi; mida varem me sellest teada saame, seda kiiremini suudame selle parandada.
+
+<b>Uued ideed</b>
+
+Valdav enamik iga väljalaske täiustustest tuleb kogukonnalt. Kui on midagi, mis teie arvates on puudu või mida saaks paremini teha, palun andke meile teada. Olgu selleks siis puuduva riistvaradraiveri lisamine, tarkvararakendus, mis peaks olema vaikimisi paigalduses, või kui teil on muid ideid, kuidas CachyOS-i paremaks muuta – oleme alati huvitatud neid kuulama.
+
+<b>Kujundus</b>
+
+Kui olete andekas graafilise disaini alal ja soovite projektile kaasa aidata, saatke meile oma loomingut ja kunstiteoseid. Olgu selleks lihtne taustapilt, ikoonikomplekt, laadimisekraan või isegi uus logo – oleme alati huvitatud teie uutest kujundustest.
+
+<b>Kood</b>
+
+Suurem osa meie arendustööst toimub QT, C++, Pythoni, HTML5/CSS-i ja BASH-i abil. Versioonihalduseks kasutame Giti ja pakendamiseks PKGBUILD-e. Kui need tehnoloogiad on teile tuttavad, siis heitke julgelt koodile pilk peale. Kui arvate, et saate meie rakendusi täiustada või uusi kirjutada, ärge kartke pakkuda parandusi või teha meie Giti repositooriumitest oma haru.

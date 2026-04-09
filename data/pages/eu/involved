@@ -1,0 +1,37 @@
+<big>Eskerrik asko zure laguntzagatik</big>
+
+CachyOS Linuxek laguntza handia jasotzen du bere erabiltzaile-komunitatearen aldetik, eta eskerrak eman nahi dizkiogu parte hartzen duen kolaboratzaile bakoitzari. Ritmo egonkorrean hazten ari gara eta gure banaketa egunetik egunera hobea da zuri esker.
+
+Oso erraza da laguntzea. Zure gaitasunen eta erabilgarritasunaren arabera, CachyOSi modu hauetako batean edo gehiagotan lagundu diezaiokezu:
+
+<big>Laguntza eta Sustapena</big>
+
+<b>Berria zabaltzen</b>
+
+CachyOS gustuko baduzu, jakinarazi jendeari. Idatzi iritzi bat eta argitaratu distrowatch.com webgunean. Hitz egin honi buruz zure lagunekin eta ingurukoekin.
+
+<b>Komunitatera batzen</b>
+
+CachyOS ez da sistema eragile bat soilik, proiektu libre eta ireki batekin gozatzen, biltzen eta elkarreragiten duen pertsona-komunitate dinamiko bat ere bada. Izan parte beste batzuei arazoak konpontzen lagunduz, ongi etorria emanez, edo, besterik gabe, beste CachyOS erabiltzaile batzuekin hitz eginez, komunitatean sartzea eta CachyOS hobetzen parte hartzea gomendatzen dizugu.
+
+<b>Beste batzuei laguntzen</b>
+
+Asti pixkat baduzu eta beste erabiltzaileei arazo teknikoekin laguntzeko prest bazaude, foroetan sartzea edota IRC kanalean parte hartzea gomendatzen dizugu, beste CachyOS erabiltzaileei zuk dakizun eta beraiek dituzten arazoak konpontzen laguntzeko.
+
+<big>Proiektuko ekarpenak</big>
+
+<b>Akatsen berri ematen (Bug reports)</b>
+
+CachyOS erabiltzen ari zarela zerbaitek behar bezala funtzionatzen ez duela nabaritzen baduzu, jakinarazi iezaguzu. Aurkitu duzun arazoak ziurrenik beste batzuei ere eragingo die; zenbat eta lehenago jakin, orduan eta lehenago konpondu ahal izango dugu.
+
+<b>Ideia berriak</b>
+
+Bertsio bakoitzean sartutako hobekuntza gehienak komunitatetik datoz. Zerbait falta dela uste baduzu edo hobeto egin daitekeela pentsatzen baduzu, esan iezaguzu. Izan falta den hardware-kontrolatzaile (driver) bat sartzea, instalazio estandarrean egon beharko lukeen aplikazio bat proposatzea, edo CachyOS hobetzeko beste edozein ideia izatea, beti gaude entzuteko prest.
+
+<b>Diseinu grafikoa (Artwork)</b>
+
+Diseinu grafikoan trebea bazara eta proiektuan lagundu nahi baduzu, bidali iezaguzu zure sorkuntzak. Izan horma-irudi (wallpaper) soil bat, ikono sorta bat, hasierako pantaila bat edo baita logo berri bat ere, beti interesatzen zaizkigu diseinu berriak.
+
+<b>Kodea</b>
+
+Gure garapen gehiena QT, C++, Python, HTML5/CSS eta BASH bidez egiten da. Git ere erabiltzen dugu bertsio-kontrolerako eta PKGBUILDak paketeak sortzeko. Teknologia hauekin eroso sentitzen bazara, ez izan zalantzarik kodea gainbegiratzeko. Gure aplikazioak hobetu ditzakezula edo berriak idatzi ditzakezula uste baduzu, proposatu adabakiak (patches) edo egin gure git biltegien fork-ak.

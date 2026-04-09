@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Generated with glade 3.40.0
 
-Copyright (C) 2021-2025 CachyOS team
+Copyright (C) 2021-2026 CachyOS team
 
 This file is part of cachyos-welcome.
 
@@ -24,7 +24,7 @@ along with cachyos-welcome.  If not, see <http://www.gnu.org/licenses/>.
   <!-- interface-css-provider-path style.css -->
   <!-- interface-license-type gplv3 -->
   <!-- interface-name cachyos-welcome -->
-  <!-- interface-copyright 2021-2025 CachyOS team -->
+  <!-- interface-copyright 2021-2026 CachyOS team -->
   <object class="GtkImage" id="abouticon">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
@@ -69,8 +69,7 @@ along with cachyos-welcome.  If not, see <http://www.gnu.org/licenses/>.
             <child>
               <object class="GtkLabel" id="welcometitle">
                 <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="has-focus">True</property>
+                <property name="can-focus">False</property>
                 <property name="label" translatable="yes">Welcome to CachyOS!</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
@@ -148,7 +147,7 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                 <property name="label" translatable="yes">Read me</property>
                 <property name="name">readme</property>
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
+                <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
                 <signal name="clicked" handler="on_btn_clicked" swapped="no"/>
               </object>
@@ -162,9 +161,8 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                 <property name="label" translatable="yes">Release info</property>
                 <property name="name">release</property>
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
+                <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
-                <property name="always-show-image">True</property>
                 <signal name="clicked" handler="on_btn_clicked" swapped="no"/>
               </object>
               <packing>
@@ -177,7 +175,7 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                 <property name="label" translatable="yes">Wiki</property>
                 <property name="name">wiki</property>
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
+                <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
                 <property name="tooltip-text" translatable="yes">Web resource</property>
                 <property name="image-position">right</property>
@@ -194,7 +192,7 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                 <property name="label" translatable="yes">Get involved</property>
                 <property name="name">involved</property>
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
+                <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
                 <signal name="clicked" handler="on_btn_clicked" swapped="no"/>
               </object>
@@ -208,7 +206,7 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                 <property name="label" translatable="yes">Forums</property>
                 <property name="name">forum</property>
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
+                <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
                 <property name="tooltip-text" translatable="yes">Web resource</property>
                 <property name="image-position">right</property>
@@ -225,7 +223,7 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                 <property name="label" translatable="yes">Software</property>
                 <property name="name">software</property>
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
+                <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
                 <property name="tooltip-text" translatable="yes">Web resource</property>
                 <property name="image-position">right</property>
@@ -242,7 +240,7 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                 <property name="label" translatable="yes">Development</property>
                 <property name="name">development</property>
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
+                <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
                 <property name="tooltip-text" translatable="yes">Web resource</property>
                 <property name="image-position">right</property>
@@ -259,7 +257,7 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                 <property name="label" translatable="yes">Donate</property>
                 <property name="name">donate</property>
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
+                <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
                 <property name="tooltip-text" translatable="yes">Web resource</property>
                 <property name="image-position">right</property>
@@ -284,21 +282,35 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                     <property name="can-focus">False</property>
                     <items>
                       <item id="en">English</item>
+                      <!-- Keep en first -->
+                      <item id="af">Afrikaans</item>
+                      <item id="bg">Български</item>
+                      <item id="by">Беларуская</item>
                       <item id="ca">Català</item>
-                      <item id="fr">French</item>
-                      <item id="de">German</item>
-                      <item id="nl">Dutch</item>
-                      <item id="it">Italian</item>
-                      <item id="pl">Polish</item>
+                      <item id="cs">Čeština</item>
+                      <item id="de">Deutsch</item>
+                      <item id="es">Español</item>
+                      <item id="et">Eesti</item>
+                      <item id="eu">Euskara</item>
+                      <item id="fr">Français</item>
+                      <item id="he">עברית‎</item>
+                      <item id="hu">Magyar</item>
+                      <item id="hy">Հայերեն</item>
+                      <item id="it">Italiano</item>
+                      <item id="ja">日本語</item>
+                      <item id="ka">ქართული</item>
+                      <item id="nb">Norsk Bokmål</item>
+                      <item id="nl">Nederlands</item>
+                      <item id="pl">Polski</item>
                       <item id="pt-BR">Português Brasileiro</item>
-                      <item id="ru">Russian</item>
-                      <item id="by">Belarusian</item>
-                      <item id="sk">Slovak</item>
-                      <item id="sv">Swedish</item>
-                      <item id="cs">Czech</item>
-                      <item id="es">Spanish</item>
-                      <item id="tr">Turkish</item>
-                      <item id="zh-CN">Simplified Chinese</item>
+                      <item id="pt-PT">Português</item>
+                      <item id="ru">Русский</item>
+                      <item id="sk">Slovenčina</item>
+                      <item id="sv">Svenska</item>
+                      <item id="tr">Türkçe</item>
+                      <item id="uk">Українська</item>
+                      <item id="vi">tiếng Việt</item>
+                      <item id="zh-CN">简体中文</item>
                     </items>
                     <signal name="changed" handler="on_languages_changed" swapped="no"/>
                   </object>
@@ -362,7 +374,7 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
               <object class="GtkButton" id="install">
                 <property name="label" translatable="yes">Launch installer</property>
                 <property name="name">install</property>
-                <property name="can-focus">False</property>
+                <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
                 <signal name="clicked" handler="on_action_clicked" swapped="no"/>
               </object>
@@ -381,7 +393,7 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                   <object class="GtkButton" id="tweaksBrowser">
                     <property name="label" translatable="yes">Apps/Tweaks</property>
                     <property name="name">tweaksBrowser</property>
-                    <property name="can-focus">False</property>
+                    <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
                     <property name="tooltip-text" translatable="yes">Apps/Tweaks</property>
                     <property name="margin-left">15</property>
@@ -398,12 +410,11 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                   <object class="GtkButton" id="appBrowser">
                     <property name="label" translatable="yes">Install Apps</property>
                     <property name="name">appBrowser</property>
-                    <property name="can-focus">False</property>
+                    <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
                     <property name="tooltip-text" translatable="yes">Common application selection</property>
                     <property name="margin-left">15</property>
                     <property name="margin-right">15</property>
-                    <signal name="clicked" handler="on_btn_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -427,29 +438,9 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                 <property name="spacing">10</property>
                 <child>
                   <object class="GtkEventBox">
-                    <property name="name">telegram</property>
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <signal name="button-press-event" handler="on_link1_clicked" swapped="no"/>
-                    <child>
-                      <object class="GtkImage" id="telegram">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="tooltip-text">Telegram</property>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkEventBox">
                     <property name="name">discord</property>
                     <property name="visible">True</property>
-                    <property name="can-focus">False</property>
+                    <property name="can-focus">True</property>
                     <signal name="button-press-event" handler="on_link1_clicked" swapped="no"/>
                     <child>
                       <object class="GtkImage" id="discord">
@@ -469,7 +460,7 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                   <object class="GtkEventBox">
                     <property name="name">reddit</property>
                     <property name="visible">True</property>
-                    <property name="can-focus">False</property>
+                    <property name="can-focus">True</property>
                     <signal name="button-press-event" handler="on_link1_clicked" swapped="no"/>
                     <child>
                       <object class="GtkImage" id="reddit">
@@ -532,7 +523,7 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
           <object class="GtkButton" id="about">
             <property name="name">about</property>
             <property name="visible">True</property>
-            <property name="can-focus">False</property>
+            <property name="can-focus">True</property>
             <property name="receives-default">True</property>
             <property name="tooltip-text" translatable="yes">About</property>
             <property name="image">abouticon</property>

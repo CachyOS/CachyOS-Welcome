@@ -1,10 +1,12 @@
+use crate::ui::RunCmdCallback;
+
 use std::fs::File;
 use std::path::Path;
 use std::{fs, slice, str};
 
 use gtk::prelude::*;
 
-use subprocess::{Exec, Redirection};
+use subprocess::{Exec, ExitStatus, Redirection};
 
 #[derive(Debug)]
 pub enum PacmanWrapper {
@@ -68,11 +70,31 @@ pub fn check_regular_file(path: &str) -> bool {
     }
 }
 
-pub fn create_combo_with_model(group_store: &gtk::ListStore) -> gtk::ComboBox {
-    let group_combo = gtk::ComboBox::with_model(group_store);
+pub fn find_iter_in_model(
+    model: &impl IsA<gtk::TreeModel>,
+    search_text: &str,
+) -> Option<gtk::TreeIter> {
+    if let Some(iter) = model.iter_first() {
+        loop {
+            if let Ok(value) = model.value(&iter, 0).get::<String>() {
+                if value == search_text {
+                    return Some(iter);
+                }
+            }
+
+            if !model.iter_next(&iter) {
+                break;
+            }
+        }
+    }
+
+    None
+}
+
+pub fn create_combo_with_model(group_store: &gtk::ListStore) -> gtk::ComboBoxText {
+    let group_combo = gtk::ComboBoxText::builder().model(group_store).build();
     let combo_renderer = gtk::CellRendererText::new();
     group_combo.pack_start(&combo_renderer, true);
-    group_combo.add_attribute(&combo_renderer, "text", 0);
     group_combo.set_active(Some(0));
 
     group_combo
@@ -104,20 +126,31 @@ pub fn get_translation_msgid(objname: &str) -> &'static str {
     }
 }
 
-pub fn run_cmd_terminal(cmd: String, escalate: bool) -> bool {
-    let cmd_formated = format!("{cmd}; read -p 'Press enter to exit'");
-    let mut args: Vec<&str> = vec![];
-    if escalate {
-        args.extend_from_slice(&["-s", "pkexec /usr/share/cachyos-hello/scripts/rootshell.sh"]);
-    }
-    args.push(cmd_formated.as_str());
+pub fn run_cmd_terminal(callback: RunCmdCallback, cmd: String, escalate: bool) -> bool {
+    callback(&cmd, escalate)
+}
 
-    let exit_status = Exec::cmd("/usr/share/cachyos-hello/scripts/terminal-helper")
-        .args(args.as_slice())
-        .stdout(Redirection::Pipe)
-        .join()
-        .unwrap();
-    exit_status.success()
+pub fn run_cmd(cmd: String, escalate: bool) -> anyhow::Result<ExitStatus> {
+    if escalate {
+        Ok(Exec::cmd("/sbin/pkexec").arg("bash").arg("-c").arg(cmd).join()?)
+    } else {
+        Ok(Exec::cmd("/sbin/bash").arg("-c").arg(cmd).join()?)
+    }
+}
+
+/// Run a command and capture its stdout. Args passed directly via execvp (no shell).
+pub fn cmd_output(cmd: &str, args: &[&str]) -> String {
+    Exec::cmd(cmd).args(args).stdout(Redirection::Pipe).capture().unwrap().stdout_str()
+}
+
+/// Run a command via pkexec. Args passed directly (no shell).
+pub fn pkexec_cmd(args: &[&str]) -> anyhow::Result<ExitStatus> {
+    Ok(Exec::cmd("/sbin/pkexec").args(args).join()?)
+}
+
+/// Spawn a detached child process.
+pub fn spawn_detached(path: &str) -> anyhow::Result<ExitStatus> {
+    Ok(Exec::cmd(path).detached().join()?)
 }
 
 #[inline]
@@ -139,40 +172,6 @@ pub fn is_alpm_pkg_installed(package_name: &str) -> bool {
     let pacman = pacmanconf::Config::with_opts(None, Some("/etc/pacman.conf"), Some("/")).unwrap();
     let alpm = alpm_utils::alpm_with_conf(&pacman).unwrap();
     alpm.localdb().pkg(package_name.as_bytes()).is_ok()
-}
-
-pub fn is_root_on_btrfs() -> bool {
-    let root_fs = Exec::cmd("/sbin/findmnt")
-        .args(&["-ln", "-o", "FSTYPE", "/"])
-        .stdout(Redirection::Pipe)
-        .capture()
-        .unwrap()
-        .stdout_str();
-
-    root_fs == "btrfs\n"
-}
-
-pub fn show_simple_dialog(
-    widget_window: &gtk::Window,
-    dialog_msg_type: gtk::MessageType,
-    dialog_text: &String,
-    dialog_title: String,
-) {
-    let dialog = gtk::MessageDialog::builder()
-        .transient_for(widget_window)
-        .message_type(dialog_msg_type)
-        .text(dialog_text)
-        .title(dialog_title)
-        .modal(true)
-        .buttons(gtk::ButtonsType::Ok)
-        .build();
-    dialog.connect_response(|dialog, _| dialog.close());
-
-    dialog.show();
-    // block until user responds
-    dialog.run();
-    // we are required to close/hide manually according to the docs
-    dialog.close();
 }
 
 #[cfg(test)]

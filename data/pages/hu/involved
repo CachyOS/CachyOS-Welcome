@@ -1,0 +1,37 @@
+<big>Köszönjük a támogatást</big>
+
+A CachyOS Linux rengeteg támogatást kap a felhasználói közösségtől, és ezúton is szeretnénk megköszönni minden egyes közreműködő részvételét. Folyamatosan és egyenletesen növekszünk, disztribúciónk pedig napról napra jobbá válik — mindez a ti hozzájárulásának köszönhető.
+
+Nagyon könnyű változást elérni. Képességeidtől és szabadidődtől függően az alábbi módokon segítheted a CachyOS fejlődését:
+
+<big>Támogatás és népszerűsítés</big>
+
+<b>A hír terjesztése</b>
+
+Ha elégedett vagy a CachyOS-szel, mondd el másoknak is. Írj róla véleményt és tedd közzé például a distrowatch.com oldalon. Beszélj róla barátoknak, ismerősöknek és a környezetedben élőknek.
+
+<b>Csatlakozás a közösséghez</b>
+
+A CachyOS nem csupán egy operációs rendszer, hanem egy élő és aktív közösség is, amelyet a szabad és nyílt forráskód iránti elkötelezettség köt össze. Akár mások problémáinak megoldásában segítesz, akár csak barátságosan fogadod az új tagokat, vagy egyszerűen beszélgetsz más CachyOS-felhasználókkal — csatlakozz a közösséghez, és vegyél részt a CachyOS jobbá tételében.
+
+<b>Mások segítése</b>
+
+Ha van egy kis szabadidőd és szívesen segítesz másoknak technikai problémák megoldásában, érdemes átböngészned a fórumokat, illetve csatlakoznod az IRC csatornához. Itt segíthetsz más CachyOS-felhasználóknak olyan problémákban, amelyek megoldását már ismered.
+
+<big>Közreműködés a projektben</big>
+
+<b>Hibabejelentések</b>
+
+Ha a CachyOS használata közben olyan hibát észlelsz, ami nem megfelelően működik, jelezd nekünk. Az általad észlelt probléma másokat is érinthet; minél előbb tudunk róla, annál gyorsabban tudjuk kijavítani.
+
+<b>Új ötletek</b>
+
+A frissítések során bevezetett fejlesztések túlnyomó többsége a közösségtől származik. Ha úgy érzed, hogy valami hiányzik, vagy lehetne jobban is megvalósítani, oszd meg velünk. Legyen szó egy hiányzó hardver-illesztőprogramról, egy szoftverről, amelynek az alaptelepítésnek a része kéne hogy legyen, vagy bármilyen más ötletről — mindig örömmel fogadjuk javaslataidat.
+
+<b>Grafikai munkák</b>
+
+Ha jártas vagy a grafikai tervezésben és szívesen hozzájárulnál a projekthez, örömmel fogadjuk alkotásaidat. Legyen szó egy egyszerű háttérképről, ikoncsomagról, indulóképernyőről vagy akár új logóról is — mindig nyitottak vagyunk az új grafikai ötletekre.
+
+<b>Forráskód</b>
+
+Fejlesztéseink többsége Qt, C++, Python, HTML5/CSS és Bash nyelveken történik. Verziókezeléshez a Git rendszert, csomagoláshoz pedig PKGBUILD fájlokat használunk. Ha ismered ezeket a technológiákat, bátran nézz bele a forráskódba. Ha úgy érzed, tudnál javítani az alkalmazásainkon, vagy újakat készítenél, küldd el a javításaidat, vagy készíts egy forkot a Git tárolóinkból.

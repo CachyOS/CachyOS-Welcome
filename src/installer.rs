@@ -1,4 +1,6 @@
-use crate::{check_regular_file, fl, utils, G_HELLO_WINDOW};
+use crate::gui::GUI;
+use crate::ui::{MessageType, UI};
+use crate::{check_regular_file, fl, G_HELLO_WINDOW};
 
 use std::fs;
 use std::io::{BufRead, BufReader};
@@ -18,94 +20,109 @@ struct Versions {
     handheld_iso_version: String,
 }
 
-fn outdated_version_check(window: &gtk::Window, message: String) -> bool {
+fn outdated_version_check(ui: &GUI, message: String) -> bool {
     let edition_tag: String =
         fs::read_to_string("/etc/edition-tag").unwrap_or("desktop".into()).trim().into();
     let version_tag: String =
         fs::read_to_string("/etc/version-tag").unwrap_or("testing".into()).trim().into();
 
     if version_tag.contains("testing") {
-        utils::show_simple_dialog(
-            window,
-            gtk::MessageType::Warning,
-            &fl!("testing-iso-warning"),
-            message.clone(),
-        );
+        ui.show_message(MessageType::Warning, &fl!("testing-iso-warning"), message.clone());
         return true;
     }
 
     let response = reqwest::blocking::get("https://cachyos.org/versions.json");
-
     if response.is_err() {
-        utils::show_simple_dialog(
-            window,
-            gtk::MessageType::Warning,
-            &fl!("offline-error"),
-            message.clone(),
-        );
+        ui.show_message(MessageType::Warning, &fl!("offline-error"), message.clone());
         return false;
     }
 
-    let versions = response.unwrap().json::<Versions>().unwrap();
+    // silently continue in case of server error
+    let versions = response.map(|x| x.json::<Versions>().unwrap());
+    if let Err(vers_err) = versions {
+        error!("Failed to fetch versions.json: {vers_err}");
+        return true;
+    }
 
     let latest_version = if edition_tag.contains("desktop") {
-        versions.desktop_iso_version
+        versions.unwrap().desktop_iso_version
     } else {
-        versions.handheld_iso_version
+        versions.unwrap().handheld_iso_version
     }
     .trim()
     .to_owned();
 
+    // in most cases it should be just date number (YYMMDD)
+    let parsed_ver = version_tag.parse::<u32>();
+    let parsed_latestver = latest_version.parse::<u32>();
+    if parsed_ver.is_ok()
+        && parsed_latestver.is_ok()
+        && parsed_ver.unwrap() > parsed_latestver.unwrap()
+    {
+        ui.show_message(MessageType::Warning, &fl!("testing-iso-warning"), message.clone());
+        return true;
+    }
+
     if version_tag != latest_version {
-        utils::show_simple_dialog(
-            window,
-            gtk::MessageType::Warning,
-            &fl!("outdated-version-warning"),
-            message.clone(),
-        );
+        ui.show_message(MessageType::Warning, &fl!("outdated-version-warning"), message.clone());
     }
     true
 }
 
-fn edition_compat_check(window: &gtk::Window, message: String) -> bool {
+fn edition_compat_check(ui: &GUI, message: String) -> bool {
     let edition_tag = fs::read_to_string("/etc/edition-tag").unwrap_or("desktop".to_string());
 
-    if edition_tag == "handheld" {
-        let profiles_path =
-            format!("{}/handhelds/profiles.toml", chwd::consts::CHWD_PCI_CONFIG_DIR);
+    let profiles_path = format!("{}/handhelds/profiles.toml", chwd::consts::CHWD_PCI_CONFIG_DIR);
 
-        let handheld_profiles =
-            chwd::profile::parse_profiles(&profiles_path).expect("Failed to parse profiles");
-        let handheld_profile_names: Vec<_> =
-            handheld_profiles.iter().map(|profile| &profile.name).collect();
+    let handheld_profiles =
+        chwd::profile::parse_profiles(&profiles_path).expect("Failed to parse profiles");
+    let handheld_profile_names: Vec<_> =
+        handheld_profiles.iter().map(|profile| &profile.name).collect();
 
-        let available_profiles = chwd::profile::get_available_profiles(false);
-
-        if available_profiles.iter().any(|profile| handheld_profile_names.contains(&&profile.name))
-        {
-            utils::show_simple_dialog(
-                window,
-                gtk::MessageType::Warning,
-                &fl!("unsupported-hw-warning"),
-                message.clone(),
-            );
-            return true;
-        }
+    let available_profiles = chwd::profile::get_available_profiles(false);
+    let supported_handheld =
+        available_profiles.iter().any(|profile| handheld_profile_names.contains(&&profile.name));
+    if edition_tag == "handheld" && !supported_handheld {
+        ui.show_message(MessageType::Warning, &fl!("unsupported-hw-warning"), message.clone());
+        return false;
+    } else if edition_tag == "desktop" && supported_handheld {
+        ui.show_message(MessageType::Error, &fl!("desktop-on-handheld-error"), message.clone());
+        return false;
     }
     true
 }
 
-fn connectivity_check(window: &gtk::Window, message: String) -> bool {
-    let status = match reqwest::blocking::get("https://cachyos.org") {
+fn connectivity_check(ui: &GUI, message: String) -> bool {
+    // First try HTTP check to cachyos.org
+    let http_status = match reqwest::blocking::get("https://cachyos.org") {
         Ok(resp) => resp.status().is_success() || resp.status().is_server_error(),
         _ => false,
     };
 
-    if !status {
-        utils::show_simple_dialog(window, gtk::MessageType::Error, &fl!("offline-error"), message);
-        return false;
+    if http_status {
+        return true;
     }
-    true
+
+    // If HTTP check fails, try ping fallback to reliable DNS servers
+    let targets = [
+        "8.8.8.8",
+        "1.1.1.1",
+        "9.9.9.9",
+        "2001:4860:4860::8888",
+        "2606:4700:4700::1111",
+        "2620:fe::fe",
+    ];
+    for target in targets {
+        let ping_result = Exec::cmd("/sbin/ping").args(&["-c", "1", "-W", "3", target]).join();
+        if ping_result.is_ok_and(subprocess::ExitStatus::success) {
+            info!("Connectivity confirmed via ping to {target}");
+            return true;
+        }
+    }
+
+    // All connectivity checks failed
+    ui.show_message(MessageType::Error, &fl!("offline-error"), message);
+    false
 }
 
 pub fn launch_installer(message: String) {
@@ -117,8 +134,9 @@ pub fn launch_installer(message: String) {
         let install_btn: gtk::Button = builder.object("install").unwrap();
         install_btn.set_sensitive(false);
 
+        let ui_comp = crate::gui::GUI::new(window_ref.clone());
         let checks = [connectivity_check, edition_compat_check, outdated_version_check];
-        if !checks.iter().all(|x| x(window_ref, message.clone())) {
+        if !checks.iter().all(|x| x(&ui_comp, message.clone())) {
             // if any check failed, return
             info!("Some ISO check failed!");
             install_btn.set_sensitive(true);

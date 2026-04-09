@@ -4,7 +4,7 @@ about-dialog-comments = Willkommensdialog für CachyOS
 
 # Tweaks page
 tweaks = Tweaks
-fixes = Fixes
+fixes = Dienstprogramme
 applications = Anwendungen
 removed-db-lock = Pacman db lock wurde entfernt!
 lock-doesnt-exist = Pacman db lock existiert nicht!
@@ -17,6 +17,18 @@ select-connection = Verbindung auswählen:
 select-dns-server = DNS-Server auswählen:
 apply = Anwenden
 reset = Reset
+enable-dot = DNS über TLS (DoT) aktivieren
+dot-tooltip = DNS-Anfragen mit TLS verschlüsseln für besseren Datenschutz (erfordert Serverunterstützung)
+test-latency = Latenz des ausgewählten Servers testen
+test-latency-tooltip = Netzwerklatenz zum ausgewählten DNS-Server messen
+best-server = Besten Server nach Latenz wählen
+best-server-tooltip = Basis-DNS-Server testen (ohne Filtervarianten) und den schnellsten auswählen
+latency-result = {""}
+server-info = {""}
+latency-testing = teste...
+latency-timeout = Zeitüberschreitung
+latency-no-result = kein Server hat geantwortet
+dns-check-hint = Nach dem Anwenden, überprüfe deinen DNS-Anbieter auf
 dns-server-changed = DNS Server wurde erfolgreich geändert!
 dns-server-failed = DNS-Server konnte nicht eingestellt werden!
 dns-server-reset = DNS-Server wurde zurückgesetzt!
@@ -28,7 +40,6 @@ tweak-enabled-title = {$tweak} aktiviert
 # Tweaks page (fixes)
 remove-lock-title = Entferne Datenbanksperre
 reinstall-title = Alle Pakete neu installieren
-refresh-keyrings-title = Keyring aktualisieren
 update-system-title = System-Aktualisierung
 remove-orphans-title = Nicht verwendete Pakete entfernen
 clear-pkgcache-title = Paket-Cache löschen
@@ -57,6 +68,7 @@ section-project = PROJEKT
 # Main Page (body)
 offline-error = Die Online-Installation kann nicht gestartet werden! Keine Internetverbindung
 unsupported-hw-warning = Sie versuchen, die Installation auf einer Hardware durchzuführen, die von der aktuellen ISO nicht unterstützt wird, und können daher keinen Support in Anspruch nehmen
+desktop-on-handheld-error = Sie versuchen, die Desktop-Edition auf einem Handheld-Gerät zu installieren. Bitte verwenden Sie die Handheld-Edition für ordnungsgemäße Unterstützung auf dieser Hardware
 outdated-version-warning = Du nutzt eine alte Version von CachyOS, bitte downloade die letzte Version runter
 testing-iso-warning = Du verwendest eine alte Testing ISO, Testing-ISOs sind nicht stabil und getestet
 tweaksbrowser-label = Apps/Tweaks
