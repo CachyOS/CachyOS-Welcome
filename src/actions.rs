@@ -78,10 +78,13 @@ pub fn get_dns_for_connection(conn_name: &str) -> Option<DnsInfo> {
 
 /// Returns true if DNS-over-TLS is enabled (strict mode) for the given connection.
 pub fn get_dot_for_connection(conn_name: &str) -> bool {
-    let output = utils::cmd_output(
-        "/sbin/nmcli",
-        &["-g", "connection.dns-over-tls", "con", "show", conn_name],
-    );
+    let output = utils::cmd_output("/sbin/nmcli", &[
+        "-g",
+        "connection.dns-over-tls",
+        "con",
+        "show",
+        conn_name,
+    ]);
     // value 2 = strict DoT
     output.trim() == "2"
 }
@@ -397,6 +400,17 @@ pub fn install_gaming(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage>
         &ALPM_PACKAGE_NAMES,
         fl!("gaming-package-installed"),
         Action::InstallGaming,
+        dialog_tx,
+    );
+}
+
+pub fn install_gpu_boosters(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage>) {
+    const ALPM_PACKAGE_NAMES: [&str; 2] = ["dmemcg-booster", "plasma-foreground-booster"];
+    install_needed_packages(
+        callback,
+        &ALPM_PACKAGE_NAMES,
+        fl!("gpu-boosters-package-installed"),
+        Action::InstallGpuBoosters,
         dialog_tx,
     );
 }

@@ -12,6 +12,7 @@ orphans-not-found = No orphan packages found!
 package-not-installed = Package '{$package_name}' has not been installed!
 gaming-package-installed = Gaming packages already installed!
 winboat-package-installed = Winboat packages already installed!
+gpu-boosters-package-installed = GPU booster packages already installed!
 
 # Application Browser page
 advanced-btn = advanced
@@ -68,7 +69,6 @@ tweak-bpftune-tooltip = Automatically tune system network
 tweak-bluetooth-tooltip = Enable support for Bluetooth wireless devices (mice, audio, etc.)
 tweak-ananicycpp-tooltip = Auto-adjust process priorities for better system responsiveness
 tweak-cachyupdate-tooltip = Update notifier in tray
-tweak-gpuboosters-tooltip = Install dmemcg-booster and plasma-foreground-booster on AMD or Intel GPUs
 
 # Tweaks page (fixes)
 remove-lock-title = Remove db lock
@@ -82,6 +82,8 @@ dnsserver-title = Change DNS server
 show-kwinw-debug-title = Show kwin(Wayland) debug window
 install-gaming-title = Install Gaming packages
 install-winboat-title = Install Winboat
+install-gpu-boosters-title = Install GPU Boosters
+install-gpu-boosters-tooltip = Install dmemcg-booster and plasma-foreground-booster on AMD or Intel GPUs
 
 # Main Page (buttons)
 button-about-tooltip = About

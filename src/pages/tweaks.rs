@@ -20,7 +20,8 @@ macro_rules! create_tweak_checkbox {
 
         set_tweak_check_data(&temp_btn, $tweak_name);
 
-        connect_tweak(&temp_btn, $tweak_name);
+        let (_, action_data, _) = tweak::get_details($tweak_name);
+        connect_tweak(&temp_btn, $tweak_name, action_data);
         temp_btn
     }};
 }
@@ -36,19 +37,9 @@ fn set_tweak_check_data(check_btn: &gtk::CheckButton, tweak_name: TweakName) {
     }
 }
 
-fn current_tweak_state(tweak_name: TweakName) -> bool {
-    let (action_type, action_data, packages) = tweak::get_details(tweak_name);
-    match action_type {
-        "user_service" | "service" => {
-            systemd_units::check_any_units(action_data) || tweak::check_autostart_active(tweak_name)
-        },
-        "package" => tweak::are_packages_installed(packages),
-        _ => false,
-    }
-}
-
-fn connect_tweak(check_btn: &gtk::CheckButton, tweak_name: TweakName) {
-    let is_active = current_tweak_state(tweak_name);
+fn connect_tweak(check_btn: &gtk::CheckButton, tweak_name: TweakName, action_data: &'static str) {
+    let is_active =
+        systemd_units::check_any_units(action_data) || tweak::check_autostart_active(tweak_name);
     check_btn.set_active(is_active);
 
     connect_clicked_and_save(check_btn, on_servbtn_clicked);
@@ -69,8 +60,6 @@ pub(crate) fn create_options_section() -> gtk::Box {
     let bluetooth_btn = create_tweak_checkbox!("Bluetooth", TweakName::Bluetooth);
     let ananicy_cpp_btn = create_tweak_checkbox!("Ananicy Cpp", TweakName::Ananicy);
     let cachy_update_btn = create_tweak_checkbox!("Cachy Update", TweakName::CachyUpdate);
-    let gpu_boosters_btn = tweak::is_visible(TweakName::GpuBoosters)
-        .then(|| create_tweak_checkbox!("GPU Boosters", TweakName::GpuBoosters));
 
     // set tooltips
     psd_btn.set_tooltip_text(Some(&fl!("tweak-psd-tooltip")));
@@ -79,9 +68,6 @@ pub(crate) fn create_options_section() -> gtk::Box {
     bluetooth_btn.set_tooltip_text(Some(&fl!("tweak-bluetooth-tooltip")));
     ananicy_cpp_btn.set_tooltip_text(Some(&fl!("tweak-ananicycpp-tooltip")));
     cachy_update_btn.set_tooltip_text(Some(&fl!("tweak-cachyupdate-tooltip")));
-    if let Some(button) = &gpu_boosters_btn {
-        button.set_tooltip_text(Some(&fl!("tweak-gpuboosters-tooltip")));
-    }
 
     topbox.pack_start(&label, true, false, 1);
     box_collection.pack_start(&psd_btn, true, false, 2);
@@ -90,9 +76,6 @@ pub(crate) fn create_options_section() -> gtk::Box {
     box_collection.pack_start(&ananicy_cpp_btn, true, false, 2);
     box_collection.pack_start(&cachy_update_btn, true, false, 2);
     box_collection_s.pack_start(&bluetooth_btn, true, false, 2);
-    if let Some(button) = &gpu_boosters_btn {
-        box_collection_s.pack_start(button, true, false, 2);
-    }
     box_collection.set_halign(gtk::Align::Fill);
     box_collection_s.set_halign(gtk::Align::Fill);
     topbox.pack_end(&box_collection_s, true, false, 1);
@@ -108,11 +91,10 @@ fn toggle_service(
     callback: std::boxed::Box<dyn Fn(bool)>,
 ) {
     let (action_type, action_data, alpm_package_name) = tweak::get_details(tweak_name);
-    let action_enabled = match action_type {
-        "user_service" => systemd_units::check_user_units(action_data),
-        "service" => systemd_units::check_system_units(action_data),
-        "package" => tweak::are_packages_installed(alpm_package_name),
-        _ => false,
+    let action_enabled = if action_type == "user_service" {
+        systemd_units::check_user_units(action_data)
+    } else {
+        systemd_units::check_system_units(action_data)
     };
     // Create context channel.
     let (tx, rx) = async_channel::unbounded();
@@ -198,7 +180,7 @@ fn toggle_service(
             ToggleResult::Success(new_state)
         } else {
             ToggleResult::Failed {
-                restored_state: action_enabled,
+                restored_state: new_state,
                 message: format!("Failed to update tweak state for {action_data}"),
             }
         };

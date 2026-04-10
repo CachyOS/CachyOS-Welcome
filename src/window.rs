@@ -270,27 +270,24 @@ impl HelloWindow {
 
         // Run-time locale changing
         let elts: HashMap<&str, Vec<_>> = HashMap::from([
-            (
-                "label",
-                vec![
-                    "autostartlabel",
-                    "development",
-                    "software",
-                    "donate",
-                    "firstcategory",
-                    "forum",
-                    "install",
-                    "installlabel",
-                    "involved",
-                    "readme",
-                    "release",
-                    "secondcategory",
-                    "thirdcategory",
-                    "welcomelabel",
-                    "welcometitle",
-                    "wiki",
-                ],
-            ),
+            ("label", vec![
+                "autostartlabel",
+                "development",
+                "software",
+                "donate",
+                "firstcategory",
+                "forum",
+                "install",
+                "installlabel",
+                "involved",
+                "readme",
+                "release",
+                "secondcategory",
+                "thirdcategory",
+                "welcomelabel",
+                "welcometitle",
+                "wiki",
+            ]),
             ("tooltip_text", vec!["about", "development", "software", "donate", "forum", "wiki"]),
         ]);
 

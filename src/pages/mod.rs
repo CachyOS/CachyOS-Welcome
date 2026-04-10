@@ -45,6 +45,11 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
 
     let install_gaming_btn = create_gtk_button!("install-gaming-title");
     let install_winboat_btn = create_gtk_button!("install-winboat-title");
+    let install_gpu_boosters_btn = utils::has_intel_or_amd_gpu().then(|| {
+        let btn = create_gtk_button!("install-gpu-boosters-title");
+        btn.set_tooltip_text(Some(&fl!("install-gpu-boosters-tooltip")));
+        btn
+    });
 
     // Create context channel.
     let (dialog_tx, dialog_rx) = async_channel::unbounded();
@@ -53,6 +58,7 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
     let dialog_tx_clone = dialog_tx.clone();
     let dialog_tx_gaming = dialog_tx.clone();
     let dialog_tx_winboat = dialog_tx.clone();
+    let dialog_tx_gpu_boosters = dialog_tx.clone();
     removelock_btn.connect_clicked(move |_| {
         let dialog_tx_clone = dialog_tx_clone.clone();
         std::thread::spawn(move || {
@@ -95,6 +101,14 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
             actions::install_winboat(crate::gui::run_command, dialog_tx_winboat);
         });
     });
+    if let Some(button) = &install_gpu_boosters_btn {
+        button.connect_clicked(move |_| {
+            let dialog_tx_gpu_boosters = dialog_tx_gpu_boosters.clone();
+            std::thread::spawn(move || {
+                actions::install_gpu_boosters(crate::gui::run_command, dialog_tx_gpu_boosters);
+            });
+        });
+    }
 
     // Setup receiver.
     let removelock_btn_clone = removelock_btn.clone();
@@ -128,6 +142,9 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
     button_box_t.pack_end(&rankmirrors_btn, true, true, 2);
     button_box_t.pack_end(&install_gaming_btn, true, true, 2);
     button_box_t.pack_end(&install_winboat_btn, true, true, 2);
+    if let Some(button) = &install_gpu_boosters_btn {
+        button_box_frth.pack_end(button, true, true, 2);
+    }
 
     if Path::new("/usr/bin/nmcli").exists() {
         let dnsserver_btn = create_gtk_button!("dnsserver-title");
