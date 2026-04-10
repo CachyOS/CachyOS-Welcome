@@ -78,13 +78,10 @@ pub fn get_dns_for_connection(conn_name: &str) -> Option<DnsInfo> {
 
 /// Returns true if DNS-over-TLS is enabled (strict mode) for the given connection.
 pub fn get_dot_for_connection(conn_name: &str) -> bool {
-    let output = utils::cmd_output("/sbin/nmcli", &[
-        "-g",
-        "connection.dns-over-tls",
-        "con",
-        "show",
-        conn_name,
-    ]);
+    let output = utils::cmd_output(
+        "/sbin/nmcli",
+        &["-g", "connection.dns-over-tls", "con", "show", conn_name],
+    );
     // value 2 = strict DoT
     output.trim() == "2"
 }

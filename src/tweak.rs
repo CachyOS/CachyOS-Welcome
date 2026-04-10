@@ -17,6 +17,9 @@ pub enum TweakName {
     /// `CachyOS` update notifier
     #[clap(name = "cachy-update")]
     CachyUpdate,
+    /// Install desktop booster services on supported GPUs
+    #[clap(name = "gpu-boosters")]
+    GpuBoosters,
 }
 
 pub fn get_details(tweak: TweakName) -> (&'static str, &'static str, &'static str) {
@@ -29,7 +32,23 @@ pub fn get_details(tweak: TweakName) -> (&'static str, &'static str, &'static st
         TweakName::CachyUpdate => {
             ("user_service", "arch-update.timer arch-update-tray.service", "cachy-update")
         },
+        TweakName::GpuBoosters => ("package", "", "dmemcg-booster plasma-foreground-booster"),
     }
+}
+
+pub fn is_visible(tweak: TweakName) -> bool {
+    match tweak {
+        TweakName::GpuBoosters => crate::utils::has_intel_or_amd_gpu(),
+        _ => true,
+    }
+}
+
+pub fn are_packages_installed(package_names: &str) -> bool {
+    package_names.split_whitespace().all(crate::utils::is_alpm_pkg_installed)
+}
+
+pub fn are_any_packages_installed(package_names: &str) -> bool {
+    package_names.split_whitespace().any(crate::utils::is_alpm_pkg_installed)
 }
 
 /// Returns autostart desktop filenames associated with a tweak (legacy cleanup).
@@ -68,4 +87,23 @@ pub fn is_globally_enabled(units: &str) -> bool {
     units
         .split_whitespace()
         .any(|unit| target_dirs.iter().any(|dir| global_dir.join(dir).join(unit).exists()))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn gpu_booster_tweak_has_expected_packages() {
+        let (_, action_data, packages) = get_details(TweakName::GpuBoosters);
+        assert_eq!(action_data, "");
+        assert_eq!(packages, "dmemcg-booster plasma-foreground-booster");
+    }
+
+    #[test]
+    fn non_gpu_tweaks_are_always_visible() {
+        assert!(is_visible(TweakName::Psd));
+        assert!(is_visible(TweakName::Oomd));
+        assert!(is_visible(TweakName::Bluetooth));
+    }
 }

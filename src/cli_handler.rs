@@ -282,6 +282,39 @@ fn toggle_tweak_cli(tweak: TweakName, enable: bool) -> Result<()> {
     let verb = if enable { "Enabling" } else { "Disabling" };
     println!("{verb} tweak '{tweak:?}'...");
 
+    if action_type == "package" {
+        if enable {
+            if !tweak::are_packages_installed(alpm_package_name) {
+                println!(
+                    "Required package '{}' is not installed. Installing...",
+                    alpm_package_name.yellow()
+                );
+                let status = crate::cli::run_command(
+                    &format!("pacman -S --noconfirm {alpm_package_name}"),
+                    true,
+                );
+                if !status || !tweak::are_packages_installed(alpm_package_name) {
+                    anyhow::bail!(
+                        "Failed to install required package '{alpm_package_name}'. Cannot enable tweak."
+                    );
+                }
+            }
+        } else if tweak::are_packages_installed(alpm_package_name) {
+            println!("> Removing {}", alpm_package_name.cyan());
+            let status = crate::cli::run_command(
+                &format!("pacman -Rns --noconfirm {alpm_package_name}"),
+                true,
+            );
+            if !status || tweak::are_any_packages_installed(alpm_package_name) {
+                anyhow::bail!("Failed to disable tweak '{tweak:?}' by removing its packages.");
+            }
+        }
+
+        let status = if enable { "enabled".green() } else { "disabled".red() };
+        println!("Tweak '{tweak:?}' successfully {status}.");
+        return Ok(());
+    }
+
     // If enabling, ensure package is installed first
     if enable && !alpm_package_name.is_empty() && !utils::is_alpm_pkg_installed(alpm_package_name) {
         println!(
@@ -328,9 +361,18 @@ fn list_tweaks() -> Result<()> {
         TweakName::Bluetooth,
         TweakName::Ananicy,
         TweakName::CachyUpdate,
+        TweakName::GpuBoosters,
     ] {
-        let (_, service_names, _) = tweak::get_details(*tweak);
-        let is_enabled = systemd_units::check_any_units(service_names);
+        if !tweak::is_visible(*tweak) {
+            continue;
+        }
+
+        let (action_type, service_names, packages) = tweak::get_details(*tweak);
+        let is_enabled = if action_type == "package" {
+            tweak::are_packages_installed(packages)
+        } else {
+            systemd_units::check_any_units(service_names)
+        };
 
         let status = if is_enabled { "[enabled]".green() } else { "[disabled]".red() };
 

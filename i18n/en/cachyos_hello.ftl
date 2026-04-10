@@ -68,6 +68,7 @@ tweak-bpftune-tooltip = Automatically tune system network
 tweak-bluetooth-tooltip = Enable support for Bluetooth wireless devices (mice, audio, etc.)
 tweak-ananicycpp-tooltip = Auto-adjust process priorities for better system responsiveness
 tweak-cachyupdate-tooltip = Update notifier in tray
+tweak-gpuboosters-tooltip = Install dmemcg-booster and plasma-foreground-booster on AMD or Intel GPUs
 
 # Tweaks page (fixes)
 remove-lock-title = Remove db lock

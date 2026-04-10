@@ -20,10 +20,14 @@ macro_rules! create_tweak_checkbox {
 
         set_tweak_check_data(&temp_btn, $tweak_name);
 
-        let (_, action_data, _) = tweak::get_details($tweak_name);
-        connect_tweak(&temp_btn, $tweak_name, action_data);
+        connect_tweak(&temp_btn, $tweak_name);
         temp_btn
     }};
+}
+
+enum ToggleResult {
+    Success(bool),
+    Failed { restored_state: bool, message: String },
 }
 
 fn set_tweak_check_data(check_btn: &gtk::CheckButton, tweak_name: TweakName) {
@@ -32,9 +36,19 @@ fn set_tweak_check_data(check_btn: &gtk::CheckButton, tweak_name: TweakName) {
     }
 }
 
-fn connect_tweak(check_btn: &gtk::CheckButton, tweak_name: TweakName, action_data: &'static str) {
-    let is_active =
-        systemd_units::check_any_units(action_data) || tweak::check_autostart_active(tweak_name);
+fn current_tweak_state(tweak_name: TweakName) -> bool {
+    let (action_type, action_data, packages) = tweak::get_details(tweak_name);
+    match action_type {
+        "user_service" | "service" => {
+            systemd_units::check_any_units(action_data) || tweak::check_autostart_active(tweak_name)
+        },
+        "package" => tweak::are_packages_installed(packages),
+        _ => false,
+    }
+}
+
+fn connect_tweak(check_btn: &gtk::CheckButton, tweak_name: TweakName) {
+    let is_active = current_tweak_state(tweak_name);
     check_btn.set_active(is_active);
 
     connect_clicked_and_save(check_btn, on_servbtn_clicked);
@@ -55,6 +69,8 @@ pub(crate) fn create_options_section() -> gtk::Box {
     let bluetooth_btn = create_tweak_checkbox!("Bluetooth", TweakName::Bluetooth);
     let ananicy_cpp_btn = create_tweak_checkbox!("Ananicy Cpp", TweakName::Ananicy);
     let cachy_update_btn = create_tweak_checkbox!("Cachy Update", TweakName::CachyUpdate);
+    let gpu_boosters_btn = tweak::is_visible(TweakName::GpuBoosters)
+        .then(|| create_tweak_checkbox!("GPU Boosters", TweakName::GpuBoosters));
 
     // set tooltips
     psd_btn.set_tooltip_text(Some(&fl!("tweak-psd-tooltip")));
@@ -63,6 +79,9 @@ pub(crate) fn create_options_section() -> gtk::Box {
     bluetooth_btn.set_tooltip_text(Some(&fl!("tweak-bluetooth-tooltip")));
     ananicy_cpp_btn.set_tooltip_text(Some(&fl!("tweak-ananicycpp-tooltip")));
     cachy_update_btn.set_tooltip_text(Some(&fl!("tweak-cachyupdate-tooltip")));
+    if let Some(button) = &gpu_boosters_btn {
+        button.set_tooltip_text(Some(&fl!("tweak-gpuboosters-tooltip")));
+    }
 
     topbox.pack_start(&label, true, false, 1);
     box_collection.pack_start(&psd_btn, true, false, 2);
@@ -71,6 +90,9 @@ pub(crate) fn create_options_section() -> gtk::Box {
     box_collection.pack_start(&ananicy_cpp_btn, true, false, 2);
     box_collection.pack_start(&cachy_update_btn, true, false, 2);
     box_collection_s.pack_start(&bluetooth_btn, true, false, 2);
+    if let Some(button) = &gpu_boosters_btn {
+        box_collection_s.pack_start(button, true, false, 2);
+    }
     box_collection.set_halign(gtk::Align::Fill);
     box_collection_s.set_halign(gtk::Align::Fill);
     topbox.pack_end(&box_collection_s, true, false, 1);
@@ -86,21 +108,49 @@ fn toggle_service(
     callback: std::boxed::Box<dyn Fn(bool)>,
 ) {
     let (action_type, action_data, alpm_package_name) = tweak::get_details(tweak_name);
-    let action_enabled = if action_type == "user_service" {
-        systemd_units::check_user_units(action_data)
-    } else {
-        systemd_units::check_system_units(action_data)
+    let action_enabled = match action_type {
+        "user_service" => systemd_units::check_user_units(action_data),
+        "service" => systemd_units::check_system_units(action_data),
+        "package" => tweak::are_packages_installed(alpm_package_name),
+        _ => false,
     };
     // Create context channel.
     let (tx, rx) = async_channel::unbounded();
-
-    let dialog_text = fl!("package-not-installed", package_name = alpm_package_name);
 
     let action_type = action_type.to_owned();
     let action_data = action_data.to_owned();
     let alpm_package_name = alpm_package_name.to_owned();
     // Spawn child process in separate thread.
     std::thread::spawn(move || {
+        if action_type == "package" {
+            let success = if action_enabled {
+                utils::run_cmd_terminal(
+                    crate::gui::run_command,
+                    format!("pacman -Rns {alpm_package_name}"),
+                    true,
+                ) && !tweak::are_any_packages_installed(&alpm_package_name)
+            } else {
+                utils::run_cmd_terminal(
+                    crate::gui::run_command,
+                    format!("pacman -S {alpm_package_name}"),
+                    true,
+                ) && tweak::are_packages_installed(&alpm_package_name)
+            };
+
+            let result = if success {
+                ToggleResult::Success(!action_enabled)
+            } else {
+                let message = if action_enabled {
+                    format!("Failed to remove required package(s): {alpm_package_name}")
+                } else {
+                    fl!("package-not-installed", package_name = alpm_package_name)
+                };
+                ToggleResult::Failed { restored_state: action_enabled, message }
+            };
+            tx.send_blocking(result).expect("Couldn't send data to channel");
+            return;
+        }
+
         if !alpm_package_name.is_empty() {
             if !utils::is_alpm_pkg_installed(&alpm_package_name) {
                 let _ = utils::run_cmd_terminal(
@@ -110,7 +160,11 @@ fn toggle_service(
                 );
             }
             if !utils::is_alpm_pkg_installed(&alpm_package_name) {
-                tx.send_blocking(false).expect("Couldn't send data to channel");
+                tx.send_blocking(ToggleResult::Failed {
+                    restored_state: action_enabled,
+                    message: fl!("package-not-installed", package_name = alpm_package_name),
+                })
+                .expect("Couldn't send data to channel");
                 return;
             }
         }
@@ -131,20 +185,36 @@ fn toggle_service(
             tweak::remove_autostart_files(tweak_name);
         }
 
-        if action_type == "user_service" {
+        let new_state = if action_type == "user_service" {
             systemd_units::refresh_user_cache();
+            systemd_units::check_user_units(&action_data)
+                || tweak::check_autostart_active(tweak_name)
         } else {
             systemd_units::refresh_system_cache();
-        }
+            systemd_units::check_system_units(&action_data)
+        };
+
+        let result = if new_state != action_enabled {
+            ToggleResult::Success(new_state)
+        } else {
+            ToggleResult::Failed {
+                restored_state: action_enabled,
+                message: format!("Failed to update tweak state for {action_data}"),
+            }
+        };
+
+        tx.send_blocking(result).expect("Couldn't send data to channel");
     });
 
     glib::MainContext::default().spawn_local(async move {
-        while let Ok(msg) = rx.recv().await {
-            if !msg {
-                callback(msg);
-
-                let ui_comp = crate::gui::GUI::new(widget_window.clone());
-                ui_comp.show_message(MessageType::Error, &dialog_text, "Error".to_string());
+        while let Ok(result) = rx.recv().await {
+            match result {
+                ToggleResult::Success(state) => callback(state),
+                ToggleResult::Failed { restored_state, message } => {
+                    callback(restored_state);
+                    let ui_comp = crate::gui::GUI::new(widget_window.clone());
+                    ui_comp.show_message(MessageType::Error, &message, "Error".to_string());
+                },
             }
         }
     });
