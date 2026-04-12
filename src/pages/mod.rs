@@ -229,8 +229,8 @@ pub fn create_tweaks_page(builder: &Builder) {
     let child_name = "tweaksBrowserpage";
     options_section_box.set_widget_name(&format!("{child_name}_options"));
     fixes_section_box.set_widget_name(&format!("{child_name}_fixes"));
-    if apps_section_box_opt.is_some() {
-        apps_section_box_opt.as_ref().unwrap().set_widget_name(&format!("{child_name}_apps"));
+    if let Some(apps_section_box) = apps_section_box_opt.as_ref() {
+        apps_section_box.set_widget_name(&format!("{child_name}_apps"));
     }
 
     let grid = gtk::Grid::new();

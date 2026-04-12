@@ -82,7 +82,22 @@ pub fn handle_dns_command(action: DnsAction) -> Result<()> {
             if doh {
                 // DoH mode via blocky
                 let doh_url = dns::get_doh_url(server_name);
-                if doh_url.is_none() {
+                if let Some(url) = doh_url {
+                    println!(
+                        "Setting DNS for '{}' to '{}' (DoH enabled via blocky)...",
+                        connection.cyan(),
+                        server_name.cyan(),
+                    );
+                    actions::change_dns_server_doh(
+                        crate::cli::run_command,
+                        &connection,
+                        url,
+                        server_addr.0,
+                        server_addr.1,
+                        server_addr.2,
+                        tx,
+                    );
+                } else {
                     println!(
                         "{}: DNS over HTTPS is not supported by '{}'.",
                         "Warning".yellow(),
@@ -96,21 +111,6 @@ pub fn handle_dns_command(action: DnsAction) -> Result<()> {
                         server_addr.1,
                         false,
                         dot_hostname,
-                        tx,
-                    );
-                } else {
-                    println!(
-                        "Setting DNS for '{}' to '{}' (DoH enabled via blocky)...",
-                        connection.cyan(),
-                        server_name.cyan(),
-                    );
-                    actions::change_dns_server_doh(
-                        crate::cli::run_command,
-                        &connection,
-                        doh_url.unwrap(),
-                        server_addr.0,
-                        server_addr.1,
-                        server_addr.2,
                         tx,
                     );
                 }

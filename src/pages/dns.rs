@@ -3,7 +3,6 @@ use crate::{actions, create_gtk_button, dns, fl, utils};
 
 use gtk::prelude::*;
 
-use async_channel;
 use gtk::{glib, Builder};
 
 /// Returns true if `s` contains only valid DNS address characters (hex digits, dots, colons,
