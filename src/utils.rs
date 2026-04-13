@@ -181,15 +181,34 @@ pub fn is_intel_amd_gpu(vendor_id: &str, class_id: &str) -> bool {
     GPU_CLASS_IDS.contains(&class_id) && VENDOR_IDS.contains(&vendor_id)
 }
 
-/// Returns true if an Intel or AMD GPU is detected on the system.
-pub fn has_intel_or_amd_gpu() -> bool {
+fn has_pcie_link_capability(pci_device_path: &Path) -> bool {
+    const PCIE_LINK_ATTRS: &[&str] =
+        &["current_link_width", "current_link_speed", "max_link_width", "max_link_speed"];
+
+    PCIE_LINK_ATTRS.iter().any(|attr| pci_device_path.join(attr).exists())
+}
+
+fn is_intel_amd_dgpu(vendor_id: &str, class_id: &str, pci_device_path: &Path) -> bool {
+    const VENDOR_IDS: &[&str] = &["8086", "1002"];
+
+    class_id == "0300"
+        && VENDOR_IDS.contains(&vendor_id)
+        && has_pcie_link_capability(pci_device_path)
+}
+
+/// Returns true if a supported Intel or AMD dGPU is detected on the system.
+pub fn has_intel_or_amd_dgpu() -> bool {
     let data_obj = chwd::data::Data::new(false);
-    data_obj.pci_devices.iter().any(|device| is_intel_amd_gpu(&device.vendor_id, &device.class_id))
+    data_obj.pci_devices.iter().any(|device| {
+        let pci_device_path = Path::new("/sys/bus/pci/devices").join(&device.sysfs_busid);
+        is_intel_amd_dgpu(&device.vendor_id, &device.class_id, &pci_device_path)
+    })
 }
 
 #[cfg(test)]
 mod test {
     use super::*;
+    use tempfile::tempdir;
 
     #[test]
     fn check_file() {
@@ -219,5 +238,30 @@ mod test {
         assert!(is_intel_amd_gpu("1002", "0380"));
         assert!(!is_intel_amd_gpu("10de", "0300"));
         assert!(!is_intel_amd_gpu("8086", "0200"));
+    }
+
+    #[test]
+    fn detects_supported_dgpu_with_pcie_link_capability() {
+        let sysfs_dir = tempdir().unwrap();
+        fs::write(sysfs_dir.path().join("current_link_width"), "16").unwrap();
+
+        assert!(is_intel_amd_dgpu("8086", "0300", sysfs_dir.path()));
+        assert!(is_intel_amd_dgpu("1002", "0300", sysfs_dir.path()));
+    }
+
+    #[test]
+    fn ignores_supported_igpu_without_pcie_link_capability() {
+        let sysfs_dir = tempdir().unwrap();
+
+        assert!(!is_intel_amd_dgpu("8086", "0300", sysfs_dir.path()));
+        assert!(!is_intel_amd_dgpu("1002", "0300", sysfs_dir.path()));
+    }
+
+    #[test]
+    fn ignores_unsupported_vendor_even_with_pcie_link_capability() {
+        let sysfs_dir = tempdir().unwrap();
+        fs::write(sysfs_dir.path().join("current_link_width"), "16").unwrap();
+
+        assert!(!is_intel_amd_dgpu("10de", "0300", sysfs_dir.path()));
     }
 }

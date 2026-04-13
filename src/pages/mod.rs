@@ -45,7 +45,7 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
 
     let install_gaming_btn = create_gtk_button!("install-gaming-title");
     let install_winboat_btn = create_gtk_button!("install-winboat-title");
-    let install_gpu_boosters_btn = utils::has_intel_or_amd_gpu().then(|| {
+    let install_gpu_boosters_btn = utils::has_intel_or_amd_dgpu().then(|| {
         let btn = create_gtk_button!("install-gpu-boosters-title");
         btn.set_tooltip_text(Some(&fl!("install-gpu-boosters-tooltip")));
         btn
