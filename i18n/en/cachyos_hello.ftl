@@ -83,7 +83,7 @@ show-kwinw-debug-title = Show kwin(Wayland) debug window
 install-gaming-title = Install Gaming packages
 install-winboat-title = Install Winboat
 install-vram-management-title = Install VRAM Management
-install-vram-management-tooltip = Prioritize VRAM for the foreground application so the GPU driver avoids spilling buffers into system RAM (GTT). Installs dmemcg-booster and plasma-foreground-booster on AMD or Intel GPUs.
+install-vram-management-tooltip = Prioritize VRAM for the foreground application so the GPU driver avoids spilling buffers into system RAM (GTT).
 
 # Main Page (buttons)
 button-about-tooltip = About
