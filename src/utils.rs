@@ -187,13 +187,6 @@ pub fn has_intel_or_amd_gpu() -> bool {
     data_obj.pci_devices.iter().any(|device| is_intel_amd_gpu(&device.vendor_id, &device.class_id))
 }
 
-/// Returns true if the current session is KDE Plasma.
-pub fn is_kde_plasma_session() -> bool {
-    std::env::var("XDG_CURRENT_DESKTOP")
-        .map(|val| val.split(':').any(|part| part.eq_ignore_ascii_case("KDE")))
-        .unwrap_or(false)
-}
-
 #[cfg(test)]
 mod test {
     use super::*;

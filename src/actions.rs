@@ -406,8 +406,12 @@ pub fn install_gaming(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage>
 
 pub fn install_vram_management(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage>) {
     let mut packages: Vec<&str> = vec!["dmemcg-booster"];
-    if utils::is_kde_plasma_session() {
-        packages.push("plasma-foreground-booster");
+    if let Ok(pgrep_res) =
+        Exec::cmd("pgrep").args(&["kwin_wayland"]).stdout(subprocess::NullFile).join()
+    {
+        if pgrep_res.success() {
+            packages.push("plasma-foreground-booster");
+        }
     }
     install_needed_packages(
         callback,
