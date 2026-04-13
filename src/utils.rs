@@ -174,9 +174,9 @@ pub fn is_alpm_pkg_installed(package_name: &str) -> bool {
     alpm.localdb().pkg(package_name.as_bytes()).is_ok()
 }
 
-pub fn is_supported_gpu_device(vendor_id: &str, class_id: &str) -> bool {
+pub fn is_intel_amd_gpu(vendor_id: &str, class_id: &str) -> bool {
     const GPU_CLASS_IDS: &[&str] = &["0300", "0302", "0380"];
-    const VENDOR_IDS: &[&str] = &["8086", "1002"]; // Intel / AMD
+    const VENDOR_IDS: &[&str] = &["8086", "1002"];
 
     GPU_CLASS_IDS.contains(&class_id) && VENDOR_IDS.contains(&vendor_id)
 }
@@ -184,10 +184,7 @@ pub fn is_supported_gpu_device(vendor_id: &str, class_id: &str) -> bool {
 /// Returns true if an Intel or AMD GPU is detected on the system.
 pub fn has_intel_or_amd_gpu() -> bool {
     let data_obj = chwd::data::Data::new(false);
-    data_obj
-        .pci_devices
-        .iter()
-        .any(|device| is_supported_gpu_device(&device.vendor_id, &device.class_id))
+    data_obj.pci_devices.iter().any(|device| is_intel_amd_gpu(&device.vendor_id, &device.class_id))
 }
 
 #[cfg(test)]
@@ -217,10 +214,10 @@ mod test {
 
     #[test]
     fn detects_supported_gpu_vendors_and_classes() {
-        assert!(is_supported_gpu_device("8086", "0300"));
-        assert!(is_supported_gpu_device("1002", "0302"));
-        assert!(is_supported_gpu_device("1002", "0380"));
-        assert!(!is_supported_gpu_device("10de", "0300"));
-        assert!(!is_supported_gpu_device("8086", "0200"));
+        assert!(is_intel_amd_gpu("8086", "0300"));
+        assert!(is_intel_amd_gpu("1002", "0302"));
+        assert!(is_intel_amd_gpu("1002", "0380"));
+        assert!(!is_intel_amd_gpu("10de", "0300"));
+        assert!(!is_intel_amd_gpu("8086", "0200"));
     }
 }

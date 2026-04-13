@@ -69,4 +69,3 @@ pub fn is_globally_enabled(units: &str) -> bool {
         .split_whitespace()
         .any(|unit| target_dirs.iter().any(|dir| global_dir.join(dir).join(unit).exists()))
 }
-

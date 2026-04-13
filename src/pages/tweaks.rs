@@ -26,11 +26,6 @@ macro_rules! create_tweak_checkbox {
     }};
 }
 
-enum ToggleResult {
-    Success(bool),
-    Failed { restored_state: bool, message: String },
-}
-
 fn set_tweak_check_data(check_btn: &gtk::CheckButton, tweak_name: TweakName) {
     unsafe {
         check_btn.set_data("tweakName", tweak_name);
@@ -99,40 +94,13 @@ fn toggle_service(
     // Create context channel.
     let (tx, rx) = async_channel::unbounded();
 
+    let dialog_text = fl!("package-not-installed", package_name = alpm_package_name);
+
     let action_type = action_type.to_owned();
     let action_data = action_data.to_owned();
     let alpm_package_name = alpm_package_name.to_owned();
     // Spawn child process in separate thread.
     std::thread::spawn(move || {
-        if action_type == "package" {
-            let success = if action_enabled {
-                utils::run_cmd_terminal(
-                    crate::gui::run_command,
-                    format!("pacman -Rns {alpm_package_name}"),
-                    true,
-                ) && !tweak::are_any_packages_installed(&alpm_package_name)
-            } else {
-                utils::run_cmd_terminal(
-                    crate::gui::run_command,
-                    format!("pacman -S {alpm_package_name}"),
-                    true,
-                ) && tweak::are_packages_installed(&alpm_package_name)
-            };
-
-            let result = if success {
-                ToggleResult::Success(!action_enabled)
-            } else {
-                let message = if action_enabled {
-                    format!("Failed to remove required package(s): {alpm_package_name}")
-                } else {
-                    fl!("package-not-installed", package_name = alpm_package_name)
-                };
-                ToggleResult::Failed { restored_state: action_enabled, message }
-            };
-            tx.send_blocking(result).expect("Couldn't send data to channel");
-            return;
-        }
-
         if !alpm_package_name.is_empty() {
             if !utils::is_alpm_pkg_installed(&alpm_package_name) {
                 let _ = utils::run_cmd_terminal(
@@ -142,11 +110,7 @@ fn toggle_service(
                 );
             }
             if !utils::is_alpm_pkg_installed(&alpm_package_name) {
-                tx.send_blocking(ToggleResult::Failed {
-                    restored_state: action_enabled,
-                    message: fl!("package-not-installed", package_name = alpm_package_name),
-                })
-                .expect("Couldn't send data to channel");
+                tx.send_blocking(false).expect("Couldn't send data to channel");
                 return;
             }
         }
@@ -167,36 +131,20 @@ fn toggle_service(
             tweak::remove_autostart_files(tweak_name);
         }
 
-        let new_state = if action_type == "user_service" {
+        if action_type == "user_service" {
             systemd_units::refresh_user_cache();
-            systemd_units::check_user_units(&action_data)
-                || tweak::check_autostart_active(tweak_name)
         } else {
             systemd_units::refresh_system_cache();
-            systemd_units::check_system_units(&action_data)
-        };
-
-        let result = if new_state != action_enabled {
-            ToggleResult::Success(new_state)
-        } else {
-            ToggleResult::Failed {
-                restored_state: new_state,
-                message: format!("Failed to update tweak state for {action_data}"),
-            }
-        };
-
-        tx.send_blocking(result).expect("Couldn't send data to channel");
+        }
     });
 
     glib::MainContext::default().spawn_local(async move {
-        while let Ok(result) = rx.recv().await {
-            match result {
-                ToggleResult::Success(state) => callback(state),
-                ToggleResult::Failed { restored_state, message } => {
-                    callback(restored_state);
-                    let ui_comp = crate::gui::GUI::new(widget_window.clone());
-                    ui_comp.show_message(MessageType::Error, &message, "Error".to_string());
-                },
+        while let Ok(msg) = rx.recv().await {
+            if !msg {
+                callback(msg);
+
+                let ui_comp = crate::gui::GUI::new(widget_window.clone());
+                ui_comp.show_message(MessageType::Error, &dialog_text, "Error".to_string());
             }
         }
     });

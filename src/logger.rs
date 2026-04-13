@@ -9,8 +9,8 @@ pub fn setup_logger() -> WorkerGuard {
     let env_filter = EnvFilter::try_from_default_env();
 
     // create subscriber env filter
-    let subscriber_env_filter =
-        env_filter.unwrap_or_else(|_| EnvFilter::new("debug,i18n_embed=warn,which=warn,zbus::proxy=warn"));
+    let subscriber_env_filter = env_filter
+        .unwrap_or_else(|_| EnvFilter::new("debug,i18n_embed=warn,which=warn,zbus::proxy=warn"));
 
     // create stdout layer
     let stdout_log = tracing_subscriber::fmt::layer().compact().with_writer(std::io::stdout);

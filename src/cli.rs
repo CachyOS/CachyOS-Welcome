@@ -76,7 +76,7 @@ pub enum FixAction {
     ShowKwinDebug,
     /// Install Winboat for Windows applications
     InstallWinboat,
-    /// Install GPU booster services (`dmemcg-booster`, `plasma-foreground-booster`)
+    /// Install GPU booster packages
     InstallGpuBoosters,
 }
 
