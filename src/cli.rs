@@ -76,8 +76,8 @@ pub enum FixAction {
     ShowKwinDebug,
     /// Install Winboat for Windows applications
     InstallWinboat,
-    /// Install GPU booster packages
-    InstallGpuBoosters,
+    /// Install VRAM management packages
+    InstallVramManagement,
 }
 
 #[derive(Args, Debug)]

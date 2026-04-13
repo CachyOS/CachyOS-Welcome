@@ -45,9 +45,9 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
 
     let install_gaming_btn = create_gtk_button!("install-gaming-title");
     let install_winboat_btn = create_gtk_button!("install-winboat-title");
-    let install_gpu_boosters_btn = utils::has_intel_or_amd_gpu().then(|| {
-        let btn = create_gtk_button!("install-gpu-boosters-title");
-        btn.set_tooltip_text(Some(&fl!("install-gpu-boosters-tooltip")));
+    let install_vram_management_btn = utils::has_intel_or_amd_gpu().then(|| {
+        let btn = create_gtk_button!("install-vram-management-title");
+        btn.set_tooltip_text(Some(&fl!("install-vram-management-tooltip")));
         btn
     });
 
@@ -58,7 +58,7 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
     let dialog_tx_clone = dialog_tx.clone();
     let dialog_tx_gaming = dialog_tx.clone();
     let dialog_tx_winboat = dialog_tx.clone();
-    let dialog_tx_gpu_boosters = dialog_tx.clone();
+    let dialog_tx_vram_management = dialog_tx.clone();
     removelock_btn.connect_clicked(move |_| {
         let dialog_tx_clone = dialog_tx_clone.clone();
         std::thread::spawn(move || {
@@ -101,11 +101,14 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
             actions::install_winboat(crate::gui::run_command, dialog_tx_winboat);
         });
     });
-    if let Some(button) = &install_gpu_boosters_btn {
+    if let Some(button) = &install_vram_management_btn {
         button.connect_clicked(move |_| {
-            let dialog_tx_gpu_boosters = dialog_tx_gpu_boosters.clone();
+            let dialog_tx_vram_management = dialog_tx_vram_management.clone();
             std::thread::spawn(move || {
-                actions::install_gpu_boosters(crate::gui::run_command, dialog_tx_gpu_boosters);
+                actions::install_vram_management(
+                    crate::gui::run_command,
+                    dialog_tx_vram_management,
+                );
             });
         });
     }
@@ -115,7 +118,7 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
     let remove_orphans_btn_clone = remove_orphans_btn.clone();
     let install_gaming_btn_clone = install_gaming_btn.clone();
     let install_winboat_btn_clone = install_winboat_btn.clone();
-    let install_gpu_boosters_btn_clone = install_gpu_boosters_btn.clone();
+    let install_vram_management_btn_clone = install_vram_management_btn.clone();
     glib::MainContext::default().spawn_local(async move {
         while let Ok(msg) = dialog_rx.recv().await {
             let widget_obj = match msg.action {
@@ -123,9 +126,9 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
                 Action::RemoveOrphans => &remove_orphans_btn_clone,
                 Action::InstallGaming => &install_gaming_btn_clone,
                 Action::InstallWinboat => &install_winboat_btn_clone,
-                Action::InstallGpuBoosters => {
-                    install_gpu_boosters_btn_clone.as_ref().expect("GPU boosters button missing")
-                },
+                Action::InstallVramManagement => install_vram_management_btn_clone
+                    .as_ref()
+                    .expect("VRAM management button missing"),
                 _ => panic!("Unexpected action!!"),
             };
             let widget_window =
@@ -146,7 +149,7 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
     button_box_t.pack_end(&rankmirrors_btn, true, true, 2);
     button_box_t.pack_end(&install_gaming_btn, true, true, 2);
     button_box_t.pack_end(&install_winboat_btn, true, true, 2);
-    if let Some(button) = &install_gpu_boosters_btn {
+    if let Some(button) = &install_vram_management_btn {
         button_box_frth.pack_end(button, true, true, 2);
     }
 

@@ -404,13 +404,13 @@ pub fn install_gaming(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage>
     );
 }
 
-pub fn install_gpu_boosters(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage>) {
+pub fn install_vram_management(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage>) {
     const ALPM_PACKAGE_NAMES: [&str; 2] = ["dmemcg-booster", "plasma-foreground-booster"];
     install_needed_packages(
         callback,
         &ALPM_PACKAGE_NAMES,
-        fl!("gpu-boosters-package-installed"),
-        Action::InstallGpuBoosters,
+        fl!("vram-management-package-installed"),
+        Action::InstallVramManagement,
         dialog_tx,
     );
 }

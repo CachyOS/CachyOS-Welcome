@@ -31,7 +31,7 @@ pub enum Action {
     SetDnsServer,
     InstallGaming,
     InstallWinboat,
-    InstallGpuBoosters,
+    InstallVramManagement,
 }
 
 pub trait UI {
