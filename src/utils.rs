@@ -26,16 +26,17 @@ pub fn fix_path(path: &str) -> String {
 }
 
 #[inline]
-pub fn read_json(path: &str) -> serde_json::Value {
+pub fn read_json(path: &str) -> anyhow::Result<serde_json::Value> {
     let buf = fix_path(path);
-    let data = fs::read_to_string(buf).expect("Unable to read file");
-    serde_json::from_str(&data).expect("Unable to parse")
+    let data = fs::read_to_string(buf)?;
+    Ok(serde_json::from_str(&data)?)
 }
 
 #[inline]
-pub fn write_json(path: &str, content: &serde_json::Value) {
-    let output = File::create(fix_path(path)).expect("Unable to open file for writing");
-    serde_json::to_writer(output, content).expect("Unable to write json to file");
+pub fn write_json(path: &str, content: &serde_json::Value) -> anyhow::Result<()> {
+    let output = File::create(fix_path(path))?;
+    serde_json::to_writer(output, content)?;
+    Ok(())
 }
 
 #[inline]

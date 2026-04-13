@@ -55,7 +55,13 @@ fn get_saved_locale() -> Option<String> {
 fn get_saved_json(preferences: &serde_json::Value) -> serde_json::Value {
     let save_path = fix_path(preferences["save_path"].as_str().unwrap());
     if Path::new(&save_path).exists() {
-        read_json(save_path.as_str())
+        match read_json(save_path.as_str()) {
+            Ok(v) => v,
+            Err(e) => {
+                error!("Could not load saved settings from {save_path}: {e}");
+                json!({"locale": ""})
+            },
+        }
     } else {
         json!({"locale": ""})
     }
@@ -265,7 +271,9 @@ fn on_link1_clicked(param: &[glib::Value]) -> Option<glib::Value> {
 fn on_delete_window(_param: &[glib::Value]) -> Option<glib::Value> {
     let saved_json = &*G_SAVE_JSON.lock().unwrap();
     let preferences = unsafe { G_HELLO_WINDOW.as_ref().unwrap().get_preferences("save_path") };
-    write_json(preferences.as_str().unwrap(), saved_json);
+    if let Err(e) = write_json(preferences.as_str().unwrap(), saved_json) {
+        error!("Could not save settings: {e}");
+    }
 
     Some(false.to_value())
 }
