@@ -66,9 +66,9 @@ impl HelloWindow {
         let social_box: gtk::Box = builder.object("social").unwrap();
         for btn in social_box.children() {
             let name = btn.widget_name();
-            let icon_path = format!("{RESPREFIX}/data/img/{name}.png");
             let image: gtk::Image = builder.object(name.as_str()).unwrap();
-            image.set_from_resource(Some(&icon_path));
+            image.set_pixel_size(32);
+            image.set_from_icon_name(Some(name.as_str()), gtk::IconSize::Invalid);
 
             // Enable keyboard activation (Enter/Space) for social EventBoxes
             btn.connect_key_press_event(|widget, event| {
