@@ -280,6 +280,7 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                   <object class="GtkComboBoxText" id="languages">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="wrap-width">3</property>
                     <items>
                       <item id="en">English</item>
                       <!-- Keep en first -->
