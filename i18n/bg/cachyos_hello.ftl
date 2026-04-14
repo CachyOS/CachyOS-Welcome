@@ -12,6 +12,7 @@ orphans-not-found = Не са намерени осиротели пакети!
 package-not-installed = Пакетът '{$package_name}' не е инсталиран!
 gaming-package-installed = Пакетите за гейминг вече са инсталирани!
 winboat-package-installed = Winboat пакетите вече са инсталирани!
+gpu-boosters-package-installed = GPU booster пакетите вече са инсталирани!
 
 # Application Browser page
 advanced-btn = Разширени
@@ -30,7 +31,9 @@ select-connection = Изберете връзка:
 select-dns-server = Изберете DNS сървър:
 apply = Прилагане
 reset = Нулиране
-enable-doh = Активиране на криптиране на DNS с TLS
+enable-dot = Активиране на криптиране на DNS с TLS
+dot-tooltip = Криптира DNS заявки чрез TLS за подобрена поверителност (изисква поддръжка от сървъра)
+enable-doh = Активиране на криптиране на DNS с HTTPS (DoH)
 doh-tooltip = Криптира DNS заявки чрез HTTPS чрез локален прокси blocky (изисква поддръжка от сървъра, инсталира blocky)
 doh-blocky-install-failed = Неуспешно инсталиране на blocky за поддръжка на DoH!
 test-latency = Тест на забавяне към избрания сървър
@@ -43,6 +46,7 @@ latency-testing = тестване...
 latency-timeout = изтекло време
 latency-no-result = няма отговор от сървъра
 custom-dns = Персонализиран
+dhcp-automatic = DHCP (автоматично)
 custom-dns-ipv4 = IPv4 адреси (разделени със запетая):
 custom-dns-ipv6 = IPv6 адреси (разделени със запетая):
 custom-dns-dot-hostname = DoT име на хост (по избор):
@@ -78,6 +82,8 @@ dnsserver-title = Промяна на DNS сървъра
 show-kwinw-debug-title = Отваряне на прозореца за отстраняване на грешки на kwin (Wayland)
 install-gaming-title = Инсталиране на пакети за гейминг
 install-winboat-title = Инсталиране на Winboat
+install-gpu-boosters-title = Инсталиране на GPU Boosters
+install-gpu-boosters-tooltip = Инсталиране на dmemcg-booster и plasma-foreground-booster за AMD или Intel видеокарти
 
 # Main Page (buttons)
 button-about-tooltip = Относно
