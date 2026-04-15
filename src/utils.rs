@@ -187,6 +187,15 @@ pub fn has_intel_or_amd_gpu() -> bool {
     data_obj.pci_devices.iter().any(|device| is_intel_amd_gpu(&device.vendor_id, &device.class_id))
 }
 
+/// Returns true if the kwin is currently running.
+pub fn is_kwin_wayland() -> bool {
+    Exec::cmd("pgrep")
+        .args(&["kwin_wayland"])
+        .stdout(subprocess::NullFile)
+        .join()
+        .is_ok_and(|status| status.success())
+}
+
 #[cfg(test)]
 mod test {
     use super::*;

@@ -11,7 +11,6 @@ use std::str;
 use gtk::prelude::*;
 
 use gtk::{glib, Builder};
-use subprocess::Exec;
 use tracing::debug;
 use which::which;
 
@@ -172,20 +171,16 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
     topbox.pack_end(&button_box_s, true, true, 5);
     topbox.pack_end(&button_box_f, true, true, 5);
 
-    if let Ok(pgrep_res) =
-        Exec::cmd("pgrep").args(&["kwin_wayland"]).stdout(subprocess::NullFile).join()
-    {
-        if pgrep_res.success() {
-            let kwinw_debug_btn = create_gtk_button!("show-kwinw-debug-title");
-            kwinw_debug_btn.connect_clicked(move |_| {
-                // Spawn child process in separate thread.
-                std::thread::spawn(move || {
-                    // do we even need to start that in separate thread. should be fine without
-                    actions::launch_kwin_debug_window();
-                });
+    if utils::is_kwin_wayland() {
+        let kwinw_debug_btn = create_gtk_button!("show-kwinw-debug-title");
+        kwinw_debug_btn.connect_clicked(move |_| {
+            // Spawn child process in separate thread.
+            std::thread::spawn(move || {
+                // do we even need to start that in separate thread. should be fine without
+                actions::launch_kwin_debug_window();
             });
-            button_box_frth.pack_end(&kwinw_debug_btn, true, true, 2);
-        }
+        });
+        button_box_frth.pack_end(&kwinw_debug_btn, true, true, 2);
     }
 
     topbox.set_hexpand(true);
