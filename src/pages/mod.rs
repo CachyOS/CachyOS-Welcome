@@ -279,7 +279,7 @@ pub fn create_tweaks_page(builder: &Builder) {
 
 pub fn create_appbrowser_page(builder: &Builder) {
     let install: gtk::Button = builder.object("appBrowser").unwrap();
-    install.set_visible(true);
+    install.set_visible(utils::is_cachyos_pi_installed());
     install.set_label(&fl!("appbrowser-label"));
     install.connect_clicked(move |_| {
         // Spawn child process in separate thread.
