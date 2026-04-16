@@ -54,14 +54,14 @@ pub fn handle_fix_command(action: FixAction) -> Result<()> {
             println!("{}", "Installing Winboat...".bold());
             actions::install_winboat(crate::cli::run_command, tx);
         },
-        FixAction::InstallGpuBoosters => {
-            println!("{}", "Installing GPU booster packages...".bold());
-            actions::install_gpu_boosters(crate::cli::run_command, tx);
+        FixAction::InstallVramManagement => {
+            println!("{}", "Installing VRAM management packages...".bold());
+            actions::install_vram_management(crate::cli::run_command, tx);
         },
     }
 
     while let Ok(msg) = rx.try_recv() {
-        let ui_comp = crate::cli::CLI::new();
+        let ui_comp = crate::cli::ConsoleUi::new();
         ui_comp.show_message(msg.msg_type, &msg.msg, msg.msg_type.to_string());
     }
     Ok(())
@@ -254,7 +254,7 @@ pub fn handle_dns_command(action: DnsAction) -> Result<()> {
         },
     }
     while let Ok(msg) = rx.try_recv() {
-        let ui_comp = crate::cli::CLI::new();
+        let ui_comp = crate::cli::ConsoleUi::new();
         ui_comp.show_message(msg.msg_type, &msg.msg, msg.msg_type.to_string());
     }
     Ok(())

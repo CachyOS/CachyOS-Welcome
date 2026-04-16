@@ -4,7 +4,7 @@ about-dialog-comments = Вітальний екран CachyOS
 
 # Tweaks page
 tweaks = Налаштування
-fixes = Виправлення
+fixes = Обслуговування
 applications = Застосунки
 removed-db-lock = Блокування бази даних Pacman знято.
 lock-doesnt-exist = Блокування бази даних Pacman відсутнє!
@@ -12,6 +12,7 @@ orphans-not-found = Осиротілих пакетів не знайдено.
 package-not-installed = Пакет '{$package_name}' не встановлено.
 gaming-package-installed = Ігрові пакети вже встановлені!
 winboat-package-installed = Пакети Winboat вже встановлені!
+gpu-boosters-package-installed = Пакети прискорювачів GPU вже встановлені!
 
 # Application Browser page
 advanced-btn = розширені
@@ -32,15 +33,27 @@ apply = Застосувати
 reset = Скинути
 enable-dot = Увімкнути DNS через TLS (DoT)
 dot-tooltip = Шифрування DNS-запитів за допомогою TLS для кращої конфіденційності (потребує підтримки сервера)
-test-latency = Тест затримки обраного сервера
+enable-doh = Увімкнути DNS через HTTPS (DoH)
+doh-tooltip = Шифрувати DNS-запити через HTTPS за допомогою локального проксі blocky (потрібна підтримка сервера, встановлюється blocky)
+doh-blocky-install-failed = Не вдалося встановити blocky для підтримки DoH!
+test-latency = Перевірити затримку
 test-latency-tooltip = Виміряти мережеву затримку до обраного DNS-сервера
 best-server = Обрати найкращий сервер за затримкою
-best-server-tooltip = Перевірити базові DNS-сервери (без фільтруючих варіантів) та обрати найшвидший
+best-server-tooltip = Перевірити базові DNS-сервери (без фільтрації) та обрати найшвидший
 latency-result = {""}
 server-info = {""}
 latency-testing = тестування...
 latency-timeout = тайм-аут
 latency-no-result = жоден сервер не відповів
+custom-dns = Власний
+dhcp-automatic = DHCP (автоматично)
+custom-dns-ipv4 = IPv4-адреси (через кому):
+custom-dns-ipv6 = IPv6-адреси (через кому):
+custom-dns-dot-hostname = Ім’я хоста DoT (необов’язково):
+custom-dns-invalid = Введіть принаймні IPv4 або IPv6 адресу
+custom-dns-invalid-hostname = Неправильне ім’я хоста DoT
+custom-dns-doh-url = URL DoH (для DNS через HTTPS):
+custom-dns-doh-url-required = Введіть коректний URL DoH, що починається з https://
 dns-check-hint = Після застосування перевірте вашого DNS-провайдера на
 dns-server-changed = DNS-сервер змінено.
 dns-server-failed = Не вдалося змінити DNS-сервер!
@@ -55,7 +68,7 @@ tweak-oomd-tooltip = Завчасно завершувати процеси за
 tweak-bpftune-tooltip = Автоматично оптимізувати мережеві параметри системи
 tweak-bluetooth-tooltip = Увімкнути підтримку Bluetooth-пристроїв (миші, навушники тощо)
 tweak-ananicycpp-tooltip = Автоматично керувати пріоритетами процесів для кращої чутливості системи
-tweak-cachyupdate-tooltip = Сповіщення про оновлення в системному лотку
+tweak-cachyupdate-tooltip = Сповіщення про оновлення в панелі сповіщень
 
 # Tweaks page (fixes)
 remove-lock-title = Зняти блокування бази даних
@@ -69,6 +82,8 @@ dnsserver-title = Змінити DNS-сервер
 show-kwinw-debug-title = Показати вікно налагодження KWin (Wayland)
 install-gaming-title = Встановити ігрові пакети
 install-winboat-title = Встановити Winboat
+install-gpu-boosters-title = Встановити прискорювачі GPU
+install-gpu-boosters-tooltip = Встановити dmemcg-booster і plasma-foreground-booster для GPU AMD або Intel
 
 # Main Page (buttons)
 button-about-tooltip = Про програму

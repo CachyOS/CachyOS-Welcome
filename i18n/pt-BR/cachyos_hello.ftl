@@ -12,6 +12,7 @@ orphans-not-found = Não foram encontrados pacotes órfãos!
 package-not-installed = O pacote '{$package_name}' não foi instalado!
 gaming-package-installed = Os pacotes de jogos já estão instalados!
 winboat-package-installed = Os pacotes do Winboat já estão instalados!
+gpu-boosters-package-installed = Os pacotes de otimização de GPU já estão instalados!
 
 # Application Browser page
 advanced-btn = Avançado
@@ -45,6 +46,7 @@ latency-testing = testando...
 latency-timeout = tempo esgotado
 latency-no-result = nenhum servidor respondeu
 custom-dns = Personalizado
+dhcp-automatic = DHCP (automático)
 custom-dns-ipv4 = Endereços IPv4 (separados por vírgula):
 custom-dns-ipv6 = Endereços IPv6 (separados por vírgula):
 custom-dns-dot-hostname = Nome de host DoT (opcional):
@@ -80,6 +82,8 @@ dnsserver-title = Trocar Servidor DNS
 show-kwinw-debug-title = Exibir a Janela de Depuração do KWin(Wayland)
 install-gaming-title = Instalar Pacotes de Jogos
 install-winboat-title = Instalar Winboat
+install-gpu-boosters-title = Instalar Otimizadores de GPU
+install-gpu-boosters-tooltip = Instala os pacotes dmemcg-booster e plasma-foreground-booster em GPUs AMD ou Intel
 
 # Main Page (buttons)
 button-about-tooltip = Sobre

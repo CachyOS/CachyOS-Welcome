@@ -12,7 +12,7 @@ orphans-not-found = No orphan packages found!
 package-not-installed = Package '{$package_name}' has not been installed!
 gaming-package-installed = Gaming packages already installed!
 winboat-package-installed = Winboat packages already installed!
-gpu-boosters-package-installed = GPU booster packages already installed!
+vram-management-package-installed = VRAM management packages already installed!
 
 # Application Browser page
 advanced-btn = advanced
@@ -82,8 +82,8 @@ dnsserver-title = Change DNS server
 show-kwinw-debug-title = Show kwin(Wayland) debug window
 install-gaming-title = Install Gaming packages
 install-winboat-title = Install Winboat
-install-gpu-boosters-title = Install GPU Boosters
-install-gpu-boosters-tooltip = Install dmemcg-booster and plasma-foreground-booster on AMD or Intel GPUs
+install-vram-management-title = Install VRAM Management
+install-vram-management-tooltip = Prioritize VRAM for the foreground application so the GPU driver avoids spilling buffers into system RAM (GTT).
 
 # Main Page (buttons)
 button-about-tooltip = About
