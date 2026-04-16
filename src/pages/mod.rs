@@ -196,7 +196,7 @@ fn create_apps_section() -> Option<gtk::Box> {
     label.set_text(&fl!("applications"));
 
     // Check first btn.
-    if Path::new("/sbin/cachyos-pi").exists() {
+    if utils::is_cachyos_pi_installed() {
         let cachyos_pi = gtk::Button::with_label("CachyOS PackageInstaller");
         cachyos_pi.connect_clicked(on_appbtn_clicked);
         box_collection.pack_start(&cachyos_pi, true, true, 2);
@@ -285,8 +285,8 @@ pub fn create_appbrowser_page(builder: &Builder) {
         // Spawn child process in separate thread.
         std::thread::spawn(move || {
             // Get executable path.
-            let exec_path = "/usr/bin/cachyos-pi";
-            let exit_status = utils::spawn_detached(exec_path).expect("Failed to spawn process");
+            let exec_path = utils::get_cachyos_pi_path().expect("Did not find cachyos-pi");
+            let exit_status = utils::spawn_detached(exec_path.as_str()).expect("Failed to spawn process");
 
             debug!("Exit status successfully? = {:?}", exit_status.success());
         });
