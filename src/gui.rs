@@ -1,17 +1,17 @@
 use crate::ui::{MessageType, UI};
 use gtk::prelude::*;
 
-pub struct GUI {
+pub struct Gui {
     window: gtk::Window,
 }
 
-impl GUI {
+impl Gui {
     pub fn new(window: gtk::Window) -> Self {
-        GUI { window }
+        Gui { window }
     }
 }
 
-impl UI for GUI {
+impl UI for Gui {
     fn show_message(&self, message_type: MessageType, message: &str, title: String) {
         let dialog_msg_type = match message_type {
             MessageType::Info => gtk::MessageType::Info,

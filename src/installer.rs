@@ -1,4 +1,4 @@
-use crate::gui::GUI;
+use crate::gui::Gui;
 use crate::ui::{MessageType, UI};
 use crate::{check_regular_file, fl, G_HELLO_WINDOW};
 
@@ -20,7 +20,7 @@ struct Versions {
     handheld_iso_version: String,
 }
 
-fn outdated_version_check(ui: &GUI, message: String) -> bool {
+fn outdated_version_check(ui: &Gui, message: String) -> bool {
     let edition_tag: String =
         fs::read_to_string("/etc/edition-tag").unwrap_or("desktop".into()).trim().into();
     let version_tag: String =
@@ -69,7 +69,7 @@ fn outdated_version_check(ui: &GUI, message: String) -> bool {
     true
 }
 
-fn edition_compat_check(ui: &GUI, message: String) -> bool {
+fn edition_compat_check(ui: &Gui, message: String) -> bool {
     let edition_tag = fs::read_to_string("/etc/edition-tag").unwrap_or("desktop".to_string());
 
     let profiles_path = format!("{}/handhelds/profiles.toml", chwd::consts::CHWD_PCI_CONFIG_DIR);
@@ -92,7 +92,7 @@ fn edition_compat_check(ui: &GUI, message: String) -> bool {
     true
 }
 
-fn connectivity_check(ui: &GUI, message: String) -> bool {
+fn connectivity_check(ui: &Gui, message: String) -> bool {
     // First try HTTP check to cachyos.org
     let http_status = match reqwest::blocking::get("https://cachyos.org") {
         Ok(resp) => resp.status().is_success() || resp.status().is_server_error(),
@@ -134,7 +134,7 @@ pub fn launch_installer(message: String) {
         let install_btn: gtk::Button = builder.object("install").unwrap();
         install_btn.set_sensitive(false);
 
-        let ui_comp = crate::gui::GUI::new(window_ref.clone());
+        let ui_comp = crate::gui::Gui::new(window_ref.clone());
         let checks = [connectivity_check, edition_compat_check, outdated_version_check];
         if !checks.iter().all(|x| x(&ui_comp, message.clone())) {
             // if any check failed, return

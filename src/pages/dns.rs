@@ -583,7 +583,7 @@ fn create_connections_section() -> gtk::Box {
             let widget_obj = &apply_btn_clone;
             let widget_window =
                 utils::get_window_from_widget(widget_obj).expect("Failed to retrieve window");
-            let ui_comp = crate::gui::GUI::new(widget_window);
+            let ui_comp = crate::gui::Gui::new(widget_window);
 
             ui_comp.show_message(msg.msg_type, &msg.msg, msg.msg_type.to_string());
         }
