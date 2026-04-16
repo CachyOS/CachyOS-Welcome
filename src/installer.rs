@@ -128,8 +128,8 @@ fn connectivity_check(ui: &Gui, message: String) -> bool {
 pub fn launch_installer(message: String) {
     // Spawn child process in separate thread.
     std::thread::spawn(move || {
-        let window_ref = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().window };
-        let builder = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().builder };
+        let window_ref = &G_HELLO_WINDOW.get().unwrap().window;
+        let builder = &G_HELLO_WINDOW.get().unwrap().builder;
 
         let install_btn: gtk::Button = builder.object("install").unwrap();
         install_btn.set_sensitive(false);

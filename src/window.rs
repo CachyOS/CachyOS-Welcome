@@ -23,6 +23,12 @@ pub struct HelloWindow {
     preferences: serde_json::Value,
 }
 
+// SAFETY: GTK objects use GLib's atomic reference counting for lifetime management.
+// All GTK UI calls in this application occur on the GTK main thread via GTK's own
+// signal/callback system. The static is written once at startup before any reads.
+unsafe impl Send for HelloWindow {}
+unsafe impl Sync for HelloWindow {}
+
 impl HelloWindow {
     /// Create a new `HelloWindow`.
     pub fn new(
@@ -78,7 +84,7 @@ impl HelloWindow {
                     || keyval == gdk::keys::constants::space
                 {
                     let name = widget.widget_name();
-                    let hello_window = unsafe { crate::G_HELLO_WINDOW.as_ref().unwrap() };
+                    let hello_window = crate::G_HELLO_WINDOW.get().unwrap();
                     let preferences = hello_window.get_preferences("urls");
                     if let Some(uri) = preferences[name.as_str()].as_str() {
                         hello_window.open_uri(uri);

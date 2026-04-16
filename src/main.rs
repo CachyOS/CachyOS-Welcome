@@ -26,7 +26,7 @@ use window::HelloWindow;
 
 use std::path::Path;
 use std::str;
-use std::sync::{Arc, LazyLock, Mutex};
+use std::sync::{Arc, LazyLock, Mutex, OnceLock};
 
 use gtk::gio::prelude::*;
 use gtk::prelude::*;
@@ -45,7 +45,7 @@ static G_SAVE_JSON: LazyLock<Mutex<serde_json::Value>> = LazyLock::new(|| {
     let saved_json = get_saved_json(&preferences);
     Mutex::new(saved_json)
 });
-static mut G_HELLO_WINDOW: Option<Arc<HelloWindow>> = None;
+static G_HELLO_WINDOW: OnceLock<Arc<HelloWindow>> = OnceLock::new();
 
 fn get_saved_locale() -> Option<String> {
     let saved_json = &*G_SAVE_JSON.lock().unwrap();
@@ -108,11 +108,9 @@ fn main() {
 
         application.connect_activate(|application| {
             // If a window already exists, raise the window to the front and give it focus
-            unsafe {
-                if let Some(window) = G_HELLO_WINDOW.as_ref() {
-                    window.window.present();
-                    return;
-                }
+            if let Some(window) = G_HELLO_WINDOW.get() {
+                window.window.present();
+                return;
             }
             build_ui(application);
         });
@@ -150,9 +148,7 @@ fn build_ui(application: &gtk::Application) {
     });
     G_SAVE_JSON.lock().unwrap()["locale"] = json!(best_locale);
 
-    unsafe {
-        G_HELLO_WINDOW = Some(Arc::new(hello_window));
-    };
+    G_HELLO_WINDOW.set(Arc::new(hello_window)).unwrap();
 }
 
 /// Returns the best locale, based on user's preferences.
@@ -193,7 +189,7 @@ fn set_locale(use_locale: &str) {
     }
 
     // change UI
-    unsafe { G_HELLO_WINDOW.as_ref().unwrap().switch_locale(use_locale) };
+    G_HELLO_WINDOW.get().unwrap().switch_locale(use_locale);
 
     // save changes
     G_SAVE_JSON.lock().unwrap()["locale"] = json!(use_locale);
@@ -218,11 +214,11 @@ fn on_action_clicked(param: &[glib::Value]) -> Option<glib::Value> {
         },
         "autostart" => {
             let action = widget.downcast::<gtk::Switch>().unwrap();
-            unsafe { G_HELLO_WINDOW.as_ref().unwrap().set_autostart(action.is_active()) };
+            G_HELLO_WINDOW.get().unwrap().set_autostart(action.is_active());
             None
         },
         _ => {
-            unsafe { G_HELLO_WINDOW.as_ref().unwrap().show_about_dialog() };
+            G_HELLO_WINDOW.get().unwrap().show_about_dialog();
             None
         },
     }
@@ -233,7 +229,7 @@ fn on_btn_clicked(param: &[glib::Value]) -> Option<glib::Value> {
     let name = widget.widget_name();
 
     let child_name = format!("{name}page");
-    unsafe { G_HELLO_WINDOW.as_ref().unwrap().set_stack_child_visible(&child_name) };
+    G_HELLO_WINDOW.get().unwrap().set_stack_child_visible(&child_name);
 
     None
 }
@@ -242,10 +238,10 @@ fn on_link_clicked(param: &[glib::Value]) -> Option<glib::Value> {
     let widget = param[0].get::<gtk::Widget>().unwrap();
     let name = widget.widget_name();
 
-    let preferences = unsafe { G_HELLO_WINDOW.as_ref().unwrap().get_preferences("urls") };
+    let preferences = G_HELLO_WINDOW.get().unwrap().get_preferences("urls");
 
     let uri = preferences[name.as_str()].as_str().unwrap();
-    unsafe { G_HELLO_WINDOW.as_ref().unwrap().open_uri(uri) };
+    G_HELLO_WINDOW.get().unwrap().open_uri(uri);
 
     None
 }
@@ -254,17 +250,17 @@ fn on_link1_clicked(param: &[glib::Value]) -> Option<glib::Value> {
     let widget = param[0].get::<gtk::Widget>().unwrap();
     let name = widget.widget_name();
 
-    let preferences = unsafe { G_HELLO_WINDOW.as_ref().unwrap().get_preferences("urls") };
+    let preferences = G_HELLO_WINDOW.get().unwrap().get_preferences("urls");
 
     let uri = preferences[name.as_str()].as_str().unwrap();
-    unsafe { G_HELLO_WINDOW.as_ref().unwrap().open_uri(uri) };
+    G_HELLO_WINDOW.get().unwrap().open_uri(uri);
 
     Some(false.to_value())
 }
 
 fn on_delete_window(_param: &[glib::Value]) -> Option<glib::Value> {
     let saved_json = &*G_SAVE_JSON.lock().unwrap();
-    let preferences = unsafe { G_HELLO_WINDOW.as_ref().unwrap().get_preferences("save_path") };
+    let preferences = G_HELLO_WINDOW.get().unwrap().get_preferences("save_path");
     write_json(preferences.as_str().unwrap(), saved_json);
 
     Some(false.to_value())
