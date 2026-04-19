@@ -66,6 +66,7 @@ button-software-label = Softwarea
 button-donate-label = Dohaintza egin
 button-forum-label = Foroa
 button-installer-label = Abiarazi instalatzailea
+button-installer-wait-label = { button-installer-label }…
 button-involved-label = Parte hartu
 button-readme-label = Irakurri
 button-release-info-label = Bertsioaren informazioa

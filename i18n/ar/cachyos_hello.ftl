@@ -74,6 +74,7 @@ button-software-label = تطبيق
 button-donate-label = تبرع
 button-forum-label = المنتدى
 button-installer-label = شغل المثبت
+button-installer-wait-label = { button-installer-label }…
 button-involved-label =  ساهم معنا
 button-readme-label = اقرأني
 button-release-info-label = معلومات الإصدار

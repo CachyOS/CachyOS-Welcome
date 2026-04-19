@@ -93,6 +93,7 @@ button-software-label = Software
 button-donate-label = Donate
 button-forum-label = Forum
 button-installer-label = Launch installer
+button-installer-wait-label = Launching installer…
 button-involved-label = Get involved
 button-readme-label = Read me
 button-release-info-label = Release info

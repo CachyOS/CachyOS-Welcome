@@ -75,6 +75,7 @@ button-software-label = Szoftver
 button-donate-label = Adományozás
 button-forum-label = Fórum
 button-installer-label = Telepítő indítása
+button-installer-wait-label = { button-installer-label }…
 button-involved-label = Csatlakozz hozzánk
 button-readme-label = Olvass el
 button-release-info-label = Kiadási információk

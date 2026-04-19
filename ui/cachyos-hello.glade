@@ -374,11 +374,43 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
             </child>
             <child>
               <object class="GtkButton" id="install">
-                <property name="label" translatable="yes">Launch installer</property>
                 <property name="name">install</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
                 <signal name="clicked" handler="on_action_clicked" swapped="no"/>
+                <child>
+                  <object class="GtkBox" id="install-content">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="spacing">6</property>
+                    <property name="halign">center</property>
+                    <child>
+                      <object class="GtkSpinner" id="install-spinner">
+                        <property name="visible">False</property>
+                        <property name="active">False</property>
+                        <property name="can-focus">False</property>
+                        <property name="no-show-all">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="install-label">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label" translatable="yes">Launch installer</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="left-attach">1</property>

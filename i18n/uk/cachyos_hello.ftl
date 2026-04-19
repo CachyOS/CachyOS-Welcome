@@ -93,6 +93,7 @@ button-software-label = Програмне забезпечення
 button-donate-label = Підтримати
 button-forum-label = Форум
 button-installer-label = Запустити встановлення
+button-installer-wait-label = { button-installer-label }…
 button-involved-label = Долучитися
 button-readme-label = Прочитати
 button-release-info-label = Інформація про випуск

@@ -68,6 +68,7 @@ button-software-label = Software
 button-donate-label = Doneren
 button-forum-label = Forum
 button-installer-label = Installatiewizard starten
+button-installer-wait-label = { button-installer-label }…
 button-involved-label = Meehelpen
 button-readme-label = Lees mij
 button-release-info-label = Uitgaveinformatie

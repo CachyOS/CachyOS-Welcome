@@ -65,6 +65,7 @@ button-software-label = 软件
 button-donate-label = 捐献
 button-forum-label = 论坛
 button-installer-label = 启动安装程序
+button-installer-wait-label = { button-installer-label }…
 button-involved-label = 参与
 button-readme-label = 阅读我
 button-release-info-label = Release 信息

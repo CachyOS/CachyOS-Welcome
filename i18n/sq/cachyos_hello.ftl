@@ -74,6 +74,7 @@ button-software-label = Softuer
 button-donate-label = Dhuro
 button-forum-label = Forum
 button-installer-label = Fillo instaluesin
+button-installer-wait-label = { button-installer-label }…
 button-involved-label = Bëhu pjesë
 button-readme-label = Udhëzuesi
 button-release-info-label = Informacion i versionit

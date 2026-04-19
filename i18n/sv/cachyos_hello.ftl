@@ -78,6 +78,7 @@ button-software-label = Programvara
 button-donate-label = Donera
 button-forum-label = Forum
 button-installer-label = Starta installeraren
+button-installer-wait-label = { button-installer-label }…
 button-involved-label = Hjälp oss
 button-readme-label = Läs mig
 button-release-info-label = Ändringslogg

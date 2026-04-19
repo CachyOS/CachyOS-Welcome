@@ -73,6 +73,7 @@ button-software-label = Tarkvara
 button-donate-label = Anneta
 button-forum-label = Foorum
 button-installer-label = Käivita paigaldaja
+button-installer-wait-label = { button-installer-label }…
 button-involved-label = Osale
 button-readme-label = Loe mind
 button-release-info-label = Väljalaske info

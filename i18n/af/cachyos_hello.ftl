@@ -68,6 +68,7 @@ button-software-label = Sagteware
 button-donate-label = Skenk
 button-forum-label = Forum
 button-installer-label = Lanseer installeerder
+button-installer-wait-label = { button-installer-label }…
 button-involved-label = Raak betrokke
 button-readme-label = Lees my
 button-release-info-label = Vrylatingsnote

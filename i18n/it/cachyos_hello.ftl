@@ -54,6 +54,7 @@ button-software-label = Software
 button-donate-label = Supportaci
 button-forum-label = Forum
 button-installer-label = Lancia l'installer
+button-installer-wait-label = { button-installer-label }…
 button-involved-label = Partecipa
 button-readme-label = Leggimi
 button-release-info-label = Note sulla versione

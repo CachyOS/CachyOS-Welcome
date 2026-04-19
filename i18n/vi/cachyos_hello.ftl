@@ -75,6 +75,7 @@ button-software-label = Phần mềm
 button-donate-label = ủng hộ
 button-forum-label = diễn đàn
 button-installer-label = mở phần mềm cài đặt
+button-installer-wait-label = { button-installer-label }…
 button-involved-label = tham gia dự án
 button-readme-label = Đọc tôi
 button-release-info-label = Thông tin bản phát hành

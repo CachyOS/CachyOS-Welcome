@@ -68,6 +68,7 @@ button-software-label = Softwér
 button-donate-label = Podpořit
 button-forum-label = Fórum
 button-installer-label = Spustit instalátor
+button-installer-wait-label = { button-installer-label }…
 button-involved-label = Zapojit se
 button-readme-label = Čti mě
 button-release-info-label = Informace o vydaní

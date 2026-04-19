@@ -89,6 +89,7 @@ button-software-label = Software
 button-donate-label = Donar
 button-forum-label = Foro
 button-installer-label = Ejecutar instalador
+button-installer-wait-label = { button-installer-label }…
 button-involved-label = Participar
 button-readme-label = Léame
 button-release-info-label = Info de versión

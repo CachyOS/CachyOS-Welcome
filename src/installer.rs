@@ -6,7 +6,7 @@ use std::fs;
 use std::io::{BufRead, BufReader};
 use std::path::Path;
 
-use gtk::prelude::{BuilderExtManual, WidgetExt};
+use gtk::prelude::*;
 
 use serde::Deserialize;
 use subprocess::{Exec, Redirection};
@@ -125,33 +125,135 @@ fn connectivity_check(ui: &GUI, message: String) -> bool {
     false
 }
 
+fn installer_state_label_key(busy: bool) -> &'static str {
+    if busy {
+        "button-installer-wait-label"
+    } else {
+        "button-installer-label"
+    }
+}
+
+#[derive(Debug, PartialEq, Eq)]
+struct InstallerButtonState {
+    sensitive: bool,
+    spinner_active: bool,
+    spinner_visible: bool,
+}
+
+fn installer_button_state(busy: bool) -> InstallerButtonState {
+    InstallerButtonState {
+        sensitive: !busy,
+        spinner_active: busy,
+        spinner_visible: busy,
+    }
+}
+
+fn installer_state_label_text(busy: bool) -> String {
+    crate::localization::get_locale_text(installer_state_label_key(busy))
+}
+
+fn installer_widgets(builder: &gtk::Builder) -> (gtk::Button, gtk::Spinner, gtk::Label) {
+    let button: gtk::Button = builder.object("install").unwrap();
+    let spinner: gtk::Spinner = builder.object("install-spinner").unwrap();
+    let label: gtk::Label = builder.object("install-label").unwrap();
+
+    (button, spinner, label)
+}
+
+fn installer_is_busy_state(button_sensitive: bool, spinner_active: bool) -> bool {
+    !button_sensitive || spinner_active
+}
+
+fn installer_is_busy(button: &gtk::Button, spinner: &gtk::Spinner) -> bool {
+    installer_is_busy_state(button.is_sensitive(), spinner.is_active())
+}
+
+fn apply_installer_busy_state(
+    button: &gtk::Button,
+    spinner: &gtk::Spinner,
+    label: &gtk::Label,
+    busy: bool,
+) {
+    let state = installer_button_state(busy);
+
+    button.set_sensitive(state.sensitive);
+    spinner.set_active(state.spinner_active);
+    if state.spinner_visible {
+        spinner.show();
+    } else {
+        spinner.hide();
+    }
+
+    label.set_text(&installer_state_label_text(busy));
+}
+
+pub fn refresh_installer_label(builder: &gtk::Builder) {
+    let (button, spinner, label) = installer_widgets(builder);
+    label.set_text(&installer_state_label_text(installer_is_busy(&button, &spinner)));
+}
+
+fn set_installer_busy(
+    button: gtk::glib::SendWeakRef<gtk::Button>,
+    spinner: gtk::glib::SendWeakRef<gtk::Spinner>,
+    label: gtk::glib::SendWeakRef<gtk::Label>,
+    busy: bool,
+) {
+    gtk::glib::MainContext::default().invoke(move || {
+        let (Some(button), Some(spinner), Some(label)) =
+            (button.upgrade(), spinner.upgrade(), label.upgrade())
+        else {
+            return;
+        };
+
+        apply_installer_busy_state(&button, &spinner, &label, busy);
+    });
+}
+
 pub fn launch_installer(message: String) {
+    let builder = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().builder };
+    let (button, spinner, label) = installer_widgets(builder);
+    let button_ref: gtk::glib::SendWeakRef<gtk::Button> = button.downgrade().into();
+    let spinner_ref: gtk::glib::SendWeakRef<gtk::Spinner> = spinner.downgrade().into();
+    let label_ref: gtk::glib::SendWeakRef<gtk::Label> = label.downgrade().into();
+    apply_installer_busy_state(&button, &spinner, &label, true);
+
     // Spawn child process in separate thread.
     std::thread::spawn(move || {
-        let window_ref = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().window };
-        let builder = unsafe { &G_HELLO_WINDOW.as_ref().unwrap().builder };
-
-        let install_btn: gtk::Button = builder.object("install").unwrap();
-        install_btn.set_sensitive(false);
-
-        let ui_comp = crate::gui::GUI::new(window_ref.clone());
+        let window_ref = unsafe { G_HELLO_WINDOW.as_ref().unwrap().window.clone() };
+        let ui_comp = crate::gui::GUI::new(window_ref);
         let checks = [connectivity_check, edition_compat_check, outdated_version_check];
         if !checks.iter().all(|x| x(&ui_comp, message.clone())) {
             // if any check failed, return
             info!("Some ISO check failed!");
-            install_btn.set_sensitive(true);
+            set_installer_busy(button_ref.clone(), spinner_ref.clone(), label_ref.clone(), false);
             return;
         }
 
         // Spawning child process
         info!("ISO checks passed! Starting Installer..");
-        let mut child = Exec::cmd("/usr/local/bin/calamares-online.sh")
+        let mut child = match Exec::cmd("/usr/local/bin/calamares-online.sh")
             .stdout(Redirection::Pipe)
             .stderr(Redirection::Merge)
             .popen()
-            .expect("Failed to spawn installer");
+        {
+            Ok(child) => child,
+            Err(err) => {
+                error!("Failed to spawn installer: {err}");
+                set_installer_busy(
+                    button_ref.clone(),
+                    spinner_ref.clone(),
+                    label_ref.clone(),
+                    false,
+                );
+                return;
+            },
+        };
 
-        let child_out = child.stdout.take().unwrap();
+        let Some(child_out) = child.stdout.take() else {
+            error!("Failed to capture installer stdout");
+            set_installer_busy(button_ref.clone(), spinner_ref.clone(), label_ref.clone(), false);
+            return;
+        };
         let child_read = BufReader::new(child_out);
 
         // Read the output line by line until EOF
@@ -162,14 +264,106 @@ pub fn launch_installer(message: String) {
             }
         }
 
-        let status = child.wait().expect("Failed to waiting for child");
-        info!("Installer finished with status: {:?}", status);
+        match child.wait() {
+            Ok(status) => info!("Installer finished with status: {:?}", status),
+            Err(err) => error!("Failed waiting for installer: {err}"),
+        }
 
-        install_btn.set_sensitive(true);
+        set_installer_busy(button_ref, spinner_ref, label_ref, false);
     });
 }
 
 pub fn is_iso(preferences: &serde_json::Value) -> bool {
     Path::new(&preferences["live_path"].as_str().unwrap()).exists()
         && check_regular_file(preferences["installer_path"].as_str().unwrap())
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use std::sync::{Mutex, OnceLock};
+    use unic_langid::LanguageIdentifier;
+
+    fn locale_test_lock() -> &'static Mutex<()> {
+        static LOCK: OnceLock<Mutex<()>> = OnceLock::new();
+        LOCK.get_or_init(|| Mutex::new(()))
+    }
+
+    #[test]
+    fn installer_button_state_matches_idle_ui() {
+        let state = installer_button_state(false);
+
+        assert_eq!(
+            state,
+            InstallerButtonState {
+                sensitive: true,
+                spinner_active: false,
+                spinner_visible: false,
+            }
+        );
+    }
+
+    #[test]
+    fn installer_button_state_matches_busy_ui() {
+        let state = installer_button_state(true);
+
+        assert_eq!(
+            state,
+            InstallerButtonState {
+                sensitive: false,
+                spinner_active: true,
+                spinner_visible: true,
+            }
+        );
+    }
+
+    #[test]
+    fn locale_refresh_busy_detection_matches_button_and_spinner_state() {
+        assert!(!installer_is_busy_state(true, false));
+        assert!(installer_is_busy_state(false, false));
+        assert!(installer_is_busy_state(true, true));
+    }
+
+    #[test]
+    fn installer_busy_label_uses_selected_locale() {
+        let _guard = locale_test_lock().lock().unwrap();
+        let localizer = crate::localization::localizer();
+        let german: LanguageIdentifier = "de".parse().unwrap();
+        let english: LanguageIdentifier = "en".parse().unwrap();
+
+        localizer.select(&[german]).unwrap();
+        assert_eq!(installer_state_label_text(true), "Installation starten…");
+
+        localizer.select(&[english]).unwrap();
+        assert_eq!(installer_state_label_text(true), "Launching installer…");
+    }
+
+    #[test]
+    fn installer_button_glade_contains_spinner_and_embedded_label() {
+        let glade = include_str!("../ui/cachyos-hello.glade");
+
+        assert!(glade.contains(r#"<object class="GtkSpinner" id="install-spinner">"#));
+        assert!(glade.contains(r#"<object class="GtkLabel" id="install-label">"#));
+    }
+
+    #[test]
+    fn all_locales_define_busy_installer_label() {
+        let mut missing = std::fs::read_dir("i18n")
+            .unwrap()
+            .filter_map(|entry| entry.ok())
+            .map(|entry| entry.path().join("cachyos_hello.ftl"))
+            .filter(|path| path.exists())
+            .filter_map(|path| {
+                let file = std::fs::read_to_string(&path).unwrap();
+                if file.contains("button-installer-wait-label =") {
+                    None
+                } else {
+                    Some(path)
+                }
+            })
+            .collect::<Vec<_>>();
+
+        missing.sort();
+        assert!(missing.is_empty(), "missing busy label in: {missing:?}");
+    }
 }

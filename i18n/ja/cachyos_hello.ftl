@@ -66,6 +66,7 @@ button-software-label = ソフトウェア
 button-donate-label = 寄付
 button-forum-label = フォーラム
 button-installer-label = インストーラーを起動
+button-installer-wait-label = { button-installer-label }…
 button-involved-label = 貢献する
 button-readme-label = Read me
 button-release-info-label = リリース情報

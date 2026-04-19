@@ -277,7 +277,6 @@ impl HelloWindow {
                 "donate",
                 "firstcategory",
                 "forum",
-                "install",
                 "installlabel",
                 "involved",
                 "readme",

@@ -93,6 +93,7 @@ button-software-label = Софтуер
 button-donate-label = Подкрепи ни
 button-forum-label = Форум
 button-installer-label = Стартиране на инсталатора
+button-installer-wait-label = { button-installer-label }…
 button-involved-label = Включете се
 button-readme-label = Прочети ме
 button-release-info-label = Списък на промените

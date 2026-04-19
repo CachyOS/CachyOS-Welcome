@@ -1,4 +1,5 @@
 use crate::fl;
+use crate::installer;
 
 use gtk::prelude::*;
 
@@ -74,6 +75,8 @@ fn update_translation_options_section(section_box: &gtk::Box) {
 }
 
 pub fn update_translations(builder: &Builder) {
+    installer::refresh_installer_label(builder);
+
     // Update buttons
     let tweakbrowser_btn: gtk::Button = builder.object("tweaksBrowser").unwrap();
     tweakbrowser_btn.set_label(&fl!("tweaksbrowser-label"));

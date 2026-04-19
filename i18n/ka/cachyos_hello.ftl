@@ -78,6 +78,7 @@ button-software-label = პროგრამები
 button-donate-label = შეწირვა
 button-forum-label = ფორუმი
 button-installer-label = დაყენების პროგრამის გაშვება
+button-installer-wait-label = { button-installer-label }…
 button-involved-label = შემოგვიერთდით
 button-readme-label = წაიკითხეთ
 button-release-info-label = ინფორმაცია გამოშვებაზე

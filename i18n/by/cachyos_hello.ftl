@@ -68,6 +68,7 @@ button-software-label = ПЗ
 button-donate-label = Ахвяраваць
 button-forum-label = Форум
 button-installer-label = Запусціць усталёўшчык
+button-installer-wait-label = { button-installer-label }…
 button-involved-label = Прыняць удзел
 button-readme-label = Прачытай мяне
 button-release-info-label = Звесткі аб выпуску

@@ -66,6 +66,7 @@ button-software-label = Ծրագրեր
 button-donate-label = Նվիրատվություն
 button-forum-label = Ֆորում
 button-installer-label = Գործարկել տեղադրիչը
+button-installer-wait-label = { button-installer-label }…
 button-involved-label = Ներգրավվել
 button-readme-label = Կարդա ինձ
 button-release-info-label = Թողարկման մասին

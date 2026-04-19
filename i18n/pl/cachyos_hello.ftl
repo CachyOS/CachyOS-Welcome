@@ -75,6 +75,7 @@ button-software-label = Programy
 button-donate-label = Wesprzyj
 button-forum-label = Forum
 button-installer-label = Uruchom instalator
+button-installer-wait-label = { button-installer-label }…
 button-involved-label = Zaangażuj się
 button-readme-label = Czytaj to
 button-release-info-label = Informacje o wydaniu

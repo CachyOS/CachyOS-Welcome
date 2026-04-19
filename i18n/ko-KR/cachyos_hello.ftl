@@ -74,6 +74,7 @@ button-software-label = 소프트웨어
 button-donate-label = 후원하기
 button-forum-label = 포럼
 button-installer-label = 설치 프로그램 시작
+button-installer-wait-label = { button-installer-label }…
 button-involved-label = 참여하기
 button-readme-label = Read me
 button-release-info-label = 릴리스 정보

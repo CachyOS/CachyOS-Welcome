@@ -93,6 +93,7 @@ button-software-label = Aplicações do CachyOS
 button-donate-label = Doar
 button-forum-label = Fórum
 button-installer-label = Instalar CachyOS
+button-installer-wait-label = { button-installer-label }…
 button-involved-label = Contribua no Projeto
 button-readme-label = Leia-Me
 button-release-info-label = Informações da Versão

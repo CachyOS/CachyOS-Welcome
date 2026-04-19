@@ -93,6 +93,7 @@ button-software-label = Programinė įranga
 button-donate-label = Paremti
 button-forum-label = Forumas
 button-installer-label = Paleisti diegyklę
+button-installer-wait-label = { button-installer-label }…
 button-involved-label = Prisidėti
 button-readme-label = README
 button-release-info-label = Laidos informacija

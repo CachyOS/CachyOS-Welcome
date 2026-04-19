@@ -68,6 +68,7 @@ button-software-label = ПО
 button-donate-label = Пожертвовать
 button-forum-label = Форум
 button-installer-label = Запустить установщик
+button-installer-wait-label = { button-installer-label }…
 button-involved-label = Принять участие
 button-readme-label = Прочитай меня
 button-release-info-label = Сведения о выпуске

@@ -75,6 +75,7 @@ button-software-label = Yazılım
 button-donate-label = Bağış yap
 button-forum-label = Forum
 button-installer-label = Kurucuyu başlat
+button-installer-wait-label = { button-installer-label }…
 button-involved-label = Projeye katıl
 button-readme-label = Beni oku
 button-release-info-label = Sürüm bilgisi

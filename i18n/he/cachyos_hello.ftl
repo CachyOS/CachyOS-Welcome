@@ -76,6 +76,7 @@ button-software-label = תוכנה
 button-donate-label = תרומה
 button-forum-label = פורום
 button-installer-label = הפעלת תוכנית ההתקנה
+button-installer-wait-label = { button-installer-label }…
 button-involved-label = הירתמות
 button-readme-label = לקרוא אותי
 button-release-info-label = מידע על הגרסה

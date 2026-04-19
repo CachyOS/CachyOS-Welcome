@@ -89,6 +89,7 @@ button-software-label = Programari
 button-donate-label = Feu una donació
 button-forum-label = Fòrum
 button-installer-label = Inicia'n l'instal·lador
+button-installer-wait-label = { button-installer-label }…
 button-involved-label = Col·laboreu-hi
 button-readme-label = Llegiu-me
 button-release-info-label = Informació de la versió
