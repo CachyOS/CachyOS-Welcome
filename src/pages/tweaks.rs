@@ -143,7 +143,7 @@ fn toggle_service(
             if !msg {
                 callback(msg);
 
-                let ui_comp = crate::gui::GUI::new(widget_window.clone());
+                let ui_comp = crate::gui::Gui::new(widget_window.clone());
                 ui_comp.show_message(MessageType::Error, &dialog_text, "Error".to_string());
             }
         }

@@ -12,7 +12,7 @@ orphans-not-found = Не са намерени осиротели пакети!
 package-not-installed = Пакетът '{$package_name}' не е инсталиран!
 gaming-package-installed = Пакетите за гейминг вече са инсталирани!
 winboat-package-installed = Winboat пакетите вече са инсталирани!
-gpu-boosters-package-installed = GPU booster пакетите вече са инсталирани!
+vram-management-package-installed = VRAM management пакетите вече са инсталирани!!
 
 # Application Browser page
 advanced-btn = Разширени
@@ -82,8 +82,8 @@ dnsserver-title = Промяна на DNS сървъра
 show-kwinw-debug-title = Отваряне на прозореца за отстраняване на грешки на kwin (Wayland)
 install-gaming-title = Инсталиране на пакети за гейминг
 install-winboat-title = Инсталиране на Winboat
-install-gpu-boosters-title = Инсталиране на GPU Boosters
-install-gpu-boosters-tooltip = Инсталиране на dmemcg-booster и plasma-foreground-booster за AMD или Intel видеокарти
+install-vram-management-title = Инсталиране на VRAM Management
+install-vram-management-tooltip = Приоритизирайте VRAM за приложението на преден план, така че драйверът на GPU да избягва изхвърлянето на буфери в системната RAM (GTT).
 
 # Main Page (buttons)
 button-about-tooltip = Относно
