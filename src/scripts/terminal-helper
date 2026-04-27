@@ -61,6 +61,7 @@ declare -A terminals=(
     ["terminator"]="terminator -x $cmd"
     ["xfce4-terminal"]="xfce4-terminal --disable-server --command '$cmd'"
     ["xterm"]="xterm -e $cmd"
+    ["ptyxis"]="ptyxis -e $cmd"
 )
 declare -a term_order=(
     "alacritty"
@@ -77,6 +78,8 @@ declare -a term_order=(
     "st"
     "foot"
     "terminator"
+    "ptyxis"
+
 )
 
 if [ -z "$terminal" ] || ! command -v "$terminal" &>/dev/null; then
