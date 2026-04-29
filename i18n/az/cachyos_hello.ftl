@@ -116,7 +116,7 @@ outdated-version-warning = Siz daha köhnə CachyOS ISO versiyasını istifadə 
 testing-iso-warning = Siz sınaq üçün nəzərdə tutulan ISO istifadə edirsiniz, belə ki, sınaq üçün ISO-lar sabit və tam istifadə hazır deyil
 tweaksbrowser-label = Tətbiqlər/Ayarlar
 appbrowser-label = Tətbiqlər quraşdırmaq
-launch-start-label = Açıldıqda başlatmaq
+launch-start-label = Sistemə girişdə açmaq
 welcome-title = CachyOS-yə xoş gəldiniz!
 welcome-body =
     Cəmiyyətimizə qoşulduğunuz üçün təşəkkür edirik!
