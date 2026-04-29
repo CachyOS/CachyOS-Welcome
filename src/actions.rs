@@ -404,6 +404,17 @@ pub fn install_gaming(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage>
     );
 }
 
+pub fn install_office(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage>) {
+    const ALPM_PACKAGE_NAMES: [&str; 3] = ["libreoffice-fresh", "hunspell", "okular"];
+    install_needed_packages(
+        callback,
+        &ALPM_PACKAGE_NAMES,
+        fl!("office-package-installed"),
+        Action::InstallOffice,
+        dialog_tx,
+    );
+}
+
 pub fn install_vram_management(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage>) {
     let mut packages: Vec<&str> = vec!["dmemcg-booster"];
     if utils::is_kwin_wayland() {

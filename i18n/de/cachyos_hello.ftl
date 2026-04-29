@@ -10,6 +10,7 @@ removed-db-lock = Pacman db lock wurde entfernt!
 lock-doesnt-exist = Pacman db lock existiert nicht!
 orphans-not-found = Keine verwaisten Pakete gefunden!
 package-not-installed = Das Paket '{$package_name}' wurde nicht installiert!
+office-package-installed = Office Pakete bereits installiert!
 
 # Dns Connections page
 dns-settings = DNS Einstellung
@@ -45,6 +46,7 @@ remove-orphans-title = Nicht verwendete Pakete entfernen
 clear-pkgcache-title = Paket-Cache löschen
 rankmirrors-title = Rank Mirrors
 dnsserver-title = DNS-Server ändern
+install-office-title = Office Programme installieren
 
 # Main Page (buttons)
 button-about-tooltip = Über

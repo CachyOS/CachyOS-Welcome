@@ -30,6 +30,7 @@ pub enum Action {
     RemoveOrphans,
     SetDnsServer,
     InstallGaming,
+    InstallOffice,
     InstallWinboat,
     InstallVramManagement,
 }
