@@ -14,9 +14,6 @@ gaming-package-installed = Oyun paketleri halihazırda kurulu!
 winboat-package-installed = Winboat paketleri zaten kurulu!
 vram-management-package-installed = VRAM yönetim paketleri zaten kurulu!
 
-# Tweaks page — quick launch (CachyOS apps)
-app-cachyos-pi-label = CachyOS Paket Kurucu
-app-cachyos-kernel-manager-label = CachyOS Çekirdek Yöneticisi
 
 # Application Browser page
 advanced-btn = gelişmiş
@@ -87,7 +84,7 @@ show-kwinw-debug-title = KWin (Wayland) hata ayıklama penceresini göster
 install-gaming-title = Oyun paketlerini kur
 install-winboat-title = Winboat kur
 install-vram-management-title = VRAM yönetimini kur
-install-vram-management-tooltip = AMD veya Intel GPU’larda dmemcg-booster ve plasma-foreground-booster paketlerini kur
+install-vram-management-tooltip = Ön plandaki uygulama için VRAM’e öncelik vererek GPU sürücüsünün arabellekleri sistem RAM’ine (GTT) taşmasını önler.
 
 # Main Page (buttons)
 button-about-tooltip = Hakkında
