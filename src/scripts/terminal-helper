@@ -61,6 +61,7 @@ declare -A terminals=(
     ["terminator"]="terminator -x $cmd"
     ["xfce4-terminal"]="xfce4-terminal --disable-server --command '$cmd'"
     ["xterm"]="xterm -e $cmd"
+    ["x-terminal-emulator"]="x-terminal-emulator -e $cmd"
 )
 declare -a term_order=(
     "alacritty"
@@ -79,6 +80,17 @@ declare -a term_order=(
     "terminator"
 )
 
+# Check $TERMINAL environment variable first (as per invariants)
+if [ -n "$TERMINAL" ] && command -v "$TERMINAL" >/dev/null 2>&1; then
+    terminal="$TERMINAL"
+fi
+
+# Check x-terminal-emulator second (distribution-specific mechanism)
+if [ -z "$terminal" ] && command -v x-terminal-emulator >/dev/null 2>&1; then
+    terminal="x-terminal-emulator"
+fi
+
+# Fall back to hardcoded list if neither $TERMINAL nor x-terminal-emulator worked
 if [ -z "$terminal" ] || ! command -v "$terminal" &>/dev/null; then
     for entry in "${term_order[@]}"; do
         if command -v "$entry" >/dev/null 2>&1; then
@@ -96,10 +108,20 @@ if [ -z "$terminal" ]; then
     exit 1
 fi
 
-eval "${terminals[${terminal}]}" 2>/dev/null || {
-    if [[ "$terminal" != "kgx" ]]; then
+# Execute the terminal command
+if [ -n "${terminals[${terminal}]}" ]; then
+    # Terminal is in our predefined list, use the configured command
+    eval "${terminals[${terminal}]}" 2>/dev/null || {
+        if [[ "$terminal" != "kgx" ]]; then
+            rm "$file"
+            exit 2
+        fi
+    }
+else
+    # Terminal is not in our list (e.g., from $TERMINAL env var), use generic -e flag
+    eval "$terminal -e $cmd" 2>/dev/null || {
         rm "$file"
         exit 2
-    fi
-}
+    }
+fi
 rm "$file"
