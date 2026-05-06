@@ -15,7 +15,7 @@ winboat-package-installed = Winboat 已经安装！
 vram-management-package-installed = VRAM 管理软件包已经安装！
 
 # Application Browser page
-advanced-btn = 高级
+advanced-btn = 高级选项
 reset-btn = 重置
 update-system-app-btn = 更新系统
 application-column = 应用程序
