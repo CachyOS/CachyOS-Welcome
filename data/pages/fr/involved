@@ -1,0 +1,37 @@
+<big>Merci de votre soutien</big>
+
+CachyOS Linux reçoit beaucoup de soutien de la part de sa communauté d'utilisateurs et voudrait remercier chacune des contributions. Nous grandissons de manière constante et notre distribution s'améliore de jour en jour grâce à vous.
+
+Il est très simple de faire la différence. En fonction de vos compétences et de vos disponibilités, vous pouvez contribuer à CachyOS de différentes façons :
+
+<big>Soutien et promotion</big>
+
+<b>Parlez-en</b>
+
+Si vous aimez CachyOS, faites le savoir. Écrivez et publiez une revue sur distrowatch.com. Parlez-en à vos amis et à votre entourage.
+
+<b>Rejoignez la communauté</b>
+
+CachyOS n'est pas seulement un système d'exploitation, c'est aussi une communauté active qui aime interagir et se rassembler autour d'un projet libre et ouvert. Que ce soit en aidant les autres à résoudre des problèmes, en les accueillant ou simplement les rencontrer et échanger avec eux autour de CachyOS, nous vous recommandons de rejoindre la communauté et participer à l'amélioration de CachyOS.
+
+<b>Aidez les autres</b>
+
+Si vous avez du temps libre à consacrer et la volonté d'aider les utilisateurs sur des sujets techniques, vous devriez considérer d'abord de lire les forums et/ou de rejoindre le canal IRC et de contribuer aux sujets sur lesquels vous êtes en capacité de traiter.
+
+<big>Contribution au projet</big>
+
+<b>Reporter un bug</b>
+
+Si vous constatez un dysfonctionnement lors de votre utilisation de CachyOS, faites le nous savoir. D'autres utilisateurs pourraient très bien rencontrer le même problème; plus tôt nous prenons connaissance du problème, plus tôt nous pourrons le résoudre.
+
+<b>Nouvelles idées</b>
+
+La grande majorité des améliorations apportées dans chaque version sont issues de la communauté. Si vous pensez qu'il manque des fonctionnalités ou qu'elles pourraient être améliorées, n'hésitez pas à nous en faire part. Que ce soit inclure un pilote manquant ou encore une application qui devrait faire partie de l'installation de base, ou toute autre idée permettant de rendre CachyOS meilleur, nous serons toujours à votre écoute.
+
+<b>Visuels</b>
+
+Si vous disposez de compétences artistiques et que vous souhaitez contribuer, n'hésitez pas à nous envoyer vos visuels. Fonds d'écran de bureau, icônes, écrans de chargement ou même un nouveau logo, nous serons toujours intéressés par vos créations.
+
+<b>Code</b>
+
+La plupart du code est écrit en QT, C++, Python, HTML5/CSS et BASH. Nous utilisons Git pour le versionner et PKGBUILD pour l'empaqueter. Si vous êtes à l'aise avec ces technologies, n'hesitez pas à regarder le code. Si vous pensez pouvoir améliorer nos applications ou en écrire des nouvelles, proposez nous des patchs ou forkez nos dépôts git.

@@ -48,6 +48,12 @@ dns-server-reset-failed = Échec de la réinitialisation du serveur DNS !
 
 # Tweaks page (tweaks)
 tweak-enabled-title = {$tweak} activé
+tweak-psd-tooltip = Utilise la mémoire pour le cache des profils du navigateur web (plus rapide, moins d'usure du disque)
+tweak-oomd-tooltip = Tue proactivement les processus en cas de mémoire faible pour prévenir un crash du système
+tweak-bpftune-tooltip = Ajustement adaptatif des paramètres de performance réseau du noyau
+tweak-bluetooth-tooltip = Active le support des périphériques sans fil Bluetooth (souris, audio, etc.)
+tweak-ananicycpp-tooltip = Autoajuste la priorité des processus pour une meilleure réactivité du système
+tweak-cachyupdate-tooltip = Notifie des mises à jour disponibles dans la barre de tâches
 
 # Tweaks page (fixes)
 remove-lock-title = Supprimer le verrou de la base de données
@@ -59,6 +65,8 @@ rankmirrors-title = Classer les miroirs
 dnsserver-title = Changer le serveur DNS
 show-kwinw-debug-title = Montrer la fenêtre de débuggage de kwin(Wayland)
 install-gaming-title = Installer les paquets de Gaming
+reset-keyrings-title = Restaurer porte-clé
+install-winboat-title = Installer Winboat
 
 # Main Page (buttons)
 button-about-tooltip = À propos

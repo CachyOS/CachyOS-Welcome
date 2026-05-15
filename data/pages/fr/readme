@@ -1,0 +1,37 @@
+<big>Prise en charge du matériel</big>
+
+CachyOS non seulement supporte l'utilisation de plusieurs noyaux (sélectionnable depuis les options avancées de l'écran de démarrage), mais donne aussi accès aux versions du noyau les plus récentes possibles. Ceci peut être réalisé en utilisant l'application graphique CachyOS Kernel Manager ou dans un terminal via la commande chwd-kernel (CachyOS Hardware Detection).
+
+Ces outils fournis par CachyOS mettront automatiquement à jour un noyau fraichement installé ainsi que tous les modules utilisés avec votre noyau existant. Par exemple, si vous souhaitez mettre à jour un noyau 3.18 en version 4.1, chwd-kernel va installer le noyau en 4.1 et porter tous les modules existants vers la nouvelle version. Pas mal non ?
+
+Vous pouvez configurer votre matériel avec le module de détection de matériel dans le gestionnaire graphique de paramètres ou en ligne de commande avec chwd. A l'aide de ces outils, vous pouvez aussi installer par exemple des pilotes de carte graphique, libre et propriétaire.
+
+<big>Obtenir de l'aide</big>
+
+Bien que CachyOS soit conçu pour être autant que possible prêt à l'emploi, nous ne prétendons pas qu'il soit parfait. Il peut arriver que le choses tournent mal, vous pourriez avoir des questions et la volonté d'en apprendre plus, ou simplement envie de personnaliser votre système pour qu'il soit à votre goût. Cette page vous donne les détails de quelques ressources disponibles pour vous aider !
+
+<b>Rechercher sur le web</b>
+
+Surement le premier endroit où chercher des informations génériques à propos de Linux reste votre moteur de recherche favori. Incluez des termes comme 'Linux', 'CachyOS', ou 'Arch' dans vos requêtes.
+
+Comme CachyOS est basé sur Arch Linux, les guides et astuces pour Arch s'appliquent habituellement aussi à CachyOS.
+
+<b>Recherche sur le forum</b>
+
+Pour de l'aide spécifique à CachyOS, nous avons dédié un forum en ligne où vous pouvez chercher différents sujets ou bien même créer le votre ! C'est probablement le deuxième meilleur endroit pour de l'entraide, des discussions ou de l'assistance. Demandez de l'aide, donnez votre avis ou proposez des suggestions. Ne soyez pas timide !
+
+Le forum de CachyOS est divisé en sous-forums selon les différents sujets et environnements, nous vous prions de poster vos requêtes dans les endroits appropriés !
+
+<big>Autre ressources</big>
+
+    - <a href="https://aur.archlinux.org">Dépôt AUR</a> - Logiciels supplémentaires non présents dans les dépôts standards, compilés depuis le code source.
+    - <a href="https://wiki.cachyos.org">CachyOS Wiki</a> - Wiki officiel CachyOS.
+    - <a href="https://wiki.archlinux.org">Arch Wiki</a> - Wiki officiel Arch.
+
+<big>Suggestions</big>
+
+Vous avez une suggestion qui nous permettrait d'améliorer CachyOS ? Une découverte que vous voudriez inclure dans la distribution ou vous souhaitez contribuer ? Faites le nous savoir en postant une suggestion sur le forum ou venez nous en parler sur IRC.
+
+Merci !
+
+Nous espérons que vous apprécierez utiliser CachyOS !
