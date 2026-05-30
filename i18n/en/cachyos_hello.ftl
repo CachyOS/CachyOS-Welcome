@@ -25,6 +25,9 @@ advanced-btn-tooltip = Toggle an extended selection of packages
 reset-btn-tooltip = Reset your current selections...
 update-system-app-btn-tooltip = Apply your current selections to the system
 
+# Troubleshooting page
+troubleshooting = Troubleshooting
+
 # Dns Connections page
 dns-settings = DNS Settings
 select-connection = Select Connection:
@@ -116,6 +119,7 @@ outdated-version-warning = You are using an older version of CachyOS ISO, please
 testing-iso-warning = You are using a testing ISO, testing ISOs are not considered stable and ready for use
 tweaksbrowser-label = Apps/Tweaks
 appbrowser-label = Install Apps
+troubleshooting-label = Troubleshooting
 launch-start-label = Launch at start
 welcome-title = Welcome to CachyOS!
 welcome-body =

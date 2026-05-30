@@ -23,23 +23,18 @@ macro_rules! create_gtk_button {
     }};
 }
 
-fn create_fixes_section(builder: &Builder) -> gtk::Box {
+fn create_utilities_section(builder: &Builder) -> gtk::Box {
     let topbox = gtk::Box::new(gtk::Orientation::Vertical, 2);
     let button_box_f = gtk::Box::new(gtk::Orientation::Horizontal, 10);
     let button_box_s = gtk::Box::new(gtk::Orientation::Horizontal, 10);
     let button_box_t = gtk::Box::new(gtk::Orientation::Horizontal, 10);
-    let button_box_frth = gtk::Box::new(gtk::Orientation::Horizontal, 10);
     let label = gtk::Label::new(None);
     label.set_line_wrap(true);
     label.set_justify(gtk::Justification::Center);
     label.set_text(&fl!("fixes"));
 
-    let removelock_btn = create_gtk_button!("remove-lock-title");
-    let reinstall_btn = create_gtk_button!("reinstall-title");
-    let resetkeyring_btn = create_gtk_button!("reset-keyrings-title");
     let update_system_btn = create_gtk_button!("update-system-title");
     let remove_orphans_btn = create_gtk_button!("remove-orphans-title");
-    let clear_pkgcache_btn = create_gtk_button!("clear-pkgcache-title");
     let rankmirrors_btn = create_gtk_button!("rankmirrors-title");
 
     let install_gaming_btn = create_gtk_button!("install-gaming-title");
@@ -54,23 +49,9 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
     let (dialog_tx, dialog_rx) = async_channel::unbounded();
 
     // Connect signals.
-    let dialog_tx_clone = dialog_tx.clone();
     let dialog_tx_gaming = dialog_tx.clone();
     let dialog_tx_winboat = dialog_tx.clone();
     let dialog_tx_vram_management = dialog_tx.clone();
-    removelock_btn.connect_clicked(move |_| {
-        let dialog_tx_clone = dialog_tx_clone.clone();
-        std::thread::spawn(move || {
-            actions::remove_dblock(dialog_tx_clone);
-        });
-    });
-    reinstall_btn.connect_clicked(move |_| {
-        // Spawn child process in separate thread.
-        std::thread::spawn(move || {
-            actions::reinstall_packages(crate::gui::run_command);
-        });
-    });
-    resetkeyring_btn.connect_clicked(on_resetkeyring_btn_clicked);
     update_system_btn.connect_clicked(on_update_system_btn_clicked);
     remove_orphans_btn.connect_clicked(move |_| {
         // Spawn child process in separate thread.
@@ -79,7 +60,6 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
             actions::remove_orphans(crate::gui::run_command, dialog_tx_clone);
         });
     });
-    clear_pkgcache_btn.connect_clicked(on_clear_pkgcache_btn_clicked);
     rankmirrors_btn.connect_clicked(move |_| {
         // Spawn child process in separate thread.
         std::thread::spawn(move || {
@@ -113,7 +93,6 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
     }
 
     // Setup receiver.
-    let removelock_btn_clone = removelock_btn.clone();
     let remove_orphans_btn_clone = remove_orphans_btn.clone();
     let install_gaming_btn_clone = install_gaming_btn.clone();
     let install_winboat_btn_clone = install_winboat_btn.clone();
@@ -121,7 +100,6 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
     glib::MainContext::default().spawn_local(async move {
         while let Ok(msg) = dialog_rx.recv().await {
             let widget_obj = match msg.action {
-                Action::RemoveLock => &removelock_btn_clone,
                 Action::RemoveOrphans => &remove_orphans_btn_clone,
                 Action::InstallGaming => &install_gaming_btn_clone,
                 Action::InstallWinboat => &install_winboat_btn_clone,
@@ -140,16 +118,12 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
 
     topbox.pack_start(&label, true, false, 1);
     button_box_f.pack_start(&update_system_btn, true, true, 2);
-    button_box_f.pack_start(&reinstall_btn, true, true, 2);
-    button_box_f.pack_end(&resetkeyring_btn, true, true, 2);
-    button_box_s.pack_start(&removelock_btn, true, true, 2);
-    button_box_s.pack_start(&clear_pkgcache_btn, true, true, 2);
-    button_box_s.pack_end(&remove_orphans_btn, true, true, 2);
-    button_box_t.pack_end(&rankmirrors_btn, true, true, 2);
-    button_box_t.pack_end(&install_gaming_btn, true, true, 2);
-    button_box_t.pack_end(&install_winboat_btn, true, true, 2);
+    button_box_f.pack_end(&remove_orphans_btn, true, true, 2);
+    button_box_f.pack_end(&rankmirrors_btn, true, true, 2);
+    button_box_s.pack_end(&install_gaming_btn, true, true, 2);
+    button_box_s.pack_end(&install_winboat_btn, true, true, 2);
     if let Some(button) = &install_vram_management_btn {
-        button_box_frth.pack_end(button, true, true, 2);
+        button_box_s.pack_end(button, true, true, 2);
     }
 
     if Path::new("/usr/bin/nmcli").exists() {
@@ -159,29 +133,17 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
             let stack: gtk::Stack = builder.object("stack").unwrap();
             stack.set_visible_child_name(&format!("{name}page"));
         }));
-        button_box_frth.pack_end(&dnsserver_btn, true, true, 2);
+        let row_to_add =
+            if install_vram_management_btn.is_some() { &button_box_t } else { &button_box_s };
+        row_to_add.pack_end(&dnsserver_btn, true, true, 2);
     }
 
     button_box_f.set_halign(gtk::Align::Fill);
     button_box_s.set_halign(gtk::Align::Fill);
     button_box_t.set_halign(gtk::Align::Fill);
-    button_box_frth.set_halign(gtk::Align::Fill);
-    topbox.pack_end(&button_box_frth, true, true, 5);
     topbox.pack_end(&button_box_t, true, true, 5);
     topbox.pack_end(&button_box_s, true, true, 5);
     topbox.pack_end(&button_box_f, true, true, 5);
-
-    if utils::is_kwin_wayland() {
-        let kwinw_debug_btn = create_gtk_button!("show-kwinw-debug-title");
-        kwinw_debug_btn.connect_clicked(move |_| {
-            // Spawn child process in separate thread.
-            std::thread::spawn(move || {
-                // do we even need to start that in separate thread. should be fine without
-                actions::launch_kwin_debug_window();
-            });
-        });
-        button_box_frth.pack_end(&kwinw_debug_btn, true, true, 2);
-    }
 
     topbox.set_hexpand(true);
     topbox
@@ -217,14 +179,86 @@ fn create_apps_section() -> Option<gtk::Box> {
     if box_collection.children().is_empty() { None } else { Some(topbox) }
 }
 
-pub fn create_tweaks_page(builder: &Builder) {
-    let install: gtk::Button = builder.object("tweaksBrowser").unwrap();
-    install.set_visible(true);
-    install.set_label(&fl!("tweaksbrowser-label"));
+fn create_troubleshooting_section() -> gtk::Box {
+    let topbox = gtk::Box::new(gtk::Orientation::Vertical, 2);
+    let button_box_f = gtk::Box::new(gtk::Orientation::Horizontal, 10);
+    let button_box_s = gtk::Box::new(gtk::Orientation::Horizontal, 10);
+    let button_box_t = gtk::Box::new(gtk::Orientation::Horizontal, 10);
+    let label = gtk::Label::new(None);
+    label.set_line_wrap(true);
+    label.set_justify(gtk::Justification::Center);
+    label.set_text(&fl!("troubleshooting"));
 
-    // fire cache
-    systemd_units::refresh_cache();
+    let removelock_btn = create_gtk_button!("remove-lock-title");
+    let reinstall_btn = create_gtk_button!("reinstall-title");
+    let resetkeyring_btn = create_gtk_button!("reset-keyrings-title");
+    let clear_pkgcache_btn = create_gtk_button!("clear-pkgcache-title");
 
+    let (dialog_tx, dialog_rx) = async_channel::unbounded();
+    let dialog_tx_clone = dialog_tx.clone();
+
+    removelock_btn.connect_clicked(move |_| {
+        let dialog_tx_clone = dialog_tx_clone.clone();
+        std::thread::spawn(move || {
+            actions::remove_dblock(dialog_tx_clone);
+        });
+    });
+    reinstall_btn.connect_clicked(move |_| {
+        std::thread::spawn(move || {
+            actions::reinstall_packages(crate::gui::run_command);
+        });
+    });
+    resetkeyring_btn.connect_clicked(on_resetkeyring_btn_clicked);
+    clear_pkgcache_btn.connect_clicked(on_clear_pkgcache_btn_clicked);
+
+    let removelock_btn_clone = removelock_btn.clone();
+    glib::MainContext::default().spawn_local(async move {
+        while let Ok(msg) = dialog_rx.recv().await {
+            let widget_obj = match msg.action {
+                Action::RemoveLock => &removelock_btn_clone,
+                _ => panic!("Unexpected action!!"),
+            };
+            let widget_window =
+                utils::get_window_from_widget(widget_obj).expect("Failed to retrieve window");
+            let ui_comp = crate::gui::Gui::new(widget_window);
+
+            ui_comp.show_message(msg.msg_type, &msg.msg, msg.msg_type.to_string());
+        }
+    });
+
+    topbox.pack_start(&label, true, false, 1);
+
+    button_box_f.pack_start(&clear_pkgcache_btn, true, true, 2);
+    button_box_f.pack_start(&removelock_btn, true, true, 2);
+    button_box_f.pack_start(&resetkeyring_btn, true, true, 2);
+
+    button_box_s.pack_start(&reinstall_btn, true, true, 2);
+
+    if utils::is_kwin_wayland() {
+        let kwinw_debug_btn = create_gtk_button!("show-kwinw-debug-title");
+        kwinw_debug_btn.connect_clicked(move |_| {
+            // Spawn child process in separate thread.
+            std::thread::spawn(move || {
+                // do we even need to start that in separate thread. should be fine without
+                actions::launch_kwin_debug_window();
+            });
+        });
+        button_box_t.pack_end(&kwinw_debug_btn, true, true, 2);
+    }
+
+    button_box_f.set_halign(gtk::Align::Fill);
+    button_box_s.set_halign(gtk::Align::Fill);
+    button_box_t.set_halign(gtk::Align::Fill);
+
+    topbox.pack_end(&button_box_t, true, true, 5);
+    topbox.pack_end(&button_box_s, true, true, 5);
+    topbox.pack_end(&button_box_f, true, true, 5);
+
+    topbox.set_hexpand(true);
+    topbox
+}
+
+fn create_child_viewport<T: IsA<gtk::Widget>>(child: &T, builder: &Builder, child_name: &str) {
     let viewport = gtk::Viewport::new(gtk::Adjustment::NONE, gtk::Adjustment::NONE);
     let image = gtk::Image::from_icon_name(Some("go-previous"), gtk::IconSize::Button);
     let back_btn = gtk::Button::new();
@@ -237,8 +271,34 @@ pub fn create_tweaks_page(builder: &Builder) {
         stack.set_visible_child_name(&format!("{name}page"));
     }));
 
+    let grid = gtk::Grid::new();
+    grid.set_hexpand(true);
+    grid.set_margin_start(10);
+    grid.set_margin_end(10);
+    grid.set_margin_top(5);
+    grid.set_margin_bottom(5);
+    grid.attach(&back_btn, 0, 1, 1, 1);
+
+    let box_collection_s = gtk::Box::new(gtk::Orientation::Vertical, 5);
+    box_collection_s.pack_start(&grid, false, false, 0);
+    box_collection_s.pack_start(child, false, false, 10);
+    viewport.add(&box_collection_s);
+
+    let stack: gtk::Stack = builder.object("stack").unwrap();
+    stack.add_named(&viewport, child_name);
+    viewport.show_all();
+}
+
+pub fn create_tweaks_page(builder: &Builder) {
+    let install: gtk::Button = builder.object("tweaksBrowser").unwrap();
+    install.set_visible(true);
+    install.set_label(&fl!("tweaksbrowser-label"));
+
+    // fire cache
+    systemd_units::refresh_cache();
+
     let options_section_box = tweaks::create_options_section();
-    let fixes_section_box = create_fixes_section(builder);
+    let fixes_section_box = create_utilities_section(builder);
     let apps_section_box_opt = create_apps_section();
 
     let child_name = "tweaksBrowserpage";
@@ -248,14 +308,6 @@ pub fn create_tweaks_page(builder: &Builder) {
         apps_section_box.set_widget_name(&format!("{child_name}_apps"));
     }
 
-    let grid = gtk::Grid::new();
-    grid.set_hexpand(true);
-    grid.set_margin_start(10);
-    grid.set_margin_end(10);
-    grid.set_margin_top(5);
-    grid.set_margin_bottom(5);
-    grid.attach(&back_btn, 0, 1, 1, 1);
-    let box_collection_s = gtk::Box::new(gtk::Orientation::Vertical, 5);
     let box_collection = gtk::Box::new(gtk::Orientation::Vertical, 5);
     box_collection.set_widget_name(child_name);
 
@@ -268,13 +320,8 @@ pub fn create_tweaks_page(builder: &Builder) {
 
     box_collection.set_valign(gtk::Align::Center);
     box_collection.set_halign(gtk::Align::Center);
-    box_collection_s.pack_start(&grid, false, false, 0);
-    box_collection_s.pack_start(&box_collection, false, false, 10);
-    viewport.add(&box_collection_s);
-    viewport.show_all();
 
-    let stack: gtk::Stack = builder.object("stack").unwrap();
-    stack.add_named(&viewport, child_name);
+    create_child_viewport(&box_collection, builder, child_name);
 }
 
 pub fn create_appbrowser_page(builder: &Builder) {
@@ -291,6 +338,25 @@ pub fn create_appbrowser_page(builder: &Builder) {
             debug!("Exit status successfully? = {:?}", exit_status.success());
         });
     });
+}
+
+pub fn create_troubleshooting_page(builder: &Builder) {
+    let troubleshooting_button: gtk::Button = builder.object("troubleshooting").unwrap();
+    troubleshooting_button.set_visible(true);
+    troubleshooting_button.set_label(&fl!("troubleshooting-label"));
+
+    let child_name = "troubleshootingpage";
+
+    let content: gtk::Box = gtk::Box::new(gtk::Orientation::Vertical, 5);
+    content.set_widget_name(child_name);
+
+    let section = create_troubleshooting_section();
+    content.pack_start(&section, false, false, 10);
+
+    content.set_valign(gtk::Align::Center);
+    content.set_halign(gtk::Align::Center);
+
+    create_child_viewport(&content, builder, child_name);
 }
 
 fn on_resetkeyring_btn_clicked(_: &gtk::Button) {

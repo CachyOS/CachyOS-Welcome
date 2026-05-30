@@ -46,7 +46,7 @@ pub const fn const_min(v1: usize, v2: usize) -> usize {
 #[inline]
 pub const fn string_substr(src_str: &str, pos: usize, n: usize) -> Result<&str, str::Utf8Error> {
     let rlen = const_min(n, src_str.len() - pos);
-    
+
     unsafe {
         // First, we build a &[u8]...
         let slice = slice::from_raw_parts(src_str.as_ptr().add(pos), rlen);

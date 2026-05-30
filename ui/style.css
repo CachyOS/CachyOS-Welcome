@@ -3,7 +3,9 @@ window {
     border-bottom-right-radius: 7px;
 }
 
-#tweaksBrowserpage button {
+#tweaksBrowserpage button,
+#troubleshootingpage button
+{
     padding: 5px 15px;
     border: none;
     border-radius: 5px 5px 5px 5px;

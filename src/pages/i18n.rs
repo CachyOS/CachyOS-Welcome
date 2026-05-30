@@ -83,6 +83,10 @@ pub fn update_translations(builder: &Builder) {
     appbrowser_btn.set_label(&fl!("appbrowser-label"));
     appbrowser_btn.set_tooltip_text(Some(&fl!("appbrowser-label")));
 
+    let troubleshooting_btn: gtk::Button = builder.object("troubleshooting").unwrap();
+    troubleshooting_btn.set_label(&fl!("troubleshooting-label"));
+    troubleshooting_btn.set_tooltip_text(Some(&fl!("troubleshooting-label")));
+
     let stack: gtk::Stack = builder.object("stack").unwrap();
     {
         if let Some(widget) = stack.child_by_name("tweaksBrowserpage")
