@@ -75,51 +75,108 @@ pub fn handle_tweak_command(action: TweakAction) -> Result<()> {
     }
 }
 
+fn blocky_mode_label(mode: dns::BlockyMode) -> &'static str {
+    match mode {
+        dns::BlockyMode::Doh => "DoH",
+        dns::BlockyMode::Doq => "DoQ",
+    }
+}
+
+fn apply_preset_blocky(
+    connection: &str,
+    server_name: &str,
+    server_addr: &dns::DnsEntry,
+    mode: dns::BlockyMode,
+    tx: async_channel::Sender<crate::ui::DialogMessage>,
+) {
+    if let Some(upstream) = dns::get_blocky_upstream(server_name, mode) {
+        println!(
+            "Setting DNS for '{}' to '{}' ({} enabled via blocky)...",
+            connection.cyan(),
+            server_name.cyan(),
+            blocky_mode_label(mode),
+        );
+        actions::change_dns_server_blocky(
+            crate::cli::run_command,
+            connection,
+            mode,
+            upstream,
+            server_addr.0,
+            server_addr.1,
+            server_addr.2,
+            tx,
+        );
+    } else {
+        println!(
+            "{}: DNS over {} is not supported by '{}'.",
+            "Warning".yellow(),
+            blocky_mode_label(mode),
+            server_name
+        );
+        println!("Setting DNS without {}...", blocky_mode_label(mode));
+        actions::change_dns_server(
+            connection,
+            server_addr.0,
+            server_addr.1,
+            false,
+            server_addr.2.unwrap_or(""),
+            tx,
+        );
+    }
+}
+
+fn apply_custom_blocky(
+    connection: &str,
+    upstream: &str,
+    ipv4: &str,
+    ipv6: &str,
+    dot_hostname: &str,
+    mode: dns::BlockyMode,
+    tx: async_channel::Sender<crate::ui::DialogMessage>,
+) {
+    let dot_suffix = if dot_hostname.is_empty() {
+        String::new()
+    } else {
+        format!(" DoT bootstrap={dot_hostname}")
+    };
+    println!(
+        "Setting custom {} DNS for '{}': upstream='{}' (bootstrap: IPv4='{}' IPv6='{}'{})...",
+        blocky_mode_label(mode),
+        connection.cyan(),
+        upstream.cyan(),
+        if ipv4.is_empty() { "(none)" } else { ipv4 },
+        if ipv6.is_empty() { "(none)" } else { ipv6 },
+        dot_suffix,
+    );
+    let dot_host = if dot_hostname.is_empty() { None } else { Some(dot_hostname) };
+    actions::change_dns_server_blocky(
+        crate::cli::run_command,
+        connection,
+        mode,
+        upstream,
+        ipv4,
+        ipv6,
+        dot_host,
+        tx,
+    );
+}
+
 pub fn handle_dns_command(action: DnsAction) -> Result<()> {
     let (tx, rx) = async_channel::unbounded();
 
     match action {
-        DnsAction::Set { connection, server, dot, doh } => {
+        DnsAction::Set { connection, server, dot, doh, doq } => {
             let server_name = server.as_str();
             let server_addr = dns::G_DNS_SERVERS.get(server_name).unwrap();
 
-            if doh {
-                // DoH mode via blocky
-                let doh_url = dns::get_doh_url(server_name);
-                if let Some(url) = doh_url {
-                    println!(
-                        "Setting DNS for '{}' to '{}' (DoH enabled via blocky)...",
-                        connection.cyan(),
-                        server_name.cyan(),
-                    );
-                    actions::change_dns_server_doh(
-                        crate::cli::run_command,
-                        &connection,
-                        url,
-                        server_addr.0,
-                        server_addr.1,
-                        server_addr.2,
-                        tx,
-                    );
-                } else {
-                    println!(
-                        "{}: DNS over HTTPS is not supported by '{}'.",
-                        "Warning".yellow(),
-                        server_name
-                    );
-                    println!("Setting DNS without DoH...");
-                    let dot_hostname = server_addr.2.unwrap_or("");
-                    actions::change_dns_server(
-                        &connection,
-                        server_addr.0,
-                        server_addr.1,
-                        false,
-                        dot_hostname,
-                        tx,
-                    );
-                }
+            if let Some(mode) = match (doh, doq) {
+                (true, _) => Some(dns::BlockyMode::Doh),
+                (_, true) => Some(dns::BlockyMode::Doq),
+                _ => None,
+            } {
+                apply_preset_blocky(&connection, server_name, server_addr, mode, tx);
             } else {
-                // Stop blocky if switching away from DoH
+                // Stop blocky if switching away from encrypted DNS
                 actions::stop_blocky();
                 let dot_supported = server_addr.2.is_some();
 
@@ -151,7 +208,17 @@ pub fn handle_dns_command(action: DnsAction) -> Result<()> {
                 );
             }
         },
-        DnsAction::SetCustom { connection, ipv4, ipv6, dot, dot_hostname, doh, doh_url } => {
+        DnsAction::SetCustom {
+            connection,
+            ipv4,
+            ipv6,
+            dot,
+            dot_hostname,
+            doh,
+            doh_url,
+            doq,
+            doq_endpoint,
+        } => {
             if ipv4.is_empty() && ipv6.is_empty() {
                 eprintln!("{}: At least one of --ipv4 or --ipv6 must be provided.", "Error".red());
                 std::process::exit(1);
@@ -162,36 +229,38 @@ pub fn handle_dns_command(action: DnsAction) -> Result<()> {
             }
 
             if doh {
-                if doh_url.is_empty() || !doh_url.starts_with("https://") {
+                if !dns::is_valid_doh_url(&doh_url) {
                     eprintln!("{}: --doh-url must be a valid https:// URL.", "Error".red());
                     std::process::exit(1);
                 }
-                println!(
-                    "Setting custom DoH DNS for '{}': URL='{}' (bootstrap: IPv4='{}' \
-                     IPv6='{}'{})...",
-                    connection.cyan(),
-                    doh_url.cyan(),
-                    if ipv4.is_empty() { "(none)" } else { &ipv4 },
-                    if ipv6.is_empty() { "(none)" } else { &ipv6 },
-                    if dot_hostname.is_empty() {
-                        String::new()
-                    } else {
-                        format!(" DoT bootstrap={dot_hostname}")
-                    },
-                );
-                let dot_host =
-                    if dot_hostname.is_empty() { None } else { Some(dot_hostname.as_str()) };
-                actions::change_dns_server_doh(
-                    crate::cli::run_command,
+                apply_custom_blocky(
                     &connection,
                     &doh_url,
                     &ipv4,
                     &ipv6,
-                    dot_host,
+                    &dot_hostname,
+                    dns::BlockyMode::Doh,
+                    tx,
+                );
+            } else if doq {
+                if !dns::is_valid_doq_endpoint(&doq_endpoint) {
+                    eprintln!(
+                        "{}: --doq-endpoint must start with quic: or quic://.",
+                        "Error".red()
+                    );
+                    std::process::exit(1);
+                }
+                apply_custom_blocky(
+                    &connection,
+                    &doq_endpoint,
+                    &ipv4,
+                    &ipv6,
+                    &dot_hostname,
+                    dns::BlockyMode::Doq,
                     tx,
                 );
             } else {
-                // Stop blocky if switching away from DoH
+                // Stop blocky if switching away from encrypted DNS
                 actions::stop_blocky();
                 let dot_label = if dot { " (DoT enabled)" } else { "" };
                 println!(
@@ -231,15 +300,17 @@ pub fn handle_dns_command(action: DnsAction) -> Result<()> {
                     Some(host) => format!(" [DoT: {host}]"),
                     None => String::new(),
                 };
-                let doh_info = match dns::get_doh_url(name) {
-                    Some(url) => format!(" [DoH: {url}]"),
-                    None => String::new(),
-                };
+                let doh_info = dns::get_blocky_upstream(name, dns::BlockyMode::Doh)
+                    .map(|url| format!(" [DoH: {url}]"))
+                    .unwrap_or_default();
+                let doq_info = dns::get_blocky_upstream(name, dns::BlockyMode::Doq)
+                    .map(|endpoint| format!(" [DoQ: {endpoint}]"))
+                    .unwrap_or_default();
                 let region_info = match dns::G_DNS_SERVER_INFO.get(name) {
                     Some(info) => format!(" ({} - {})", info.region, info.homepage),
                     None => String::new(),
                 };
-                println!("- {name}{dot_info}{doh_info}{region_info}");
+                println!("- {name}{dot_info}{doh_info}{doq_info}{region_info}");
             }
         },
         DnsAction::TestLatency => {
