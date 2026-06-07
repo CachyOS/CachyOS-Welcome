@@ -167,12 +167,6 @@ pub fn is_alpm_pkg_installed(package_name: &str) -> bool {
 
 pub fn get_cachyos_pi_path() -> Option<String> {
     which::which("cachyos-pi").ok().map(|p| p.to_string_lossy().into_owned())
-        Some("/usr/bin/cachyos-pi");
-    }
-    if Path::new("/sbin/cachyos-pi").exists() {
-        Some("/sbin/cachyos-pi");
-    }
-    None
 }
 
 pub fn is_cachyos_pi_installed() -> bool {
