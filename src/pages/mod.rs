@@ -285,7 +285,9 @@ pub fn create_appbrowser_page(builder: &Builder) {
         // Spawn child process in separate thread.
         std::thread::spawn(move || {
             // Get executable path.
-            let exec_path = utils::get_cachyos_pi_path().expect("Did not find cachyos-pi");
+            // TODO(vnepogodin): prompt to install if it doesn't exist
+            let exec_path = utils::get_cachyos_pi_path().expect("cachyos-pi not found");
+            let exit_status = utils::spawn_detached(&exec_path).expect("Failed to spawn process");
             let exit_status = utils::spawn_detached(exec_path.as_str()).expect("Failed to spawn process");
 
             debug!("Exit status successfully? = {:?}", exit_status.success());
