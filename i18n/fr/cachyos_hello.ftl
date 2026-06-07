@@ -11,6 +11,8 @@ lock-doesnt-exist = Le verrou de la base de données Pacman n'existe pas !
 orphans-not-found = Aucun paquet orphelin trouvé !
 package-not-installed = Le paquet '{$package_name}' n'a pas été installé !
 gaming-package-installed = Paquets de Gaming déjà installés !
+winboat-package-installed = Les paquets Winboat sont déjà installés !
+vram-management-package-installed = Les paquets de gestion de la mémoire vidéo (VRAM) sont déjà installés !
 
 # Application Browser page
 advanced-btn = Avancé
@@ -45,9 +47,16 @@ dns-server-changed = Le serveur DNS a été modifié avec succès !
 dns-server-failed = Échec de la modification du serveur DNS !
 dns-server-reset = Le serveur DNS a été réinitialisé !
 dns-server-reset-failed = Échec de la réinitialisation du serveur DNS !
+winboat-install-failed = Échec de l'installation de Winboat !
 
 # Tweaks page (tweaks)
 tweak-enabled-title = {$tweak} activé
+tweak-psd-tooltip = Use RAM for browser profiles (faster, less disk wear)
+tweak-oomd-tooltip = Proactively kill processes during low memory to prevent freezes
+tweak-bpftune-tooltip = Automatically tune system network
+tweak-bluetooth-tooltip = Enable support for Bluetooth wireless devices (mice, audio, etc.)
+tweak-ananicycpp-tooltip = Auto-adjust process priorities for better system responsiveness
+tweak-cachyupdate-tooltip = Update notifier in tray
 
 # Tweaks page (fixes)
 remove-lock-title = Supprimer le verrou de la base de données
