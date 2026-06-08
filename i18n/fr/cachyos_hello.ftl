@@ -21,7 +21,7 @@ update-system-app-btn = METTRE À JOUR LE SYSTÈME
 application-column = Application
 description-column = Description
 install-remove-column = Installer/Supprimer
-advanced-btn-tooltip = Sélectionner une séleciton étendue de paquets
+advanced-btn-tooltip = Basculer vers une sélection étendue des paquets
 reset-btn-tooltip = Réinitialiser vos sélections actuelles...
 update-system-app-btn-tooltip = Appliquer vos sélections actuelles au système
 
