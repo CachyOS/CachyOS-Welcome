@@ -10,7 +10,7 @@ removed-db-lock = Le verrou de la base de données Pacman a été supprimé !
 lock-doesnt-exist = Le verrou de la base de données Pacman n'existe pas !
 orphans-not-found = Aucun paquet orphelin trouvé !
 package-not-installed = Le paquet '{$package_name}' n'a pas été installé !
-gaming-package-installed = Les paquets de jeux déjà installés !
+gaming-package-installed = Les paquets de jeux sont déjà installés !
 winboat-package-installed = Les paquets Winboat sont déjà installés !
 vram-management-package-installed = Les paquets de gestion de la mémoire vidéo (VRAM) sont déjà installés !
 
