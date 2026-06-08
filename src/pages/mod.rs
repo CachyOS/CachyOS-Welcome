@@ -43,6 +43,7 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
     let rankmirrors_btn = create_gtk_button!("rankmirrors-title");
 
     let install_gaming_btn = create_gtk_button!("install-gaming-title");
+    let install_office_btn = create_gtk_button!("install-office-title");
     let install_winboat_btn = create_gtk_button!("install-winboat-title");
     let install_vram_management_btn = utils::has_intel_or_amd_gpu().then(|| {
         let btn = create_gtk_button!("install-vram-management-title");
@@ -56,6 +57,7 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
     // Connect signals.
     let dialog_tx_clone = dialog_tx.clone();
     let dialog_tx_gaming = dialog_tx.clone();
+    let dialog_tx_office = dialog_tx.clone();
     let dialog_tx_winboat = dialog_tx.clone();
     let dialog_tx_vram_management = dialog_tx.clone();
     removelock_btn.connect_clicked(move |_| {
@@ -93,6 +95,13 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
             actions::install_gaming(crate::gui::run_command, dialog_tx_gaming);
         });
     });
+    install_office_btn.connect_clicked(move |_| {
+        // Spawn child process in separate thread.
+        let dialog_tx_office = dialog_tx_office.clone();
+        std::thread::spawn(move || {
+            actions::install_office(crate::gui::run_command, dialog_tx_office);
+        });
+    });
     install_winboat_btn.connect_clicked(move |_| {
         // Spawn child process in separate thread.
         let dialog_tx_winboat = dialog_tx_winboat.clone();
@@ -116,6 +125,7 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
     let removelock_btn_clone = removelock_btn.clone();
     let remove_orphans_btn_clone = remove_orphans_btn.clone();
     let install_gaming_btn_clone = install_gaming_btn.clone();
+    let install_office_btn_clone = install_office_btn.clone();
     let install_winboat_btn_clone = install_winboat_btn.clone();
     let install_vram_management_btn_clone = install_vram_management_btn.clone();
     glib::MainContext::default().spawn_local(async move {
@@ -124,6 +134,7 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
                 Action::RemoveLock => &removelock_btn_clone,
                 Action::RemoveOrphans => &remove_orphans_btn_clone,
                 Action::InstallGaming => &install_gaming_btn_clone,
+                Action::InstallOffice => &install_office_btn_clone,
                 Action::InstallWinboat => &install_winboat_btn_clone,
                 Action::InstallVramManagement => install_vram_management_btn_clone
                     .as_ref()
@@ -147,6 +158,7 @@ fn create_fixes_section(builder: &Builder) -> gtk::Box {
     button_box_s.pack_end(&remove_orphans_btn, true, true, 2);
     button_box_t.pack_end(&rankmirrors_btn, true, true, 2);
     button_box_t.pack_end(&install_gaming_btn, true, true, 2);
+    button_box_t.pack_end(&install_office_btn, true, true, 2);
     button_box_t.pack_end(&install_winboat_btn, true, true, 2);
     if let Some(button) = &install_vram_management_btn {
         button_box_frth.pack_end(button, true, true, 2);

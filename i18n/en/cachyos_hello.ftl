@@ -11,6 +11,7 @@ lock-doesnt-exist = Pacman db lock does not exist!
 orphans-not-found = No orphan packages found!
 package-not-installed = Package '{$package_name}' has not been installed!
 gaming-package-installed = Gaming packages already installed!
+office-package-installed = Office packages already installed!
 winboat-package-installed = Winboat packages already installed!
 vram-management-package-installed = VRAM management packages already installed!
 
@@ -81,6 +82,7 @@ rankmirrors-title = Rank mirrors
 dnsserver-title = Change DNS server
 show-kwinw-debug-title = Show kwin(Wayland) debug window
 install-gaming-title = Install Gaming packages
+install-office-title = Install Office packages
 install-winboat-title = Install Winboat
 install-vram-management-title = Install VRAM Management
 install-vram-management-tooltip = Prioritize VRAM for the foreground application so the GPU driver avoids spilling buffers into system RAM (GTT).

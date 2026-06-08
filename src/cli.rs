@@ -76,6 +76,8 @@ pub enum FixAction {
     RankMirrors,
     /// Install `CachyOS` gaming meta-packages
     InstallGaming,
+    /// Install Office packages like LibreOffice
+    InstallOffice,
     /// Show the `KWin` Wayland debug console (if running)
     ShowKwinDebug,
     /// Install Winboat for Windows applications
