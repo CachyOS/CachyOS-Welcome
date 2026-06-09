@@ -29,6 +29,14 @@ pub static G_DNS_DOH_URLS: phf::Map<&'static str, &'static str> = phf_map! {
     "腾讯云 DNSPod (Tencent)" => "https://doh.pub/dns-query",
 };
 
+/// `DoQ` endpoint for servers that support DNS over QUIC (RFC 9250).
+pub static G_DNS_DOQ_ENDPOINTS: phf::Map<&'static str, &'static str> = phf_map! {
+    "AdGuard" => "quic:dns.adguard-dns.com",
+    "AdGuard Family Protection" => "quic:family.adguard-dns.com",
+    "FFMUC DNS / Freie Netze Muenchen e.V." => "quic:doq.ffmuc.net",
+    "Quad9" => "quic:dns.quad9.net",
+};
+
 pub static G_DNS_SERVERS: phf::OrderedMap<&'static str, DnsEntry> = phf_ordered_map! {
     "AdGuard" => ("94.140.14.14,94.140.15.15", "2a10:50c0::ad1:ff,2a10:50c0::ad2:ff", Some("dns.adguard-dns.com")),
     "AdGuard Family Protection" => ("94.140.14.15,94.140.15.16", "2a10:50c0::bad1:ff,2a10:50c0::bad2:ff", Some("family.adguard-dns.com")),
@@ -80,12 +88,16 @@ pub enum DnsAction {
         server: DnsServer,
 
         /// Enable DNS over TLS (`DoT`) for the connection (requires server support)
-        #[clap(long)]
+        #[clap(long, conflicts_with_all = ["doh", "doq"])]
         dot: bool,
 
         /// Enable DNS over HTTPS (`DoH`) via blocky local proxy (requires server support)
-        #[clap(long, conflicts_with = "dot")]
+        #[clap(long, conflicts_with_all = ["dot", "doq"])]
         doh: bool,
+
+        /// Enable DNS over QUIC (`DoQ`) via blocky local proxy (requires server support)
+        #[clap(long, conflicts_with_all = ["dot", "doh"])]
+        doq: bool,
     },
     /// Set a custom DNS server for a network connection
     SetCustom {
@@ -102,7 +114,7 @@ pub enum DnsAction {
         ipv6: String,
 
         /// Enable DNS over TLS (`DoT`)
-        #[clap(long)]
+        #[clap(long, conflicts_with_all = ["doh", "doq"])]
         dot: bool,
 
         /// `DoT` hostname for SNI (e.g. "dns.example.com")
@@ -110,12 +122,20 @@ pub enum DnsAction {
         dot_hostname: String,
 
         /// Enable DNS over HTTPS (`DoH`) via blocky local proxy
-        #[clap(long, conflicts_with = "dot")]
+        #[clap(long, conflicts_with_all = ["dot", "doq"])]
         doh: bool,
 
         /// `DoH` URL (e.g. "<https://dns.example.com/dns-query>")
         #[clap(long, value_name = "URL", default_value = "")]
         doh_url: String,
+
+        /// Enable DNS over QUIC (`DoQ`) via blocky local proxy
+        #[clap(long, conflicts_with_all = ["dot", "doh"])]
+        doq: bool,
+
+        /// `DoQ` endpoint (e.g. "quic:dns.example.com")
+        #[clap(long, value_name = "ENDPOINT", default_value = "")]
+        doq_endpoint: String,
     },
     /// Reset DNS settings for a network connection to automatic (DHCP)
     Reset {
@@ -251,27 +271,54 @@ pub fn measure_all_latencies() -> Vec<(&'static str, Option<u128>)> {
     results
 }
 
-/// Returns the `DoH` URL for a given server name, if it supports `DoH`.
-pub fn get_doh_url(server_name: &str) -> Option<&'static str> {
-    G_DNS_DOH_URLS.get(server_name).copied()
+/// Encrypted DNS mode used by the blocky local proxy.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BlockyMode {
+    Doh,
+    Doq,
 }
 
-/// Returns true if the named server supports `DoH`.
-pub fn server_supports_doh(server_name: &str) -> bool {
-    G_DNS_DOH_URLS.contains_key(server_name)
+fn blocky_preset_map(mode: BlockyMode) -> &'static phf::Map<&'static str, &'static str> {
+    match mode {
+        BlockyMode::Doh => &G_DNS_DOH_URLS,
+        BlockyMode::Doq => &G_DNS_DOQ_ENDPOINTS,
+    }
+}
+
+/// Returns the blocky upstream for a preset server, if supported.
+pub fn get_blocky_upstream(server_name: &str, mode: BlockyMode) -> Option<&'static str> {
+    blocky_preset_map(mode).get(server_name).copied()
+}
+
+pub fn is_valid_doh_url(url: &str) -> bool {
+    url.starts_with("https://")
+}
+
+pub fn is_valid_doq_endpoint(endpoint: &str) -> bool {
+    endpoint.starts_with("quic:") || endpoint.starts_with("quic://")
+}
+
+pub fn blocky_mode_from_upstream(upstream: &str) -> Option<BlockyMode> {
+    if is_valid_doh_url(upstream) {
+        Some(BlockyMode::Doh)
+    } else if is_valid_doq_endpoint(upstream) {
+        Some(BlockyMode::Doq)
+    } else {
+        None
+    }
 }
 
 pub const BLOCKY_CONFIG_PATH: &str = "/etc/blocky/blocky.yml";
 pub const BLOCKY_SERVICE: &str = "blocky.service";
 
-/// Generate a blocky blocky.yml for `DoH` with bootstrap DNS.
-/// `doh_url` is e.g. "<https://cloudflare-dns.com/dns-query>"
+/// Generate a blocky blocky.yml with bootstrap DNS.
+/// `upstream` is e.g. "<https://cloudflare-dns.com/dns-query>" or "quic:cloudflare-dns.com"
 /// `bootstrap_ipv4` is the plaintext IPv4 IPs, e.g. "1.1.1.1,1.0.0.1"
 /// `bootstrap_ipv6` is the plaintext IPv6 IPs, e.g. "`2606:4700:4700::1111,2606:4700:4700::1001`"
 /// `dot_hostname` is the optional `DoT` hostname — if provided, bootstrap uses `DoT` instead of
 /// plaintext.
 pub fn generate_blocky_config(
-    doh_url: &str,
+    upstream: &str,
     bootstrap_ipv4: &str,
     bootstrap_ipv6: &str,
     dot_hostname: Option<&str>,
@@ -298,7 +345,7 @@ pub fn generate_blocky_config(
 upstreams:
   groups:
     default:
-      - "{doh_url}"
+      - "{upstream}"
   strategy: strict
   timeout: 5s
   userAgent: "CachyOS/blocky"
@@ -319,31 +366,35 @@ caching:
     )
 }
 
-/// Read the active `DoH` URL from blocky's config file, if present.
-/// Returns the `https://...` upstream URL, or None if not our config.
-pub fn read_active_doh_url() -> Option<String> {
+/// Read the active blocky upstream from our generated config file, if present.
+pub fn read_active_blocky_upstream() -> Option<String> {
     let config = std::fs::read_to_string(BLOCKY_CONFIG_PATH).ok()?;
-    // Only parse configs we generated
     if !config.starts_with("# Generated by CachyOS Hello") {
         return None;
     }
     for line in config.lines() {
         let trimmed = line.trim().trim_start_matches("- ").trim_matches('"');
-        if trimmed.starts_with("https://") {
+        if trimmed.starts_with("https://") || trimmed.starts_with("quic:") || trimmed.starts_with("quic://")
+        {
             return Some(trimmed.to_string());
         }
     }
     None
 }
 
-/// Given an active `DoH` URL, find which preset server it belongs to.
-/// Returns the index into `G_DNS_SERVERS`, or None if it's a custom URL.
-pub fn find_server_by_doh_url(doh_url: &str) -> Option<usize> {
+/// Read active blocky mode and upstream from our generated config, if present.
+pub fn read_active_blocky() -> Option<(BlockyMode, String)> {
+    let upstream = read_active_blocky_upstream()?;
+    let mode = blocky_mode_from_upstream(&upstream)?;
+    Some((mode, upstream))
+}
+
+/// Given an active blocky upstream, find which preset server it belongs to.
+pub fn find_server_by_blocky_upstream(upstream: &str, mode: BlockyMode) -> Option<usize> {
     for (idx, (name, _)) in G_DNS_SERVERS.entries().enumerate() {
-        if let Some(url) = G_DNS_DOH_URLS.get(name)
-            && *url == doh_url {
-                return Some(idx);
-            }
+        if blocky_preset_map(mode).get(name).is_some_and(|preset| *preset == upstream) {
+            return Some(idx);
+        }
     }
     None
 }

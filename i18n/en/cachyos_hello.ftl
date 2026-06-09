@@ -25,6 +25,9 @@ advanced-btn-tooltip = Toggle an extended selection of packages
 reset-btn-tooltip = Reset your current selections...
 update-system-app-btn-tooltip = Apply your current selections to the system
 
+# Troubleshooting page
+troubleshooting = Troubleshooting
+
 # Dns Connections page
 dns-settings = DNS Settings
 select-connection = Select Connection:
@@ -36,6 +39,9 @@ dot-tooltip = Encrypt DNS queries using TLS for improved privacy (requires serve
 enable-doh = Enable DNS over HTTPS (DoH)
 doh-tooltip = Encrypt DNS queries using HTTPS via blocky local proxy (requires server support, installs blocky)
 doh-blocky-install-failed = Failed to install blocky for DoH support!
+enable-doq = Enable DNS over QUIC (DoQ)
+doq-tooltip = Encrypt DNS queries using QUIC via blocky local proxy (requires server support, installs blocky)
+doq-blocky-install-failed = Failed to install blocky for DoQ support!
 test-latency = Test Latency of Selected Server
 test-latency-tooltip = Measure network latency to the selected DNS server
 best-server = Select Best Server by Latency
@@ -54,6 +60,8 @@ custom-dns-invalid = Please enter at least an IPv4 or IPv6 address
 custom-dns-invalid-hostname = Invalid DoT hostname
 custom-dns-doh-url = DoH URL (for DNS over HTTPS):
 custom-dns-doh-url-required = Please enter a valid DoH URL starting with https://
+custom-dns-doq-endpoint = DoQ endpoint (for DNS over QUIC):
+custom-dns-doq-endpoint-required = Please enter a valid DoQ endpoint starting with quic: or quic://
 dns-check-hint = After applying, verify your DNS provider at
 dns-server-changed = DNS server was successfully changed!
 dns-server-failed = Failed to set DNS server!
@@ -116,6 +124,7 @@ outdated-version-warning = You are using an older version of CachyOS ISO, please
 testing-iso-warning = You are using a testing ISO, testing ISOs are not considered stable and ready for use
 tweaksbrowser-label = Apps/Tweaks
 appbrowser-label = Install Apps
+troubleshooting-label = Troubleshooting
 launch-start-label = Launch at start
 welcome-title = Welcome to CachyOS!
 welcome-body =

@@ -46,7 +46,7 @@ pub const fn const_min(v1: usize, v2: usize) -> usize {
 #[inline]
 pub const fn string_substr(src_str: &str, pos: usize, n: usize) -> Result<&str, str::Utf8Error> {
     let rlen = const_min(n, src_str.len() - pos);
-    
+
     unsafe {
         // First, we build a &[u8]...
         let slice = slice::from_raw_parts(src_str.as_ptr().add(pos), rlen);
@@ -163,6 +163,14 @@ pub fn is_alpm_pkg_installed(package_name: &str) -> bool {
     let pacman = pacmanconf::Config::with_opts(None, Some("/etc/pacman.conf"), Some("/")).unwrap();
     let alpm = alpm_utils::alpm_with_conf(&pacman).unwrap();
     alpm.localdb().pkg(package_name.as_bytes()).is_ok()
+}
+
+pub fn get_cachyos_pi_path() -> Option<String> {
+    which::which("cachyos-pi").ok().map(|p| p.to_string_lossy().into_owned())
+}
+
+pub fn is_cachyos_pi_installed() -> bool {
+    get_cachyos_pi_path().is_some()
 }
 
 pub fn is_intel_amd_gpu(vendor_id: &str, class_id: &str) -> bool {

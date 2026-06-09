@@ -152,7 +152,7 @@ pub fn change_dns_server(
 }
 
 pub fn reset_dns_server(conn_name: &str, dialog_tx: Sender<DialogMessage>) {
-    // Stop blocky if it was running (DoH mode)
+    // Stop blocky if it was running (DoH/DoQ mode)
     stop_blocky();
 
     let result = (|| -> anyhow::Result<()> {
@@ -185,24 +185,31 @@ pub fn reset_dns_server(conn_name: &str, dialog_tx: Sender<DialogMessage>) {
     }
 }
 
-/// Set DNS to use `DoH` via blocky local proxy.
+/// Set DNS to use an encrypted upstream via blocky local proxy.
 /// Installs blocky if needed, writes its config, starts the service, and points NM to 127.0.0.1.
-pub fn change_dns_server_doh(
+#[allow(clippy::too_many_arguments)]
+pub fn change_dns_server_blocky(
     callback: RunCmdCallback,
     conn_name: &str,
-    doh_url: &str,
+    mode: dns::BlockyMode,
+    upstream: &str,
     bootstrap_ipv4: &str,
     bootstrap_ipv6: &str,
     dot_hostname: Option<&str>,
     dialog_tx: Sender<DialogMessage>,
 ) {
+    let install_failed_msg = match mode {
+        dns::BlockyMode::Doh => fl!("doh-blocky-install-failed"),
+        dns::BlockyMode::Doq => fl!("doq-blocky-install-failed"),
+    };
+
     // 1. Install blocky if not present
     if !utils::is_alpm_pkg_installed("blocky") {
         const ALPM_PACKAGE_NAMES: [&str; 1] = ["blocky"];
         install_needed_packages(
             callback,
             &ALPM_PACKAGE_NAMES,
-            fl!("doh-blocky-install-failed"),
+            install_failed_msg,
             Action::SetDnsServer,
             dialog_tx.clone(),
         );
@@ -212,7 +219,8 @@ pub fn change_dns_server_doh(
     }
 
     // 2. Generate and write blocky config
-    let config = dns::generate_blocky_config(doh_url, bootstrap_ipv4, bootstrap_ipv6, dot_hostname);
+    let config =
+        dns::generate_blocky_config(upstream, bootstrap_ipv4, bootstrap_ipv6, dot_hostname);
 
     let write_result = (|| -> anyhow::Result<()> {
         let mut tmp = tempfile::NamedTempFile::new()?;
@@ -272,13 +280,13 @@ pub fn change_dns_server_doh(
     }
 }
 
-/// Stop blocky if it's running (used during reset or when switching away from `DoH`).
+/// Stop blocky if it's running (used during reset or when switching away from encrypted DNS).
 pub fn stop_blocky() {
     let _ = systemd_units::systemd_stop(dns::BLOCKY_SERVICE, Scope::System);
     let _ = systemd_units::systemd_disable(&[dns::BLOCKY_SERVICE], Scope::System);
 }
 
-/// Returns true if blocky is currently active.
+/// Returns true if blocky encrypted DNS proxy is currently active.
 pub fn is_blocky_active() -> bool {
     systemd_units::systemd_is_active(dns::BLOCKY_SERVICE, Scope::System).unwrap_or(false)
 }

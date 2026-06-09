@@ -25,6 +25,9 @@ advanced-btn-tooltip = Basculer vers une sélection étendue des paquets
 reset-btn-tooltip = Réinitialiser vos sélections actuelles...
 update-system-app-btn-tooltip = Appliquer vos sélections actuelles au système
 
+# Page de dépannage
+troubleshooting = Dépannage
+
 # Page « Connexions DNS »
 dns-settings = Paramètres DNS
 select-connection = Sélectionner une connexion :
@@ -36,6 +39,9 @@ dot-tooltip = Chiffrer les requêtes DNS via TLS pour une meilleure confidential
 enable-doh = Activer le DNS sur HTTPS (DoH)
 doh-tooltip = Chiffrer les requêtes DNS via HTTPS à l'aide du proxy local blocky (nécessite la prise en charge serveur et l'installation de blocky)
 doh-blocky-install-failed = Échec de l'installation de blocky pour le support DoH !
+enable-doq = Activer le DNS sur QUIC (DoQ)
+doq-tooltip = Chiffrer les requêtes DNS via QUIC à l'aide du proxy local blocky (nécessite la prise en charge serveur et l'installation de blocky)
+doq-blocky-install-failed = Échec de l'installation de blocky pour le support DoQ !
 test-latency = Tester la latence du serveur sélectionné
 test-latency-tooltip = Mesurer la latence réseau vers le serveur DNS sélectionné
 best-server = Sélectionner le meilleur serveur par latence
@@ -54,6 +60,8 @@ custom-dns-invalid = Veuillez entrer au moins une adresse IPv4 ou IPv6
 custom-dns-invalid-hostname = Nom d'hôte DoT invalide
 custom-dns-doh-url = URL DoH (pour DNS sur HTTPS) :
 custom-dns-doh-url-required = Veuillez entrer une URL DoH valide commençant par https://
+custom-dns-doq-endpoint = Point de terminaison DoQ (pour DNS sur QUIC) :
+custom-dns-doq-endpoint-required = Veuillez saisir un point de terminaison DoQ valide commençant par quic: ou quic://
 dns-check-hint = Après application, vérifiez votre fournisseur DNS sur
 dns-server-changed = Le serveur DNS a été modifié avec succès !
 dns-server-failed = Échec de la modification du serveur DNS !
@@ -63,17 +71,17 @@ winboat-install-failed = Échec de l'installation de Winboat !
 
 # Page des modifications (modifications)
 tweak-enabled-title = {$tweak} activé
-tweak-psd-tooltip = Utiliser la RAM pour les profils de navigateur (plus rapide, moins d'usure du disque)
+tweak-psd-tooltip = Utiliser la mémoire vive (RAM) pour les profils du navigateur (plus rapide, moins d'usure du disque)
 tweak-oomd-tooltip = Tuer proactivement les processus en cas de mémoire insuffisante pour éviter les blocages
 tweak-bpftune-tooltip = Régler automatiquement le réseau système
-tweak-bluetooth-tooltip = Activer la prise en charge des appareils Bluetooth (souris, audio, etc.)
-tweak-ananicycpp-tooltip = Ajuster automatiquement les priorités des processus pour améliorer la réactivité du système
-tweak-cachyupdate-tooltip = Notification de mise à jour dans la zone de notification
+tweak-bluetooth-tooltip = Activer la prise en charge des appareils sans fil Bluetooth (souris, audio, etc.)
+tweak-ananicycpp-tooltip = Ajuster automatiquement la priorité des processus pour améliorer la réactivité du système
+tweak-cachyupdate-tooltip = Notifie les mises à jour dans la zone de notification
 
 # Page des modifications (corrections)
 remove-lock-title = Supprimer le verrou de la base de données
 reinstall-title = Réinstaller tous les paquets
-reset-keyrings-title = Réinitialiser les porte-clés
+reset-keyrings-title = Réinitialiser les trousseaux de clés
 update-system-title = Mise à jour du système
 remove-orphans-title = Supprimer les orphelins
 clear-pkgcache-title = Vider le cache des paquets
@@ -83,7 +91,7 @@ show-kwinw-debug-title = Afficher la fenêtre de débogage de kwin(Wayland)
 install-gaming-title = Installer les paquets de jeux
 install-winboat-title = Installer Winboat
 install-vram-management-title = Installer la gestion VRAM
-install-vram-management-tooltip = Prioriser la VRAM pour l'application au premier plan afin que le pilote GPU évite de déverser les tampons dans la RAM système (GTT).
+install-vram-management-tooltip = Prioriser la mémoire vidéo (VRAM) pour l'application au premier plan afin d'éviter que le pilote GPU ne déverser les tampons dans la mémoire système (GTT).
 
 # Page principale (boutons)
 button-about-tooltip = À propos

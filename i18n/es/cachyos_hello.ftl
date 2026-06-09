@@ -12,6 +12,7 @@ orphans-not-found = ¡No se encontraron paquetes huérfanos!
 package-not-installed = ¡El paquete '{$package_name}' no se ha instalado!
 gaming-package-installed = ¡Los paquetes de Gaming ya están instalados!
 winboat-package-installed = ¡Los paquetes de Winboat ya están instalados!
+vram-management-package-installed = ¡Los paquetes de manejo de VRAM ya están instalados!
 
 # Application Browser page
 advanced-btn = avanzado
@@ -80,6 +81,8 @@ dnsserver-title = Cambiar servidor DNS
 show-kwinw-debug-title = Mostrar ventana de depuración de KWin (Wayland)
 install-gaming-title = Instalar paquetes de Gaming
 install-winboat-title = Instalar Winboat
+install-vram-management-title = Instalar manejo de la VRAM
+install-vram-management-tooltip = Prioriza la VRAM para la aplicación en primer plano, asi el driver de la GPU evita almacenar los buffers en la RAM del sistem (GTT)
 
 # Main Page (buttons)
 button-about-tooltip = Acerca de

@@ -11,6 +11,12 @@ lock-doesnt-exist = Pacman veritabanı kilidi bulunmamaktadır!
 orphans-not-found = Hiçbir artık (orphan) paket bulunamadı!
 package-not-installed = '{$package_name}' paketi kurulmamıştır!
 gaming-package-installed = Oyun paketleri halihazırda kurulu!
+winboat-package-installed = Winboat paketleri zaten kurulu!
+vram-management-package-installed = VRAM yönetim paketleri zaten kurulu!
+
+# Tweaks page — quick launch (CachyOS apps)
+app-cachyos-pi-label = CachyOS Paket Kurucu
+app-cachyos-kernel-manager-label = CachyOS Çekirdek Yöneticisi
 
 # Application Browser page
 advanced-btn = gelişmiş
@@ -31,6 +37,9 @@ apply = Uygula
 reset = Sıfırla
 enable-dot = DNS over TLS (DoT) etkinleştir
 dot-tooltip = Daha iyi gizlilik için DNS sorgularını TLS ile şifrele (sunucu desteği gerektirir)
+enable-doh = HTTPS üzerinden DNS (DoH) etkinleştir
+doh-tooltip = Daha iyi gizlilik için DNS sorgularını yerel blocky vekil sunucusu üzerinden HTTPS ile şifrele (sunucu desteği gerektirir; blocky kurar)
+doh-blocky-install-failed = DoH desteği için blocky kurulamadı!
 test-latency = Seçili Sunucunun Gecikmesini Test Et
 test-latency-tooltip = Seçili DNS sunucusuna ağ gecikmesini ölç
 best-server = Gecikmeye Göre En İyi Sunucuyu Seç
@@ -40,11 +49,21 @@ server-info = {""}
 latency-testing = test ediliyor...
 latency-timeout = zaman aşımı
 latency-no-result = hiçbir sunucu yanıt vermedi
-dns-check-hint = Uyguladıktan sonra DNS sağlayıcınızı doğrulayın
+custom-dns = Özel
+dhcp-automatic = DHCP (otomatik)
+custom-dns-ipv4 = IPv4 adresleri (virgülle ayrılmış):
+custom-dns-ipv6 = IPv6 adresleri (virgülle ayrılmış):
+custom-dns-dot-hostname = DoT ana bilgisayar adı (isteğe bağlı):
+custom-dns-invalid = Lütfen en az bir IPv4 veya IPv6 adresi girin
+custom-dns-invalid-hostname = Geçersiz DoT ana bilgisayar adı
+custom-dns-doh-url = DoH URL’si (HTTPS üzerinden DNS için):
+custom-dns-doh-url-required = Lütfen https:// ile başlayan geçerli bir DoH URL’si girin
+dns-check-hint = Uyguladıktan sonra DNS sağlayıcınızı şu adreste doğrulayın:
 dns-server-changed = DNS sunucusu başarıyla değiştirildi!
 dns-server-failed = DNS sunucusu değiştirme işlemi başarısız oldu!
 dns-server-reset = DNS sunucusu eski haline getirildi!
 dns-server-reset-failed = DNS sunucusu sıfırlama işlemi başarısız oldu!
+winboat-install-failed = Winboat kurulamadı!
 
 # Tweaks page (tweaks)
 tweak-enabled-title = {$tweak} etkinleştirildi.
@@ -58,7 +77,7 @@ tweak-cachyupdate-tooltip = Güncelleme bildirim servisi
 # Tweaks page (fixes)
 remove-lock-title = Pacman veritabanı kilidini kaldır
 reinstall-title = Tüm paketleri yeniden kur
-reset-keyrings-title = Reset keyrings
+reset-keyrings-title = Anahtar halkalarını sıfırla
 update-system-title = Sistem güncellemesi
 remove-orphans-title = Artık (orphan) paketleri kaldır
 clear-pkgcache-title = Önbellekteki paketleri temizle
@@ -66,6 +85,9 @@ rankmirrors-title = Yansıları hıza göre sırala
 dnsserver-title = DNS sunucusunu değiştir
 show-kwinw-debug-title = KWin (Wayland) hata ayıklama penceresini göster
 install-gaming-title = Oyun paketlerini kur
+install-winboat-title = Winboat kur
+install-vram-management-title = VRAM yönetimini kur
+install-vram-management-tooltip = AMD veya Intel GPU’larda dmemcg-booster ve plasma-foreground-booster paketlerini kur
 
 # Main Page (buttons)
 button-about-tooltip = Hakkında
