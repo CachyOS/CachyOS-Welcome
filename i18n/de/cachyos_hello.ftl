@@ -14,8 +14,11 @@ gaming-package-installed = Gaming-Pakete sind schon installiert!
 winboat-package-installed = Winboat-Pakete sind schon installiert!
 vram-management-package-installed = VRAM-Verwaltungspakete sind schon installiert!
 
+# Troubleshooting page
+troubleshooting = Problembehandlung
+
 # Dns Connections page
-dns-settings = DNS Einstellung
+dns-settings = DNS-Einstellungen
 select-connection = Verbindung auswählen:
 select-dns-server = DNS-Server auswählen:
 apply = Anwenden
@@ -25,6 +28,9 @@ dot-tooltip = DNS-Anfragen mit TLS verschlüsseln für besseren Datenschutz (erf
 enable-doh = DNS über HTTPS (DoH) aktivieren
 doh-tooltip = DNS-Anfragen mit HTTPS über einen lokalen blocky-Proxy verschlüsseln (erfordert Serverunterstützung, installiert blocky)
 doh-blocky-install-failed = Die Installation von blocky für DoH-Unterstützung ist fehlgeschlagen!
+enable-doq = DNS über QUIC (DoQ) aktivieren
+doq-tooltip = DNS-Anfragen mit QUIC über einen lokalen blocky-Proxy verschlüsseln (erfordert Serverunterstützung, installiert blocky)
+doq-blocky-install-failed = Die Installation von blocky für DoQ-Unterstützung ist fehlgeschlagen!
 test-latency = Latenz des ausgewählten Servers testen
 test-latency-tooltip = Netzwerklatenz zum ausgewählten DNS-Server messen
 best-server = Besten Server nach Latenz wählen
@@ -34,14 +40,32 @@ server-info = {""}
 latency-testing = teste...
 latency-timeout = Zeitüberschreitung
 latency-no-result = kein Server hat geantwortet
+custom-dns = Benutzerdefiniert
+dhcp-automatic = DHCP (automatisch)
+custom-dns-ipv4 = IPv4-Adressen (Komma-getrennt):
+custom-dns-ipv6 = IPv6-Adressen (Komma-getrennt):
+custom-dns-dot-hostname = DoT-Hostname (optional):
+custom-dns-invalid = Bitte gib mindestens eine IPv4- oder IPv6- Adresse ein
+custom-dns-invalid-hostname = Ungültiger DoT-Hostname
+custom-dns-doh-url = DoH URL (für DNS über HTTPS):
+custom-dns-doh-url-required = Gib bitte eine gültige DoH-URL ein, die mit https:// beginnt
+custom-dns-doq-endpoint = DoQ-Endpunkt (für DNS über QUIC):
+custom-dns-doq-endpoint-required = Gib bitte einen gültigen DoQ-Endpunkt ein, der mit quic: oder quic:// beginnt 
 dns-check-hint = Nach dem Anwenden, überprüfe deinen DNS-Anbieter auf
 dns-server-changed = DNS Server wurde erfolgreich geändert!
 dns-server-failed = DNS-Server konnte nicht eingestellt werden!
 dns-server-reset = DNS-Server wurde zurückgesetzt!
 dns-server-reset-failed = DNS-Server konnte nicht zurückgesetzt werden!
+winboat-install-failed = Winboat konnte nicht installiert werden!
 
 # Tweaks page (tweaks)
 tweak-enabled-title = {$tweak} aktiviert
+tweak-psd-tooltip = RAM für Browserprofile verwenden (schneller, weniger Festplattenverschleiß)
+tweak-oomd-tooltip = Proaktiv Prozesse bei geringem Arbeitsspeicher beenden, um Abstürze zu verhindern
+tweak-bpftune-tooltip = Systemnetzwerk automatisch optimieren
+tweak-bluetooth-tooltip = Unterstützung für drahtlose Bluetooth-Geräte (Mäuse, Audio, etc.)
+tweak-ananicycpp-tooltip = Automatische Anpassung der Prozessprioritäten für eine bessere Systemreaktionsfähigkeit
+tweak-cachyupdate-tooltip = Update-Benachrichtigungsdienst im Benachrichtigungsfeld
 
 # Tweaks page (fixes)
 remove-lock-title = Datenbanksperre entfernen
@@ -85,6 +109,7 @@ outdated-version-warning = Du nutzt eine alte Version von CachyOS, bitte downloa
 testing-iso-warning = Du verwendest eine alte Testing ISO, Testing-ISOs sind nicht stabil und getestet
 tweaksbrowser-label = Apps/Optimierungen
 appbrowser-label = Apps installieren
+troubleshooting-label = Problembehandlung
 launch-start-label = Beim Systemstart ausführen
 welcome-title = Willkommen bei CachyOS!
 welcome-body =
