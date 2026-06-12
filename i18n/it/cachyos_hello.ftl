@@ -3,7 +3,7 @@ about-dialog-title = CachyOS Hello
 about-dialog-comments = Schermata di benvenuto per CachyOS
 
 # Tweaks page
-tweaks = Ottimizzazioni
+tweaks = Personalizzazioni
 fixes = Utilità
 applications = Applicazioni
 removed-db-lock = Il blocco della base di dati di pacman è stato rimosso!
