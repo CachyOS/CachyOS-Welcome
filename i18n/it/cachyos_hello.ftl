@@ -67,7 +67,7 @@ dns-server-changed = Il server DNS è stato cambiato con successo!
 dns-server-failed = Impostazione del server DNS non riuscita!
 dns-server-reset = Il server DNS è stato reimpostato!
 dns-server-reset-failed = Reimpostazione del server DNS non riuscita!
-winboat-install-failed = Errore durante l'ibstallazione di Winboat!
+winboat-install-failed = Errore durante l'installazione di Winboat!
 
 # Tweaks page (tweaks)
 tweak-enabled-title = {$tweak} abilitato
@@ -79,7 +79,7 @@ tweak-ananicycpp-tooltip = Regola automaticamente le priorità dei processi per 
 tweak-cachyupdate-tooltip = Notifica gli aggiornamenti nel vassoio di sistema
 
 # Tweaks page (fixes)
-remove-lock-title = Rimuovi il blocco della base di dati
+remove-lock-title = Rimuovi il blocco del database
 reinstall-title = Reinstalla tutti i pacchetti
 reset-keyrings-title = Reimposta i portachiavi
 update-system-title = Aggiorna il sistema
@@ -87,7 +87,7 @@ remove-orphans-title = Rimuovi gli orfani
 clear-pkgcache-title = Pulisci la cache dei pacchetti
 rankmirrors-title = Classifica i mirror
 dnsserver-title = Cambia server DNS
-show-kwinw-debug-title = Mostra la finestra di debug kwin(Wayland)
+show-kwinw-debug-title = Mostra la finestra di debug kwin (Wayland)
 install-gaming-title = Installa i pacchetti Gaming
 install-winboat-title = Installa Winboat
 install-vram-management-title = Installa VRAM Management
@@ -124,6 +124,7 @@ outdated-version-warning = Stai usando una versione obsoleta dell'ISO di CachyOS
 testing-iso-warning = Stai usando una ISO di test, le ISO di test non sono considerate stabili e pronte per l'uso
 tweaksbrowser-label = Applicazioni/Personalizzazioni
 appbrowser-label = Installa Applicazioni
+troubleshooting-label = Risoluzione dei problemi
 launch-start-label = Lancia all'avvio
 welcome-title = Benvenuto in CachyOS!
 welcome-body =
