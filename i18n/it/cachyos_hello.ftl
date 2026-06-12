@@ -3,13 +3,30 @@ about-dialog-title = CachyOS Hello
 about-dialog-comments = Schermata di benvenuto per CachyOS
 
 # Tweaks page
-tweaks = Personalizzazioni
+tweaks = Ottimizzazioni
 fixes = Utilità
 applications = Applicazioni
 removed-db-lock = Il blocco della base di dati di pacman è stato rimosso!
 lock-doesnt-exist = Il blocco della base di dati di pacman non esiste!
 orphans-not-found = Nessun pacchetto orfano trovato!
 package-not-installed = Il pacchetto '{$package_name}' non è stato installato!
+gaming-package-installed = I pacchetti Gaming sono già installati!
+winboat-package-installed = I pacchetti Winboat sono già installati!
+vram-management-package-installed = I pacchetti VRAM management sono già installati!
+
+# Application Browser page
+advanced-btn = avanzato
+reset-btn = reimposta
+update-system-app-btn = AGGIORNA SISTEMA
+application-column = Applicazione
+description-column = Descrizione
+install-remove-column = Installa/Rimuovi
+advanced-btn-tooltip = Attiva/Disattiva un'ampia selezione di pacchetti
+reset-btn-tooltip = Reimposta le selezioni correnti...
+update-system-app-btn-tooltip = Applica le selezioni correnti al sistema
+
+# Troubleshooting page
+troubleshooting = Risoluzione dei problemi
 
 # Dns Connections page
 dns-settings = Impostazioni DNS
@@ -19,6 +36,12 @@ apply = Applica
 reset = Reimposta
 enable-dot = Abilita DNS su TLS (DoT)
 dot-tooltip = Crittografa le query DNS tramite TLS per una maggiore privacy (richiede supporto del server)
+enable-doh = Abilita DNS su HTTPS (DoH)
+doh-tooltip = Crittografa le query DNS utilizzando HTTPS tramite il proxy locale blocky (richiede il supporto del server, installa blocky)
+doh-blocky-install-failed = Errore durante l'installazione di blocky per il supporto DoH!
+enable-doq = Abilita DNS su QUIC (DoQ)
+doq-tooltip = Crittografa le query DNS utilizzando QUIC tramite il proxy locale blocky (richiede il supporto del server, installa blocky)
+doq-blocky-install-failed = Errore durante l'installazione di blocky per il supporto DoQ!
 test-latency = Test latenza del server selezionato
 test-latency-tooltip = Misura la latenza di rete verso il server DNS selezionato
 best-server = Seleziona miglior server per latenza
@@ -28,23 +51,47 @@ server-info = {""}
 latency-testing = test in corso...
 latency-timeout = timeout
 latency-no-result = nessun server ha risposto
+custom-dns = Personalizzato
+dhcp-automatic = DHCP (automatico)
+custom-dns-ipv4 = Indirizzi IPv4 (separati da virgola):
+custom-dns-ipv6 = Indirizzi IPv6 (separati da virgola):
+custom-dns-dot-hostname = Hostname DoT (facoltativo):
+custom-dns-invalid = Per favore inserisci almeno un indirizzo IPv4 o IPv6
+custom-dns-invalid-hostname = Hostname DoT non valido
+custom-dns-doh-url = Indirizzo DoH (per DNS su HTTPS):
+custom-dns-doh-url-required = Per favore inserisci un indirizzo DoH valido che inizia con https://
+custom-dns-doq-endpoint = Endpoint DoQ (per DNS su QUIC):
+custom-dns-doq-endpoint-required = Per favore inserisci un endpoint DoQ valido che inizia con quic: o quic://
 dns-check-hint = Dopo l'applicazione, verifica il tuo provider DNS su
 dns-server-changed = Il server DNS è stato cambiato con successo!
 dns-server-failed = Impostazione del server DNS non riuscita!
 dns-server-reset = Il server DNS è stato reimpostato!
 dns-server-reset-failed = Reimpostazione del server DNS non riuscita!
+winboat-install-failed = Errore durante l'ibstallazione di Winboat!
 
 # Tweaks page (tweaks)
 tweak-enabled-title = {$tweak} abilitato
+tweak-psd-tooltip = Utilizza la RAM per i profili del browser (più veloce, minore usura del disco)
+tweak-oomd-tooltip = Termina proattivamente i processi in caso di memoria insufficiente per prevenire blocchi
+tweak-bpftune-tooltip = Ottimizza automaticamente la rete di sistema
+tweak-bluetooth-tooltip = Abilita il supporto per i dispositivi wireless Bluetooth (mouse, cuffie, ecc.)
+tweak-ananicycpp-tooltip = Regola automaticamente le priorità dei processi per una migliore reattività del sistema
+tweak-cachyupdate-tooltip = Notifica gli aggiornamenti nel vassoio di sistema
 
 # Tweaks page (fixes)
 remove-lock-title = Rimuovi il blocco della base di dati
 reinstall-title = Reinstalla tutti i pacchetti
+reset-keyrings-title = Reimposta i portachiavi
 update-system-title = Aggiorna il sistema
 remove-orphans-title = Rimuovi gli orfani
 clear-pkgcache-title = Pulisci la cache dei pacchetti
 rankmirrors-title = Classifica i mirror
 dnsserver-title = Cambia server DNS
+show-kwinw-debug-title = Mostra la finestra di debug kwin(Wayland)
+install-gaming-title = Installa i pacchetti Gaming
+install-winboat-title = Installa Winboat
+install-vram-management-title = Installa VRAM Management
+install-vram-management-tooltip = Assegna priorità alla VRAM per l'applicazione in primo piano in modo che il driver della GPU eviti di riversare i buffer nella RAM di sistema (GTT).      
 
 # Main Page (buttons)
 button-about-tooltip = Informazioni
@@ -64,6 +111,10 @@ section-docs = DOCUMENTAZIONE
 section-installer = INSTALLAZIONE
 section-support = SUPPORTO
 section-project = PROGETTO
+
+# Main Page (launch installer)
+recommended = consigliato
+calamares-install-type = Tipo di installazione Calamares
 
 # Main Page (body)
 offline-error = Impossibile avviare l'installazione online! Connessione a internet assente
