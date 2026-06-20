@@ -29,6 +29,9 @@ pub fn fix_path(path: &str) -> String {
 pub fn read_json(path: &str) -> serde_json::Value {
     let buf = fix_path(path);
     let data = fs::read_to_string(buf).expect("Unable to read file");
+    if data.trim().is_empty() {
+        return serde_json::Value::Null;
+    }
     serde_json::from_str(&data).expect("Unable to parse")
 }
 
