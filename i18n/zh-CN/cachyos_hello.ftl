@@ -25,6 +25,9 @@ advanced-btn-tooltip = 显示软件包的附加选项
 reset-btn-tooltip = 重置您的选项...
 update-system-app-btn-tooltip = 向系统应用您的选项
 
+# Troubleshooting page
+troubleshooting = 疑难解答
+
 # Dns Connections page
 dns-settings = DNS 设置
 select-connection = 选择网络:
@@ -51,7 +54,9 @@ custom-dns-dot-hostname = DoT 服务器主机名（可选）:
 custom-dns-invalid = 请输入至少一个 IPv4 或 IPv6 地址
 custom-dns-invalid-hostname = 无效的 DoT 主机名
 custom-dns-doh-url = DoH URL（对于 DNS over HTTPS):
-custom-dns-doh-url-required = 请输入一个以 https:// 开头的，有效的 DoH URL 
+custom-dns-doh-url-required = 请输入一个以 https:// 开头的，有效的 DoH URL
+custom-dns-doq-endpoint = DoQ endpoint (对于 DNS over QUIC):
+custom-dns-doq-endpoint-required = 请输入一个有效的，以 quic: 或 quic://开头的 DoQ endpoint
 dns-check-hint = 应用后，在这里验证您的 DNS 提供商 {$dnscheck_url}
 dns-server-changed = DNS 服务器已成功修改！
 dns-server-failed = 无法设置 DNS 服务器！
@@ -61,10 +66,10 @@ winboat-install-failed = 无法安装 Winboat!
 
 # Tweaks page (tweaks)
 tweak-enabled-title = 启用 {$tweak}
-tweak-psd-tooltip = 使用 RAM 来存放浏览器配置文件（更快，更少的磁盘磨损)
+tweak-psd-tooltip = 使用 RAM 来存放浏览器配置文件（更快，且磁盘磨损更少）
 tweak-oomd-tooltip = 在内存不足时主动终止进程，以防止系统卡死/冻结。
 tweak-bpftune-tooltip = 自动调优系统网络
-tweak-bluetooth-tooltip = 启用对于蓝牙设备的支持（鼠标，音频设备及更多)
+tweak-bluetooth-tooltip = 启用对于蓝牙设备的支持（鼠标，音频设备及更多）
 tweak-ananicycpp-tooltip = 自动调整进程优先级以提升系统响应能力
 tweak-cachyupdate-tooltip = 托盘上的更新提示
 
@@ -75,7 +80,7 @@ reset-keyrings-title = 重置密钥环
 update-system-title = 系统更新
 remove-orphans-title = 移除孤立软件包
 clear-pkgcache-title = 清除软件包缓存
-rankmirrors-title = 排序镜像
+rankmirrors-title = 测速并更新已配置的 pacman 镜像列表
 dnsserver-title = 更改 DNS 服务器
 show-kwinw-debug-title = 显示 kwin(Wayland) 调试控制台
 install-gaming-title = 安装游戏软件包
@@ -114,6 +119,7 @@ outdated-version-warning = 您正使用 CachyOS 的一个旧版 ISO，请考虑�
 testing-iso-warning = 您正使用测试版的 ISO，测试版 ISO 尚未稳定，不建议日常使用
 tweaksbrowser-label = 应用/调整
 appbrowser-label = 安装应用
+troubleshooting-label = 疑难解答
 launch-start-label = 在启动时打开
 welcome-title = 欢迎使用 CachyOS！
 welcome-body =
