@@ -25,6 +25,9 @@ advanced-btn-tooltip = Превключва към разширен списък
 reset-btn-tooltip = Нулиране на текущия ви избор...
 update-system-app-btn-tooltip = Прилагане на текущия ви избор към системата
 
+# Страница за Отстраняване на неизправности
+troubleshooting = Отстраняване на неизправности
+
 # Dns Connections page
 dns-settings = DNS настройки
 select-connection = Изберете връзка:
