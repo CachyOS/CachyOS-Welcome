@@ -12,6 +12,7 @@ orphans-not-found = 孤立パッケージ (orphans) が見つかりませんで�
 package-not-installed = パッケージ "{$package_name}" がインストールされていません。
 gaming-package-installed = ゲーム用パッケージはすでにインストールされています。
 winboat-package-installed = Winboat パッケージはすでにインストールされています。
+vram-management-package-installed = VRAM 管理パッケージはすでにインストールされています。
 
 # Application Browser page
 advanced-btn = advanced
@@ -24,12 +25,39 @@ advanced-btn-tooltip = Toggle an extended selection of packages
 reset-btn-tooltip = Reset your current selections...
 update-system-app-btn-tooltip = Apply your current selections to the system
 
+# Troubleshooting page
+troubleshooting = トラブルシューティング
+
 # Dns Connections page
 dns-settings = DNS 設定
 select-connection = 設定する接続元:
 select-dns-server = DNSサーバーを選択:
 apply = 適用
 reset = リセット
+enable-encrypted-dns = DNS over {$protocol} ({$abbr}) を有効化
+dot-tooltip = TLS を用いて DNS クエリを暗号化してプライバシーを保護 (DNS サーバー側が対応している必要があります)
+blocky-dns-tooltip = blocky のローカルプロキシ経由の {$protocol} で、DNS クエリを暗号化 (DNS サーバー側が対応している必要があり、また blocky のインストールを行います)
+blocky-install-failed = {$mode} に必要な blocky のインストールに失敗しました。
+test-latency = 選択したサーバーのレイテンシを計測
+test-latency-tooltip = 選択した DNS サーバーのネットワークレイテンシ (応答速度) を計測
+best-server = レイテンシが最速のサーバーを選択
+best-server-tooltip = フィルタリング機能つきを除いた通常の DNS サーバーをテストし、最速のサーバーを自動で選択
+latency-result = {""}
+server-info = {""}
+latency-testing = 計測中...
+latency-timeout = タイムアウトしました
+latency-no-result = サーバーが応答しませんでした
+custom-dns = カスタム
+dhcp-automatic = DHCP (自動設定)
+custom-dns-ip = {$version} アドレス (カンマ区切り):
+custom-dns-dot-hostname = DoT ホスト名 (任意):
+custom-dns-invalid = 一つ以上の IPv4 または IPv6 アドレスを指定してください
+custom-dns-invalid-hostname = DoT ホスト名が不正です
+custom-dns-doh-url = DoH URL (DNS over HTTPS 用):
+custom-dns-doh-url-required = 正しい DoH の URL を指定してください (https:// で始まる必要があります)
+custom-dns-doq-endpoint = DoQ エンドポイント (DNS over QUIC 用):
+custom-dns-doq-endpoint-required = 正しい DoQ エンドポイントを入力してください。(quic: や quic:// で始まる必要があります)
+dns-check-hint = 適用後は {$dnscheck_url} から DNS プロバイダへの接続を検証してください
 dns-server-changed = DNS サーバーの設定に成功しました。
 dns-server-failed = DNS サーバーの設定に失敗しました。
 dns-server-reset = DNS サーバーをリセットしました。
@@ -54,20 +82,22 @@ remove-orphans-title = 孤立パッケージ (orphans) を削除
 clear-pkgcache-title = パッケージキャッシュをクリア
 rankmirrors-title = ミラーをランク付け
 dnsserver-title = DNS サーバーを変更
-show-kwinw-debug-title = kwin(Wayland) デバッグ画面を表示
+show-kwinw-debug-title = kwin (Wayland) デバッグ画面を表示
 install-gaming-title = ゲーム用パッケージをインストール
 install-winboat-title = Winboat をインストール
+install-vram-management-title = VRAM 管理システムをインストール
+install-vram-management-tooltip = VRAM をフォアグラウンドアプリに優先することで、GPU ドライバがシステム RAM (GTT) にバッファを漏らす (やむを得ずシステム RAM に退避させる) ことを防ぎます。
 
 # Main Page (buttons)
 button-about-tooltip = このアプリについて
-button-web-resource-tooltip = ウェブ上の情報
+button-web-resource-tooltip = ウェブで確認
 button-development-label = 開発
 button-software-label = ソフトウェア
 button-donate-label = 寄付
 button-forum-label = フォーラム
 button-installer-label = インストーラーを起動
 button-involved-label = 貢献する
-button-readme-label = Read me
+button-readme-label = README (はじめに)
 button-release-info-label = リリース情報
 button-wiki-label = Wiki
 
@@ -86,12 +116,13 @@ offline-error = インターネットに接続されていないため、オン�
 unsupported-hw-warning = 現在の ISO に対応していないハードウェアにインストールしようとしているため、サポート対象外になります
 desktop-on-handheld-error = ハンドヘルド型デバイスにデスクトップ版をインストールしようとしています。ハードウェアに適切に対応するため、ハンドヘルド版を利用してください
 outdated-version-warning = 現在古いバージョンの CachyOS ISO を利用しています。インストールには最新バージョンを利用することをおすすめします
-testing-iso-warning = 現在テスト版 ISO を利用しています。テスト版 ISO は安定性や可用性を保障していません。
+testing-iso-warning = 現在テスト版 ISO を利用しています。テスト版 ISO では安定性や可用性を保障していません。
 tweaksbrowser-label = アプリ/チューニング
 appbrowser-label = アプリのインストール
+troubleshooting-label = トラブルシューティング
 launch-start-label = 起動時に表示
 welcome-title = CachyOS へようこそ！
 welcome-body =
     コミュニティに参加いただきありがとうございます！
 
-    CachyOS 開発チーム一同、情熱を持って開発した CachyOS を皆さまに楽しんでいただけることを願っています。 以下のリンクは、はじめてこの OS を利用する場合に役立ちます。これからの体験をぜひお楽しみください。フィードバックもお待ちしております。
+    CachyOS 開発チーム一同、情熱を持って開発した CachyOS を皆さまに楽しんでいただけることを願っています。下のリンクは、はじめてこの OS を利用する場合に役立ちます。CachyOS をぜひご活用ください。フィードバックもお待ちしております。

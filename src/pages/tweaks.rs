@@ -6,7 +6,6 @@ use crate::{fl, systemd_units, utils};
 use std::str;
 
 use gtk::prelude::*;
-use subprocess::Exec;
 
 use glib::translate::FromGlib;
 use gtk::glib;
@@ -125,8 +124,10 @@ fn toggle_service(
 
         if action_enabled && action_type == "user_service" {
             if tweak::is_globally_enabled(&action_data) {
-                let _ =
-                    Exec::cmd("/sbin/systemctl").args(&["--global", "disable"]).args(&units).join();
+                // try to run with prev explicitly
+                let mut args: Vec<&str> = vec!["systemctl", "--global", "disable"];
+                args.extend_from_slice(&units);
+                let _ = utils::pkexec_cmd(&args);
             }
             tweak::remove_autostart_files(tweak_name);
         }

@@ -64,7 +64,12 @@ pub fn remove_autostart_files(tweak: TweakName) {
 /// Checks if any of the given units are enabled globally.
 pub fn is_globally_enabled(units: &str) -> bool {
     let global_dir = Path::new("/etc/systemd/user");
-    let target_dirs = ["default.target.wants", "timers.target.wants", "sockets.target.wants"];
+    let target_dirs = [
+        "default.target.wants",
+        "timers.target.wants",
+        "sockets.target.wants",
+        "graphical-session.target.wants",
+    ];
     units
         .split_whitespace()
         .any(|unit| target_dirs.iter().any(|dir| global_dir.join(dir).join(unit).exists()))

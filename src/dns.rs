@@ -1,3 +1,5 @@
+use std::sync::Arc;
+
 use clap::{Subcommand, ValueEnum};
 use phf::{phf_map, phf_ordered_map};
 
@@ -195,19 +197,118 @@ impl DnsServer {
     }
 }
 
-/// Measure TCP connect latency to the first IPv4 address of a DNS server on port 53.
-/// Returns the round-trip time in milliseconds, or None on timeout/error.
-pub fn measure_latency(server_ipv4: &str) -> Option<u128> {
-    use std::net::{SocketAddr, TcpStream};
+/// DNS transport a connection can use. Maps to/from the dropdown's `active-id` string.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum DnsType {
+    Plain,
+    Dot,
+    Doh,
+    Doq,
+}
+
+impl DnsType {
+    pub fn as_id(self) -> &'static str {
+        match self {
+            Self::Plain => "plain",
+            Self::Dot => "dot",
+            Self::Doh => "doh",
+            Self::Doq => "doq",
+        }
+    }
+
+    /// Unknown or missing ids fall back to plain DNS.
+    pub fn from_id(id: Option<&str>) -> Self {
+        match id {
+            Some("dot") => Self::Dot,
+            Some("doh") => Self::Doh,
+            Some("doq") => Self::Doq,
+            _ => Self::Plain,
+        }
+    }
+}
+
+/// A [`DnsType`] paired with the hostname its transport needs.
+#[derive(Debug, Clone)]
+pub enum LatencyProbe {
+    Plain,
+    Dot { hostname: Arc<str> },
+    Doh { hostname: Arc<str>, path: Option<Arc<str>> },
+    Doq { hostname: Arc<str> },
+}
+
+impl LatencyProbe {
+    /// Falls back to plain if `server_name` has no entry for `dns_type`.
+    pub fn for_server(server_name: &str, dns_type: DnsType) -> Self {
+        match dns_type {
+            DnsType::Plain => Self::Plain,
+            DnsType::Dot => G_DNS_SERVERS
+                .get(server_name)
+                .and_then(|&(_, _, hostname)| hostname)
+                .map_or(Self::Plain, |hostname| Self::Dot { hostname: hostname.into() }),
+            DnsType::Doh => G_DNS_DOH_URLS.get(server_name).map_or(Self::Plain, |&url| {
+                let (hostname, path) = split_https_url(url);
+                Self::Doh { hostname: hostname.into(), path }
+            }),
+            DnsType::Doq => G_DNS_DOQ_ENDPOINTS.get(server_name).map_or(Self::Plain, |&endpoint| {
+                let hostname = endpoint.strip_prefix("quic:").unwrap_or(endpoint);
+                Self::Doq { hostname: hostname.into() }
+            }),
+        }
+    }
+}
+
+/// `https://host/path` -> (host, "/path"); no path yields `None`.
+fn split_https_url(url: &str) -> (&str, Option<Arc<str>>) {
+    let url = url.strip_prefix("https://").unwrap_or(url);
+    match url.split_once('/') {
+        Some((host, path)) => (host, Some(format!("/{path}").into())),
+        None => (url, None),
+    }
+}
+
+/// Times a real DNS lookup over `probe`'s transport, in milliseconds. `None` on timeout/error.
+pub fn measure_latency(server_ipv4: &str, probe: &LatencyProbe) -> Option<u128> {
+    use std::net::IpAddr;
     use std::time::{Duration, Instant};
 
+    use hickory_resolver::Resolver;
+    use hickory_resolver::config::{NameServerConfig, ResolveHosts, ResolverConfig, ResolverOpts};
+    use hickory_resolver::net::runtime::TokioRuntimeProvider;
+
+    // simple domain
+    const PROBE_NAME: &str = "example.com.";
+
     let first_ip = server_ipv4.split(',').next()?;
-    // Strip any #hostname suffix for latency testing
-    let ip_only = first_ip.split('#').next()?;
-    let addr: SocketAddr = format!("{ip_only}:53").parse().ok()?;
-    let start = Instant::now();
-    TcpStream::connect_timeout(&addr, Duration::from_secs(3)).ok()?;
-    Some(start.elapsed().as_millis())
+    // Strip any #hostname suffix, then parse the bare IP.
+    let ip: IpAddr = first_ip.split('#').next()?.trim().parse().ok()?;
+
+    let name_server = match probe {
+        LatencyProbe::Plain => NameServerConfig::udp(ip),
+        LatencyProbe::Dot { hostname } => NameServerConfig::tls(ip, hostname.clone()),
+        LatencyProbe::Doh { hostname, path } => {
+            NameServerConfig::https(ip, hostname.clone(), path.clone())
+        },
+        LatencyProbe::Doq { hostname } => NameServerConfig::quic(ip, hostname.clone()),
+    };
+    let config = ResolverConfig::from_parts(None, vec![], vec![name_server]);
+    let mut opts = ResolverOpts::default();
+    opts.timeout = Duration::from_secs(3);
+    opts.attempts = 1;
+    opts.cache_size = 0;
+    // don't read /etc/hosts
+    opts.use_hosts_file = ResolveHosts::Never;
+
+    // each call already has its own worker thread
+    let rt = tokio::runtime::Builder::new_current_thread().enable_all().build().ok()?;
+    rt.block_on(async move {
+        let resolver = Resolver::builder_with_config(config, TokioRuntimeProvider::default())
+            .with_options(opts)
+            .build()
+            .ok()?;
+        let start = Instant::now();
+        resolver.lookup_ip(PROBE_NAME).await.ok()?;
+        Some(start.elapsed().as_millis())
+    })
 }
 
 /// Append `#hostname` to each comma-separated address.
@@ -218,9 +319,7 @@ pub fn append_dot_hostname(addrs: &str, hostname: &str) -> String {
     addrs.split(',').map(|addr| format!("{addr}#{hostname}")).collect::<Vec<_>>().join(",")
 }
 
-/// Returns true if `hostname` is a valid SNI/DoT hostname.
-/// Must be non-empty, contain only alphanumeric chars, hyphens, and dots,
-/// must not start/end with a dot or hyphen, and labels must be <= 63 chars.
+/// Returns true if `hostname` is a valid SNI/DoT hostname
 pub fn is_valid_dot_hostname(hostname: &str) -> bool {
     if hostname.is_empty() || hostname.len() > 253 {
         return false;
@@ -254,7 +353,8 @@ pub fn measure_all_latencies() -> Vec<(&'static str, Option<u128>)> {
         let ipv4 = ipv4.to_string();
         let name: &'static str = name;
         thread::spawn(move || {
-            let latency = measure_latency(&ipv4);
+            // plain-UDP baseline
+            let latency = measure_latency(&ipv4, &LatencyProbe::Plain);
             let _ = tx.send((name, latency));
         });
         count += 1;

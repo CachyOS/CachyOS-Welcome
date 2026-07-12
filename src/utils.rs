@@ -4,6 +4,7 @@ use std::fs::File;
 use std::path::Path;
 use std::{fs, slice, str};
 
+use anyhow::Context;
 use gtk::prelude::*;
 
 use subprocess::{Exec, ExitStatus, Redirection};
@@ -26,16 +27,17 @@ pub fn fix_path(path: &str) -> String {
 }
 
 #[inline]
-pub fn read_json(path: &str) -> serde_json::Value {
+pub fn read_json(path: &str) -> anyhow::Result<serde_json::Value> {
     let buf = fix_path(path);
-    let data = fs::read_to_string(buf).expect("Unable to read file");
-    serde_json::from_str(&data).expect("Unable to parse")
+    let data = fs::read_to_string(buf).context("Unable to read file")?;
+    serde_json::from_str(&data).context("Unable to parse")
 }
 
 #[inline]
-pub fn write_json(path: &str, content: &serde_json::Value) {
-    let output = File::create(fix_path(path)).expect("Unable to open file for writing");
-    serde_json::to_writer(output, content).expect("Unable to write json to file");
+pub fn write_json(path: &str, content: &serde_json::Value) -> anyhow::Result<()> {
+    let output = File::create(fix_path(path)).context("Unable to open file for writing")?;
+    serde_json::to_writer(output, content).context("Unable to write json to file")?;
+    Ok(())
 }
 
 #[inline]
@@ -191,9 +193,9 @@ pub fn has_intel_or_amd_gpu() -> bool {
 pub fn is_kwin_wayland() -> bool {
     Exec::cmd("pgrep")
         .args(&["kwin_wayland"])
-        .stdout(subprocess::NullFile)
+        .stdout(subprocess::Redirection::Null)
         .join()
-        .is_ok_and(subprocess::ExitStatus::success)
+        .is_ok_and(|status: subprocess::ExitStatus| status.success())
 }
 
 #[cfg(test)]

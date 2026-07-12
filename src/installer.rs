@@ -114,7 +114,7 @@ fn connectivity_check(ui: &Gui, message: String) -> bool {
     ];
     for target in targets {
         let ping_result = Exec::cmd("/sbin/ping").args(&["-c", "1", "-W", "3", target]).join();
-        if ping_result.is_ok_and(subprocess::ExitStatus::success) {
+        if ping_result.is_ok_and(|status: subprocess::ExitStatus| status.success()) {
             info!("Connectivity confirmed via ping to {target}");
             return true;
         }
@@ -148,7 +148,7 @@ pub fn launch_installer(message: String) {
         let mut child = Exec::cmd("/usr/local/bin/calamares-online.sh")
             .stdout(Redirection::Pipe)
             .stderr(Redirection::Merge)
-            .popen()
+            .start()
             .expect("Failed to spawn installer");
 
         let child_out = child.stdout.take().unwrap();

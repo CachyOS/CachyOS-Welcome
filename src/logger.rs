@@ -9,8 +9,13 @@ pub fn setup_logger() -> WorkerGuard {
     let env_filter = EnvFilter::try_from_default_env();
 
     // create subscriber env filter
-    let subscriber_env_filter = env_filter
-        .unwrap_or_else(|_| EnvFilter::new("debug,i18n_embed=warn,which=warn,zbus::proxy=warn"));
+    let subscriber_env_filter = env_filter.unwrap_or_else(|_| {
+        EnvFilter::new(
+            "debug,i18n_embed=warn,which=warn,zbus::proxy=warn,hickory_resolver=warn,\
+             hickory_proto=warn,hickory_net=warn,rustls=warn,quinn=warn,quinn_proto=warn,\
+             quinn_udp=warn,h2=warn",
+        )
+    });
 
     // create stdout layer
     let stdout_log = tracing_subscriber::fmt::layer().compact().with_writer(std::io::stdout);

@@ -1,3 +1,4 @@
+use crate::dns::DnsType;
 use crate::ui::{Action, DialogMessage, MessageType, UI};
 use crate::{actions, create_gtk_button, dns, fl, utils};
 
@@ -54,49 +55,71 @@ fn server_supports_blocky(index: usize, mode: dns::BlockyMode) -> bool {
         .is_some_and(|(name, _)| dns::get_blocky_upstream(name, mode).is_some())
 }
 
-fn disable_protocol_checks(
-    dot_check: &gtk::CheckButton,
-    doh_check: &gtk::CheckButton,
-    doq_check: &gtk::CheckButton,
+fn populate_dns_type_combo(
+    combo: &gtk::ComboBoxText,
+    supports_dot: bool,
+    supports_doh: bool,
+    supports_doq: bool,
+    select: DnsType,
 ) {
-    for check in [dot_check, doh_check, doq_check] {
-        check.set_sensitive(false);
-        check.set_active(false);
+    combo.remove_all();
+    combo.append(Some(DnsType::Plain.as_id()), &fl!("dns-type-plain"));
+    if supports_dot {
+        combo.append(Some(DnsType::Dot.as_id()), &fl!("dns-type-dot"));
+    }
+    if supports_doh {
+        combo.append(Some(DnsType::Doh.as_id()), &fl!("dns-type-doh"));
+    }
+    if supports_doq {
+        combo.append(Some(DnsType::Doq.as_id()), &fl!("dns-type-doq"));
+    }
+    if !combo.set_active_id(Some(select.as_id())) {
+        combo.set_active_id(Some(DnsType::Plain.as_id()));
     }
 }
 
+/// Rebuild the DNS Type dropdown for the server.
+fn populate_dns_type_for_server(combo: &gtk::ComboBoxText, index: usize, select: DnsType) {
+    populate_dns_type_combo(
+        combo,
+        server_supports_dot(index),
+        server_supports_blocky(index, dns::BlockyMode::Doh),
+        server_supports_blocky(index, dns::BlockyMode::Doq),
+        select,
+    );
+}
+
+/// DNS Type to preselect for server.
+fn preset_type_for_server(index: usize) -> DnsType {
+    if actions::is_blocky_active() {
+        return match dns::read_active_blocky()
+            .filter(|(mode, _)| server_supports_blocky(index, *mode))
+        {
+            Some((dns::BlockyMode::Doh, _)) => DnsType::Doh,
+            Some((dns::BlockyMode::Doq, _)) => DnsType::Doq,
+            None => DnsType::Plain,
+        };
+    }
+    if server_supports_dot(index) { DnsType::Dot } else { DnsType::Plain }
+}
+
+/// Prefill the custom blocky upstream entry and return the matching DNS Type.
 fn fill_custom_blocky_fields(
     upstream: &str,
     mode: dns::BlockyMode,
     custom_doh_entry: &gtk::Entry,
     custom_doq_entry: &gtk::Entry,
-    doh_check: &gtk::CheckButton,
-    doq_check: &gtk::CheckButton,
-) {
+) -> DnsType {
     match mode {
         dns::BlockyMode::Doh => {
             custom_doh_entry.set_text(upstream);
-            doh_check.set_active(true);
-            doq_check.set_active(false);
+            DnsType::Doh
         },
         dns::BlockyMode::Doq => {
             custom_doq_entry.set_text(upstream);
-            doq_check.set_active(true);
-            doh_check.set_active(false);
+            DnsType::Doq
         },
     }
-}
-
-fn set_preset_blocky_check(
-    check: &gtk::CheckButton,
-    index: usize,
-    mode: dns::BlockyMode,
-    blocky_active: bool,
-    active_mode: Option<dns::BlockyMode>,
-) {
-    let supported = server_supports_blocky(index, mode);
-    check.set_sensitive(supported);
-    check.set_active(blocky_active && supported && active_mode == Some(mode));
 }
 
 /// Returns (region, homepage) for the server at `index`.
@@ -163,55 +186,17 @@ fn create_connections_section() -> gtk::Box {
     combo_conn.set_widget_name("connections_combo");
     combo_servers.set_widget_name("servers_combo");
 
-    // DoT (DNS over TLS) toggle
-    let dot_check =
-        gtk::CheckButton::with_label(&fl!("enable-encrypted-dns", protocol = "TLS", abbr = "DoT"));
-    dot_check.set_tooltip_text(Some(&fl!("dot-tooltip")));
-    dot_check.set_widget_name("enable-dot");
+    // Rebuilt per selected server so only the protocols that server supports are offered.
+    let dns_type_label = gtk::Label::new(None);
+    dns_type_label.set_justify(gtk::Justification::Left);
+    dns_type_label.set_text(&fl!("dns-type-label"));
+    dns_type_label.set_widget_name("dns-type-label");
 
-    // DoH (DNS over HTTPS) toggle — uses blocky local proxy
-    let doh_check = gtk::CheckButton::with_label(&fl!(
-        "enable-encrypted-dns",
-        protocol = "HTTPS",
-        abbr = "DoH"
-    ));
-    doh_check.set_tooltip_text(Some(&fl!("blocky-dns-tooltip", protocol = "HTTPS")));
-    doh_check.set_widget_name("enable-doh");
-
-    // DoQ (DNS over QUIC) toggle — uses blocky local proxy
-    let doq_check =
-        gtk::CheckButton::with_label(&fl!("enable-encrypted-dns", protocol = "QUIC", abbr = "DoQ"));
-    doq_check.set_tooltip_text(Some(&fl!("blocky-dns-tooltip", protocol = "QUIC")));
-    doq_check.set_widget_name("enable-doq");
-
-    // DoT, DoH, and DoQ are mutually exclusive
-    let dot_check_excl = dot_check.clone();
-    let doh_check_excl = doh_check.clone();
-    let doq_check_excl = doq_check.clone();
-    dot_check.connect_toggled(
-        glib::clone!(@weak doh_check_excl, @weak doq_check_excl => move |check| {
-            if check.is_active() {
-                doh_check_excl.set_active(false);
-                doq_check_excl.set_active(false);
-            }
-        }),
-    );
-    doh_check.connect_toggled(
-        glib::clone!(@weak dot_check_excl, @weak doq_check_excl => move |check| {
-            if check.is_active() {
-                dot_check_excl.set_active(false);
-                doq_check_excl.set_active(false);
-            }
-        }),
-    );
-    doq_check.connect_toggled(
-        glib::clone!(@weak dot_check_excl, @weak doh_check_excl => move |check| {
-            if check.is_active() {
-                dot_check_excl.set_active(false);
-                doh_check_excl.set_active(false);
-            }
-        }),
-    );
+    let combo_dns_type = gtk::ComboBoxText::new();
+    combo_dns_type.set_widget_name("dns_type_combo");
+    combo_dns_type.set_tooltip_text(Some(&fl!("dns-type-tooltip")));
+    // refreshed by the server/connection handlers and the preset
+    populate_dns_type_combo(&combo_dns_type, false, false, false, DnsType::Plain);
 
     // Server info label (region + homepage link)
     let info_label = gtk::Label::new(None);
@@ -302,20 +287,22 @@ fn create_connections_section() -> gtk::Box {
             combo_servers.set_active(Some(combo_index as u32));
 
             if selected_dns_index == usize::MAX {
-                disable_protocol_checks(&dot_check, &doh_check, &doq_check);
+                // no protocol type to choose for DHCP
+                populate_dns_type_combo(&combo_dns_type, false, false, false, DnsType::Plain);
+                combo_dns_type.set_sensitive(false);
             } else if selected_dns_index == dns::G_DNS_SERVERS.len() {
-                // Custom DNS — pre-fill entries with current values
-                if actions::is_blocky_active() {
-                    if let Some((mode, upstream)) = dns::read_active_blocky() {
-                        fill_custom_blocky_fields(
-                            &upstream,
-                            mode,
-                            &custom_doh_entry,
-                            &custom_doq_entry,
-                            &doh_check,
-                            &doq_check,
-                        );
-                    }
+                // custom dns pre-fill entries with current values.
+                let select_id = if actions::is_blocky_active() {
+                    let id = dns::read_active_blocky()
+                        .map(|(mode, upstream)| {
+                            fill_custom_blocky_fields(
+                                &upstream,
+                                mode,
+                                &custom_doh_entry,
+                                &custom_doq_entry,
+                            )
+                        })
+                        .unwrap_or(DnsType::Plain);
                     let (ipv4, ipv6, dot_host) = dns::read_blocky_bootstrap();
                     if !ipv4.is_empty() {
                         custom_ipv4_entry.set_text(&ipv4);
@@ -326,7 +313,7 @@ fn create_connections_section() -> gtk::Box {
                     if let Some(ref hostname) = dot_host {
                         custom_dot_entry.set_text(hostname);
                     }
-                    dot_check.set_active(false);
+                    id
                 } else {
                     if let Some(dns_info) = actions::get_dns_for_connection(&active_conn_name) {
                         custom_ipv4_entry.set_text(&dns_info.ipv4);
@@ -335,49 +322,31 @@ fn create_connections_section() -> gtk::Box {
                             custom_dot_entry.set_text(hostname);
                         }
                     }
-                    let dot_enabled = actions::get_dot_for_connection(&active_conn_name);
-                    dot_check.set_active(dot_enabled);
-                }
+                    if actions::get_dot_for_connection(&active_conn_name) {
+                        DnsType::Dot
+                    } else {
+                        DnsType::Plain
+                    }
+                };
                 custom_box.foreach(gtk::prelude::WidgetExt::show_all);
                 custom_box.show();
-                dot_check.set_sensitive(true);
-                doh_check.set_sensitive(true);
-                doq_check.set_sensitive(true);
+                // Custom DNS may use any transport
+                combo_dns_type.set_sensitive(true);
+                populate_dns_type_combo(&combo_dns_type, true, true, true, select_id);
             } else {
-                let blocky_active = actions::is_blocky_active();
-                let active_mode = if blocky_active {
-                    dns::read_active_blocky().map(|(mode, _)| mode)
-                } else {
-                    None
-                };
-
-                let supports_dot = server_supports_dot(selected_dns_index);
-                dot_check.set_sensitive(supports_dot);
-                dot_check.set_active(supports_dot && !blocky_active);
-
-                set_preset_blocky_check(
-                    &doh_check,
+                combo_dns_type.set_sensitive(true);
+                populate_dns_type_for_server(
+                    &combo_dns_type,
                     selected_dns_index,
-                    dns::BlockyMode::Doh,
-                    blocky_active,
-                    active_mode,
-                );
-                set_preset_blocky_check(
-                    &doq_check,
-                    selected_dns_index,
-                    dns::BlockyMode::Doq,
-                    blocky_active,
-                    active_mode,
+                    preset_type_for_server(selected_dns_index),
                 );
             }
             update_server_info_label(&info_label, selected_dns_index);
         }
     }
 
-    // Update DoT/DoH/DoQ checkboxes, info label, and custom fields when server selection changes
-    let dot_check_clone = dot_check.clone();
-    let doh_check_clone = doh_check.clone();
-    let doq_check_clone = doq_check.clone();
+    // Rebuild the DNS Type dropdown, info label, and custom fields when server selection changes
+    let combo_dns_type_serv = combo_dns_type.clone();
     let info_label_clone = info_label.clone();
     let custom_box_vis = custom_box.clone();
     let best_btn_vis = best_btn.clone();
@@ -393,93 +362,88 @@ fn create_connections_section() -> gtk::Box {
             }
             best_btn_vis.set_visible(!is_custom && !is_dhcp);
             if is_dhcp {
-                disable_protocol_checks(&dot_check_clone, &doh_check_clone, &doq_check_clone);
+                populate_dns_type_combo(&combo_dns_type_serv, false, false, false, DnsType::Plain);
+                combo_dns_type_serv.set_sensitive(false);
                 info_label_clone.set_visible(false);
             } else if is_custom {
-                dot_check_clone.set_sensitive(true);
-                doh_check_clone.set_sensitive(true);
-                doh_check_clone.set_active(false);
-                doq_check_clone.set_sensitive(true);
-                doq_check_clone.set_active(false);
+                combo_dns_type_serv.set_sensitive(true);
+                populate_dns_type_combo(&combo_dns_type_serv, true, true, true, DnsType::Plain);
                 info_label_clone.set_visible(false);
             } else {
-                let supports_dot = server_supports_dot(idx as usize);
-                dot_check_clone.set_sensitive(supports_dot);
-                dot_check_clone.set_active(supports_dot);
-                set_preset_blocky_check(
-                    &doh_check_clone,
-                    idx as usize,
-                    dns::BlockyMode::Doh,
-                    false,
-                    None,
-                );
-                set_preset_blocky_check(
-                    &doq_check_clone,
-                    idx as usize,
-                    dns::BlockyMode::Doq,
-                    false,
-                    None,
-                );
-                update_server_info_label(&info_label_clone, idx as usize);
+                let idx = idx as usize;
+                combo_dns_type_serv.set_sensitive(true);
+                let default_id =
+                    if server_supports_dot(idx) { DnsType::Dot } else { DnsType::Plain };
+                populate_dns_type_for_server(&combo_dns_type_serv, idx, default_id);
+                update_server_info_label(&info_label_clone, idx);
             }
         }
     });
 
     // select used dns option value on connection change
     let combo_servers_clone = combo_servers.clone();
-    let dot_check_clone2 = dot_check.clone();
+    let combo_dns_type_conn = combo_dns_type.clone();
     let custom_ipv4_entry_conn = custom_ipv4_entry.clone();
     let custom_ipv6_entry_conn = custom_ipv6_entry.clone();
     let custom_dot_entry_conn = custom_dot_entry.clone();
     let custom_doh_entry_conn = custom_doh_entry.clone();
     let custom_doq_entry_conn = custom_doq_entry.clone();
-    let doh_check_conn = doh_check.clone();
-    let doq_check_conn = doq_check.clone();
     combo_conn.connect_changed(move |combo| {
         // use empty string which will trigger fallback
         let conn_name: String = combo.active_text().map(Into::into).unwrap_or_default();
 
         let selected_dns_index = selection_index_for_connection(&conn_name);
-        combo_servers_clone.set_active(Some(selected_dns_index as u32));
+        let dhcp_index = dns::G_DNS_SERVERS.len() + 1;
+        let combo_index =
+            if selected_dns_index == usize::MAX { dhcp_index } else { selected_dns_index };
+        combo_servers_clone.set_active(Some(combo_index as u32));
+
+        if selected_dns_index == usize::MAX {
+            // the server handler already disabled the type dropdown
+            return;
+        }
 
         if selected_dns_index == dns::G_DNS_SERVERS.len() {
-            // Custom DNS — pre-fill entries from blocky config or NM
-            if actions::is_blocky_active() {
-                if let Some((mode, upstream)) = dns::read_active_blocky() {
-                    fill_custom_blocky_fields(
-                        &upstream,
-                        mode,
-                        &custom_doh_entry_conn,
-                        &custom_doq_entry_conn,
-                        &doh_check_conn,
-                        &doq_check_conn,
-                    );
-                }
+            // pre-fill entries from blocky config or NM, then select the transport
+            let select_id = if actions::is_blocky_active() {
+                let id = dns::read_active_blocky()
+                    .map(|(mode, upstream)| {
+                        fill_custom_blocky_fields(
+                            &upstream,
+                            mode,
+                            &custom_doh_entry_conn,
+                            &custom_doq_entry_conn,
+                        )
+                    })
+                    .unwrap_or(DnsType::Plain);
                 let (ipv4, ipv6, dot_host) = dns::read_blocky_bootstrap();
                 custom_ipv4_entry_conn.set_text(&ipv4);
                 custom_ipv6_entry_conn.set_text(&ipv6);
                 custom_dot_entry_conn.set_text(dot_host.as_deref().unwrap_or(""));
+                id
             } else if let Some(dns_info) = actions::get_dns_for_connection(&conn_name) {
                 custom_ipv4_entry_conn.set_text(&dns_info.ipv4);
                 custom_ipv6_entry_conn.set_text(&dns_info.ipv6);
-                if let Some(ref hostname) = dns_info.dot_hostname {
-                    custom_dot_entry_conn.set_text(hostname);
+                custom_dot_entry_conn.set_text(dns_info.dot_hostname.as_deref().unwrap_or(""));
+                if actions::get_dot_for_connection(&conn_name) {
+                    DnsType::Dot
                 } else {
-                    custom_dot_entry_conn.set_text("");
+                    DnsType::Plain
                 }
-            }
-            dot_check_clone2.set_sensitive(true);
+            } else {
+                DnsType::Plain
+            };
+            combo_dns_type_conn.set_active_id(Some(select_id.as_id()));
         } else {
-            let supports_dot = server_supports_dot(selected_dns_index);
-            dot_check_clone2.set_sensitive(supports_dot);
-            if !supports_dot {
-                dot_check_clone2.set_active(false);
-            }
+            // reflect the connection's active transport
+            combo_dns_type_conn
+                .set_active_id(Some(preset_type_for_server(selected_dns_index).as_id()));
         }
     });
 
     // Latency test button handler
     let combo_serv_latency = combo_servers.clone();
+    let combo_dns_type_latency = combo_dns_type.clone();
     let custom_ipv4_entry_latency = custom_ipv4_entry.clone();
     let latency_label_clone = latency_label.clone();
     let latency_btn_clone = latency_btn.clone();
@@ -487,23 +451,26 @@ fn create_connections_section() -> gtk::Box {
     latency_btn.connect_clicked(move |_| {
         let is_custom =
             combo_serv_latency.active().is_some_and(|idx| idx as usize == dns::G_DNS_SERVERS.len());
-        let ipv4 = if is_custom {
+        // probe the selected transport, else a DoT/DoH/DoQ figure would be off by the handshake.
+        let (ipv4, probe) = if is_custom {
             let text = custom_ipv4_entry_latency.text().trim().to_string();
             if text.is_empty() {
                 return;
             }
-            text
+            (text, dns::LatencyProbe::Plain)
         } else {
             let server_name: String =
                 combo_serv_latency.active_text().map(Into::into).unwrap_or_default();
             let Some(server_addr) = dns::G_DNS_SERVERS.get(&server_name) else { return };
-            server_addr.0.to_string()
+            let dns_type = DnsType::from_id(combo_dns_type_latency.active_id().as_deref());
+            let probe = dns::LatencyProbe::for_server(&server_name, dns_type);
+            (server_addr.0.to_string(), probe)
         };
         let tx = latency_tx.clone();
         latency_btn_clone.set_sensitive(false);
         latency_label_clone.set_text(&fl!("latency-testing"));
         std::thread::spawn(move || {
-            let result = dns::measure_latency(&ipv4);
+            let result = dns::measure_latency(&ipv4, &probe);
             let _ = tx.send_blocking(result);
         });
     });
@@ -512,7 +479,7 @@ fn create_connections_section() -> gtk::Box {
     glib::MainContext::default().spawn_local(async move {
         while let Ok(result) = latency_rx.recv().await {
             match result {
-                Some(ms) => latency_label_rx.set_markup(&format!("<b>{ms} ms</b>")),
+                Some(ms) => latency_label_rx.set_markup(&format!("<b>{ms:.2} ms</b>")),
                 None => latency_label_rx.set_text(&fl!("latency-timeout")),
             }
             latency_btn_rx.set_sensitive(true);
@@ -544,11 +511,10 @@ fn create_connections_section() -> gtk::Box {
         while let Ok(result) = best_rx.recv().await {
             match result {
                 Some((name, ms)) => {
-                    let model = combo_serv_best_rx.model().unwrap();
-                    if let Some(iter) = utils::find_iter_in_model(&model, name) {
-                        combo_serv_best_rx.set_active_iter(Some(&iter));
+                    if let Some(index) = dns::G_DNS_SERVERS.get_index(name) {
+                        combo_serv_best_rx.set_active(Some(index as u32));
                     }
-                    latency_label_best_rx.set_markup(&format!("<b>{ms} ms</b>"));
+                    latency_label_best_rx.set_markup(&format!("<b>{ms:.2} ms</b>"));
                 },
                 None => {
                     latency_label_best_rx.set_text(&fl!("latency-no-result"));
@@ -565,14 +531,12 @@ fn create_connections_section() -> gtk::Box {
     let dialog_tx_clone = dialog_tx.clone();
     let combo_conn_clone = combo_conn.clone();
     let combo_serv_clone = combo_servers.clone();
-    let dot_check_clone3 = dot_check.clone();
+    let combo_dns_type_apply = combo_dns_type.clone();
     let custom_ipv4_entry_apply = custom_ipv4_entry.clone();
     let custom_ipv6_entry_apply = custom_ipv6_entry.clone();
     let custom_dot_entry_apply = custom_dot_entry.clone();
     let custom_doh_entry_apply = custom_doh_entry.clone();
     let custom_doq_entry_apply = custom_doq_entry.clone();
-    let doh_check_clone3 = doh_check.clone();
-    let doq_check_clone3 = doq_check.clone();
     apply_btn.connect_clicked(move |_| {
         let conn_name: String = combo_conn_clone.active_text().map(Into::into).unwrap_or_default();
         let is_custom =
@@ -590,9 +554,10 @@ fn create_connections_section() -> gtk::Box {
             return;
         }
 
-        let enable_dot = dot_check_clone3.is_active();
-        let enable_doh = doh_check_clone3.is_active();
-        let enable_doq = doq_check_clone3.is_active();
+        let dns_type = DnsType::from_id(combo_dns_type_apply.active_id().as_deref());
+        let enable_dot = dns_type == DnsType::Dot;
+        let enable_doh = dns_type == DnsType::Doh;
+        let enable_doq = dns_type == DnsType::Doq;
 
         let (ipv4, ipv6, dot_hostname) = if is_custom {
             let ipv4: String = custom_ipv4_entry_apply.text().trim().to_string();
@@ -696,18 +661,12 @@ fn create_connections_section() -> gtk::Box {
     let dialog_tx_clone = dialog_tx.clone();
     let combo_conn_clone = combo_conn.clone();
     let combo_serv_reset = combo_servers.clone();
-    let dot_check_reset = dot_check.clone();
-    let doh_check_reset = doh_check.clone();
-    let doq_check_reset = doq_check.clone();
     reset_btn.connect_clicked(move |_| {
         let dialog_tx_clone = dialog_tx_clone.clone();
         let conn_name: String = combo_conn_clone.active_text().map(Into::into).unwrap_or_default();
-        // Set combo to DHCP (automatic)
+        // set combo to DHCP; changed handler disables the DNS Type dropdown
         let dhcp_index = (dns::G_DNS_SERVERS.len() + 1) as u32;
         combo_serv_reset.set_active(Some(dhcp_index));
-        dot_check_reset.set_active(false);
-        doh_check_reset.set_active(false);
-        doq_check_reset.set_active(false);
         std::thread::spawn(move || {
             actions::reset_dns_server(&conn_name, dialog_tx_clone);
         });
@@ -739,11 +698,10 @@ fn create_connections_section() -> gtk::Box {
     latency_box.pack_start(&latency_btn, false, false, 2);
     latency_box.pack_start(&best_btn, false, false, 2);
     latency_box.pack_start(&latency_label, false, false, 2);
-    dot_box.pack_start(&dot_check, false, false, 2);
-    dot_box.pack_start(&doh_check, false, false, 2);
-    dot_box.pack_start(&doq_check, false, false, 2);
+    dot_box.pack_start(&dns_type_label, false, false, 2);
+    dot_box.pack_start(&combo_dns_type, false, false, 2);
     dot_box.set_halign(gtk::Align::Center);
-    dot_box.set_widget_name("dns-dot-box");
+    dot_box.set_widget_name("dns-type-box");
     button_box.pack_start(&reset_btn, true, true, 2);
     button_box.pack_end(&apply_btn, true, true, 2);
     button_box.set_widget_name("dns-button-box");

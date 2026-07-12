@@ -1,3 +1,4 @@
+use crate::networkmanager::{self, DnsMods, NmDnsOverTls};
 use crate::systemd_units::Scope;
 use crate::ui::{Action, DialogMessage, MessageType, RunCmdCallback};
 use crate::{PacmanWrapper, dns, fl, kwin_dbus, systemd_units, utils};
@@ -7,14 +8,49 @@ use std::time::Duration;
 use std::{env, io, thread};
 
 use async_channel::Sender;
-use subprocess::Exec;
 use tracing::error;
 
-fn nmcli_mod(conn_name: &str, property: &str, value: &str) -> anyhow::Result<()> {
-    let status =
-        Exec::cmd("/sbin/nmcli").args(&["con", "mod", conn_name, property, value]).join()?;
-    anyhow::ensure!(status.success(), "nmcli con mod {property} failed");
-    Ok(())
+fn split_dns_addrs(addrs: &str) -> Vec<String> {
+    addrs.split(',').filter(|s| !s.is_empty()).map(String::from).collect()
+}
+
+/// Which DNS operation produced a result, for picking the dialog text.
+#[derive(Clone, Copy)]
+enum DnsOp {
+    Change,
+    Reset,
+}
+
+/// Map a [`networkmanager::modify_connection_dns`] outcome to a dialog.
+fn send_dns_result(
+    dialog_tx: Sender<DialogMessage>,
+    conn_name: &str,
+    result: anyhow::Result<networkmanager::ApplyStatus>,
+    operation: DnsOp,
+) {
+    let (msg, msg_type) = match result {
+        Ok(networkmanager::ApplyStatus::Applied) => {
+            let success = match operation {
+                DnsOp::Reset => fl!("dns-server-reset"),
+                DnsOp::Change => fl!("dns-server-changed"),
+            };
+            (success, MessageType::Info)
+        },
+        Ok(networkmanager::ApplyStatus::PendingReconnect) => {
+            (fl!("dns-server-pending"), MessageType::Warning)
+        },
+        Err(ref dns_err) => {
+            error!("DNS operation failed for connection '{conn_name}': {dns_err}");
+            let fail = match operation {
+                DnsOp::Reset => fl!("dns-server-reset-failed"),
+                DnsOp::Change => fl!("dns-server-failed"),
+            };
+            (fail, MessageType::Error)
+        },
+    };
+    dialog_tx
+        .send_blocking(DialogMessage { msg, msg_type, action: Action::SetDnsServer })
+        .expect("Couldn't send data to channel");
 }
 
 pub fn get_nm_connections() -> Vec<String> {
@@ -108,81 +144,52 @@ pub fn change_dns_server(
     dot_hostname: &str,
     dialog_tx: Sender<DialogMessage>,
 ) {
-    // When DoT is enabled and a hostname is provided, append #hostname to each address
-    // per NetworkManager's "address#servername" notation for SNI.
-    let ipv4_with_sni = if enable_dot && !dot_hostname.is_empty() {
-        dns::append_dot_hostname(server_addr_ipv4, dot_hostname)
-    } else {
-        server_addr_ipv4.to_string()
-    };
-    let ipv6_with_sni = if enable_dot && !dot_hostname.is_empty() {
-        dns::append_dot_hostname(server_addr_ipv6, dot_hostname)
-    } else {
-        server_addr_ipv6.to_string()
+    // When DoT is enabled with a hostname, append #hostname to each address per
+    // NetworkManager's "address#servername" SNI notation.
+    let with_sni = |addr: &str| {
+        if enable_dot && !dot_hostname.is_empty() {
+            dns::append_dot_hostname(addr, dot_hostname)
+        } else {
+            addr.to_string()
+        }
     };
 
-    // dns-over-tls: -1 = default, 0 = no, 1 = opportunistic, 2 = yes (strict)
-    let dot_value = if enable_dot { 2 } else { 0 };
-    let result = (|| -> anyhow::Result<()> {
-        nmcli_mod(conn_name, "ipv4.dns", &ipv4_with_sni)?;
-        nmcli_mod(conn_name, "ipv4.dns-priority", "-1")?;
-        nmcli_mod(conn_name, "ipv6.dns", &ipv6_with_sni)?;
-        nmcli_mod(conn_name, "ipv6.dns-priority", "-1")?;
-        nmcli_mod(conn_name, "connection.dns-over-tls", &dot_value.to_string())?;
-        systemd_units::systemd_restart("NetworkManager.service", Scope::System)?;
-        Ok(())
-    })();
-    if result.is_ok() {
-        dialog_tx
-            .send_blocking(DialogMessage {
-                msg: fl!("dns-server-changed"),
-                msg_type: MessageType::Info,
-                action: Action::SetDnsServer,
-            })
-            .expect("Couldn't send data to channel");
-    } else {
-        dialog_tx
-            .send_blocking(DialogMessage {
-                msg: fl!("dns-server-failed"),
-                msg_type: MessageType::Error,
-                action: Action::SetDnsServer,
-            })
-            .expect("Couldn't send data to channel");
-    }
+    let dot = if enable_dot { NmDnsOverTls::Yes } else { NmDnsOverTls::No };
+    let mods = DnsMods {
+        ipv4_dns: Some(split_dns_addrs(&with_sni(server_addr_ipv4))),
+        ipv6_dns: Some(split_dns_addrs(&with_sni(server_addr_ipv6))),
+        ipv4_dns_priority: Some(-1),
+        ipv6_dns_priority: Some(-1),
+        dns_over_tls: Some(dot),
+        ..Default::default()
+    };
+    send_dns_result(
+        dialog_tx,
+        conn_name,
+        networkmanager::modify_connection_dns(conn_name, &mods),
+        DnsOp::Change,
+    );
 }
 
 pub fn reset_dns_server(conn_name: &str, dialog_tx: Sender<DialogMessage>) {
     // Stop blocky if it was running (DoH/DoQ mode)
     stop_blocky();
 
-    let result = (|| -> anyhow::Result<()> {
-        nmcli_mod(conn_name, "ipv4.dns", "")?;
-        nmcli_mod(conn_name, "ipv6.dns", "")?;
-        nmcli_mod(conn_name, "ipv4.dns-priority", "0")?;
-        nmcli_mod(conn_name, "ipv6.dns-priority", "0")?;
-        nmcli_mod(conn_name, "ipv4.ignore-auto-dns", "no")?;
-        nmcli_mod(conn_name, "ipv6.ignore-auto-dns", "no")?;
-        nmcli_mod(conn_name, "connection.dns-over-tls", "-1")?;
-        systemd_units::systemd_restart("NetworkManager.service", Scope::System)?;
-        Ok(())
-    })();
-    if result.is_ok() {
-        dialog_tx
-            .send_blocking(DialogMessage {
-                msg: fl!("dns-server-reset"),
-                msg_type: MessageType::Info,
-                action: Action::SetDnsServer,
-            })
-            .expect("Couldn't send data to channel");
-    } else {
-        dialog_tx
-            .send_blocking(DialogMessage {
-                msg: fl!("dns-server-reset-failed"),
-                msg_type: MessageType::Error,
-                action: Action::SetDnsServer,
-            })
-            .expect("Couldn't send data to channel");
-    }
+    let mods = DnsMods {
+        ipv4_dns: Some(Vec::new()),
+        ipv6_dns: Some(Vec::new()),
+        ipv4_dns_priority: Some(0),
+        ipv6_dns_priority: Some(0),
+        ipv4_ignore_auto_dns: Some(false),
+        ipv6_ignore_auto_dns: Some(false),
+        dns_over_tls: Some(NmDnsOverTls::Default),
+    };
+    send_dns_result(
+        dialog_tx,
+        conn_name,
+        networkmanager::modify_connection_dns(conn_name, &mods),
+        DnsOp::Reset,
+    );
 }
 
 /// Set DNS to use an encrypted upstream via blocky local proxy.
@@ -234,7 +241,8 @@ pub fn change_dns_server_blocky(
         anyhow::ensure!(status.success(), "failed to write blocky config");
         Ok(())
     })();
-    if write_result.is_err() {
+    if let Err(write_err) = write_result {
+        error!("Failed to write blocky config: {write_err}");
         dialog_tx
             .send_blocking(DialogMessage {
                 msg: fl!("dns-server-failed"),
@@ -248,36 +256,23 @@ pub fn change_dns_server_blocky(
     // 3. Configure NM, restart NM, then (re)start blocky once network is back
     // Use ignore-auto-dns to ensure all DNS goes through blocky — DHCP DNS
     // would bypass the encrypted proxy. LAN names still work via mDNS/LLMNR.
-    let result = (|| -> anyhow::Result<()> {
+    let result = (|| -> anyhow::Result<networkmanager::ApplyStatus> {
         systemd_units::systemd_enable(&[dns::BLOCKY_SERVICE], Scope::System, false)?;
-        nmcli_mod(conn_name, "ipv4.dns", "127.0.0.1")?;
-        nmcli_mod(conn_name, "ipv4.ignore-auto-dns", "yes")?;
-        nmcli_mod(conn_name, "ipv6.dns", "::1")?;
-        nmcli_mod(conn_name, "ipv6.ignore-auto-dns", "yes")?;
-        nmcli_mod(conn_name, "connection.dns-over-tls", "0")?;
-        systemd_units::systemd_restart("NetworkManager.service", Scope::System)?;
+        let mods = DnsMods {
+            ipv4_dns: Some(vec![String::from("127.0.0.1")]),
+            ipv6_dns: Some(vec![String::from("::1")]),
+            ipv4_ignore_auto_dns: Some(true),
+            ipv6_ignore_auto_dns: Some(true),
+            dns_over_tls: Some(NmDnsOverTls::No),
+            ..Default::default()
+        };
+        let status = networkmanager::modify_connection_dns(conn_name, &mods)?;
         thread::sleep(Duration::from_secs(1));
         systemd_units::systemd_restart(dns::BLOCKY_SERVICE, Scope::System)?;
-        Ok(())
+        Ok(status)
     })();
 
-    if result.is_ok() {
-        dialog_tx
-            .send_blocking(DialogMessage {
-                msg: fl!("dns-server-changed"),
-                msg_type: MessageType::Info,
-                action: Action::SetDnsServer,
-            })
-            .expect("Couldn't send data to channel");
-    } else {
-        dialog_tx
-            .send_blocking(DialogMessage {
-                msg: fl!("dns-server-failed"),
-                msg_type: MessageType::Error,
-                action: Action::SetDnsServer,
-            })
-            .expect("Couldn't send data to channel");
-    }
+    send_dns_result(dialog_tx, conn_name, result, DnsOp::Change);
 }
 
 /// Stop blocky if it's running (used during reset or when switching away from encrypted DNS).

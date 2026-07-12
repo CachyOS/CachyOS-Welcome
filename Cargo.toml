@@ -1,6 +1,6 @@
 [package]
 name = "cachyos-hello"
-version = "0.24.0"
+version = "0.26.0"
 authors = ["Vladislav Nepogodin <nepogodin.vlad@gmail.com>"]
 license = "GPLv3"
 edition = "2024"
@@ -14,7 +14,7 @@ alpm = { default-features = false, version = "5" }
 alpm-utils = { features = ["conf"], default-features = false, version = "5" }
 pacmanconf = "3.1"
 
-subprocess = "0.2"
+subprocess = "1.2"
 i18n-embed = { version = "0.16", features = ["fluent-system", "desktop-requester"] }
 i18n-embed-fl = "0.10"
 rust-embed = { version = "8", features = ["debug-embed", "include-exclude"] }
@@ -26,8 +26,8 @@ serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 reqwest = { version = "0.13", features = ["blocking", "json"] }
 unic-langid = "0.9"
-phf = { version = "0.13", features = ["macros"], default-features = false }
-chwd = { git = "https://github.com/CachyOS/chwd", rev = "dfa3f27cbbf885abe446cf2fcd328cf691e9512b", version = "1.21.0" }
+phf = { version = "0.14", features = ["macros"], default-features = false }
+chwd = { git = "https://github.com/CachyOS/chwd", rev = "ec804eb0c062cb4bab8cf4a6934255a6ac8caa4d", version = "1.23.0" }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 tracing-appender = "0.2"
@@ -36,16 +36,25 @@ which = { version = "8.0", features = ["tracing"] }
 anyhow = { version = "1", default-features = false, features = ["std"] }
 tokio = { version = "1.52", features = ["macros", "sync", "rt-multi-thread"] }
 zbus = { version = "5", features = ["tokio"], default-features = false }
-zbus_systemd = { version = "0.26000.0", features = ["systemd1"], default-features = false }
+zbus_systemd = { version = "0.26100.0", features = ["systemd1"], default-features = false }
 clap = { features = ["derive"], version = "4" }
 async-channel = "2"
 colored = "3"
 tempfile = "3.27"
+hickory-resolver = { version = "0.26.1", default-features = false, features = [
+    "tokio",
+    "tls-aws-lc-rs",
+    "https-aws-lc-rs",
+    "quic-aws-lc-rs",
+    "h3-aws-lc-rs",
+    "dnssec-aws-lc-rs",
+    "rustls-platform-verifier",
+] }
 
 [build-dependencies]
 anyhow = "1"
 reqwest = { version = "0.13", features = ["blocking"] }
-quick-xml = "0.39"
+quick-xml = "0.41"
 
 [profile.release]
 strip = "symbols"

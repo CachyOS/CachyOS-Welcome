@@ -13,6 +13,7 @@ mod installer;
 mod kwin_dbus;
 mod localization;
 mod logger;
+mod networkmanager;
 mod pages;
 mod systemd_units;
 mod tweak;
@@ -52,12 +53,19 @@ fn get_saved_locale() -> Option<String> {
     Some(saved_json["locale"].as_str()?.to_owned())
 }
 
+fn default_saved_json() -> serde_json::Value {
+    json!({"locale": ""})
+}
+
 fn get_saved_json(preferences: &serde_json::Value) -> serde_json::Value {
     let save_path = fix_path(preferences["save_path"].as_str().unwrap());
-    if Path::new(&save_path).exists() {
-        read_json(save_path.as_str())
-    } else {
-        json!({"locale": ""})
+    if !Path::new(&save_path).exists() {
+        return default_saved_json();
+    }
+
+    match read_json(&save_path) {
+        Ok(v) => v,
+        _ => default_saved_json(),
     }
 }
 
@@ -261,7 +269,9 @@ fn on_link1_clicked(param: &[glib::Value]) -> Option<glib::Value> {
 fn on_delete_window(_param: &[glib::Value]) -> Option<glib::Value> {
     let saved_json = &*G_SAVE_JSON.lock().unwrap();
     let preferences = G_HELLO_WINDOW.get().unwrap().get_preferences("save_path");
-    write_json(preferences.as_str().unwrap(), saved_json);
+    if let Err(e) = write_json(preferences.as_str().unwrap(), saved_json) {
+        error!("Could not save settings: {e:?}");
+    }
 
     Some(false.to_value())
 }

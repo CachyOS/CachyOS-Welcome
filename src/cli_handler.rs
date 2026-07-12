@@ -318,8 +318,8 @@ pub fn handle_dns_command(action: DnsAction) -> Result<()> {
             let results = dns::measure_all_latencies();
             for (name, latency) in &results {
                 match latency {
-                    Some(ms) => println!("  {ms:>4} ms  {name}"),
-                    None => println!("     --  {name} (timeout)"),
+                    Some(ms) => println!("  {ms:>8.2} ms  {name}"),
+                    None => println!("        --  {name} (timeout)"),
                 }
             }
         },
