@@ -12,7 +12,7 @@ orphans-not-found = Não foram encontrados pacotes órfãos!
 package-not-installed = O pacote '{$package_name}' não foi instalado!
 gaming-package-installed = Os pacotes de jogos já estão instalados!
 winboat-package-installed = Os pacotes do Winboat já estão instalados!
-gpu-boosters-package-installed = Os pacotes de otimização de GPU já estão instalados!
+vram-management-package-installed = Os pacotes de gerenciamento de VRAM já estão instalados!
 
 # Application Browser page
 advanced-btn = Avançado
@@ -25,6 +25,9 @@ advanced-btn-tooltip = Exibe opções adicionais de aplicativos e pacotes
 reset-btn-tooltip = Descarta suas mudanças atuais
 update-system-app-btn-tooltip = Aplicar as mudanças ao sistema
 
+# Troubleshooting page
+troubleshooting = Solução de Problemas
+
 # Dns Connections page
 dns-settings = Configurações do DNS
 select-connection = Selecionar Conexão:
@@ -32,6 +35,12 @@ select-dns-server = Selecionar servidor DNS:
 apply = Aplicar
 reset = Redefinir
 enable-encrypted-dns = Ativar DNS sobre {$protocol} ({$abbr})
+dns-type-label = Tipo de DNS:
+dns-type-tooltip = Escolha como as consultas DNS são transportadas. Os tipos criptografados (DoT/DoH/DoQ) requerem suporte do servidor; DoH e DoQ instalam e usam o proxy local blocky.
+dns-type-plain = DNS Normal (sem criptografia)
+dns-type-dot = DNS sobre TLS (DoT)
+dns-type-doh = DNS sobre HTTPS (DoH)
+dns-type-doq = DNS sobre QUIC (DoQ)
 dot-tooltip = Criptografa as consultas DNS usando TLS para maior privacidade (requer suporte do servidor)
 blocky-dns-tooltip = Criptografa as consultas DNS usando {$protocol} através de um proxy local blocky (requer suporte do servidor e instalar o blocky)
 blocky-install-failed = Falha ao instalar o blocky para suporte a {$mode}!
@@ -52,8 +61,11 @@ custom-dns-invalid = Por favor, insira pelo menos um endereço IPv4 ou IPv6
 custom-dns-invalid-hostname = Nome de host DoT inválido
 custom-dns-doh-url = URL do DoH (para DNS sobre HTTPS):
 custom-dns-doh-url-required = Por favor, insira uma URL DoH válida começando com https://
+custom-dns-doq-endpoint = Endereço DoQ (para DNS sobre QUIC):
+custom-dns-doq-endpoint-required = Por favor, insira um endereço DoQ válido começando com quic: ou quic://
 dns-check-hint = Após aplicar, verifique seu provedor DNS em {$dnscheck_url}
 dns-server-changed = O servidor DNS foi trocado com sucesso!
+dns-server-pending = Servidor DNS salvo. Reconecte a rede (ou desligue/ligue novamente) para que a mudança tenha efeito.
 dns-server-failed = Erro ao mudar o servidor DNS!
 dns-server-reset = O servidor DNS foi redefinido!
 dns-server-reset-failed = Erro ao redefinir o servidor DNS!
@@ -114,6 +126,7 @@ outdated-version-warning = Você está usando uma versão antiga do CachyOS, con
 testing-iso-warning = Você está usando uma ISO de testes que não é estável para uso.
 tweaksbrowser-label = Aplicativos / Ajustes
 appbrowser-label = Instalar Aplicativos
+troubleshooting-label = Solução de Problemas
 launch-start-label = Abrir ao Iniciar
 welcome-title = Bem-Vindo ao CachyOS!
 welcome-body =
