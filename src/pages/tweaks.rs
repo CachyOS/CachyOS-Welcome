@@ -54,6 +54,8 @@ pub(crate) fn create_options_section() -> gtk::Box {
     let bluetooth_btn = create_tweak_checkbox!("Bluetooth", TweakName::Bluetooth);
     let ananicy_cpp_btn = create_tweak_checkbox!("Ananicy Cpp", TweakName::Ananicy);
     let cachy_update_btn = create_tweak_checkbox!("Cachy Update", TweakName::CachyUpdate);
+    let refresh_switch_btn =
+        create_tweak_checkbox!("Refresh Rate Switch", TweakName::RefreshSwitch);
 
     // set tooltips
     psd_btn.set_tooltip_text(Some(&fl!("tweak-psd-tooltip")));
@@ -62,6 +64,7 @@ pub(crate) fn create_options_section() -> gtk::Box {
     bluetooth_btn.set_tooltip_text(Some(&fl!("tweak-bluetooth-tooltip")));
     ananicy_cpp_btn.set_tooltip_text(Some(&fl!("tweak-ananicycpp-tooltip")));
     cachy_update_btn.set_tooltip_text(Some(&fl!("tweak-cachyupdate-tooltip")));
+    refresh_switch_btn.set_tooltip_text(Some(&fl!("tweak-refreshswitch-tooltip")));
 
     topbox.pack_start(&label, true, false, 1);
     box_collection.pack_start(&psd_btn, true, false, 2);
@@ -70,8 +73,12 @@ pub(crate) fn create_options_section() -> gtk::Box {
     box_collection.pack_start(&ananicy_cpp_btn, true, false, 2);
     box_collection.pack_start(&cachy_update_btn, true, false, 2);
     box_collection_s.pack_start(&bluetooth_btn, true, false, 2);
+    let box_collection_t = gtk::Box::new(gtk::Orientation::Horizontal, 10);
+    box_collection_t.pack_start(&refresh_switch_btn, true, false, 2);
+    box_collection_t.set_halign(gtk::Align::Fill);
     box_collection.set_halign(gtk::Align::Fill);
     box_collection_s.set_halign(gtk::Align::Fill);
+    topbox.pack_end(&box_collection_t, true, false, 1);
     topbox.pack_end(&box_collection_s, true, false, 1);
     topbox.pack_end(&box_collection, true, false, 1);
 

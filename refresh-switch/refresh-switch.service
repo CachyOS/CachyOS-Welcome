@@ -1,0 +1,14 @@
+[Unit]
+Description=Refresh Rate Switcher - Auto-switch display refresh rate based on power source
+Wants=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStartPre=-/usr/bin/systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_RUNTIME_DIR DBUS_SESSION_BUS_ADDRESS HYPRLAND_INSTANCE_SIGNATURE
+ExecStart=/usr/bin/refresh-switch
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
