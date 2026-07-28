@@ -98,10 +98,10 @@ section-project = PROJEKT
 
 # Main Page (body)
 offline-error = Die Online-Installation kann nicht gestartet werden! Keine Internetverbindung
-unsupported-hw-warning = Du versuchst, die Installation auf einer Hardware durchzuführen, die von der aktuellen ISO nicht unterstützt wird, und können daher keinen Support in Anspruch nehmen
+unsupported-hw-warning = Du versuchst, die Installation auf Hardware durchzuführen, die von der aktuellen ISO nicht unterstützt wird, daher kannst du für deine Installation keinen Support in Anspruch nehmen
 desktop-on-handheld-error = Du versuchst, die Desktop-Edition auf einem Handheld-Gerät zu installieren. Bitte verwende die Handheld-Edition für ordnungsgemäße Unterstützung auf dieser Hardware
-outdated-version-warning = Du nutzt eine alte Version von CachyOS, bitte downloade die letzte Version runter
-testing-iso-warning = Du verwendest eine alte Testing ISO, Testing-ISOs sind nicht stabil und getestet
+outdated-version-warning = Du nutzt eine alte Version von CachyOS, bitte nutze die aktuellste Version für Installationen
+testing-iso-warning = Du verwendest eine alte Testing ISO, Testing-ISOs sind nicht stabil und nicht zum Verwenden geeignet
 tweaksbrowser-label = Apps/Optimierungen
 appbrowser-label = Apps installieren
 troubleshooting-label = Problembehandlung
