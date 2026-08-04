@@ -1,5 +1,6 @@
 use crate::networkmanager::{self, DnsMods, NmDnsOverTls};
 use crate::systemd_units::Scope;
+use crate::tweak::{self, TweakName};
 use crate::ui::{Action, DialogMessage, MessageType, RunCmdCallback};
 use crate::{PacmanWrapper, dns, fl, kwin_dbus, systemd_units, utils};
 
@@ -390,6 +391,50 @@ pub fn install_needed_packages(
     // install overwise
     let packages = packages_to_install.join(" ");
     let _ = utils::run_cmd_terminal(callback, format!("pacman -S {packages}"), true);
+}
+
+pub fn toggle_tweak(tweak: TweakName, enable: bool, callback: RunCmdCallback) -> bool {
+    let (action_type, action_data, pkg) = tweak::get_details(tweak);
+    let user_service = action_type == "user_service";
+    let scope = if user_service { Scope::User } else { Scope::System };
+    let units: Vec<&str> = action_data.split_whitespace().collect();
+
+    if enable {
+        if !pkg.is_empty()
+            && !utils::is_alpm_pkg_installed(pkg)
+            && !utils::run_cmd_terminal(callback, format!("pacman -S {pkg}"), true)
+        {
+            return false;
+        }
+        let _ = systemd_units::systemd_enable(&units, scope, true);
+        if !tweak::get_autostart_files(tweak).is_empty() && which::which("arch-update").is_ok() {
+            let _ = utils::run_cmd("arch-update --tray".to_string(), false);
+        }
+    } else {
+        if !tweak::get_autostart_files(tweak).is_empty() {
+            let _ = utils::run_cmd("killall arch-update-tray".to_string(), false);
+        }
+        let _ = systemd_units::systemd_disable(&units, scope);
+        if user_service && tweak::is_globally_enabled(action_data) {
+            // try to run with prev explicitly
+            let mut args: Vec<&str> = vec!["systemctl", "--global", "disable"];
+            args.extend(action_data.split_whitespace());
+            let _ = utils::pkexec_cmd(&args);
+        }
+        if user_service {
+            tweak::remove_autostart_files(tweak);
+        }
+        if !pkg.is_empty() && utils::is_alpm_pkg_installed(pkg) {
+            let _ = utils::run_cmd_terminal(callback, format!("pacman -Rsn {pkg}"), true);
+        }
+    }
+
+    if user_service {
+        systemd_units::refresh_user_cache();
+    } else {
+        systemd_units::refresh_system_cache();
+    }
+    true
 }
 
 pub fn rankmirrors(callback: RunCmdCallback) {

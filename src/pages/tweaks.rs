@@ -1,7 +1,6 @@
-use crate::systemd_units::Scope;
 use crate::tweak::{self, TweakName};
 use crate::ui::{MessageType, UI};
-use crate::{fl, systemd_units, utils};
+use crate::{actions, fl, systemd_units, utils};
 
 use std::str;
 
@@ -95,47 +94,10 @@ fn toggle_service(
 
     let dialog_text = fl!("package-not-installed", package_name = alpm_package_name);
 
-    let action_type = action_type.to_owned();
-    let action_data = action_data.to_owned();
-    let alpm_package_name = alpm_package_name.to_owned();
     // Spawn child process in separate thread.
     std::thread::spawn(move || {
-        if !alpm_package_name.is_empty() {
-            if !utils::is_alpm_pkg_installed(&alpm_package_name) {
-                let _ = utils::run_cmd_terminal(
-                    crate::gui::run_command,
-                    format!("pacman -S {alpm_package_name}"),
-                    true,
-                );
-            }
-            if !utils::is_alpm_pkg_installed(&alpm_package_name) {
-                tx.send_blocking(false).expect("Couldn't send data to channel");
-                return;
-            }
-        }
-
-        let scope = if action_type == "user_service" { Scope::User } else { Scope::System };
-        let units: Vec<&str> = action_data.split_whitespace().collect();
-        if action_enabled {
-            let _ = systemd_units::systemd_disable(&units, scope);
-        } else {
-            let _ = systemd_units::systemd_enable(&units, scope, true);
-        }
-
-        if action_enabled && action_type == "user_service" {
-            if tweak::is_globally_enabled(&action_data) {
-                // try to run with prev explicitly
-                let mut args: Vec<&str> = vec!["systemctl", "--global", "disable"];
-                args.extend_from_slice(&units);
-                let _ = utils::pkexec_cmd(&args);
-            }
-            tweak::remove_autostart_files(tweak_name);
-        }
-
-        if action_type == "user_service" {
-            systemd_units::refresh_user_cache();
-        } else {
-            systemd_units::refresh_system_cache();
+        if !actions::toggle_tweak(tweak_name, !action_enabled, crate::gui::run_command) {
+            tx.send_blocking(false).expect("Couldn't send data to channel");
         }
     });
 

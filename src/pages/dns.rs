@@ -293,16 +293,15 @@ fn create_connections_section() -> gtk::Box {
             } else if selected_dns_index == dns::G_DNS_SERVERS.len() {
                 // custom dns pre-fill entries with current values.
                 let select_id = if actions::is_blocky_active() {
-                    let id = dns::read_active_blocky()
-                        .map(|(mode, upstream)| {
+                    let id =
+                        dns::read_active_blocky().map_or(DnsType::Plain, |(mode, upstream)| {
                             fill_custom_blocky_fields(
                                 &upstream,
                                 mode,
                                 &custom_doh_entry,
                                 &custom_doq_entry,
                             )
-                        })
-                        .unwrap_or(DnsType::Plain);
+                        });
                     let (ipv4, ipv6, dot_host) = dns::read_blocky_bootstrap();
                     if !ipv4.is_empty() {
                         custom_ipv4_entry.set_text(&ipv4);
@@ -406,16 +405,14 @@ fn create_connections_section() -> gtk::Box {
         if selected_dns_index == dns::G_DNS_SERVERS.len() {
             // pre-fill entries from blocky config or NM, then select the transport
             let select_id = if actions::is_blocky_active() {
-                let id = dns::read_active_blocky()
-                    .map(|(mode, upstream)| {
-                        fill_custom_blocky_fields(
-                            &upstream,
-                            mode,
-                            &custom_doh_entry_conn,
-                            &custom_doq_entry_conn,
-                        )
-                    })
-                    .unwrap_or(DnsType::Plain);
+                let id = dns::read_active_blocky().map_or(DnsType::Plain, |(mode, upstream)| {
+                    fill_custom_blocky_fields(
+                        &upstream,
+                        mode,
+                        &custom_doh_entry_conn,
+                        &custom_doq_entry_conn,
+                    )
+                });
                 let (ipv4, ipv6, dot_host) = dns::read_blocky_bootstrap();
                 custom_ipv4_entry_conn.set_text(&ipv4);
                 custom_ipv6_entry_conn.set_text(&ipv6);

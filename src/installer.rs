@@ -113,7 +113,7 @@ fn connectivity_check(ui: &Gui, message: String) -> bool {
         "2620:fe::fe",
     ];
     for target in targets {
-        let ping_result = Exec::cmd("/sbin/ping").args(&["-c", "1", "-W", "3", target]).join();
+        let ping_result = Exec::cmd("/sbin/ping").args(["-c", "1", "-W", "3", target]).join();
         if ping_result.is_ok_and(|status: subprocess::ExitStatus| status.success()) {
             info!("Connectivity confirmed via ping to {target}");
             return true;

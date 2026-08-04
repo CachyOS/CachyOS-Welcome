@@ -347,7 +347,7 @@ impl HelloWindow {
                 Path::new(file_path.as_ref()).file_name().unwrap().to_str().unwrap();
 
             let stack: &gtk::Stack = &self.builder.object("stack").unwrap();
-            let child = stack.child_by_name(&format!("{}page", page_file_name));
+            let child = stack.child_by_name(&format!("{page_file_name}page"));
             if child.is_none() {
                 debug!("child not found");
                 continue;

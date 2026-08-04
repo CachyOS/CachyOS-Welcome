@@ -26,9 +26,7 @@ pub fn get_details(tweak: TweakName) -> (&'static str, &'static str, &'static st
         TweakName::Bpftune => ("service", "bpftune.service", "bpftune-git"),
         TweakName::Bluetooth => ("service", "bluetooth.service", "bluez"),
         TweakName::Ananicy => ("service", "ananicy-cpp.service", "ananicy-cpp"),
-        TweakName::CachyUpdate => {
-            ("user_service", "arch-update.timer arch-update-tray.service", "cachy-update")
-        },
+        TweakName::CachyUpdate => ("user_service", "arch-update.timer", "cachy-update"),
     }
 }
 

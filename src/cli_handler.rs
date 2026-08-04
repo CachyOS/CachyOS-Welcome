@@ -1,6 +1,5 @@
 use crate::cli::{AppToLaunch, FixAction, TweakAction};
 use crate::dns::DnsAction;
-use crate::systemd_units::Scope;
 use crate::tweak::{self, TweakName};
 use crate::ui::UI;
 use crate::{actions, dns, systemd_units, utils};
@@ -352,37 +351,11 @@ pub fn handle_launch_command(app: AppToLaunch) -> Result<()> {
 }
 
 fn toggle_tweak_cli(tweak: TweakName, enable: bool) -> Result<()> {
-    let (action_type, action_data, alpm_package_name) = tweak::get_details(tweak);
-
     let verb = if enable { "Enabling" } else { "Disabling" };
     println!("{verb} tweak '{tweak:?}'...");
 
-    // If enabling, ensure package is installed first
-    if enable && !alpm_package_name.is_empty() && !utils::is_alpm_pkg_installed(alpm_package_name) {
-        println!(
-            "Required package '{}' is not installed. Installing...",
-            alpm_package_name.yellow()
-        );
-        let status =
-            crate::cli::run_command(&format!("pacman -S --noconfirm {alpm_package_name}"), true);
-        if !status || !utils::is_alpm_pkg_installed(alpm_package_name) {
-            anyhow::bail!(
-                "Failed to install required package '{alpm_package_name}'. Cannot enable tweak."
-            );
-        }
-    }
-
-    let scope = if action_type == "user_service" { Scope::User } else { Scope::System };
-    let units: Vec<&str> = action_data.split_whitespace().collect();
-
-    println!("> {} {}", verb, action_data.cyan());
-    let result = if enable {
-        systemd_units::systemd_enable(&units, scope, true)
-    } else {
-        systemd_units::systemd_disable(&units, scope)
-    };
-    if let Err(e) = result {
-        anyhow::bail!("Failed to {} tweak '{:?}': {e}", verb.to_lowercase(), tweak);
+    if !actions::toggle_tweak(tweak, enable, crate::cli::run_command) {
+        anyhow::bail!("Failed to toggle tweak '{tweak:?}'");
     }
 
     let status = if enable { "enabled".green() } else { "disabled".red() };

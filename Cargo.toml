@@ -1,6 +1,6 @@
 [package]
 name = "cachyos-hello"
-version = "0.26.0"
+version = "0.27.0"
 authors = ["Vladislav Nepogodin <nepogodin.vlad@gmail.com>"]
 license = "GPLv3"
 edition = "2024"
@@ -27,14 +27,14 @@ serde_json = "1"
 reqwest = { version = "0.13", features = ["blocking", "json"] }
 unic-langid = "0.9"
 phf = { version = "0.14", features = ["macros"], default-features = false }
-chwd = { git = "https://github.com/CachyOS/chwd", rev = "ec804eb0c062cb4bab8cf4a6934255a6ac8caa4d", version = "1.23.0" }
+chwd = { git = "https://github.com/CachyOS/chwd", rev = "e99ec339715f2b5724a1adc100ea55b94e59df5a", version = "1.24.1" }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 tracing-appender = "0.2"
 which = { version = "8.0", features = ["tracing"] }
 
 anyhow = { version = "1", default-features = false, features = ["std"] }
-tokio = { version = "1.52", features = ["macros", "sync", "rt-multi-thread"] }
+tokio = { version = "1.53", features = ["macros", "sync", "rt-multi-thread"] }
 zbus = { version = "5", features = ["tokio"], default-features = false }
 zbus_systemd = { version = "0.26100.0", features = ["systemd1"], default-features = false }
 clap = { features = ["derive"], version = "4" }

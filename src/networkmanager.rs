@@ -1,4 +1,4 @@
-//! NetworkManager D-Bus client for changing a connection's DNS settings.
+//! `NetworkManager` D-Bus client for changing a connection's DNS settings.
 
 use std::collections::HashMap;
 
@@ -77,9 +77,9 @@ pub enum NmDnsOverTls {
 /// DNS changes to apply.
 #[derive(Default)]
 pub struct DnsMods {
-    /// `ipv4.dns-data`; entries may carry a `#hostname` DoT SNI suffix.
+    /// `ipv4.dns-data`; entries may carry a `#hostname` `DoT` SNI suffix.
     pub ipv4_dns: Option<Vec<String>>,
-    /// `ipv6.dns-data`; entries may carry a `#hostname` DoT SNI suffix.
+    /// `ipv6.dns-data`; entries may carry a `#hostname` `DoT` SNI suffix.
     pub ipv6_dns: Option<Vec<String>>,
     pub ipv4_dns_priority: Option<i32>,
     pub ipv6_dns_priority: Option<i32>,
