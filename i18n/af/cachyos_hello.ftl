@@ -12,16 +12,6 @@ orphans-not-found = Geen onteiende pakkette gevind nie!
 package-not-installed = Pakket '{$package_name}' is nie geïnstalleer nie!
 gaming-package-installed = Speletjiepakkette reeds geïnstalleer!
 
-# Application Browser page
-advanced-btn = Gevorderde
-reset-btn = Terugstel
-update-system-app-btn = OPDATEER STELSEL
-application-column = Toepassing
-description-column = Beskrywing
-install-remove-column = Installeer/verwyder
-advanced-btn-tooltip = Wissel 'n uitgebreide seleksie van pakkette
-reset-btn-tooltip = Stel jou huidige keuse terug...
-update-system-app-btn-tooltip = Pas jou huidige keuses toe op die stelsel
 
 # Dns Connections page
 dns-settings = DNS-instellings
@@ -30,7 +20,6 @@ select-dns-server = Kies DNS-bediener:
 apply = Pas toe
 reset = Stel terug
 enable-encrypted-dns = Aktiveer DNS oor {$protocol} ({$abbr})
-dot-tooltip = Enkripteer DNS-navrae met TLS vir beter privaatheid (vereis bedienerondersteuning)
 test-latency = Toets Vertraging van Gekose Bediener
 test-latency-tooltip = Meet netwerkvertraging na die gekose DNS-bediener
 best-server = Kies Beste Bediener volgens Vertraging
@@ -80,7 +69,6 @@ section-support = ONDERSTEUNING
 section-project = PROJEK
 
 # Main Page (launch installer)
-recommended = Aanbeveel
 calamares-install-type = Calamares installeer tipe
 
 # Main Page (body)

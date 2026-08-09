@@ -289,6 +289,13 @@ fn create_child_viewport<T: IsA<gtk::Widget>>(child: &T, builder: &Builder, chil
     viewport.show_all();
 }
 
+/// Inverse of [`create_child_viewport`]
+fn page_content_box(stack: &gtk::Stack, page_name: &str) -> Option<gtk::Box> {
+    let viewport = stack.child_by_name(page_name)?.downcast::<gtk::Viewport>().ok()?;
+    let box_collection = viewport.child()?.downcast::<gtk::Box>().ok()?;
+    box_collection.children().into_iter().nth(1)?.downcast::<gtk::Box>().ok()
+}
+
 pub fn create_tweaks_page(builder: &Builder) {
     let install: gtk::Button = builder.object("tweaksBrowser").unwrap();
     install.set_visible(true);

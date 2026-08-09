@@ -14,16 +14,6 @@ gaming-package-installed = A játékcsomagok már telepítve vannak!
 winboat-package-installed = A Winboat-csomagok már telepítve vannak!
 vram-management-package-installed = A VRAM-kezelő csomagok már telepítve vannak!
 
-# Application Browser page
-advanced-btn = speciális
-reset-btn = visszaállítás
-update-system-app-btn = RENDSZER FRISSÍTÉSE
-application-column = Alkalmazás
-description-column = Leírás
-install-remove-column = Telepítés/Eltávolítás
-advanced-btn-tooltip = Kibővített csomagválasztás megjelenítése
-reset-btn-tooltip = Jelenlegi kiválasztás visszaállítása...
-update-system-app-btn-tooltip = A kiválasztott beállítások alkalmazása a rendszerre
 
 # Dns Connections page
 dns-settings = DNS-beállítások
@@ -32,8 +22,6 @@ select-dns-server = DNS-kiszolgáló kiválasztása:
 apply = Alkalmazás
 reset = Visszaállítás
 enable-encrypted-dns = DNS over {$protocol} ({$abbr}) engedélyezése
-dot-tooltip = DNS-lekérdezések titkosítása TLS-sel a jobb adatvédelem érdekében (kiszolgáló támogatás szükséges)
-blocky-dns-tooltip = Titkosítja a DNS-lekérdezéseket {$protocol}-en keresztül a helyi blocky-proxyn át (kiszolgálótámogatást igényel, telepíti a blocky-t)
 blocky-install-failed = Nem sikerült telepíteni a blocky-t a {$mode}-támogatáshoz!
 test-latency = Kiválasztott kiszolgáló késleltetésének tesztelése
 test-latency-tooltip = Hálózati késleltetés mérése a kiválasztott DNS-kiszolgálóhoz
@@ -103,7 +91,6 @@ section-support = TÁMOGATÁS
 section-project = PROJEKT
 
 # Main Page (launch installer)
-recommended = ajánlott
 calamares-install-type = Calamares telepítési típus
 
 # Main Page (body)

@@ -12,16 +12,6 @@ orphans-not-found = لم يُعثر على حزم يتيمة!
 package-not-installed = لم يتم تثبيت الحزمة '{$package_name}'!
 gaming-package-installed = حزم الألعاب مثبتة بالفعل!
 
-# Application Browser page
-advanced-btn = متقدم
-reset-btn = صفّر
-update-system-app-btn = حدِّث
-application-column = تطبيق
-description-column = وصف
-install-remove-column = ثبّت/احذف
-advanced-btn-tooltip = بدّل مجموعة موسعة من الحزم
-reset-btn-tooltip = صفّر اختياراتك الحالية...
-update-system-app-btn-tooltip = طبّق اختياراتك الحالية على النظام
 
 # Dns Connections page
 dns-settings = إعدادات DNS
@@ -30,7 +20,6 @@ select-dns-server = حدّد خادم DNS:
 apply = طبّق
 reset = صفّر
 enable-encrypted-dns = تفعيل DNS عبر {$protocol} ({$abbr})
-dot-tooltip = تشفير استعلامات DNS باستخدام TLS لتحسين الخصوصية (يتطلب دعم الخادم)
 test-latency = اختبار زمن استجابة الخادم المحدد
 test-latency-tooltip = قياس زمن الاستجابة للشبكة إلى خادم DNS المحدد
 best-server = اختيار أفضل خادم حسب زمن الاستجابة
@@ -86,7 +75,6 @@ section-support = الدعم
 section-project = المشروع
 
 # Main Page (launch installer)
-recommended =  موصى به
 calamares-install-type = نوع تثبيت Calamares
 
 # Main Page (body)

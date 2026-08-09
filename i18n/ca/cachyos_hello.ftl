@@ -13,16 +13,6 @@ package-not-installed = El paquet {$package_name} no s'ha instal·lat!
 gaming-package-installed = Els paquets de joc ja estan instal·lats!
 winboat-package-installed = Els paquets del Winboat ja estan instal·lats!
 
-# Application Browser page
-advanced-btn = Avançat
-reset-btn = Restabliment
-update-system-app-btn = ACTUALITZACIÓ DEL SISTEMA
-application-column = Aplicació
-description-column = Descripció
-install-remove-column = Instal·la / Suprimeix
-advanced-btn-tooltip = Commuta a una selecció de paquets ampliada
-reset-btn-tooltip = Restableix les seleccions actuals...
-update-system-app-btn-tooltip = Aplica les seleccions actuals al sistema
 
 # Dns Connections page
 dns-settings = Paràmetres del DNS
@@ -31,8 +21,6 @@ select-dns-server = Seleccioneu el servidor de DNS:
 apply = Apica-ho
 reset = Restableix-ho
 enable-encrypted-dns = Activa DNS sobre {$protocol} ({$abbr})
-dot-tooltip = Encripta les consultes de DNS amb TLS per millorar la privadesa (requereix suport del servidor)
-blocky-dns-tooltip = Encripta les consultes de DNS amb {$protocol} a través d'un intermediari local amb blocatge (requereix compatibilitat amb el servidor, instal·la el Blocky)
 blocky-install-failed = Ha fallat instal·lar el Blocky per a la compatibilitat amb {$mode}!
 test-latency = Prova la latència del servidor seleccionat
 test-latency-tooltip = Mesura la latència de la xarxa al servidor DNS seleccionat
@@ -99,7 +87,6 @@ section-support = SUPORT
 section-project = PROJECTE
 
 # Main Page (launch installer)
-recommended = recomanat
 calamares-install-type = Tipus d'instal·lació per al Calamares
 
 # Main Page (body)

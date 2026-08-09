@@ -12,16 +12,6 @@ orphans-not-found = Пакеты-сіроты не знойдзены!
 package-not-installed = Пакет '{$package_name}' не быў усталяваны!
 gaming-package-installed = Гульнявыя пакеты ўжо ўстаноўлены!
 
-# Application Browser page
-advanced-btn = дадатковыя
-reset-btn = скід
-update-system-app-btn = АБНАВІЦЬ СІСТЭМУ
-application-column = Праграма
-description-column = Апісанне
-install-remove-column = Устанавіць/выдаліць
-advanced-btn-tooltip = Пераключыць на пашыраны выбар пакетаў
-reset-btn-tooltip = Скід бягучы выбар...
-update-system-app-btn-tooltip = Прымяніць бягучы выбар да сістэмы
 
 # Dns Connections page
 dns-settings = Налады DNS
@@ -30,7 +20,6 @@ select-dns-server = Выберыце DNS-сервер:
 apply = Ужыць
 reset = Скінуць
 enable-encrypted-dns = Уключыць DNS праз {$protocol} ({$abbr})
-dot-tooltip = Шыфраванне DNS-запытаў з дапамогай TLS для паляпшэння прыватнасці (патрабуецца падтрымка сервера)
 test-latency = Тэст затрымкі абранага сервера
 test-latency-tooltip = Вымярэнне сеткавай затрымкі да абранага DNS-сервера
 best-server = Абраць лепшы сервер па затрымцы
@@ -80,7 +69,6 @@ section-support = ПАДТРЫМКА
 section-project = ПРАЕКТ
 
 # Main Page (launch installer)
-recommended = рэкамендавана
 calamares-install-type = тып усталёўкі Calamares
 
 # Main Page (body)

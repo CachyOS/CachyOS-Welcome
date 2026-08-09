@@ -12,16 +12,6 @@ orphans-not-found = Er zijn geen onteigende pakketten aangetroffen.
 package-not-installed = ‘{$package_name}’ is niet geïnstalleerd!
 gaming-package-installed = De gamingpakketten zijn al geïnstalleerd.
 
-# Application Browser page
-advanced-btn = Geavanceerd
-reset-btn = Standaardwaarden
-update-system-app-btn = SYSTEEM BIJWERKEN
-application-column = Programma
-description-column = Beschrijving
-install-remove-column = Installeren/Verwijderen
-advanced-btn-tooltip = Toon/Verberg de uitgebreide pakketkeuzes
-reset-btn-tooltip = Huidige pakketkeuzes deselecteren…
-update-system-app-btn-tooltip = Gekozen pakketten installeren
 
 # Dns Connections page
 dns-settings = Dns-instellingen
@@ -30,7 +20,6 @@ select-dns-server = Kies een dns-server:
 apply = Toepassen
 reset = Standaardwaarden
 enable-encrypted-dns = DNS via {$protocol} ({$abbr}) inschakelen
-dot-tooltip = Versleutel DNS-verzoeken met TLS voor betere privacy (vereist serverondersteuning)
 test-latency = Test latentie van geselecteerde server
 test-latency-tooltip = Meet netwerklatentie naar de geselecteerde DNS-server
 best-server = Selecteer beste server op basis van latentie
@@ -80,7 +69,6 @@ section-support = ONDERSTEUNING
 section-project = PROJECT
 
 # Main Page (launch installer)
-recommended = Aanbevolen
 calamares-install-type = Calamares-installatietype
 
 # Main Page (body)

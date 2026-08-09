@@ -14,17 +14,6 @@ gaming-package-installed = Gaming packages already installed!
 winboat-package-installed = Winboat packages already installed!
 vram-management-package-installed = VRAM management packages already installed!
 
-# Application Browser page
-advanced-btn = advanced
-reset-btn = reset
-update-system-app-btn = UPDATE SYSTEM
-application-column = Application
-description-column = Description
-install-remove-column = Install/Remove
-advanced-btn-tooltip = Toggle an extended selection of packages
-reset-btn-tooltip = Reset your current selections...
-update-system-app-btn-tooltip = Apply your current selections to the system
-
 # Troubleshooting page
 troubleshooting = Troubleshooting
 
@@ -41,8 +30,6 @@ dns-type-plain = Plain (unencrypted)
 dns-type-dot = DNS over TLS (DoT)
 dns-type-doh = DNS over HTTPS (DoH)
 dns-type-doq = DNS over QUIC (DoQ)
-dot-tooltip = Encrypt DNS queries using TLS for improved privacy (requires server support)
-blocky-dns-tooltip = Encrypt DNS queries using {$protocol} via blocky local proxy (requires server support, installs blocky)
 blocky-install-failed = Failed to install blocky for {$mode} support!
 test-latency = Test Latency of Selected Server
 test-latency-tooltip = Measure network latency to the selected DNS server
@@ -115,7 +102,6 @@ section-support = SUPPORT
 section-project = PROJECT
 
 # Main Page (launch installer)
-recommended = recommended
 calamares-install-type = Calamares install type
 
 # Main Page (body)

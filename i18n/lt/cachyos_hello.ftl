@@ -14,16 +14,6 @@ gaming-package-installed = Žaidimams skirti paketai jau įdiegti!
 winboat-package-installed = Winboat paketai jau įdiegti!
 gpu-boosters-package-installed = GPU spartinimo paketai jau įdiegti!
 
-# Application Browser page
-advanced-btn = išplėstinis
-reset-btn = atstatyti
-update-system-app-btn = ATNAUJINTI SISTEMĄ
-application-column = Programa
-description-column = Aprašas
-install-remove-column = Įdiegti/Šalinti
-advanced-btn-tooltip = Perjungti išplėstinį paketų pasirinkimą
-reset-btn-tooltip = Atstatyti dabartinius pasirinkimus...
-update-system-app-btn-tooltip = Pritaikyti dabartinius pasirinkimus sistemai
 
 # Dns Connections page
 dns-settings = DNS nuostatos
@@ -32,8 +22,6 @@ select-dns-server = Pasirinkite DNS serverį:
 apply = Taikyti
 reset = Atstatyti
 enable-encrypted-dns = Įjungti DNS per {$protocol} ({$abbr})
-dot-tooltip = Šifruoti DNS užklausas naudojant TLS, kad būtų užtikrintas didesnis privatumas (reikalingas serverio palaikymas)
-blocky-dns-tooltip = Šifruoti DNS užklausas naudojant {$protocol} per blocky vietin tarpinį serverį (reikalingas serverio palaikymas, įdiegiamas blocky)
 blocky-install-failed = Nepavyko įdiegti blocky, reikalingo {$mode} palaikymui!
 test-latency = Išmatuoti pasirinkto serverio delsą
 test-latency-tooltip = Matuoti tinklo delsą iki pasirinkto DNS serverio
@@ -103,7 +91,6 @@ section-support = PALAIKYMAS
 section-project = PROJEKTAS
 
 # Main Page (launch installer)
-recommended = rekomenduojama
 calamares-install-type = Calamares diegimo tipas
 
 # Main Page (body)

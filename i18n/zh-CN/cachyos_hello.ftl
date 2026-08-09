@@ -14,16 +14,6 @@ gaming-package-installed = 游戏软件包已经安装！
 winboat-package-installed = Winboat 已经安装！
 vram-management-package-installed = VRAM 管理软件包已经安装！
 
-# Application Browser page
-advanced-btn = 高级选项
-reset-btn = 重置
-update-system-app-btn = 更新系统
-application-column = 应用程序
-description-column = 描述
-install-remove-column = 安装/移除
-advanced-btn-tooltip = 显示软件包的附加选项
-reset-btn-tooltip = 重置您的选项...
-update-system-app-btn-tooltip = 向系统应用您的选项
 
 # Dns Connections page
 dns-settings = DNS 设置
@@ -32,8 +22,6 @@ select-dns-server = 选择 DNS 服务器:
 apply = 应用
 reset = 重置
 enable-encrypted-dns = 启用 DNS over {$protocol} ({$abbr})
-dot-tooltip = 使用 TLS 加密 DNS 查询来提高隐私性（需要服务器支持）
-blocky-dns-tooltip = 使用 Blocky 通过 {$protocol} 加密 DNS 查询 (需要服务器支持，并安装 blocky)
 blocky-install-failed = 无法为 {$mode} 支持安装 blocky！
 test-latency = 测试所选服务器的延迟
 test-latency-tooltip = 为选择的 DNS 服务器测量网络延迟
@@ -103,7 +91,6 @@ section-support = 支持
 section-project = 项目
 
 # Main Page (launch installer)
-recommended = 建议
 calamares-install-type = Calamares 安装类型
 
 # Main Page (body)

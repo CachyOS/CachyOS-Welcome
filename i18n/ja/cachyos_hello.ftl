@@ -14,16 +14,6 @@ gaming-package-installed = ゲーム用パッケージはすでにインスト�
 winboat-package-installed = Winboat パッケージはすでにインストールされています。
 vram-management-package-installed = VRAM 管理パッケージはすでにインストールされています。
 
-# Application Browser page
-advanced-btn = advanced
-reset-btn = reset
-update-system-app-btn = UPDATE SYSTEM
-application-column = Application
-description-column = Description
-install-remove-column = Install/Remove
-advanced-btn-tooltip = Toggle an extended selection of packages
-reset-btn-tooltip = Reset your current selections...
-update-system-app-btn-tooltip = Apply your current selections to the system
 
 # Troubleshooting page
 troubleshooting = トラブルシューティング
@@ -35,8 +25,6 @@ select-dns-server = DNSサーバーを選択:
 apply = 適用
 reset = リセット
 enable-encrypted-dns = DNS over {$protocol} ({$abbr}) を有効化
-dot-tooltip = TLS を用いて DNS クエリを暗号化してプライバシーを保護 (DNS サーバー側が対応している必要があります)
-blocky-dns-tooltip = blocky のローカルプロキシ経由の {$protocol} で、DNS クエリを暗号化 (DNS サーバー側が対応している必要があり、また blocky のインストールを行います)
 blocky-install-failed = {$mode} に必要な blocky のインストールに失敗しました。
 test-latency = 選択したサーバーのレイテンシを計測
 test-latency-tooltip = 選択した DNS サーバーのネットワークレイテンシ (応答速度) を計測
@@ -108,7 +96,6 @@ section-support = サポート
 section-project = プロジェクト
 
 # Main Page (launch installer)
-recommended = recommended
 calamares-install-type = Calamares でインストール
 
 # Main Page (body)

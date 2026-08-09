@@ -14,16 +14,6 @@ gaming-package-installed = Τα πακέτα παιχνιδιών έχουν ή�
 winboat-package-installed = Τα πακέτα του Winboat έχουν ήδη εγκατασταθεί!
 vram-management-package-installed = Τα πακέτα διαχείρισης VRAM έχουν ήδη εγκατασταθεί!
 
-# Application Browser page
-advanced-btn = Σύνθετες επιλογές
-reset-btn = Επαναφορά
-update-system-app-btn = ΕΝΗΜΕΡΩΣΗ ΣΥΣΤΗΜΑΤΟΣ
-application-column = Εφαρμογή
-description-column = Περιγραφή
-install-remove-column = Εγκατάσταση/Αφαίρεση
-advanced-btn-tooltip = (Απ)ενεργοποίηση μιας εκτεταμένης συλλογής πακέτων
-reset-btn-tooltip = Επαναφορά τρεχουσών επιλογών...
-update-system-app-btn-tooltip = Εφαρμογή τρεχουσών επιλογών στο σύστημα
 
 # Dns Connections page
 dns-settings = Ρυθμίσεις DNS
@@ -32,8 +22,6 @@ select-dns-server = Επιλογή διακομιστή DNS:
 apply = Εφαρμογή
 reset = Επαναφορά
 enable-encrypted-dns = Ενεργοποίηση DNS μέσω {$protocol} ({$abbr})
-dot-tooltip = Κρυπτογράφηση αιτημάτων DNS με χρήση TLS για περισσότερη ιδιωτικότητα (απαιτεί υποστήριξη από την πλευρά του διακομιστή)
-blocky-dns-tooltip = Κρυπτογράφηση αιτημάτων DNS με χρήση {$protocol}, μέσω του τοπικού διακομιστή μεσολάβησης blocky (απαιτεί υποστήριξη από την πλευρά του διακομιστή, εγκαθιστά το blocky)
 blocky-install-failed = Αποτυχία εγκατάστασης του blocky για υποστήριξη {$mode}!
 test-latency = Δοκιμή καθυστέρησης επιλεγμένου διακομιστή
 test-latency-tooltip = Μέτρηση της καθυστέρησης σύνδεσης στον επιλεγμένο διακομιστή DNS
@@ -103,7 +91,6 @@ section-support = ΥΠΟΣΤΗΡΙΞΗ
 section-project = ΕΡΓΟ
 
 # Main Page (launch installer)
-recommended = προτείνεται
 calamares-install-type = Τύπος εγκατάστασης Calamares
 
 # Main Page (body)

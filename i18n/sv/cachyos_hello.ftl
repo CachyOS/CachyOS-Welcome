@@ -13,16 +13,6 @@ package-not-installed = Paketet '{$package_name}' har inte installerats!
 gaming-package-installed = Spelpaket redan installerade!
 winboat-package-installed = Winboat-paket redan installerade!
 
-# Application Browser page
-advanced-btn = avancerat
-reset-btn = återställ
-update-system-app-btn = UPPDATERA SYSTEMET
-application-column = Program
-description-column = Beskrivning
-install-remove-column = Installera/Ta bort
-advanced-btn-tooltip = Växla till utökad paketmarkering
-reset-btn-tooltip = Återställ dina aktuella markeringar...
-update-system-app-btn-tooltip = Tillämpa dina aktuella markeringar på systemet
 
 # Dns Connections page
 dns-settings = DNS-inställningar
@@ -31,7 +21,6 @@ select-dns-server = Välj DNS-server:
 apply = Tillämpa
 reset = Återställ
 enable-encrypted-dns = Aktivera DNS över {$protocol} ({$abbr})
-dot-tooltip = Kryptera DNS-förfrågningar med TLS för bättre integritet (kräver serverstöd)
 test-latency = Testa fördröjning för vald server
 test-latency-tooltip = Mät nätverksfördröjning till den valda DNS-servern
 best-server = Välj bästa server efter fördröjning
@@ -90,7 +79,6 @@ section-support = SUPPORT
 section-project = PROJEKT
 
 # Main Page (launch installer)
-recommended = rekommenderas
 calamares-install-type = Calamares installationstyp
 
 # Main Page (body)

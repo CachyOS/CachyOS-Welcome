@@ -12,16 +12,6 @@ orphans-not-found = Không có các gói dư thừa!
 package-not-installed = Gói '{$package_name}' chưa được cài đặt!
 gaming-package-installed = Các gói thiết kế cho chơi game (Gaming) đã được cài đặt!
 
-# Application Browser page
-advanced-btn = Nâng cao
-reset-btn = Khôi phục
-update-system-app-btn = CẬP NHẬT HỆ THỐNG
-application-column = Ứng dụng
-description-column = Mô tả
-install-remove-column = Cài đặt/Xóa
-advanced-btn-tooltip = Hiển thị thêm các tùy chọn gói nâng cao
-reset-btn-tooltip = Khôi phục sự lựa chọn hiện tại của bạn...
-update-system-app-btn-tooltip = Áp dụng các lựa chọn hiện tại vào hệ thống
 
 # Dns Connections page
 dns-settings = Cài đặt DNS
@@ -30,7 +20,6 @@ select-dns-server = Chọn DNS server:
 apply = Áp dụng
 reset = Khôi phục
 enable-encrypted-dns = Bật DNS qua {$protocol} ({$abbr})
-dot-tooltip = Mã hóa truy vấn DNS bằng TLS để bảo mật tốt hơn (yêu cầu hỗ trợ từ máy chủ)
 test-latency = Kiểm tra độ trễ của máy chủ đã chọn
 test-latency-tooltip = Đo độ trễ mạng đến máy chủ DNS đã chọn
 best-server = Chọn máy chủ tốt nhất theo độ trễ
@@ -87,7 +76,6 @@ section-support = HỖ TRỢ
 section-project = DỰ ÁN
 
 # Main Page (launch installer)
-recommended = KHUYÊN DÙNG
 calamares-install-type = Calamares install type
 
 # Main Page (body)

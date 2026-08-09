@@ -13,16 +13,6 @@ package-not-installed = '{$package_name}' փաթեթը տեղադրված չէ!
 gaming-package-installed = Խաղային փաթեթները արդեն տեղադրված են!
 winboat-package-installed = Winboat փաթեթները արդեն տեղադրված են!
 
-# Application Browser page
-advanced-btn = լրացուցիչ
-reset-btn = վերականգնել
-update-system-app-btn = ԹԱՐՄԱՑՆԵԼ ՀԱՄԱԿԱՐԳԸ
-application-column = ծրագիր
-description-column = Նկարագրություն
-install-remove-column = Տեղադրել/Հեռացնել
-advanced-btn-tooltip = Միացնել փաթեթների ընդլայնված ընտրությունը
-reset-btn-tooltip = Վերականգնել ընթացիկ ընտրությունները...
-update-system-app-btn-tooltip = Կիրառել ընթացիկ ընտրությունները համակարգում
 
 # Dns Connections page
 dns-settings = DNS Կարգավորումներ
@@ -78,7 +68,6 @@ section-support = ԱՋԱԿՑՈՒԹՅՈՒՆ
 section-project = ՆԱԽԱԳԻԾ
 
 # Main Page (launch installer)
-recommended = խորհուրդ է տրվում
 calamares-install-type = Calamares տեղադրման տեսակ
 
 # Main Page (body)

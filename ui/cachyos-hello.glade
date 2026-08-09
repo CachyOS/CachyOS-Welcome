@@ -285,6 +285,8 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                       <item id="en">English</item>
                       <!-- Keep en first -->
                       <item id="af">Afrikaans</item>
+                      <item id="ar">العربية</item>
+                      <item id="az">Azərbaycanca</item>
                       <item id="bg">Български</item>
                       <item id="by">Беларуская</item>
                       <item id="ca">Català</item>
@@ -301,6 +303,7 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                       <item id="it">Italiano</item>
                       <item id="ja">日本語</item>
                       <item id="ka">ქართული</item>
+                      <item id="ko-KR">한국어</item>
                       <item id="lt">Lietuvių</item>
                       <item id="nb">Norsk Bokmål</item>
                       <item id="nl">Nederlands</item>
@@ -309,6 +312,7 @@ We, the CachyOS Developers, hope that you will enjoy using CachyOS as much as we
                       <item id="pt-PT">Português</item>
                       <item id="ru">Русский</item>
                       <item id="sk">Slovenčina</item>
+                      <item id="sq">Shqip</item>
                       <item id="sv">Svenska</item>
                       <item id="tr">Türkçe</item>
                       <item id="uk">Українська</item>

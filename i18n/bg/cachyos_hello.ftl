@@ -14,16 +14,6 @@ gaming-package-installed = Гейминг пакетите вече са инс�
 winboat-package-installed = Winboat пакетите вече са инсталирани!
 vram-management-package-installed = Пакетите за управление на VRAM вече са инсталирани!
 
-# Application Browser page
-advanced-btn = Разширени
-reset-btn = Нулиране
-update-system-app-btn = АКТУАЛИЗИРАНЕ НА СИСТЕМАТА
-application-column = Приложение
-description-column = Описание
-install-remove-column = Инсталиране/Премахване
-advanced-btn-tooltip = Превключва към разширен списък с пакети
-reset-btn-tooltip = Нулиране на текущия ви избор...
-update-system-app-btn-tooltip = Прилагане на текущия ви избор
 
 # Страница за Отстраняване на проблеми
 troubleshooting = Отстраняване на проблеми
@@ -46,8 +36,6 @@ dns-type-plain = Обикновен (нешифрован)
 dns-type-dot = DNS през TLS (DoT)
 dns-type-doh = DNS през HTTPS (DoH)
 dns-type-doq = DNS през QUIC (DoQ)
-dot-tooltip = Шифроване на DNS заявките чрез TLS за по-добра поверителност (изисква поддръжка от сървъра)
-blocky-dns-tooltip = Шифроване на DNS заявките чрез {$protocol} посредством локален прокси blocky (изисква поддръжка от сървъра, инсталира blocky)
 blocky-install-failed = Неуспешно инсталиране на blocky за поддръжка на {$mode}!
 test-latency = Тест на латентност на избрания сървър
 test-latency-tooltip = Измерване на латентността до избрания DNS сървър
@@ -112,7 +100,6 @@ section-support = ПОДДРЪЖКА
 section-project = ПРОЕКТ
 
 # Main Page (launch installer)
-recommended = препоръчително
 calamares-install-type = Тип инсталация Calamares
 
 # Main Page (body)

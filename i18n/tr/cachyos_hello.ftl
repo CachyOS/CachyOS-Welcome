@@ -18,16 +18,6 @@ vram-management-package-installed = VRAM yönetim paketleri zaten kurulu!
 app-cachyos-pi-label = CachyOS Paket Kurucu
 app-cachyos-kernel-manager-label = CachyOS Çekirdek Yöneticisi
 
-# Application Browser page
-advanced-btn = gelişmiş
-reset-btn = sıfırla
-update-system-app-btn = SİSTEMİ GÜNCELLE
-application-column = Uygulama
-description-column = Açıklama
-install-remove-column = Kur/Kaldır
-advanced-btn-tooltip = Genişletilmiş paket seçeneklerini aç/kapat
-reset-btn-tooltip = Mevcut seçimleri eski haline getir…
-update-system-app-btn-tooltip = Mevcut seçimleri sisteme uygula
 
 # Dns Connections page
 dns-settings = DNS Ayarları
@@ -36,8 +26,6 @@ select-dns-server = DNS sunucusu seç:
 apply = Uygula
 reset = Sıfırla
 enable-encrypted-dns = DNS over {$protocol} ({$abbr}) etkinleştir
-dot-tooltip = Daha iyi gizlilik için DNS sorgularını TLS ile şifrele (sunucu desteği gerektirir)
-blocky-dns-tooltip = Daha iyi gizlilik için DNS sorgularını yerel blocky vekil sunucusu üzerinden {$protocol} ile şifrele (sunucu desteği gerektirir; blocky kurar)
 blocky-install-failed = {$mode} desteği için blocky kurulamadı!
 test-latency = Seçili Sunucunun Gecikmesini Test Et
 test-latency-tooltip = Seçili DNS sunucusuna ağ gecikmesini ölç
@@ -107,7 +95,6 @@ section-support = DESTEK
 section-project = PROJE
 
 # Main Page (launch installer)
-recommended = Tavsiye edilen
 calamares-install-type = Calamares kurulum tipi
 
 # Main Page (body)

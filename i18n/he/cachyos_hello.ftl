@@ -12,16 +12,6 @@ orphans-not-found = לא נמצאו חבילות שאינן משויכות!
 package-not-installed = החבילה ‚{$package_name}’ לא הותקנה!
 gaming-package-installed = החבילות למשחקים כבר מותקנות!
 
-# Application Browser page
-advanced-btn = מתקדם
-reset-btn = שחזור
-update-system-app-btn = עדכון המערכת
-application-column = יישום
-description-column = תיאור
-install-remove-column = התקנה/הסרה
-advanced-btn-tooltip = שינוי המצב של בחירת חבילות מורחבת
-reset-btn-tooltip = שחזור הבחירות הנוכחיות שלך...
-update-system-app-btn-tooltip = החלת הבחירות הנוכחיות שלך על המערכת
 
 # Dns Connections page
 dns-settings = הגדרות DNS
@@ -30,7 +20,6 @@ select-dns-server = נא לבחור שרת DNS:
 apply = החלה
 reset = שחזור
 enable-encrypted-dns = הפעל DNS דרך {$protocol} ({$abbr})
-dot-tooltip = הצפנת שאילתות DNS באמצעות TLS לפרטיות משופרת (דורש תמיכת שרת)
 test-latency = בדוק השהיה של השרת הנבחר
 test-latency-tooltip = מדוד השהיית רשת לשרת ה-DNS שנבחר
 best-server = בחר שרת מיטבי לפי השהיה
@@ -88,7 +77,6 @@ section-support = תמיכה
 section-project = מיזם
 
 # Main Page (launch installer)
-recommended = מומלץ
 calamares-install-type = סוג ההתקנה של Calamares
 
 # Main Page (body)

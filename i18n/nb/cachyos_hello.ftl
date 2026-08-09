@@ -12,16 +12,6 @@ orphans-not-found = Ingen foreldreløse pakker finnes!
 package-not-installed = '{$package_name}' pakken ble ikke installert!
 gaming-package-installed = Spillpakkene er allerede installert!
 
-# Application Browser page
-advanced-btn = avansert
-reset-btn = tilbakestill
-update-system-app-btn = OPPDATER SYSTEMET
-application-column = Pakker
-description-column = Beskrivelse
-install-remove-column = Installer/Fjern
-advanced-btn-tooltip = Merk flere pakker
-reset-btn-tooltip = Nullstill ditt pakkevalg...
-update-system-app-btn-tooltip = Aktiver dine valg
 
 # Dns Connections page
 dns-settings = DNS Innstillinger
@@ -30,7 +20,6 @@ select-dns-server = Velg DNS server:
 apply = Bruk
 reset = Nullstill
 enable-encrypted-dns = Aktiver DNS over {$protocol} ({$abbr})
-dot-tooltip = Krypter DNS-forespørsler med TLS for bedre personvern (krever serverstøtte)
 test-latency = Test forsinkelse for valgt server
 test-latency-tooltip = Mål nettverksforsinkelse til den valgte DNS-serveren
 best-server = Velg beste server etter forsinkelse
@@ -87,7 +76,6 @@ section-support = BRUKERSTØTTE
 section-project = PROSJEKT
 
 # Main Page (launch installer)
-recommended = anbefalt
 calamares-install-type = Calamares installasjonstype
 
 # Main Page (body)

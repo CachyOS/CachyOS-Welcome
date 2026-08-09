@@ -12,16 +12,6 @@ orphans-not-found = Nuk u gjetën paketa të jetime (orphans)!
 package-not-installed = Paketa '{$package_name}' nuk është instaluar!
 gaming-package-installed = Paketat për lojëra janë të instaluara tashmë!
 
-# Application Browser page
-advanced-btn = të avancuara
-reset-btn = rivendos
-update-system-app-btn = PËRDITËSO SISTEMIN
-application-column = Aplikacioni
-description-column = Përshkrimi
-install-remove-column = Instalo/Fshij
-advanced-btn-tooltip = Shfaq një përzgjedhje të zgjeruar paketash
-reset-btn-tooltip = Rivendos zgjedhjet aktuale...
-update-system-app-btn-tooltip = Apliko zgjedhjet e tua në sistem
 
 # Dns Connections page
 dns-settings = DNS Parametrat
@@ -30,7 +20,6 @@ select-dns-server = Zgjidh serverin DNS:
 apply = Apliko
 reset = Rivendos
 enable-encrypted-dns = Aktivizo DNS mbi {$protocol} ({$abbr})
-dot-tooltip = Kripto pyetjet DNS me TLS për privatësi më të mirë (kërkon mbështetje nga serveri)
 test-latency = Testo vonesën e serverit të zgjedhur
 test-latency-tooltip = Mat vonesën e rrjetit deri te serveri DNS i zgjedhur
 best-server = Zgjidh serverin më të mirë sipas vonesës
@@ -86,7 +75,6 @@ section-support = MBËSHTETJE
 section-project = PROJEKTI
 
 # Main Page (launch installer)
-recommended = e rekomanduar
 calamares-install-type = Lloji i instalimit Calamares
 
 # Main Page (body)

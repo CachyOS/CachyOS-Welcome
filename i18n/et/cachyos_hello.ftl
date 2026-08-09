@@ -11,16 +11,6 @@ orphans-not-found = Ühtegi orbpaketti ei leitud!
 package-not-installed = Paketti '{$package_name}' pole paigaldatud!
 gaming-package-installed = Mängupaketid on juba paigaldatud!
 
-# Application Browser page
-advanced-btn = edasijõudnutele
-reset-btn = lähtesta
-update-system-app-btn = VÄRSKENDA SÜSTEEMI
-application-column = Rakendus
-description-column = Kirjeldus
-install-remove-column = Paigalda/Eemalda
-advanced-btn-tooltip = Kuva laiendatud pakettide valik
-reset-btn-tooltip = Lähtesta oma praegused valikud...
-update-system-app-btn-tooltip = Rakenda oma praegused valikud süsteemile
 
 # Dns Connections page
 dns-settings = DNS-i seaded
@@ -29,7 +19,6 @@ select-dns-server = Vali DNS-server:
 apply = Rakenda
 reset = Lähtesta
 enable-encrypted-dns = Luba DNS üle {$protocol} ({$abbr})
-dot-tooltip = Krüpteeri DNS-päringud TLS-iga parema privaatsuse tagamiseks (nõuab serveri tuge)
 test-latency = Testi valitud serveri viivitust
 test-latency-tooltip = Mõõda võrgu viivitust valitud DNS-serverini
 best-server = Vali parim server viivituse järgi
@@ -85,7 +74,6 @@ section-support = TUGI
 section-project = PROJEKT
 
 # Main Page (launch installer)
-recommended = soovitatav
 calamares-install-type = Calamares'i paigalduse tüüp
 
 # Main Page (body)

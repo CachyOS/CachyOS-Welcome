@@ -15,15 +15,6 @@ winboat-package-installed = Les paquets Winboat sont déjà installés !
 vram-management-package-installed = Les paquets de gestion de la mémoire vidéo (VRAM) sont déjà installés !
 
 # Page du navigateur d'applications
-advanced-btn = Avancé
-reset-btn = Réinitialisation
-update-system-app-btn = METTRE À JOUR LE SYSTÈME
-application-column = Application
-description-column = Description
-install-remove-column = Installer/Supprimer
-advanced-btn-tooltip = Basculer vers une sélection étendue des paquets
-reset-btn-tooltip = Réinitialiser vos sélections actuelles...
-update-system-app-btn-tooltip = Appliquer vos sélections actuelles au système
 
 # Page de dépannage
 troubleshooting = Dépannage
@@ -35,8 +26,6 @@ select-dns-server = Selectionner un serveur DNS :
 apply = Appliquer
 reset = Réinitialiser
 enable-encrypted-dns = Activer le DNS sur {$protocol} ({$abbr})
-dot-tooltip = Chiffrer les requêtes DNS via TLS pour une meilleure confidentialité (nécessite la prise en charge serveur)
-blocky-dns-tooltip = Chiffrer les requêtes DNS via {$protocol} à l'aide du proxy local blocky (nécessite la prise en charge serveur et l'installation de blocky)
 blocky-install-failed = Échec de l'installation de blocky pour le support {$mode} !
 test-latency = Tester la latence du serveur sélectionné
 test-latency-tooltip = Mesurer la latence réseau vers le serveur DNS sélectionné
@@ -108,7 +97,6 @@ section-support = SUPPORT
 section-project = PROJET
 
 # Page principale (programme d'installation)
-recommended = recommandé
 calamares-install-type = Type d'installion Calamares
 
 # Page principale (corps)

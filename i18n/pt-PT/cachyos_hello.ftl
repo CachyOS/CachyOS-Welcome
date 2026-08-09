@@ -13,16 +13,6 @@ package-not-installed = O pacote '{$package_name}' não foi instalado!
 gaming-package-installed = Pacotes de jogos já instalados!
 winboat-package-installed = Pacotes Winboat já instalados!
 
-# Application Browser page
-advanced-btn = avançado
-reset-btn = repor
-update-system-app-btn = ATUALIZAR SISTEMA
-application-column = Aplicação
-description-column = Descrição
-install-remove-column = Instalar/Remover
-advanced-btn-tooltip = Alternar uma seleção alargada de pacotes
-reset-btn-tooltip = Repor as tuas seleções atuais...
-update-system-app-btn-tooltip = Aplicar as tuas seleções atuais ao sistema
 
 # Dns Connections page
 dns-settings = Definições de DNS
@@ -78,7 +68,6 @@ section-support = SUPORTE
 section-project = PROJETO
 
 # Main Page (launch installer)
-recommended = recomendado
 calamares-install-type = Tipo de instalação Calamares
 
 # Main Page (body)

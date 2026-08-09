@@ -12,16 +12,6 @@ orphans-not-found = 고아 패키지를 찾을 수 없습니다!
 package-not-installed = '{$package_name}' 패키지가 설치되지 않았습니다!
 gaming-package-installed = 게임 패키지가 이미 설치되어 있습니다!
 
-# Application Browser page
-advanced-btn = 고급
-reset-btn = 재설정
-update-system-app-btn = 시스템 업데이트
-application-column = 애플리케이션
-description-column = 설명
-install-remove-column = 설치/제거
-advanced-btn-tooltip = 패키지의 확장 선택 전환하기
-reset-btn-tooltip = 현재 선택사항 재설정하기...
-update-system-app-btn-tooltip = 현재 선택사항 시스템에 적용하기
 
 # Dns Connections page
 dns-settings = DNS 설정
@@ -30,7 +20,6 @@ select-dns-server = DNS 서버 선택:
 apply = 적용하기
 reset = 재설정
 enable-encrypted-dns = DNS over {$protocol} ({$abbr}) 활성화
-dot-tooltip = 향상된 개인정보 보호를 위해 TLS로 DNS 쿼리 암호화 (서버 지원 필요)
 test-latency = 선택한 서버 지연 시간 테스트
 test-latency-tooltip = 선택한 DNS 서버까지의 네트워크 지연 시간 측정
 best-server = 지연 시간 기준 최적 서버 선택
@@ -86,7 +75,6 @@ section-support = 지원
 section-project = 프로젝트
 
 # Main Page (launch installer)
-recommended = 권장됨
 calamares-install-type = Calamares 설치 유형
 
 # Main Page (body)

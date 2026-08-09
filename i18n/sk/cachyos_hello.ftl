@@ -13,15 +13,6 @@ package-not-installed = Balíček '{$package_name}' nebol nainštalovaný!
 gaming-package-installed = Herné balíčky sú už nainštalované!
 
 # Stránka s prehliadačom aplikácií
-advanced-btn = pokročilé
-reset-btn = resetovať
-update-system-app-btn = AKTUALIZOVAŤ SYSTÉM
-application-column = Aplikácia
-description-column = Popis
-install-remove-column = Inštalácia/Odstránenie
-advanced-btn-tooltip = Zapnúť rozšírený výber balíčkov
-reset-btn-tooltip = Resetovať vaše aktuálne výbery...
-update-system-app-btn-tooltip = Použiť vaše aktuálne výbery na systém
 
 # Stránka DNS pripojení
 dns-settings = Nastavenia DNS
@@ -30,7 +21,6 @@ select-dns-server = Vyberte DNS server:
 apply = Použiť
 reset = Resetovať
 enable-encrypted-dns = Povoliť DNS cez {$protocol} ({$abbr})
-dot-tooltip = Šifrovanie DNS dotazov pomocou TLS pre lepšie súkromie (vyžaduje podporu servera)
 test-latency = Test latencie vybraného servera
 test-latency-tooltip = Zmerať sieťovú latenciu k vybranému DNS serveru
 best-server = Vybrať najlepší server podľa latencie
@@ -80,7 +70,6 @@ section-support = PODPORA
 section-project = PROJEKT
 
 # Hlavná stránka (spustenie inštalátora)
-recommended = odporúčané
 calamares-install-type = Typ inštalácie Calamares
 
 # Hlavná stránka (telo)

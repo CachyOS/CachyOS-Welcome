@@ -14,16 +14,6 @@ gaming-package-installed = Oyun paketləri artıq quraşdırılb!
 winboat-package-installed = Winboat paketləri artıq quraşdırılıb!
 vram-management-package-installed = VRAM idarəetmə paketləri artıq quraşdırılıb!
 
-# Application Browser page
-advanced-btn = əlavələr
-reset-btn = sıfırlamaq
-update-system-app-btn = SİSTEMİ YENİLƏMƏK
-application-column = Tətbiqlər
-description-column = Təsviri
-install-remove-column = Quraşdırmaq/Silmək
-advanced-btn-tooltip = Geniş paket seçiminə keçid
-reset-btn-tooltip = Cari seçimləri sıfırlamaq...
-update-system-app-btn-tooltip = Cari seçimləri sistemə tətbiq etmək
 
 # Dns Connections page
 dns-settings = DNS ayarları
@@ -32,8 +22,6 @@ select-dns-server = DNS serveri seçin:
 apply = Tətbiq edin
 reset = Sıfırlayın
 enable-encrypted-dns = DNS-i {$protocol} üzərindən aktiv etmək ({$abbr})
-dot-tooltip = Daha güclü təhlükəsizlik üçün DNS sorğularını TLS üzərindən şifrələmək (server dəstəyi tələb olunur)
-blocky-dns-tooltip = DNS sorğularını yerli "blocky" proksi vasitəsilə {$protocol} istifadə edərək şifrələmək (server dəstəyi və blocky quraşdırmaq tələb olunur)
 blocky-install-failed = {$mode} dəstəkləməsi üçün blocky quraşdırmaq mümkün olmadı!
 test-latency = Seçilmiş serverdə gecikmələri yoxlayın
 test-latency-tooltip = Seçilmiş DNS serverinə şəbəkə gecikmələrini yoxlayın
@@ -103,7 +91,6 @@ section-support = DƏSTƏK
 section-project = LAYİHƏ
 
 # Main Page (launch installer)
-recommended = tövsiyyə olunan
 calamares-install-type = Calamares quraşdırma növü
 
 # Main Page (body)

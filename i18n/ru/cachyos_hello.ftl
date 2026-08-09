@@ -14,16 +14,6 @@ gaming-package-installed = Игровые пакеты уже установле
 winboat-package-installed = Пакеты Winboat уже установлены!
 vram-management-package-installed = Пакеты управления VRAM уже установлены!
 
-# Application Browser page
-advanced-btn = дополнительные
-reset-btn = сброс
-update-system-app-btn = ОБНОВИТЬ СИСТЕМУ
-application-column = Приложение
-description-column = Описание
-install-remove-column = Установить/удалить
-advanced-btn-tooltip = Переключить на расширенный выбор пакетов
-reset-btn-tooltip = Сброс текущий выбор...
-update-system-app-btn-tooltip = Применить текущий выбор к системе
 
 # Dns Connections page
 dns-settings = Настройки DNS
@@ -32,8 +22,6 @@ select-dns-server = Выберите DNS сервер:
 apply = Применить
 reset = Сбросить
 enable-encrypted-dns = Включить DNS через {$protocol} ({$abbr})
-dot-tooltip = Шифрование DNS-запросов с помощью TLS для повышения конфиденциальности (требуется поддержка сервера)
-blocky-dns-tooltip = Шифрование DNS-запросов с помощью {$protocol} через локальный прокси blocky (требуется поддержка сервера, устанавливает blocky)
 blocky-install-failed = Не удалось установить blocky для поддержки {$mode}!
 test-latency = Тест задержки выбранного сервера
 test-latency-tooltip = Измерить сетевую задержку до выбранного DNS-сервера
@@ -105,7 +93,6 @@ section-support = ПОДДЕРЖКА
 section-project = ПРОЕКТ
 
 # Main Page (launch installer)
-recommended = рекомендовано
 calamares-install-type = Calamares тип установки
 
 # Main Page (body)

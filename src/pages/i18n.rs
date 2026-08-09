@@ -6,23 +6,26 @@ use gtk::Builder;
 
 fn update_translation_apps_section(section_box: &gtk::Box) {
     for section_box_element in section_box.children() {
-        if let Ok(section_label) = section_box_element.clone().downcast::<gtk::Label>() {
+        if let Some(section_label) = section_box_element.downcast_ref::<gtk::Label>() {
             section_label.set_text(&fl!("applications"));
         }
     }
 }
 
-fn update_translation_fixes_section(section_box: &gtk::Box) {
+fn update_translation_button_section(
+    section_box: &gtk::Box,
+    section_title: &str,
+    button_label: impl Fn(&str) -> String,
+) {
     for section_box_element in section_box.children() {
-        if let Ok(button_box) = section_box_element.clone().downcast::<gtk::Box>() {
+        if let Some(button_box) = section_box_element.downcast_ref::<gtk::Box>() {
             for button_box_widget in button_box.children() {
                 let box_element_btn = button_box_widget.downcast::<gtk::Button>().unwrap();
                 let widget_name = box_element_btn.widget_name();
-                let translated_text = crate::localization::get_locale_text(&widget_name);
-                box_element_btn.set_label(&translated_text);
+                box_element_btn.set_label(&button_label(&widget_name));
             }
-        } else if let Ok(section_label) = section_box_element.downcast::<gtk::Label>() {
-            section_label.set_text(&fl!("fixes"));
+        } else if let Some(section_label) = section_box_element.downcast_ref::<gtk::Label>() {
+            section_label.set_text(section_title);
         }
     }
 }
@@ -67,21 +70,6 @@ fn update_translation_connections_section(section_box: &gtk::Box) {
     }
 }
 
-fn update_translation_options_section(section_box: &gtk::Box) {
-    for section_box_element in section_box.children() {
-        if let Ok(button_box) = section_box_element.clone().downcast::<gtk::Box>() {
-            for button_box_widget in button_box.children() {
-                let box_element_btn = button_box_widget.downcast::<gtk::Button>().unwrap();
-                let widget_name = box_element_btn.widget_name().to_string();
-                let translated_text = fl!("tweak-enabled-title", tweak = widget_name);
-                box_element_btn.set_label(&translated_text);
-            }
-        } else if let Ok(section_label) = section_box_element.downcast::<gtk::Label>() {
-            section_label.set_text(&fl!("tweaks"));
-        }
-    }
-}
-
 pub fn update_translations(builder: &Builder) {
     // Update buttons
     let tweakbrowser_btn: gtk::Button = builder.object("tweaksBrowser").unwrap();
@@ -97,48 +85,44 @@ pub fn update_translations(builder: &Builder) {
     troubleshooting_btn.set_tooltip_text(Some(&fl!("troubleshooting-label")));
 
     let stack: gtk::Stack = builder.object("stack").unwrap();
-    {
-        if let Some(widget) = stack.child_by_name("tweaksBrowserpage")
-            && let Ok(viewport) = widget.downcast::<gtk::Viewport>()
-        {
-            let second_child =
-                &viewport.children()[0].clone().downcast::<gtk::Box>().unwrap().children()[1]
-                    .clone()
-                    .downcast::<gtk::Box>()
-                    .unwrap();
+    if let Some(content) = super::page_content_box(&stack, "tweaksBrowserpage") {
+        for section_widget in content.children() {
+            let section_box = section_widget.downcast::<gtk::Box>().unwrap();
 
-            for second_child_child_widget in second_child.children() {
-                let second_child_child_box =
-                    second_child_child_widget.downcast::<gtk::Box>().unwrap();
-
-                match second_child_child_box.widget_name().as_str() {
-                    "tweaksBrowserpage_options" => {
-                        update_translation_options_section(&second_child_child_box);
-                    },
-                    "tweaksBrowserpage_fixes" => {
-                        update_translation_fixes_section(&second_child_child_box);
-                    },
-                    "tweaksBrowserpage_apps" => {
-                        update_translation_apps_section(&second_child_child_box);
-                    },
-                    _ => panic!("Unknown widget!"),
-                }
+            match section_box.widget_name().as_str() {
+                "tweaksBrowserpage_options" => {
+                    update_translation_button_section(&section_box, &fl!("tweaks"), |msgid| {
+                        fl!("tweak-enabled-title", tweak = msgid)
+                    });
+                },
+                "tweaksBrowserpage_fixes" => {
+                    update_translation_button_section(
+                        &section_box,
+                        &fl!("fixes"),
+                        crate::localization::get_locale_text,
+                    );
+                },
+                "tweaksBrowserpage_apps" => {
+                    update_translation_apps_section(&section_box);
+                },
+                _ => panic!("Unknown widget!"),
             }
         }
-        if let Some(widget) = stack.child_by_name("dnsConnectionsBrowserpage")
-            && let Ok(viewport) = widget.downcast::<gtk::Viewport>()
-        {
-            let second_child =
-                &viewport.children()[0].clone().downcast::<gtk::Box>().unwrap().children()[1]
-                    .clone()
-                    .downcast::<gtk::Box>()
-                    .unwrap();
-
-            for second_child_child_widget in second_child.children() {
-                let second_child_child_box =
-                    second_child_child_widget.downcast::<gtk::Box>().unwrap();
-                update_translation_connections_section(&second_child_child_box);
-            }
+    }
+    if let Some(content) = super::page_content_box(&stack, "dnsConnectionsBrowserpage") {
+        for section_widget in content.children() {
+            let section_box = section_widget.downcast::<gtk::Box>().unwrap();
+            update_translation_connections_section(&section_box);
+        }
+    }
+    if let Some(content) = super::page_content_box(&stack, "troubleshootingpage") {
+        for section_widget in content.children() {
+            let section_box = section_widget.downcast::<gtk::Box>().unwrap();
+            update_translation_button_section(
+                &section_box,
+                &fl!("troubleshooting"),
+                crate::localization::get_locale_text,
+            );
         }
     }
 }

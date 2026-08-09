@@ -14,16 +14,6 @@ gaming-package-installed = თამაშის მხარდაჭერი�
 winboat-package-installed = Winboat-ის ფექიჯები უკვე დაყენებულია!
 vram-management-package-installed = VRAM მენეჯმენტის ფექიჯები უკვე დაყენებულია!
 
-# Application Browser page
-advanced-btn = გაფართოებული
-reset-btn = განულება
-update-system-app-btn = სისტემის განახლება
-application-column = აპლიკაცია
-description-column = აღწერა
-install-remove-column = დაყენება/წაშლა
-advanced-btn-tooltip = ფექიჯების გაფართოებული არჩევანის გადართვა
-reset-btn-tooltip = მიმდინარე არჩევანის განულება...
-update-system-app-btn-tooltip = გამოიყენეთ თქვენი მიმდინარე არჩევანი სისტემაზე
 
 # Troubleshooting page
 troubleshooting = პრობლემების მოგვარება
@@ -41,8 +31,6 @@ dns-type-plain = უბრალო (დაუშიფრავი)
 dns-type-dot = DNS TLS-ის მეშვეობით (DoT)
 dns-type-doh = DNS HTTPS-ის მეშვეობით (DoH)
 dns-type-doq = DNS over QUIC-ის მეშვეობით (DoQ)
-dot-tooltip = DNS მოთხოვნების დაშიფვრა TLS-ის გამოყენებით გაუმჯობესებული კონფიდენციალობისთვის (საჭიროებს სერვერის მხარდაჭერას)
-blocky-dns-tooltip = DNS მოთხოვნების დაშიფვრა {$protocol}-ის გამოყენებით blocky ლოკალური პროქსის მეშვეობით (საჭიროებს სერვერის მხარდაჭერას, აყენებს blocky-ს)
 blocky-install-failed = blocky-ის დაყენება ვერ მოხერხდა {$mode}-ის მხარდაჭერისთვის!
 test-latency = არჩეული სერვერის დაყოვნების შემოწმება
 test-latency-tooltip = ქსელის დაყოვნების გაზომვა არჩეულ DNS სერვერამდე
@@ -115,7 +103,6 @@ section-support = მხარდაჭერა
 section-project = პროექტი
 
 # Main Page (launch installer)
-recommended = რეკომენდირებული
 calamares-install-type = Calamares-ის დაყენების ტიპი
 
 # Main Page (body)

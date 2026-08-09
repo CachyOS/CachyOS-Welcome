@@ -12,16 +12,6 @@ orphans-not-found = Nie znaleziono osieroconych pakietów!
 package-not-installed = Pakiet '{$package_name}' nie został zainstalowany!
 gaming-package-installed = Pakiety do gier są już zainstalowane!
 
-# Application Browser page
-advanced-btn = zaawansowane
-reset-btn = reset
-update-system-app-btn = ZAKTUALIZUJ SYSTEM
-application-column = Aplikacja
-description-column = Opis
-install-remove-column = Zainstaluj/Usuń
-advanced-btn-tooltip = Przełącz rozszerzony wybór paczek
-reset-btn-tooltip = Zresetuj obecne wybory...
-update-system-app-btn-tooltip = Zastosuj obecne wybory do systemu
 
 # Dns Connections page
 dns-settings = Ustawienia DNS
@@ -30,7 +20,6 @@ select-dns-server = Wybierz serwer DNS:
 apply = Zastosuj
 reset = Resetuj
 enable-encrypted-dns = Włącz DNS przez {$protocol} ({$abbr})
-dot-tooltip = Szyfruj zapytania DNS za pomocą TLS dla lepszej prywatności (wymaga wsparcia serwera)
 test-latency = Test opóźnienia wybranego serwera
 test-latency-tooltip = Zmierz opóźnienie sieci do wybranego serwera DNS
 best-server = Wybierz najlepszy serwer według opóźnienia
@@ -87,7 +76,6 @@ section-support = WSPARCIE
 section-project = PROJEKT
 
 # Main Page (launch installer)
-recommended = polecane
 calamares-install-type = Typ instalacji Calamares
 
 # Main Page (body)
