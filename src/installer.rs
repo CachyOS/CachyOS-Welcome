@@ -61,7 +61,7 @@ fn outdated_version_check() -> CheckOutcome {
     }
 
     // silently continue in case of server error
-    let versions = response.map(|x| x.json::<Versions>().unwrap());
+    let versions = response.and_then(|x| x.json::<Versions>());
     if let Err(vers_err) = versions {
         error!("Failed to fetch versions.json: {vers_err}");
         return CheckOutcome::Pass;
