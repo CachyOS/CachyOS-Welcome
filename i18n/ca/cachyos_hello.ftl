@@ -12,7 +12,10 @@ orphans-not-found = No s'ha trobat cap paquet orfe!
 package-not-installed = El paquet {$package_name} no s'ha instal·lat!
 gaming-package-installed = Els paquets de joc ja estan instal·lats!
 winboat-package-installed = Els paquets del Winboat ja estan instal·lats!
+vram-management-package-installed = Els paquets de gestió de VRAM ja estan instal·lats!
 
+# Troubleshooting page
+troubleshooting = Resolució de problemes
 
 # Dns Connections page
 dns-settings = Paràmetres del DNS
@@ -21,25 +24,35 @@ select-dns-server = Seleccioneu el servidor de DNS:
 apply = Apica-ho
 reset = Restableix-ho
 enable-encrypted-dns = Activa DNS sobre {$protocol} ({$abbr})
+dns-type-label = Tipus de DNS:
+dns-type-tooltip = Trieu com es transporten les consultes de DNS. Els tipus encriptats (DoT/DoH/DoQ) requereixen compatibilitat amb el servidor; DoH i DoQ instal·len i usen l'intermediari local de blocatge.
+dns-type-plain = Simple (sense encriptar)
+dns-type-dot = DNS sobre TLS (DoT)
+dns-type-doh = DNS sobre HTTPS (DoH)
+dns-type-doq = DNS sobre QUIC (DoQ)
 blocky-install-failed = Ha fallat instal·lar el Blocky per a la compatibilitat amb {$mode}!
 test-latency = Prova la latència del servidor seleccionat
 test-latency-tooltip = Mesura la latència de la xarxa al servidor DNS seleccionat
 best-server = Selecciona el servidor millor segons la latència
-best-server-tooltip = Prova els servidors DNS bàsics (sense variants de filtratge) i selecciona'n el més ràpid
+best-server-tooltip = Prova els servidors de DNS bàsics (sense variants de filtratge) i selecciona'n el més ràpid
 latency-result = {""}
 server-info = {""}
 latency-testing = Es prova...
 latency-timeout = Temps esgotat
 latency-no-result = No ha respost cap servidor.
 custom-dns = Personalitzat
+dhcp-automatic = DHCP (automàtic)
 custom-dns-ip = Adreces {$version} (separades per comes):
 custom-dns-dot-hostname = Nom d'amfitrió del DoT (opcional):
 custom-dns-invalid = Si us plau, introduïu com a mínim una adreça IPv4 o IPv6.
 custom-dns-invalid-hostname = Nom d'amfitrió DoT no vàlid.
 custom-dns-doh-url = URL de DoH (per a DNS sobre HTTPS):
 custom-dns-doh-url-required = Introduïu un URL vàlid del DoH que comenci amb https://
+custom-dns-doq-endpoint = Punt final de DoQ (per a DNS sobre QUIC):
+custom-dns-doq-endpoint-required = Introduïu un punt final de DoQ vàlid que comenci per quic: o quic://.
 dns-check-hint = Després d'aplicar-ho, verifiqueu el proveïdor de DNS a {$dnscheck_url}
 dns-server-changed = S'ha canviat correctament el servidor de DNS!
+dns-server-pending = Servidor DNS desat. Torneu a connectar la xarxa (o activeu-la / desactiveu-la) perquè el canvi tingui efecte.
 dns-server-failed = Ha fallat establir el servidor de DNS!
 dns-server-reset = S'ha restablert el servidor de DNS!
 dns-server-reset-failed = Ha fallat restablir el servidor de DNS!
@@ -66,6 +79,8 @@ dnsserver-title = Canvia el servidor de DNS
 show-kwinw-debug-title = Mostra la finestra de depuració del kwin (Wayland)
 install-gaming-title = Instal·la paquets de jocs
 install-winboat-title = Instal·la el Winboat
+install-vram-management-title = Instal·la la gestió de VRAM
+install-vram-management-tooltip = Prioritza la VRAM per a l'aplicació en primer pla perquè el controlador de la GPU eviti vessar memòria intermèdia a la RAM del sistema (GTT).
 
 # Main Page (buttons)
 button-about-tooltip = Quant a
@@ -97,6 +112,7 @@ outdated-version-warning = Useu una imatge més antiga del CachyOS. Si us plau, 
 testing-iso-warning = Useu una imatge ISO de prova. Les ISO de prova no es consideren estables i llestes per a un ús productiu.
 tweaksbrowser-label = Aplicacions / Retocs
 appbrowser-label = Instal·leu apliacions
+troubleshooting-label = Resolució de problemes
 launch-start-label = Obre-ho a l'inici
 welcome-title = Us donem la benvinguda al CachyOS!
 welcome-body =
