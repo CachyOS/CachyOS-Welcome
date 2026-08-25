@@ -41,7 +41,10 @@ done
 shift $((OPTIND - 1))
 
 file="$(mktemp)"
-echo "$1" >"$file"
+{
+    echo 'trap '\''status=$?; rm -f -- "$0"; exit "$status"'\'' EXIT'
+    echo "$1"
+} >"$file"
 cmd="${LAUNCHER_CMD} \"$file\""
 echo "$cmd"
 
@@ -99,10 +102,7 @@ if [ -z "$terminal" ]; then
     exit 1
 fi
 
-eval "${terminals[${terminal}]}" 2>/dev/null || {
-    if [[ "$terminal" != "kgx" ]]; then
-        rm "$file"
-        exit 2
-    fi
-}
-rm "$file"
+if ! eval "${terminals[${terminal}]}" 2>/dev/null; then
+    rm -f -- "$file"
+    exit 2
+fi
