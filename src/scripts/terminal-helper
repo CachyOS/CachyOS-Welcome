@@ -14,7 +14,6 @@
 # 3. The terminal emulator with best accessibility comes first.
 # 4. No order is guaranteed/desired for the remaining terminal emulators.
 
-set -e
 LAUNCHER_CMD=bash
 
 usage() {
@@ -40,8 +39,11 @@ done
 # OPTIND is a global variable
 shift $((OPTIND - 1))
 
-file="$(mktemp)"
-echo "$1" >"$file"
+file="$(mktemp)" || exit 1
+echo "$1" >"$file" || {
+    rm "$file"
+    exit 1
+}
 cmd="${LAUNCHER_CMD} \"$file\""
 echo "$cmd"
 
@@ -52,7 +54,7 @@ declare -A terminals=(
     ["ghostty"]="ghostty -e $cmd"
     ["kgx"]="kgx --wait -e $cmd"
     ["gnome-terminal"]="gnome-terminal --wait -- $cmd"
-    ["kitty"]="kitty $cmd"
+    ["kitty"]="kitty --wait-for-single-instance-window-close $cmd"
     ["wezterm"]="wezterm start --always-new-process $cmd"
     ["konsole"]="konsole -e $cmd"
     ["lxterminal"]="lxterminal -e $cmd"
@@ -61,7 +63,7 @@ declare -A terminals=(
     ["terminator"]="terminator -x $cmd"
     ["xfce4-terminal"]="xfce4-terminal --disable-server --command '$cmd'"
     ["xterm"]="xterm -e $cmd"
-    ["ptyxis"]="ptyxis -e $cmd"
+    ["ptyxis"]="ptyxis -- $cmd"
 )
 declare -a term_order=(
     "alacritty"
@@ -82,27 +84,63 @@ declare -a term_order=(
 
 )
 
-if [ -z "$terminal" ] || ! command -v "$terminal" &>/dev/null; then
-    for entry in "${term_order[@]}"; do
-        if command -v "$entry" >/dev/null 2>&1; then
-            # gnome-console does not exit on command completion so we need to kill
-            # it manually
-            [[ "$entry" == "kgx" ]] && echo "kill -SIGQUIT \$PPID 2>/dev/null" >> "$file"
-            terminal="$entry"
-            break
-        fi
-    done
+# 1. $TERMINAL must come first (per invariants)
+if [ -n "$TERMINAL" ] && [[ -n "${terminals[$TERMINAL]+_}" ]] && command -v "$TERMINAL" &>/dev/null; then
+    terminal="$TERMINAL"
 fi
 
-if [ -z "$terminal" ]; then
+# Ordered candidates: $TERMINAL first, then the known terminals that are
+# installed. Launch failures fall through to the next candidate.
+declare -a candidates=()
+if [ -n "$terminal" ]; then
+    candidates+=("$terminal")
+fi
+for entry in "${term_order[@]}"; do
+    [[ "$entry" == "$terminal" ]] && continue
+    command -v "$entry" >/dev/null 2>&1 && candidates+=("$entry")
+done
+
+if [ ${#candidates[@]} -eq 0 ]; then
+    rm "$file"
     notify-send -t 1500 --app-name=CachyOS "No terminal installed" "Could not find a terminal emulator. Please install one."
     exit 1
 fi
 
-eval "${terminals[${terminal}]}" 2>/dev/null || {
-    if [[ "$terminal" != "kgx" ]]; then
+failed=1
+for entry in "${candidates[@]}"; do
+    # Rewrite the script file so a failed attempt doesn't leave terminal
+    # specific lines (e.g. the kgx kill) behind for the next candidate.
+    echo "$1" >"$file" || {
         rm "$file"
-        exit 2
+        exit 1
+    }
+    if [[ "$entry" == "kgx" ]]; then
+        # gnome-console does not exit on command completion so we need to kill
+        # it manually
+        echo '(( PPID > 1 )) && kill -SIGQUIT $PPID 2>/dev/null' >>"$file"
     fi
-}
+    # Normalize the shell exit status: some terminals (foot, st) propagate
+    # it, and a failed command must not be mistaken for a failed launch.
+    echo 'exit 0' >>"$file"
+
+    eval "${terminals[$entry]}" 2>/dev/null
+    rc=$?
+    # kgx is killed by the line above after the command completes, which
+    # shows up as exit status 131; treat that as a successful launch.
+    if [[ $rc -eq 0 ]] || { [[ "$entry" == "kgx" ]] && [[ $rc -eq 131 ]]; }; then
+        failed=0
+        break
+    fi
+    # 126/127 mean the command was canceled or not authorized (e.g. the user
+    # dismissed the pkexec prompt) — retrying would just prompt again.
+    if [[ $rc -eq 126 ]] || [[ $rc -eq 127 ]]; then
+        break
+    fi
+done
+
 rm "$file"
+
+if ((failed)); then
+    notify-send -t 1500 --app-name=CachyOS "Failed to launch terminal" "Could not start a terminal emulator to run the command."
+    exit 2
+fi
