@@ -14,7 +14,6 @@ gaming-package-installed = I pacchetti Gaming sono già installati!
 winboat-package-installed = I pacchetti Winboat sono già installati!
 vram-management-package-installed = I pacchetti VRAM management sono già installati!
 
-
 # Troubleshooting page
 troubleshooting = Risoluzione dei problemi
 
@@ -25,6 +24,12 @@ select-dns-server = Seleziona server DNS:
 apply = Applica
 reset = Reimposta
 enable-encrypted-dns = Abilita DNS su {$protocol} ({$abbr})
+dns-type-label = Tipo DNS:
+dns-type-tooltip = Scegli come vengono trasportate le query DNS. Le modalità crittografate (DoT/DoH/DoQ) richiedono il supporto del server; DoH e DoQ installano e utilizzano il proxy locale blocky.
+dns-type-plain = In chiaro (non crittografato)
+dns-type-dot = DNS su TLS (DoT)
+dns-type-doh = DNS su HTTPS (DoH)
+dns-type-doq = DNS su QUIC (DoQ)
 blocky-install-failed = Errore durante l'installazione di blocky per il supporto {$mode}!
 test-latency = Test latenza del server selezionato
 test-latency-tooltip = Misura la latenza di rete verso il server DNS selezionato
@@ -47,6 +52,7 @@ custom-dns-doq-endpoint = Endpoint DoQ (per DNS su QUIC):
 custom-dns-doq-endpoint-required = Per favore inserisci un endpoint DoQ valido che inizia con quic: o quic://
 dns-check-hint = Dopo l'applicazione, verifica il tuo provider DNS su {$dnscheck_url}
 dns-server-changed = Il server DNS è stato cambiato con successo!
+dns-server-pending = Il server DNS è stato salvato. Riconnetti la rete (o disattivala e riattivala) affinché la modifica abbia effetto.
 dns-server-failed = Impostazione del server DNS non riuscita!
 dns-server-reset = Il server DNS è stato reimpostato!
 dns-server-reset-failed = Reimpostazione del server DNS non riuscita!
