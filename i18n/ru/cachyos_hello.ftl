@@ -14,6 +14,8 @@ gaming-package-installed = Игровые пакеты уже установле
 winboat-package-installed = Пакеты Winboat уже установлены!
 vram-management-package-installed = Пакеты управления VRAM уже установлены!
 
+# Troubleshooting page
+troubleshooting = Диагностика
 
 # Dns Connections page
 dns-settings = Настройки DNS
@@ -22,6 +24,12 @@ select-dns-server = Выберите DNS сервер:
 apply = Применить
 reset = Сбросить
 enable-encrypted-dns = Включить DNS через {$protocol} ({$abbr})
+dns-type-label = Тип DNS:
+dns-type-tooltip = Выберите способ передачи DNS-запросов. Зашифрованные типы (DoT/DoH/DoQ) требуют поддержки сервера; DoH и DoQ устанавливают и используют локальный прокси blocky.
+dns-type-plain = Обычный (незашифрованный)
+dns-type-dot = DNS через TLS (DoT)
+dns-type-doh = DNS через HTTPS (DoH)
+dns-type-doq = DNS через QUIC (DoQ)
 blocky-install-failed = Не удалось установить blocky для поддержки {$mode}!
 test-latency = Тест задержки выбранного сервера
 test-latency-tooltip = Измерить сетевую задержку до выбранного DNS-сервера
@@ -40,8 +48,11 @@ custom-dns-invalid = Пожалуйста, введите хотя бы один
 custom-dns-invalid-hostname = Неверное имя хоста DoT
 custom-dns-doh-url = URL DoH (для DNS через HTTPS):
 custom-dns-doh-url-required = Пожалуйста, введите корректный URL DoH, начинающийся с https://
+custom-dns-doq-endpoint = Конечная точка DoQ (для DNS через QUIC):
+custom-dns-doq-endpoint-required = Пожалуйста, введите корректную конечную точку DoQ, начинающуюся с quic: или quic://
 dns-check-hint = После применения проверьте вашего DNS-провайдера на {$dnscheck_url}
 dns-server-changed = DNS-сервер был успешно изменен!
+dns-server-pending = DNS-сервер сохранён. Переподключите сеть (или выключите и включите её) для применения изменений.
 dns-server-failed = Не удалось настроить DNS-сервер!
 dns-server-reset = DNS-сервер был сброшен!
 dns-server-reset-failed = Не удалось сбросить DNS-сервер!
@@ -56,7 +67,6 @@ tweak-bluetooth-tooltip = Включить поддержку беспровод
 tweak-ananicycpp-tooltip = Автоматически регулировать приоритеты процессов для улучшения отзывчивости системы
 tweak-cachyupdate-tooltip = Уведомитель обновлений в трее
 
-
 # Tweaks page (fixes)
 remove-lock-title = Удалить файл блокировки БД pacman
 reinstall-title = Переустановить все пакеты
@@ -70,8 +80,7 @@ show-kwinw-debug-title = Показать окно отладки KWin для Wa
 install-gaming-title = Установить пакеты для игр
 install-winboat-title = Установить Winboat
 install-vram-management-title = Установить пакеты управления VRAM
-install-vram-management-tooltip = Приоритизировать VRAM для активного приложения, чтобы драйвер GPU не переносил буферы в системную ОЗУ (GTT).
-
+install-vram-management-tooltip = Приоритизировать видеопамять для активного приложения, чтобы драйвер ГП не переносил буферы в системную ОЗУ (GTT).
 
 # Main Page (buttons)
 button-about-tooltip = О программе
@@ -93,7 +102,7 @@ section-support = ПОДДЕРЖКА
 section-project = ПРОЕКТ
 
 # Main Page (launch installer)
-calamares-install-type = Calamares тип установки
+calamares-install-type = Тип установки Calamares
 
 # Main Page (body)
 offline-error = Не удается запустить онлайн-установку! Нет подключения к Интернету
@@ -101,11 +110,12 @@ unsupported-hw-warning = Вы пытаетесь установить систе
 desktop-on-handheld-error = Вы пытаетесь установить редакцию Desktop на портативном устройстве. Пожалуйста, используйте редакцию Handheld для надлежащей поддержки на этом оборудовании
 outdated-version-warning = Вы используете устаревшую версию CachyOS ISO, пожалуйста, рассмотрите возможность использования последней версии для установки
 testing-iso-warning = Вы используете тестовую версию ISO, тестовые версии ISO не считаются стабильными и готовыми к использованию
-tweaksbrowser-label = Приложения/Настройки
+tweaksbrowser-label = Приложения и настройки
 appbrowser-label = Установить ПO
+troubleshooting-label = Диагностика
 launch-start-label = Автозапуск
 welcome-title = Добро пожаловать в CachyOS!
 welcome-body =
     Благодарим Вас за то, что Вы присоединились к нашему сообществу!
 
-    Мы, разработчики CachyOS, надеемся, что пользуясь этой системой, Вы будете испытывать такое же удовольствие, какое испытывали мы, создавая ее. Представленные ниже ссылки помогут Вам начать работу. Наслаждайтесь функционалом CachyOS и оставляйте свои отзывы.
+    Мы, разработчики CachyOS, надеемся, что пользуясь этой системой, Вы будете испытывать такое же удовольствие, какое испытывали мы, создавая её. Представленные ниже ссылки помогут Вам начать работу. Наслаждайтесь функционалом CachyOS и оставляйте свои отзывы.
