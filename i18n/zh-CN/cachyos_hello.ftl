@@ -8,8 +8,8 @@ fixes = 修复
 applications = 应用程序
 removed-db-lock = Pacman 数据库锁已被移除！
 lock-doesnt-exist = Pacman 数据库锁不存在！
-orphans-not-found = 没有发现孤立软件包！
-package-not-installed = 软件包 '{$package_name}' 没有被安装！
+orphans-not-found = 未发现孤立软件包！
+package-not-installed = 软件包 '{$package_name}' 未被安装！
 gaming-package-installed = 游戏软件包已经安装！
 winboat-package-installed = Winboat 已经安装！
 vram-management-package-installed = VRAM 管理软件包已经安装！
@@ -60,16 +60,16 @@ custom-dns-doq-endpoint-required = 请输入一个有效的，以 quic: 或 quic
 dns-check-hint = 应用后，在这里验证您的 DNS 提供商 {$dnscheck_url}
 dns-server-changed = DNS 服务器已成功修改！
 dns-server-failed = 无法设置 DNS 服务器！
-dns-server-reset = DNS 服务器已经重置！
+dns-server-reset = DNS 服务器已重置！
 dns-server-reset-failed = 无法重置 DNS 服务器！
 winboat-install-failed = 无法安装 Winboat!
 
 # Tweaks page (tweaks)
 tweak-enabled-title = 启用 {$tweak}
-tweak-psd-tooltip = 使用 RAM 来存放浏览器配置文件（更快，且磁盘磨损更少）
+tweak-psd-tooltip = 使用 RAM 来存放浏览器配置文件（更快，磁盘磨损更少）
 tweak-oomd-tooltip = 在内存不足时主动终止进程，以防止系统冻结。
 tweak-bpftune-tooltip = 自动调优系统网络
-tweak-bluetooth-tooltip = 启用对于蓝牙设备的支持（鼠标，音频设备及更多）
+tweak-bluetooth-tooltip = 启用对蓝牙设备的支持（鼠标，音频设备及更多）
 tweak-ananicycpp-tooltip = 自动调整进程优先级以提升系统响应能力
 tweak-cachyupdate-tooltip = 托盘上的更新提示
 
@@ -80,13 +80,13 @@ reset-keyrings-title = 重置密钥环
 update-system-title = 系统更新
 remove-orphans-title = 移除孤立软件包
 clear-pkgcache-title = 清除软件包缓存
-rankmirrors-title = 测速并优化 Pacman 镜像
+rankmirrors-title = 排序镜像服务器
 dnsserver-title = 更改 DNS 服务器
 show-kwinw-debug-title = 显示 kwin(Wayland) 调试控制台
 install-gaming-title = 安装游戏软件包
 install-winboat-title = 安装 Winboat
-install-vram-management-title = 安装显存（VRAM）管理功能
-install-vram-management-tooltip = 将显存优先分配给前台应用程序，使 GPU 驱动避免将缓冲区外溢到系统内存（GTT）中。
+install-vram-management-title = 安装 VRAM 管理功能
+install-vram-management-tooltip = 将 VRAM 优先分配给前台程序，防止 GPU 驱动将缓冲区外溢到系统内存（GTT）中。
 
 # Main Page (buttons)
 button-about-tooltip = 关于
@@ -113,16 +113,16 @@ calamares-install-type = Calamares 安装类型
 
 # Main Page (body)
 offline-error = 无法开始在线安装！无网络连接
-unsupported-hw-warning = 您正尝试安装在当前 ISO 不支持的硬件上，您的安装将不会被合法地支持
+unsupported-hw-warning = 您正尝试安装在当前 ISO 不支持的硬件上，您的安装将不被合法支持
 desktop-on-handheld-error = 您正尝试在手持设备上安装桌面版。请使用手持版（Handheld Edition）以获得与此硬件的良好兼容性。
-outdated-version-warning = 您正使用 CachyOS 的旧版 ISO，请考虑使用最新版安装
-testing-iso-warning = 您正使用测试版的 ISO，它尚未稳定，不建议日常使用
+outdated-version-warning = 您正使用 CachyOS 的旧版 ISO，请考虑安装最新版
+testing-iso-warning = 您正使用测试版 ISO，它的稳定性未得到保证，不建议日常使用
 tweaksbrowser-label = 应用/调整
 appbrowser-label = 安装应用
 troubleshooting-label = 疑难解答
-launch-start-label = 在启动时打开
+launch-start-label = 开机自启动
 welcome-title = 欢迎使用 CachyOS！
 welcome-body =
     欢迎您加入我们的社区！
 
-    我们是 CachyOS 的开发者，希望您能像我们开发一样愉快地使用 CachyOS！下方的链接将帮助您开始探索您的新操作系统，请尽管享受您的体验，如果您有任何的反馈或意见，不用犹豫！发送给我们！
+    我们是 CachyOS 的开发者，希望您能像我们开发 CachyOS 一样愉快地使用它！下面的链接将帮助您探索您的新操作系统，请尽情享受您的体验，如果您有任何的反馈或意见，不用犹豫！发送给我们！
