@@ -23,6 +23,17 @@ fn update_translation_button_section(
                 let box_element_btn = button_box_widget.downcast::<gtk::Button>().unwrap();
                 let widget_name = box_element_btn.widget_name();
                 box_element_btn.set_label(&button_label(&widget_name));
+                // "<id>-title" buttons with a tooltip have it under "<id>-tooltip".
+                if box_element_btn.tooltip_text().is_some()
+                    && let Some(id) = widget_name.strip_suffix("-title")
+                {
+                    let tooltip_id = format!("{id}-tooltip");
+                    if crate::localization::LANGUAGE_LOADER.has(&tooltip_id) {
+                        box_element_btn.set_tooltip_text(Some(
+                            &crate::localization::get_locale_text(&tooltip_id),
+                        ));
+                    }
+                }
             }
         } else if let Some(section_label) = section_box_element.downcast_ref::<gtk::Label>() {
             section_label.set_text(section_title);

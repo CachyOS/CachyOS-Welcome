@@ -16,6 +16,7 @@ mod logger;
 mod networkmanager;
 mod pages;
 mod systemd_units;
+mod tsc_fix;
 mod tweak;
 mod ui;
 mod utils;
