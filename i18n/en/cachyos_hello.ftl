@@ -81,6 +81,10 @@ install-gaming-title = Install Gaming packages
 install-winboat-title = Install Winboat
 install-vram-management-title = Install VRAM Management
 install-vram-management-tooltip = Prioritize VRAM for the foreground application so the GPU driver avoids spilling buffers into system RAM (GTT).
+fix-tsc-warp-title = Fix slow system clock (TSC)
+fix-tsc-warp-tooltip = This boot's log shows cores starting out of sync, so Linux fell back to the much slower HPET clock. Opens a terminal that adds tsc=directsync to the kernel command line and regenerates your bootloader config; review the commands before they run. Takes effect after a reboot — if the clock is still on hpet afterwards, update your linux-cachyos package and try again.
+revert-tsc-warp-title = Undo system clock fix (TSC)
+revert-tsc-warp-tooltip = Opens a terminal that removes tsc=directsync from the kernel command line and regenerates your bootloader config. Takes effect after a reboot.
 
 # Main Page (buttons)
 button-about-tooltip = About

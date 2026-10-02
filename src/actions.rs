@@ -2,14 +2,14 @@ use crate::networkmanager::{self, DnsMods, NmDnsOverTls};
 use crate::systemd_units::Scope;
 use crate::tweak::{self, TweakName};
 use crate::ui::{Action, DialogMessage, MessageType, RunCmdCallback};
-use crate::{PacmanWrapper, dns, fl, kwin_dbus, systemd_units, utils};
+use crate::{PacmanWrapper, dns, fl, kwin_dbus, systemd_units, tsc_fix, utils};
 
 use std::path::Path;
 use std::time::Duration;
 use std::{env, io, thread};
 
 use async_channel::Sender;
-use tracing::error;
+use tracing::{debug, error};
 
 fn split_dns_addrs(addrs: &str) -> Vec<String> {
     addrs.split(',').filter(|s| !s.is_empty()).map(String::from).collect()
@@ -135,6 +135,27 @@ pub fn launch_kwin_debug_window() {
     if let Err(kwin_err) = kwin_dbus::launch_kwin_debug_window() {
         error!("Failed to launch kwin debug window: {kwin_err}");
     }
+}
+
+/// Adds `tsc=directsync` to the kernel command line, in a visible terminal
+/// since it edits the boot configuration.
+pub fn apply_tsc_directsync(callback: RunCmdCallback) -> bool {
+    let Some(bootloader) = tsc_fix::detect_bootloader() else {
+        error!("apply_tsc_directsync called with no supported bootloader detected");
+        return false;
+    };
+    debug!("Applying tsc=directsync via {}", bootloader.name());
+    utils::run_cmd_terminal(callback, tsc_fix::apply_commands(bootloader), true)
+}
+
+/// Undoes [`apply_tsc_directsync`].
+pub fn revert_tsc_directsync(callback: RunCmdCallback) -> bool {
+    let Some(bootloader) = tsc_fix::detect_bootloader() else {
+        error!("revert_tsc_directsync called with no supported bootloader detected");
+        return false;
+    };
+    debug!("Reverting tsc=directsync via {}", bootloader.name());
+    utils::run_cmd_terminal(callback, tsc_fix::revert_commands(bootloader), true)
 }
 
 pub fn change_dns_server(

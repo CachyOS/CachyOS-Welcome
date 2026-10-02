@@ -3,7 +3,7 @@ pub mod i18n;
 mod tweaks;
 
 use crate::ui::{Action, UI};
-use crate::{actions, fl, systemd_units, utils};
+use crate::{actions, fl, systemd_units, tsc_fix, utils};
 
 use std::path::Path;
 use std::str;
@@ -246,10 +246,38 @@ fn create_troubleshooting_section() -> gtk::Box {
         button_box_t.pack_end(&kwinw_debug_btn, true, true, 2);
     }
 
+    // TSC fix/undo gets a row of its own.
+    let button_box_tsc = gtk::Box::new(gtk::Orientation::Horizontal, 10);
+    if tsc_fix::is_applied() {
+        let tsc_revert_btn = create_gtk_button!("revert-tsc-warp-title");
+        tsc_revert_btn.set_tooltip_text(Some(&fl!("revert-tsc-warp-tooltip")));
+        tsc_revert_btn.connect_clicked(move |_| {
+            std::thread::spawn(move || {
+                actions::revert_tsc_directsync(crate::gui::run_command);
+            });
+        });
+        button_box_tsc.pack_start(&tsc_revert_btn, true, true, 2);
+    } else if tsc_fix::is_affected() || tsc_fix::is_active() {
+        // is_active(): undone but not rebooted yet, so no warp to detect.
+        let tsc_fix_btn = create_gtk_button!("fix-tsc-warp-title");
+        tsc_fix_btn.set_tooltip_text(Some(&fl!("fix-tsc-warp-tooltip")));
+        tsc_fix_btn.connect_clicked(move |_| {
+            std::thread::spawn(move || {
+                actions::apply_tsc_directsync(crate::gui::run_command);
+            });
+        });
+        button_box_tsc.pack_start(&tsc_fix_btn, true, true, 2);
+    }
+
     button_box_f.set_halign(gtk::Align::Fill);
     button_box_s.set_halign(gtk::Align::Fill);
     button_box_t.set_halign(gtk::Align::Fill);
 
+    // pack_end stacks bottom-up, so this lands below button_box_t.
+    if !button_box_tsc.children().is_empty() {
+        button_box_tsc.set_halign(gtk::Align::Fill);
+        topbox.pack_end(&button_box_tsc, true, true, 5);
+    }
     topbox.pack_end(&button_box_t, true, true, 5);
     topbox.pack_end(&button_box_s, true, true, 5);
     topbox.pack_end(&button_box_f, true, true, 5);
