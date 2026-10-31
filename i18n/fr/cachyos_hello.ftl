@@ -14,18 +14,22 @@ gaming-package-installed = Les paquets de jeux sont déjà installés !
 winboat-package-installed = Les paquets Winboat sont déjà installés !
 vram-management-package-installed = Les paquets de gestion de la mémoire vidéo (VRAM) sont déjà installés !
 
-# Page du navigateur d'applications
-
 # Page de dépannage
 troubleshooting = Dépannage
 
 # Page « Connexions DNS »
 dns-settings = Paramètres DNS
 select-connection = Sélectionner une connexion :
-select-dns-server = Selectionner un serveur DNS :
+select-dns-server = Sélectionner un serveur DNS :
 apply = Appliquer
 reset = Réinitialiser
 enable-encrypted-dns = Activer le DNS sur {$protocol} ({$abbr})
+dns-type-label = Type de DNS :
+dns-type-tooltip = Choisissez le mode de transmission des requêtes DNS. Les protocoles chiffrés (DoT/DoH/DoQ) nécessitent la prise en charge du serveur ; DoH et DoQ installent et utilisent le proxy local blocky.
+dns-type-plain = En clair (non chiffré)
+dns-type-dot = DNS sur TLS (DoT)
+dns-type-doh = DNS sur HTTPS (DoH)
+dns-type-doq = DNS sur QUIC (DoQ)
 blocky-install-failed = Échec de l'installation de blocky pour le support {$mode} !
 test-latency = Tester la latence du serveur sélectionné
 test-latency-tooltip = Mesurer la latence réseau vers le serveur DNS sélectionné
@@ -48,6 +52,7 @@ custom-dns-doq-endpoint = Point de terminaison DoQ (pour DNS sur QUIC) :
 custom-dns-doq-endpoint-required = Veuillez saisir un point de terminaison DoQ valide commençant par quic: ou quic://
 dns-check-hint = Après application, vérifiez votre fournisseur DNS sur {$dnscheck_url}
 dns-server-changed = Le serveur DNS a été modifié avec succès !
+dns-server-pending = Serveur DNS enregistré. Reconnectez le réseau (ou désactivez-le puis réactivez-le) pour que le changement prenne effet.
 dns-server-failed = Échec de la modification du serveur DNS !
 dns-server-reset = Le serveur DNS a été réinitialisé !
 dns-server-reset-failed = Échec de la réinitialisation du serveur DNS !
@@ -60,7 +65,7 @@ tweak-oomd-tooltip = Tuer proactivement les processus en cas de mémoire insuffi
 tweak-bpftune-tooltip = Régler automatiquement le réseau système
 tweak-bluetooth-tooltip = Activer la prise en charge des appareils sans fil Bluetooth (souris, audio, etc.)
 tweak-ananicycpp-tooltip = Ajuster automatiquement la priorité des processus pour améliorer la réactivité du système
-tweak-cachyupdate-tooltip = Notifie les mises à jour dans la zone de notification
+tweak-cachyupdate-tooltip = Notifier les mises à jour dans la zone de notification
 
 # Page des modifications (corrections)
 remove-lock-title = Supprimer le verrou de la base de données
@@ -97,7 +102,7 @@ section-support = SUPPORT
 section-project = PROJET
 
 # Page principale (programme d'installation)
-calamares-install-type = Type d'installion Calamares
+calamares-install-type = Type d'installation Calamares
 
 # Page principale (corps)
 offline-error = Impossible de démarrer l'installation en ligne ! Pas de connexion internet
@@ -107,9 +112,10 @@ outdated-version-warning = Vous utilisez une ancienne version de l'ISO de CachyO
 testing-iso-warning = Vous utilisez une ISO de test, les ISOs de test ne sont pas considérées comme stables ni prêtes à l'emploi.
 tweaksbrowser-label = Applications/Modifications
 appbrowser-label = Installer des Applications
+troubleshooting-label = Dépannage
 launch-start-label = Lancer au démarrage
 welcome-title = Bienvenue sur CachyOS !
 welcome-body =
     Merci de rejoindre notre communauté !
 
-    Nous, les développeurs de CachyOS, espérons que vous aimerez autant CachyOS que nous avons aimé à le développer. Les liens ci-dessous vous aiderons à prendre en main votre nouveau système d\'exploitation. Profitez donc de l\'expérience, et n'hésitez pas à nous envoyer vos retours.
+    Nous, les développeurs de CachyOS, espérons que vous aimerez autant CachyOS que nous avons aimé le développer. Les liens ci-dessous vous aiderons à prendre en main votre nouveau système d\'exploitation. Profitez donc de l\'expérience, et n'hésitez pas à nous envoyer vos retours.
