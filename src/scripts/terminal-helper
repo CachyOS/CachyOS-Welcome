@@ -13,8 +13,13 @@
 # 2. Distribution-specific mechanisms come next, e.g. x-terminal-emulator
 # 3. The terminal emulator with best accessibility comes first.
 # 4. No order is guaranteed/desired for the remaining terminal emulators.
+#
+# Exit status:
+# 0 the command finished
+# 1 no terminal emulator was found
+# 2 no terminal emulator could be started
+# 3 a terminal was started, but the command did not run or did not finish
 
-set -e
 LAUNCHER_CMD=bash
 
 usage() {
@@ -40,28 +45,43 @@ done
 # OPTIND is a global variable
 shift $((OPTIND - 1))
 
-file="$(mktemp)"
-echo "$1" >"$file"
+dir="$(mktemp -d)" || exit 1
+trap 'rm -rf -- "$dir"' EXIT
+
+# The command reports when it starts and when it finished, so this process can
+# wait for terminals that hand the command to an already running instance
+# (konsole without --nofork, lxterminal, kgx, ...) and return immediately,
+# long before the command is even read.
+file="$dir/command"
+started="$dir/started"
+finished="$dir/finished"
 cmd="${LAUNCHER_CMD} \"$file\""
-echo "$cmd"
+printf '%s\n' "$cmd"
+
+notify() {
+    command -v notify-send >/dev/null &&
+        notify-send -t 1500 --app-name=CachyOS "$1" "$2"
+}
 
 terminal=""
 declare -A terminals=(
     ["alacritty"]="alacritty -e $cmd || LIBGL_ALWAYS_SOFTWARE=1 alacritty -e $cmd"
     ["foot"]="foot $cmd"
     ["ghostty"]="ghostty -e $cmd"
+    # --wait is declared but never read by gnome-console, so it does not
+    # actually wait; the script quits the terminal itself (see below).
     ["kgx"]="kgx --wait -e $cmd"
     ["gnome-terminal"]="gnome-terminal --wait -- $cmd"
-    ["kitty"]="kitty $cmd"
+    ["kitty"]="kitty --wait-for-single-instance-window-close $cmd"
     ["wezterm"]="wezterm start --always-new-process $cmd"
-    ["konsole"]="konsole -e $cmd"
-    ["lxterminal"]="lxterminal -e $cmd"
+    ["konsole"]="konsole --nofork -e $cmd"
+    ["lxterminal"]="lxterminal --no-remote -e $cmd"
     ["rio"]="rio -e $cmd"
     ["st"]="st $cmd"
     ["terminator"]="terminator -x $cmd"
     ["xfce4-terminal"]="xfce4-terminal --disable-server --command '$cmd'"
     ["xterm"]="xterm -e $cmd"
-    ["ptyxis"]="ptyxis -e $cmd"
+    ["ptyxis"]="ptyxis -- $cmd"
 )
 declare -a term_order=(
     "alacritty"
@@ -82,27 +102,101 @@ declare -a term_order=(
 
 )
 
-if [ -z "$terminal" ] || ! command -v "$terminal" &>/dev/null; then
-    for entry in "${term_order[@]}"; do
-        if command -v "$entry" >/dev/null 2>&1; then
-            # gnome-console does not exit on command completion so we need to kill
-            # it manually
-            [[ "$entry" == "kgx" ]] && echo "kill -SIGQUIT \$PPID 2>/dev/null" >> "$file"
-            terminal="$entry"
-            break
-        fi
-    done
+# 1. $TERMINAL must come first (per invariants). Only honor it when it is one
+# of the terminals below, which guarantees the correct invocation syntax.
+if [ -n "$TERMINAL" ]; then
+    preferred="${TERMINAL##*/}"
+    if [[ -n "${terminals[$preferred]+_}" ]] && command -v "$preferred" &>/dev/null; then
+        terminal="$preferred"
+    fi
 fi
 
-if [ -z "$terminal" ]; then
-    notify-send -t 1500 --app-name=CachyOS "No terminal installed" "Could not find a terminal emulator. Please install one."
+# Ordered candidates: $TERMINAL first, then the known terminals that are
+# installed. Launch failures fall through to the next candidate.
+declare -a candidates=()
+if [ -n "$terminal" ]; then
+    candidates+=("$terminal")
+fi
+for entry in "${term_order[@]}"; do
+    [[ "$entry" == "$terminal" ]] && continue
+    command -v "$entry" >/dev/null 2>&1 && candidates+=("$entry")
+done
+
+if [ ${#candidates[@]} -eq 0 ]; then
+    notify "No terminal installed" "Could not find a terminal emulator. Please install one."
     exit 1
 fi
 
-eval "${terminals[${terminal}]}" 2>/dev/null || {
-    if [[ "$terminal" != "kgx" ]]; then
-        rm "$file"
-        exit 2
+failed=1
+for entry in "${candidates[@]}"; do
+    # Rewrite the command so a failed attempt doesn't leave terminal specific
+    # lines (e.g. the kgx kill) behind for the next candidate.
+    {
+        printf '%s\n' "echo \$\$ >\"$started\""
+        printf '%s\n' "$1"
+        printf '%s\n' ": >\"$finished\""
+        if [[ "$entry" == "kgx" ]]; then
+            # gnome-console does not exit on command completion so we need to
+            # kill it manually. Only a process that really is kgx may be
+            # signalled: when the command was handed to a running instance it
+            # is orphaned, and its parent is then an arbitrary ancestor
+            # (usually the user systemd manager), so killing $PPID would take
+            # the session down with it.
+            printf '%s\n' 'pid=$PPID'
+            printf '%s\n' 'while (( pid > 1 )); do'
+            printf '%s\n' '    [[ $(ps -o comm= -p "$pid" 2>/dev/null) == kgx ]] && { kill -SIGQUIT "$pid"; break; }'
+            printf '%s\n' '    pid=$(ps -o ppid= -p "$pid" 2>/dev/null)'
+            printf '%s\n' '    [[ -n $pid ]] || break'
+            printf '%s\n' 'done'
+        fi
+        # Normalize the shell exit status: some terminals (foot, st) propagate
+        # it, and a failed command must not be mistaken for a failed launch.
+        printf '%s\n' 'exit 0'
+    } >"$file" || exit 1
+
+    eval "${terminals[$entry]}" 2>/dev/null
+    rc=$?
+
+    # The command finished: the status the terminal itself exited with does not
+    # matter (it is the command's status for foot and st, and 131 for kgx).
+    if [[ -e "$finished" ]]; then
+        failed=0
+        break
     fi
-}
-rm "$file"
+    # 126/127 mean the command was canceled or not authorized (e.g. the user
+    # dismissed the pkexec prompt) — retrying would just prompt again.
+    if [[ $rc -eq 126 ]] || [[ $rc -eq 127 ]]; then
+        notify "Command canceled" "The command was not started."
+        exit 3
+    fi
+    # Nothing has run yet. Give a terminal that returned early a moment to
+    # actually start the command; a failed launch is retried sooner.
+    ticks=150
+    [[ $rc -ne 0 ]] && ticks=20
+    for ((tick = 0; tick < ticks; tick++)); do
+        [[ -s "$started" ]] && break
+        sleep 0.1
+    done
+    if [[ ! -s "$started" ]]; then
+        [[ $rc -ne 0 ]] && continue
+        notify "Command not started" "The terminal did not run the command."
+        exit 3
+    fi
+    # ... and then wait for it to finish, so callers can rely on this process
+    # exiting only once the command is done.
+    read -r command_pid <"$started"
+    while [[ ! -e "$finished" ]] && [[ -d "/proc/$command_pid" ]]; do
+        sleep 0.2
+    done
+    if [[ ! -e "$finished" ]]; then
+        notify "Command did not finish" "The terminal was closed before the command finished."
+        exit 3
+    fi
+    failed=0
+    break
+done
+
+if ((failed)); then
+    notify "Failed to launch terminal" "Could not start a terminal emulator to run the command."
+    exit 2
+fi
