@@ -7,7 +7,9 @@ helper="$repo_dir/src/scripts/terminal-helper"
 rootshell="$repo_dir/src/scripts/rootshell.sh"
 test_dir="$(mktemp -d)"
 fake_bin="$test_dir/bin"
+no_terminal_bin="$test_dir/no-terminal-bin"
 mkdir -p "$fake_bin"
+mkdir -p "$no_terminal_bin"
 
 cleanup() {
     rm -rf -- "$test_dir"
@@ -45,9 +47,16 @@ EOF
 chmod 755 "$fake_bin/mktemp" "$fake_bin/kgx" "$fake_bin/pkexec"
 ln -s /usr/bin/bash "$fake_bin/bash"
 ln -s /usr/bin/rm "$fake_bin/rm"
+ln -s "$fake_bin/mktemp" "$no_terminal_bin/mktemp"
+ln -s /usr/bin/bash "$no_terminal_bin/bash"
+ln -s /usr/bin/rm "$no_terminal_bin/rm"
 
 run_with_fakes() {
     TEST_DIR="$test_dir" PATH="$fake_bin" "$@"
+}
+
+run_without_terminals() {
+    TEST_DIR="$test_dir" PATH="$no_terminal_bin" "$@"
 }
 
 assert_script_exists() {
@@ -63,12 +72,14 @@ script="$(assert_script_exists)"
 bash "$script"
 [[ "$(<"$marker")" == direct-marker ]]
 [[ ! -e "$script" ]]
+[[ ! -e "$script.started" ]]
 
 run_with_fakes "$helper" -s "pkexec $rootshell" "printf '%s\\n' pkexec-marker > '$marker'"
 script="$(assert_script_exists)"
 run_with_fakes pkexec "$rootshell" "$script"
 [[ "$(<"$marker")" == pkexec-marker ]]
 [[ ! -e "$script" ]]
+[[ ! -e "$script.started" ]]
 [[ "$(sed -n '1p' "$test_dir/pkexec-args")" == "$rootshell" ]]
 
 run_with_fakes "$helper" "false; exit 7"
@@ -78,6 +89,7 @@ if bash "$script"; then
     exit 1
 fi
 [[ ! -e "$script" ]]
+[[ ! -e "$script.started" ]]
 
 launch_marker="$test_dir/launch-marker"
 touch "$test_dir/kgx-fails"
@@ -87,6 +99,18 @@ if run_with_fakes "$helper" "printf '%s\\n' should-not-run > '$launch_marker'"; 
 fi
 script="$(<"$test_dir/script-path")"
 [[ ! -e "$script" ]]
+[[ ! -e "$script.started" ]]
 [[ ! -e "$launch_marker" ]]
+
+if run_without_terminals "$helper" "printf '%s\\n' should-not-run > '$launch_marker'"; then
+    echo "expected missing terminal failure" >&2
+    exit 1
+else
+    status=$?
+fi
+[[ "$status" == 1 ]]
+script="$(<"$test_dir/mktemp-path")"
+[[ ! -e "$script" ]]
+[[ ! -e "$script.started" ]]
 
 echo "terminal-helper regression tests passed"
