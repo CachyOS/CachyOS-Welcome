@@ -41,7 +41,21 @@ done
 shift $((OPTIND - 1))
 
 file="$(mktemp)"
-echo "$1" >"$file"
+started="${file}.started"
+cleanup_parent=1
+cleanup_temp_files() {
+    if [[ "$cleanup_parent" == 1 ]]; then
+        rm -f -- "$file" "$started"
+    fi
+}
+trap cleanup_temp_files EXIT
+
+{
+    printf 'started=%q\n' "$started"
+    printf '%s\n' 'trap '\''status=$?; rm -f -- "$0" "$started"; exit "$status"'\'' EXIT'
+    printf '%s\n' 'printf "%s\n" "$$" > "$started"'
+    printf '%s\n' "$1"
+} >"$file"
 cmd="${LAUNCHER_CMD} \"$file\""
 echo "$cmd"
 
@@ -95,14 +109,18 @@ if [ -z "$terminal" ] || ! command -v "$terminal" &>/dev/null; then
 fi
 
 if [ -z "$terminal" ]; then
-    notify-send -t 1500 --app-name=CachyOS "No terminal installed" "Could not find a terminal emulator. Please install one."
+    if command -v notify-send >/dev/null 2>&1; then
+        notify-send -t 1500 --app-name=CachyOS "No terminal installed" "Could not find a terminal emulator. Please install one." || true
+    fi
     exit 1
 fi
 
-eval "${terminals[${terminal}]}" 2>/dev/null || {
-    if [[ "$terminal" != "kgx" ]]; then
-        rm "$file"
-        exit 2
-    fi
-}
-rm "$file"
+if eval "${terminals[${terminal}]}" 2>/dev/null; then
+    # A terminal may return before its shell (or pkexec) has opened the file.
+    # Once the launch request was accepted, the generated script owns cleanup.
+    cleanup_parent=0
+else
+    # If the command already started, let its EXIT trap remove the files.
+    [[ -e "$started" ]] && cleanup_parent=0
+    exit 2
+fi
