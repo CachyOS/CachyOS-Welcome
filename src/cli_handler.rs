@@ -57,6 +57,10 @@ pub fn handle_fix_command(action: FixAction) -> Result<()> {
             println!("{}", "Installing VRAM management packages...".bold());
             actions::install_vram_management(crate::cli::run_command, tx);
         },
+        FixAction::SetupEac => {
+            println!("{}", "Setting up Easy Anti-Cheat...".bold());
+            actions::setup_eac(crate::cli::run_command);
+        },
     }
 
     while let Ok(msg) = rx.try_recv() {

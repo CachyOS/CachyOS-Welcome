@@ -82,6 +82,8 @@ pub enum FixAction {
     InstallWinboat,
     /// Install VRAM management packages
     InstallVramManagement,
+    /// Set up Secure Boot and the EAC kernel for Easy Anti-Cheat
+    SetupEac,
 }
 
 #[derive(Args, Debug)]

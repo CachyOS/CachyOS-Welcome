@@ -444,6 +444,12 @@ pub fn rankmirrors(callback: RunCmdCallback) {
     let _ = utils::run_cmd_terminal(callback, String::from("cachyos-rate-mirrors"), true);
 }
 
+/// Run `eac-setup` from cachyos-settings. It sets up Secure Boot and the EAC
+/// kernel for games that use Easy Anti-Cheat, and asks before it enrolls keys.
+pub fn setup_eac(callback: RunCmdCallback) {
+    let _ = utils::run_cmd_terminal(callback, String::from("eac-setup"), true);
+}
+
 pub fn install_gaming(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage>) {
     const ALPM_PACKAGE_NAMES: [&str; 2] = ["cachyos-gaming-meta", "cachyos-gaming-applications"];
     install_needed_packages(

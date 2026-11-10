@@ -189,6 +189,11 @@ pub fn has_intel_or_amd_gpu() -> bool {
     data_obj.pci_devices.iter().any(|device| is_intel_amd_gpu(&device.vendor_id, &device.class_id))
 }
 
+/// Returns true if `eac-setup` is installed and the system was booted in UEFI mode.
+pub fn is_eac_setup_available() -> bool {
+    Path::new("/usr/bin/eac-setup").exists() && Path::new("/sys/firmware/efi").exists()
+}
+
 /// Returns true if the kwin is currently running.
 pub fn is_kwin_wayland() -> bool {
     Exec::cmd("pgrep")

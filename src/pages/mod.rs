@@ -44,6 +44,11 @@ fn create_utilities_section(builder: &Builder) -> gtk::Box {
         btn.set_tooltip_text(Some(&fl!("install-vram-management-tooltip")));
         btn
     });
+    let setup_eac_btn = utils::is_eac_setup_available().then(|| {
+        let btn = create_gtk_button!("setup-eac-title");
+        btn.set_tooltip_text(Some(&fl!("setup-eac-tooltip")));
+        btn
+    });
 
     // Create context channel.
     let (dialog_tx, dialog_rx) = async_channel::unbounded();
@@ -80,6 +85,14 @@ fn create_utilities_section(builder: &Builder) -> gtk::Box {
             actions::install_winboat(crate::gui::run_command, dialog_tx_winboat);
         });
     });
+    if let Some(button) = &setup_eac_btn {
+        button.connect_clicked(move |_| {
+            // Spawn child process in separate thread.
+            std::thread::spawn(move || {
+                actions::setup_eac(crate::gui::run_command);
+            });
+        });
+    }
     if let Some(button) = &install_vram_management_btn {
         button.connect_clicked(move |_| {
             let dialog_tx_vram_management = dialog_tx_vram_management.clone();
@@ -124,6 +137,10 @@ fn create_utilities_section(builder: &Builder) -> gtk::Box {
     button_box_s.pack_end(&install_winboat_btn, true, true, 2);
     if let Some(button) = &install_vram_management_btn {
         button_box_s.pack_end(button, true, true, 2);
+    }
+
+    if let Some(button) = &setup_eac_btn {
+        button_box_t.pack_end(button, true, true, 2);
     }
 
     if Path::new("/usr/bin/nmcli").exists() {

@@ -81,6 +81,8 @@ install-gaming-title = Install Gaming packages
 install-winboat-title = Install Winboat
 install-vram-management-title = Install VRAM Management
 install-vram-management-tooltip = Prioritize VRAM for the foreground application so the GPU driver avoids spilling buffers into system RAM (GTT).
+setup-eac-title = Set up Easy Anti-Cheat
+setup-eac-tooltip = Set up Secure Boot and the EAC kernel for games that use Easy Anti-Cheat. Put the firmware into Setup Mode first, unless you already use Secure Boot with sbctl.
 
 # Main Page (buttons)
 button-about-tooltip = About
