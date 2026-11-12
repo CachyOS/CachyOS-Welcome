@@ -318,6 +318,21 @@ pub fn update_system(callback: RunCmdCallback) {
     let _ = utils::run_cmd_terminal(callback, String::from(cmd), escalate);
 }
 
+/// Lists the `download-*` directories pacman leaves in its cache directories
+/// when a download is interrupted. `pacman -Sc` errors on them instead of removing them.
+fn find_download_dirs<'a>(cache_dirs: impl Iterator<Item = &'a str>) -> Vec<String> {
+    cache_dirs
+        .filter_map(|dir| std::fs::read_dir(dir).ok())
+        .flatten()
+        .flatten()
+        .filter(|entry| {
+            entry.file_name().to_string_lossy().starts_with("download-")
+                && entry.file_type().is_ok_and(|file_type| file_type.is_dir())
+        })
+        .map(|entry| entry.path().to_string_lossy().into_owned())
+        .collect()
+}
+
 pub fn clear_pkgcache(callback: RunCmdCallback) {
     let (cmd, escalate) = match utils::get_pacman_wrapper() {
         PacmanWrapper::Pak => ("pak -Sc", false),
@@ -325,7 +340,27 @@ pub fn clear_pkgcache(callback: RunCmdCallback) {
         PacmanWrapper::Paru => ("paru -Sc", false),
         _ => ("pacman -Sc", true),
     };
-    let _ = utils::run_cmd_terminal(callback, String::from(cmd), escalate);
+    let mut cmd = String::from(cmd);
+
+    // A running pacman may still be downloading into these directories.
+    if !Path::new("/var/lib/pacman/db.lck").exists() {
+        let cache_dirs = utils::cmd_output("/sbin/pacman-conf", &["CacheDir"]);
+        let download_dirs = find_download_dirs(cache_dirs.lines());
+        if !download_dirs.is_empty() {
+            let sudo = if escalate { "" } else { "sudo " };
+            let quoted_dirs = download_dirs
+                .iter()
+                .map(|dir| format!("'{}'", dir.replace('\'', r"'\''")))
+                .collect::<Vec<_>>()
+                .join(" ");
+            cmd += &format!(
+                "; read -r -p ':: Remove {} leftover directories from interrupted downloads? \
+                 [Y/n] ' answer; [[ $answer =~ ^[Nn] ]] || {sudo}rm -rf -- {quoted_dirs}",
+                download_dirs.len()
+            );
+        }
+    }
+    let _ = utils::run_cmd_terminal(callback, cmd, escalate);
 }
 
 pub fn reinstall_packages(callback: RunCmdCallback) {
@@ -515,5 +550,24 @@ pub fn install_winboat(callback: RunCmdCallback, dialog_tx: Sender<DialogMessage
                 })
                 .expect("Couldn't send data to channel");
         }
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn finds_leftover_download_dirs() {
+        let cache_dir = tempfile::tempdir().unwrap();
+        let download_dir = cache_dir.path().join("download-AbC123");
+        std::fs::create_dir(&download_dir).unwrap();
+        std::fs::write(cache_dir.path().join("download-file"), "").unwrap();
+        std::fs::write(cache_dir.path().join("foo-1.0-1-x86_64.pkg.tar.zst"), "").unwrap();
+
+        let cache_dirs = [cache_dir.path().to_str().unwrap(), "/nonexistent"];
+        assert_eq!(find_download_dirs(cache_dirs.into_iter()), vec![
+            download_dir.to_string_lossy().into_owned()
+        ]);
     }
 }
