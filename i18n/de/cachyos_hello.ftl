@@ -24,6 +24,12 @@ select-dns-server = DNS-Server auswählen:
 apply = Anwenden
 reset = Zurücksetzen
 enable-encrypted-dns = DNS über {$protocol} ({$abbr}) aktivieren
+dns-type-label = DNS-Typ:
+dns-type-tooltip = Wähle, wie DNS-Anfragen übertragen werden. Verschlüsselte Typen (DoT/DoH/DoQ) müssen vom Server unterstützt werden; DoH und DoQ installieren und nutzen den lokalen Proxy blocky.
+dns-type-plain = Klartext (unverschlüsselt)
+dns-type-dot = DNS über TLS (DoT)
+dns-type-doh = DNS über HTTPS (DoH)
+dns-type-doq = DNS über QUIC (DoQ)
 blocky-install-failed = Die Installation von blocky für {$mode}-Unterstützung ist fehlgeschlagen!
 test-latency = Latenz des ausgewählten Servers testen
 test-latency-tooltip = Netzwerklatenz zum ausgewählten DNS-Server messen
@@ -46,6 +52,7 @@ custom-dns-doq-endpoint = DoQ-Endpunkt (für DNS über QUIC):
 custom-dns-doq-endpoint-required = Gib bitte einen gültigen DoQ-Endpunkt ein, der mit quic: oder quic:// beginnt 
 dns-check-hint = Nach dem Anwenden, überprüfe deinen DNS-Anbieter auf {$dnscheck_url}
 dns-server-changed = DNS Server wurde erfolgreich geändert!
+dns-server-pending = DNS-Server gespeichert. Verbinde dich neu mit dem Netzwerk (oder schalte es aus und wieder ein), damit die Änderung wirksam wird.
 dns-server-failed = DNS-Server konnte nicht eingestellt werden!
 dns-server-reset = DNS-Server wurde zurückgesetzt!
 dns-server-reset-failed = DNS-Server konnte nicht zurückgesetzt werden!
@@ -93,6 +100,9 @@ section-docs = DOKUMENTATION
 section-installer = INSTALLATION
 section-support = UNTERSTÜTZUNG
 section-project = PROJEKT
+
+# Main Page (launch installer)
+calamares-install-type = Calamares-Installationsart
 
 # Main Page (body)
 offline-error = Die Online-Installation kann nicht gestartet werden! Keine Internetverbindung
