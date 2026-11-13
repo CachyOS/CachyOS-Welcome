@@ -319,13 +319,19 @@ pub fn update_system(callback: RunCmdCallback) {
 }
 
 pub fn clear_pkgcache(callback: RunCmdCallback) {
-    let (cmd, escalate) = match utils::get_pacman_wrapper() {
-        PacmanWrapper::Pak => ("pak -Sc", false),
-        PacmanWrapper::Yay => ("yay -Sc", false),
-        PacmanWrapper::Paru => ("paru -Sc", false),
-        _ => ("pacman -Sc", true),
+    // Each AUR helper keeps its own build cache, so clean all installed ones
+    let helper_cmds: Vec<String> = ["pak", "yay", "paru"]
+        .iter()
+        .filter(|helper| Path::new(&format!("/sbin/{helper}")).exists())
+        .map(|helper| format!("{helper} -Sc"))
+        .collect();
+
+    let (cmd, escalate) = if helper_cmds.is_empty() {
+        (String::from("pacman -Sc"), true)
+    } else {
+        (helper_cmds.join("; "), false)
     };
-    let _ = utils::run_cmd_terminal(callback, String::from(cmd), escalate);
+    let _ = utils::run_cmd_terminal(callback, cmd, escalate);
 }
 
 pub fn reinstall_packages(callback: RunCmdCallback) {
