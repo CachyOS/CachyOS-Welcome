@@ -117,16 +117,19 @@ impl HelloWindow {
 
         // Create pages
         let locale_pages_exist = crate::embed_data::HelloData::iter()
-            .any(|x| x.starts_with(&format!("pages/{best_locale}")));
-        let file_pages_path =
-            if locale_pages_exist { format!("pages/{best_locale}") } else { "pages/en".to_owned() };
+            .any(|x| x.starts_with(&format!("pages/{best_locale}/")));
+        let file_pages_path = if locale_pages_exist {
+            format!("pages/{best_locale}/")
+        } else {
+            "pages/en/".to_owned()
+        };
 
         let mut file_pages: Vec<std::borrow::Cow<'_, str>> = crate::embed_data::HelloData::iter()
             .filter(|pkg| pkg.starts_with(&file_pages_path))
             .collect();
 
         // Release page is only generated in English, always include it
-        if file_pages_path != "pages/en"
+        if file_pages_path != "pages/en/"
             && let Some(en_release) =
                 crate::embed_data::HelloData::iter().find(|pkg| pkg.as_ref() == "pages/en/release")
         {
@@ -326,16 +329,19 @@ impl HelloWindow {
 
         // Change content of pages
         let locale_pages_exist = crate::embed_data::HelloData::iter()
-            .any(|x| x.starts_with(&format!("pages/{use_locale}")));
-        let file_pages_path =
-            if locale_pages_exist { format!("pages/{use_locale}") } else { "pages/en".to_owned() };
+            .any(|x| x.starts_with(&format!("pages/{use_locale}/")));
+        let file_pages_path = if locale_pages_exist {
+            format!("pages/{use_locale}/")
+        } else {
+            "pages/en/".to_owned()
+        };
 
         let mut file_pages: Vec<std::borrow::Cow<'_, str>> = crate::embed_data::HelloData::iter()
             .filter(|pkg| pkg.starts_with(&file_pages_path))
             .collect();
 
         // Release page is only generated in English, always include it
-        if file_pages_path != "pages/en"
+        if file_pages_path != "pages/en/"
             && let Some(en_release) =
                 crate::embed_data::HelloData::iter().find(|pkg| pkg.as_ref() == "pages/en/release")
         {
