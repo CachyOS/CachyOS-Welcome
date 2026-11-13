@@ -24,6 +24,11 @@ macro_rules! create_tweak_checkbox {
     }};
 }
 
+// logind limits /run/user to 10% of RAM and psd keeps browser profiles there
+// Word joiners keep the path from being wrapped at its slashes in the dialog
+const PSD_RUNTIME_DIR: &str = "/\u{2060}run/\u{2060}user";
+const PSD_LOW_MEMORY_KIB: u64 = 8 * 1024 * 1024;
+
 fn set_tweak_check_data(check_btn: &gtk::CheckButton, tweak_name: TweakName) {
     unsafe {
         check_btn.set_data("tweakName", tweak_name);
@@ -123,6 +128,19 @@ fn on_servbtn_clicked(button: &gtk::CheckButton) {
     }
 
     let widget_window = utils::get_window_from_widget(button).expect("Failed to retrieve window");
+
+    if matches!(tweak_name, TweakName::Psd)
+        && button.is_active()
+        && let Some(ram_gib) = low_memory_gib()
+        && !confirm_psd_low_memory(&widget_window, ram_gib)
+    {
+        let sighandle_id_obj = unsafe { glib::signal::SignalHandlerId::from_glib(signal_handler) };
+        button.block_signal(&sighandle_id_obj);
+        button.set_active(false);
+        button.unblock_signal(&sighandle_id_obj);
+        return;
+    }
+
     let button_sh = button.clone();
 
     toggle_service(
@@ -136,6 +154,28 @@ fn on_servbtn_clicked(button: &gtk::CheckButton) {
             button_sh.unblock_signal(&sighandle_id_obj);
         }),
     );
+}
+
+/// Returns the total RAM rounded up to whole GiB if it is at or below the psd threshold.
+fn low_memory_gib() -> Option<u64> {
+    utils::get_total_memory_kib()
+        .filter(|&kib| kib <= PSD_LOW_MEMORY_KIB)
+        .map(|kib| kib.div_ceil(1024 * 1024))
+}
+
+fn confirm_psd_low_memory(window: &gtk::Window, ram_gib: u64) -> bool {
+    let dialog = gtk::MessageDialog::builder()
+        .transient_for(window)
+        .message_type(gtk::MessageType::Warning)
+        .text(fl!("tweak-psd-low-memory-warning", ram = ram_gib, path = PSD_RUNTIME_DIR))
+        .title(MessageType::Warning.to_string())
+        .modal(true)
+        .buttons(gtk::ButtonsType::YesNo)
+        .build();
+    dialog.show();
+    let response = dialog.run();
+    dialog.close();
+    response == gtk::ResponseType::Yes
 }
 
 fn connect_clicked_and_save<F>(passed_btn: &gtk::CheckButton, callback: F)

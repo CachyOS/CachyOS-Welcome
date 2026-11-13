@@ -189,6 +189,19 @@ pub fn has_intel_or_amd_gpu() -> bool {
     data_obj.pci_devices.iter().any(|device| is_intel_amd_gpu(&device.vendor_id, &device.class_id))
 }
 
+/// Returns total system memory in KiB, read from `/proc/meminfo`.
+pub fn get_total_memory_kib() -> Option<u64> {
+    parse_mem_total(&fs::read_to_string("/proc/meminfo").ok()?)
+}
+
+fn parse_mem_total(meminfo: &str) -> Option<u64> {
+    meminfo
+        .lines()
+        .find_map(|line| line.strip_prefix("MemTotal:"))
+        .and_then(|value| value.split_whitespace().next())
+        .and_then(|kib| kib.parse().ok())
+}
+
 /// Returns true if the kwin is currently running.
 pub fn is_kwin_wayland() -> bool {
     Exec::cmd("pgrep")
@@ -230,5 +243,12 @@ mod test {
         assert!(!is_intel_amd_gpu("1002", "0380"));
         assert!(!is_intel_amd_gpu("10de", "0300"));
         assert!(!is_intel_amd_gpu("8086", "0200"));
+    }
+
+    #[test]
+    fn parse_meminfo_total() {
+        let meminfo = "MemTotal:        7864320 kB\nMemFree:          123456 kB\n";
+        assert_eq!(parse_mem_total(meminfo), Some(7_864_320));
+        assert_eq!(parse_mem_total("MemFree:          123456 kB\n"), None);
     }
 }
