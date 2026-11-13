@@ -61,6 +61,7 @@ winboat-install-failed = Failed to install Winboat!
 # Tweaks page (tweaks)
 tweak-enabled-title = {$tweak} enabled
 tweak-psd-tooltip = Use RAM for browser profiles (faster, less disk wear)
+tweak-psd-low-memory-warning = Your system has only {$ram} GB of RAM. Profile-sync-daemon keeps browser profiles in {$path}, which is limited to 10% of RAM by default. If it fills up, applications may fail to start. Enable it anyway?
 tweak-oomd-tooltip = Proactively kill processes during low memory to prevent freezes
 tweak-bpftune-tooltip = Automatically tune system network
 tweak-bluetooth-tooltip = Enable support for Bluetooth wireless devices (mice, audio, etc.)

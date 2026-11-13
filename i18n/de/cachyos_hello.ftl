@@ -54,6 +54,7 @@ winboat-install-failed = Winboat konnte nicht installiert werden!
 # Tweaks page (tweaks)
 tweak-enabled-title = {$tweak} aktiviert
 tweak-psd-tooltip = RAM für Browserprofile verwenden (schneller, weniger Festplattenverschleiß)
+tweak-psd-low-memory-warning = Dein System hat nur {$ram} GB RAM. Profile-sync-daemon legt Browserprofile in {$path} ab, das standardmäßig auf 10 % des RAM begrenzt ist. Läuft es voll, starten Programme möglicherweise nicht mehr. Trotzdem aktivieren?
 tweak-oomd-tooltip = Proaktiv Prozesse bei geringem Arbeitsspeicher beenden, um Abstürze zu verhindern
 tweak-bpftune-tooltip = Systemnetzwerk automatisch optimieren
 tweak-bluetooth-tooltip = Unterstützung für drahtlose Bluetooth-Geräte (Mäuse, Audio, etc.)
