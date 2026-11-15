@@ -400,11 +400,11 @@ pub fn toggle_tweak(tweak: TweakName, enable: bool, callback: RunCmdCallback) ->
     let units: Vec<&str> = action_data.split_whitespace().collect();
 
     if enable {
-        if !pkg.is_empty()
-            && !utils::is_alpm_pkg_installed(pkg)
-            && !utils::run_cmd_terminal(callback, format!("pacman -S {pkg}"), true)
-        {
-            return false;
+        if !pkg.is_empty() && !utils::is_alpm_pkg_installed(pkg) {
+            let _ = utils::run_cmd_terminal(callback, format!("pacman -S {pkg}"), true);
+            if !utils::is_alpm_pkg_installed(pkg) {
+                return false;
+            }
         }
         let _ = systemd_units::systemd_enable(&units, scope, true);
         if !tweak::get_autostart_files(tweak).is_empty() && which::which("arch-update").is_ok() {
